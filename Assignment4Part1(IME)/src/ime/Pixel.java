@@ -1,50 +1,59 @@
 package ime;
 
 /**
- * This class represents a pixel of an image which encapsulates the position and channel values.
+ * This interface represents a pixel in an image, encapsulating the color components of a pixel,
+ * such as red, green, blue, and potentially additional components like alpha or others.
+ * Each implementing class should provide functionality to retrieve the values of these components
+ * and perform calculations related to color representation.
  */
-public class Pixel {
-  private final int row;
-  private final int col;
-  private final Channel channel;
+public interface Pixel {
+  /**
+   * This method gets the value of the red component.
+   *
+   * @return the value of the red component.
+   */
+  int getRed();
 
   /**
-   * This method creates a pixel of an image with the given position and channel values.
+   * This method gets the value of the green component.
    *
-   * @param row     the row of the pixel.
-   * @param col     the column of the pixel.
-   * @param channel the channel of the pixel.
+   * @return the value of the green component.
    */
-  public Pixel(int row, int col, Channel channel) {
-    this.row = row;
-    this.col = col;
-    this.channel = channel;
-  }
+  int getGreen();
 
   /**
-   * This method gets the row of the pixel.
+   * This method gets the value of the blue component.
    *
-   * @return the row of the pixel.
+   * @return the value of the blue component.
    */
-  public int getRow() {
-    return row;
-  }
+  int getBlue();
 
   /**
-   * This method gets the column of the pixel.
+   * This method gets the color component as a single value.
+   * This method combines the channel values into a single integer value.
    *
-   * @return the column of the pixel.
+   * @return the method returns the color component as a single value.
    */
-  public int getCol() {
-    return col;
-  }
+  int getColorComponents();
 
   /**
-   * This method gets the channel of the pixel.
+   * This method gets the value of the pixel.
    *
-   * @return the channel of the pixel.
+   * @return the value of the channel.
    */
-  public Channel getChannel() {
-    return channel;
-  }
+  int getValue();
+
+  /**
+   * This method gets the intensity of the pixel.
+   *
+   * @return the intensity of the channel.
+   */
+  float getIntensity();
+
+  /**
+   * This method gets the luma of the pixel.
+   *
+   * @return the luma of the channel.
+   */
+  double getLuma();
 }
