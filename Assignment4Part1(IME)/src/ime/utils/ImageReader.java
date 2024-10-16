@@ -11,23 +11,24 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import ime.Image;
-import ime.ImageProcessor;
-import ime.ImageType;
-import ime.PixelFactory;
+import ime.models.Image;
+import ime.models.ImageProcessor;
+import ime.models.ImageType;
+import ime.models.PixelFactory;
 
 public class ImageReader {
 
   private static final Logger LOGGER = Logger.getLogger(ImageReader.class.getName());
 
-  public static void readPPM(String filename) {
+  public static ImageProcessor readPPM(String filename) {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
       LOGGER.log(Level.SEVERE, "File " + filename + " not found!", e);
-      return;
+      //TODO: Better Way? Can we send this exception to Controller itself.
+      return null;
     }
 
     StringBuilder builder = new StringBuilder();
@@ -43,7 +44,8 @@ public class ImageReader {
     String token = sc.next();
     if (!token.equals("P3")) {
       LOGGER.log(Level.SEVERE, "Invalid PPM file: plain RAW file should begin with P3");
-      return;
+      //TODO: Better Way? Can we send as exception to Controller itself.
+      return null;
     }
 
     int width = sc.nextInt();
@@ -57,17 +59,18 @@ public class ImageReader {
         int g = sc.nextInt();
         int b = sc.nextInt();
         imageProcessor.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-        LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+        //LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
       }
     }
+    return imageProcessor;
   }
 
-  public static void readImage(String filename) {
+  public static ImageProcessor readImage(String filename) {
     try {
       BufferedImage image = ImageIO.read(new File(filename));
       if (image == null) {
         LOGGER.log(Level.SEVERE, "Unsupported image format or corrupted file: " + filename);
-        return;
+        return null;
       }
 
       int width = image.getWidth();
@@ -80,13 +83,15 @@ public class ImageReader {
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
           imageProcessor.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-          LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+          //LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
         }
       }
+      return imageProcessor;
 
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error reading image: " + filename, e);
     }
+    return null;
   }
 }
 

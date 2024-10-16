@@ -1,6 +1,4 @@
-package ime;
-
-import java.awt.image.BufferedImage;
+package ime.models;
 
 /**
  * This class represents the RGB components of a pixel.

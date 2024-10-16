@@ -1,4 +1,4 @@
-package ime;
+package ime.models;
 
 import java.awt.image.BufferedImage;
 

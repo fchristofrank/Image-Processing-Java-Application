@@ -1,4 +1,4 @@
-package ime;
+package ime.models;
 
 import ime.operations.ImageOperation;
 
@@ -12,7 +12,7 @@ public interface ImageProcessor {
 
   void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException;
 
-  Image applyOperation(ImageOperation operation);
+  Image applyOperation(ImageOperation operation, String parameter);
 
   void save(String imagePathName, String imageName);
 }
