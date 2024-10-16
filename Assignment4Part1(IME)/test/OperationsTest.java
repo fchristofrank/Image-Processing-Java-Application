@@ -21,11 +21,11 @@ public class OperationsTest {
         assert actualImage != null;
         System.out.println(actualImage.getHeight());
         System.out.println(actualImage.getWidth());
-        System.out.println(actualImage.applyOperation(new VisualizeComponents(),"red"));
+        System.out.println(actualImage.applyOperation(new VisualizeComponents(), "green"));
 
-        for (int i = 0; i < actualImage.getWidth(); i++) {
-            for (int j = 0; j < actualImage.getHeight(); j++) {
-                assertEquals(expectedImage.getPixel(i,j).getGreen(),actualImage.getPixel(i,j).getGreen(),2);
+        for (int i = 0; i < actualImage.getHeight(); i++) {
+            for (int j = 0; j < actualImage.getWidth(); j++) {
+                assertEquals(expectedImage.getPixel(i, j).getGreen(), actualImage.getPixel(i, j).getGreen(), 2);
             }
         }
 
