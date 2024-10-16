@@ -3,15 +3,21 @@ package ime.operations;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ime.imageIO.ImageLibrary;
 import ime.models.Image;
 import ime.models.ImageType;
 import ime.models.Pixel;
+import ime.models.PixelFactory;
 import ime.models.RGBPixel;
 import ime.models.SimpleImage;
 
 public class Visualize extends ImageOperationManager {
 
   private static final Logger LOGGER = Logger.getLogger(Visualize.class.getName());
+
+  public Visualize(ImageLibrary imageLibrary) {
+    super(imageLibrary);
+  }
 
   @Override
   public void apply(String[] args) throws IllegalArgumentException {
@@ -24,19 +30,20 @@ public class Visualize extends ImageOperationManager {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         int colorValue = getColorComponent(inputImage.getPixel(i, j), "red");
-        outputImage.setPixel(i, j, new RGBPixel(colorValue, colorValue, colorValue));
+        outputImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, colorValue, colorValue, colorValue));
       }
     }
     addImage(outputImageName, outputImage);
   }
 
   private int getColorComponent(Pixel pixel, String visualizeColor) {
-    return switch (visualizeColor.toLowerCase()) {
-      case "green" -> pixel.getGreen();
-      case "blue" -> pixel.getBlue();
-      case "red" -> pixel.getRed();
-      default -> throw new IllegalArgumentException("Operation Parameter not supported.");
-    };
+//    return switch (visualizeColor.toLowerCase()) {
+//      case "green" -> pixel.getGreen();
+//      case "blue" -> pixel.getBlue();
+//      case "red" -> pixel.getRed();
+//      default -> throw new IllegalArgumentException("Operation Parameter not supported.");
+//    };
+    return 0;
   }
 
 }

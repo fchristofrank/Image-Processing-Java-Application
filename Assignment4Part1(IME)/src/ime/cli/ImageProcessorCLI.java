@@ -1,8 +1,10 @@
 package ime.cli;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import ime.imageIO.ImageLibrary;
 import ime.operations.ImageOperationManager;
 
 public class ImageProcessorCLI {
@@ -10,7 +12,7 @@ public class ImageProcessorCLI {
   private final Scanner scanner;
 
   public ImageProcessorCLI() {
-    this.commandFactory = new CommandFactory();
+    this.commandFactory = new CommandFactory(new ImageLibrary());
     this.scanner = new Scanner(System.in);
   }
 
@@ -37,7 +39,7 @@ public class ImageProcessorCLI {
     try {
       ImageOperationManager operation = commandFactory.createCommand(operationName);
       operation.apply(args);
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException | IOException e) {
       System.out.println(e.getMessage());
     }
   }
