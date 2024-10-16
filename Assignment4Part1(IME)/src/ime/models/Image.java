@@ -21,7 +21,7 @@ public class Image implements ImageProcessor {
     @Override
     public Pixel getPixel(int row, int column) {
         if (row < 0 || row >= height || column < 0 || column >= width) {
-            throw new IllegalArgumentException("Invalid row or column for a pixel at (%d,%d)".formatted(row,column));
+            throw new IllegalArgumentException("Invalid row or column for a pixel at (%d,%d)".formatted(row, column));
         }
         return pixels[row][column];
     }
