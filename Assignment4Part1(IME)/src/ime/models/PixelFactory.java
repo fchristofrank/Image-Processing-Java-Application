@@ -21,7 +21,8 @@ public class PixelFactory {
   public static Pixel createPixel(ImageType imageType, int r, int g, int b) throws IllegalArgumentException {
     if (Objects.requireNonNull(imageType) == ImageType.RGB) {
       return new RGBPixel(r, g, b);
+    }else {
+      throw new IllegalArgumentException("Unsupported image type: " + imageType);
     }
-    throw new IllegalArgumentException("Unsupported image type: " + imageType);
   }
 }
