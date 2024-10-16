@@ -9,12 +9,12 @@ import ime.models.Image;
  * transform an Image object.
  */
 public interface ImageOperation {
-    /**
-     * Applies the specific image operation to the provided image.
-     *
-     * @param image The image to which the operation will be applied.
-     * @return the new Image that is the result of the corresponding operation.
-     */
-    Image apply(Image image, String parameter);
+  /**
+   * Applies the specific image operation to the provided image.
+   *
+   * @param image The image to which the operation will be applied.
+   * @return the new Image that is the result of the corresponding operation.
+   */
+  Image apply(Image image, String parameter);
 
 }

@@ -4,15 +4,15 @@ import ime.operations.ImageOperation;
 
 public interface ImageProcessor {
 
-    int getHeight();
+  int getHeight();
 
-    int getWidth();
+  int getWidth();
 
-    Pixel getPixel(int row, int column) throws IllegalArgumentException;
+  Pixel getPixel(int row, int column) throws IllegalArgumentException;
 
-    void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException;
+  void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException;
 
-    Image applyOperation(ImageOperation operation, String parameter);
+  Image applyOperation(ImageOperation operation, String parameter);
 
-    void save(String imagePathName, String imageName);
+  void save(String imagePathName, String imageName);
 }
