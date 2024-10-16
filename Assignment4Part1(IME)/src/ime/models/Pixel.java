@@ -1,4 +1,4 @@
-package ime;
+package ime.models;
 
 /**
  * This interface represents a pixel in an image, encapsulating the color components of a pixel,

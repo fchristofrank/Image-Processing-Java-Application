@@ -1,4 +1,4 @@
-package ime;
+package ime.models;
 
 /**
  * This abstract class represents a pixel, holding the values for the red, green, and blue

@@ -1,6 +1,6 @@
 package ime.operations;
 
-import ime.Image;
+import ime.models.Image;
 
 /**
  * Interface representing an operation that can be applied to an image.
@@ -15,6 +15,6 @@ public interface ImageOperation {
    * @param image The image to which the operation will be applied.
    * @return the new Image that is the result of the corresponding operation.
    */
-  Image apply(Image image);
+  Image apply(Image image, String parameter);
 
 }
