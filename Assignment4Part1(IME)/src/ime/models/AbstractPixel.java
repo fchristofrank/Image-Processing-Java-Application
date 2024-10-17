@@ -18,9 +18,9 @@ public abstract class AbstractPixel implements Pixel {
    * @param blue  the value of the blue component.
    */
   public AbstractPixel(int red, int green, int blue) {
-    this.red = red;
-    this.green = green;
-    this.blue = blue;
+    this.red = clamp(red);
+    this.green = clamp(green);
+    this.blue = clamp(blue);
   }
 
   @Override
@@ -36,6 +36,10 @@ public abstract class AbstractPixel implements Pixel {
   @Override
   public int getBlue() {
     return this.blue;
+  }
+
+  protected int clamp(int value) {
+    return Math.max(0, Math.min(255, value));
   }
 
 }

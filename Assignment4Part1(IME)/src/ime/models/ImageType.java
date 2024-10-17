@@ -1,19 +1,16 @@
 package ime.models;
 
-import java.awt.image.BufferedImage;
-
 public enum ImageType {
-  RGB(BufferedImage.TYPE_INT_RGB),
-  GRAYSCALE(BufferedImage.TYPE_BYTE_GRAY),
-  ARGB(BufferedImage.TYPE_INT_ARGB);
+  RGB(1),
+  ARGB(2);
 
-  private final int bufferedImageType;
+  private final int imageType;
 
-  ImageType(int bufferedImageType) {
-    this.bufferedImageType = bufferedImageType;
+  ImageType(int imageType) {
+    this.imageType = imageType;
   }
 
-  public int getBufferedImageType() {
-    return this.bufferedImageType;
+  public int getImageType() {
+    return this.imageType;
   }
 }

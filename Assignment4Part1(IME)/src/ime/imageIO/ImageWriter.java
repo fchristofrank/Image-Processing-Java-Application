@@ -1,4 +1,4 @@
-package ime.utils;
+package ime.imageIO;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

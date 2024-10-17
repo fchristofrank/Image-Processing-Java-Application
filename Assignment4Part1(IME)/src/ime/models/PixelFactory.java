@@ -10,18 +10,21 @@ public class PixelFactory {
   /**
    * Creates a pixel based on the specified image type and color values.
    *
-   * @param imageType the type of image (e.g., RGB, Grayscale, etc.).
-   * @param r         the red component of the pixel's color.
-   * @param g         the green component of the pixel's color.
-   * @param b         the blue component of the pixel's color.
+   * @param imageType  the type of image (e.g., RGB, Grayscale, etc.).
+   * @param components the color components of the pixel.
    * @return a Pixel object initialized with the specified color components based on image type.
-   * @throws IllegalArgumentException when the image type is invalid.
+   * @throws IllegalArgumentException when the image type is invalid or the number of components
+   * is incorrect.
    */
 
-  public static Pixel createPixel(ImageType imageType, int r, int g, int b) throws IllegalArgumentException {
+  public static Pixel createPixel(ImageType imageType, int... components) throws IllegalArgumentException {
     if (Objects.requireNonNull(imageType) == ImageType.RGB) {
-      return new RGBPixel(r, g, b);
+      if (components.length != 3) {
+        throw new IllegalArgumentException("RGB image must have 3 components");
+      }
+      return new RGBPixel(components[0], components[1], components[2]);
+    } else {
+      throw new IllegalArgumentException("Unsupported image type: " + imageType);
     }
-    throw new IllegalArgumentException("Unsupported image type: " + imageType);
   }
 }
