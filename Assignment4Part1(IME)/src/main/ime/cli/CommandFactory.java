@@ -2,6 +2,7 @@ package ime.cli;
 
 import ime.imageIO.ImageLibrary;
 import ime.operations.AdjustBrightness;
+import ime.operations.HorizontalFlip;
 import ime.operations.ImageOperationManager;
 import ime.operations.Load;
 import ime.operations.Save;
@@ -24,9 +25,11 @@ public class CommandFactory {
       case "green-component":
       case "blue-component":
       case "brighten":
+      case "darken":
         return new AdjustBrightness(imageLibrary);
       case "vertical-flip":
       case "horizontal-flip":
+        return new HorizontalFlip(imageLibrary);
       case "value-component":
       case "rgb-split":
       case "rgb-combine":

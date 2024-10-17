@@ -1,5 +1,7 @@
 package ime.models;
 
+import java.util.Objects;
+
 /**
  * This class represents the RGB components of a pixel.
  * It encapsulates the red, green, and blue color components and provides methods to
@@ -37,5 +39,20 @@ public class RGBPixel extends AbstractPixel {
   @Override
   public double getLuma() {
     return 0.2126 * this.getRed() + 0.7152 * this.getGreen() + 0.0722 * this.getBlue();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    RGBPixel rgbPixel = (RGBPixel) obj;
+    return getRed() == rgbPixel.getRed() &&
+            getGreen() == rgbPixel.getGreen() &&
+            getBlue() == rgbPixel.getBlue();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getRed(), getGreen(), getBlue());
   }
 }
