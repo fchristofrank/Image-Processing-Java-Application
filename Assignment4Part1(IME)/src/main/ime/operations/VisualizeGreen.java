@@ -1,7 +1,6 @@
 package ime.operations;
 
 import ime.imageIO.ImageLibrary;
-import ime.models.ImageType;
 import ime.models.Pixel;
 
 public class VisualizeGreen extends AbstractVisualize {

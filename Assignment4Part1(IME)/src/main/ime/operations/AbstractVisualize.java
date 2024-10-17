@@ -24,7 +24,7 @@ public abstract class AbstractVisualize extends ImageOperationManager {
 
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
-        int colorValue = getColorComponent(inputImage.getPixel(i,j));
+        int colorValue = getColorComponent(inputImage.getPixel(i, j));
         outputImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, colorValue, colorValue, colorValue));
       }
     }

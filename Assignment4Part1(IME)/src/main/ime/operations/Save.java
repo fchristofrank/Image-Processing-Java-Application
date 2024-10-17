@@ -14,7 +14,7 @@ public class Save extends ImageOperationManager {
   }
 
   @Override
-  public void apply(String[] args) throws IllegalArgumentException{
+  public void apply(String[] args) throws IllegalArgumentException {
     validateArgs(args);
     String imagePath = args[0];
     String[] parts = imagePath.split("\\.");

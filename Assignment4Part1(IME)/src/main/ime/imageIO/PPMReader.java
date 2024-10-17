@@ -15,6 +15,7 @@ import ime.models.SimpleImage;
 public class PPMReader implements Reader {
 
   private static final Logger LOGGER = Logger.getLogger(PPMReader.class.getName());
+
   @Override
   public Image read(String filename) throws IOException {
     Scanner sc;

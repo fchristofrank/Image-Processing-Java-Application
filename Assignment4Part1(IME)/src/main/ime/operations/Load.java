@@ -1,13 +1,14 @@
 package ime.operations;
 
 import java.io.IOException;
+
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageLibrary;
 import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
 import ime.models.Image;
 
-public class Load extends ImageOperationManager{
+public class Load extends ImageOperationManager {
 
   public Load(ImageLibrary imageLibrary) {
     super(imageLibrary);
