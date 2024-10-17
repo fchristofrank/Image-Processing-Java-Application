@@ -1,5 +1,8 @@
 package ime.models;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class SimpleImage implements Image {
   private final int height;
   private final int width;
@@ -41,5 +44,21 @@ public class SimpleImage implements Image {
 
   public ImageType getType() {
     return imageType;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    SimpleImage that = (SimpleImage) obj;
+    return height == that.height &&
+            width == that.width &&
+            imageType == that.imageType &&
+            Arrays.deepEquals(pixels, that.pixels);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(height, width, imageType, Arrays.deepHashCode(pixels));
   }
 }
