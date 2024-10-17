@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import ime.imageIO.ImageLibrary;
 
-public class Darken extends AdjustBrightness{
+public class Darken extends AdjustBrightness {
   public Darken(ImageLibrary imageLibrary) {
     super(imageLibrary);
   }

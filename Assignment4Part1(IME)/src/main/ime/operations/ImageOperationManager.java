@@ -6,6 +6,7 @@ import ime.models.Image;
 
 public abstract class ImageOperationManager implements ImageOperation {
   private final ImageLibrary library;
+
   public ImageOperationManager(ImageLibrary library) {
     this.library = library;
   }

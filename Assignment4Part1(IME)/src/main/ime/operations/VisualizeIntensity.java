@@ -1,9 +1,7 @@
 package ime.operations;
 
 import ime.imageIO.ImageLibrary;
-import ime.models.ImageType;
 import ime.models.Pixel;
-import ime.models.PixelFactory;
 
 public class VisualizeIntensity extends AbstractVisualize {
 
