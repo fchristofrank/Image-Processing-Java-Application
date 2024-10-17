@@ -1,7 +1,6 @@
 package ime.operations;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
@@ -17,7 +16,6 @@ public class AdjustBrightness extends ImageOperationManager {
 
   @Override
   public void apply(String[] args) throws IllegalArgumentException, IOException {
-    validateArgs(args);
     int alpha = Integer.parseInt(args[0]);
     String inputName = args[1];
     String outputName = args[2];
@@ -45,6 +43,12 @@ public class AdjustBrightness extends ImageOperationManager {
   protected void validateArgs(String[] args) throws IllegalArgumentException {
     if (args.length != 3) {
       throw new IllegalArgumentException("Invalid number of arguments");
+    }
+    try {
+      Integer.parseInt(args[0]);
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException(String.format("Invalid brightness adjustment value '%s'." +
+              " It must be an integer.", args[0]));
     }
   }
 }
