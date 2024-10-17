@@ -1,11 +1,13 @@
 package ime.cli;
 
 import ime.imageIO.ImageLibrary;
-import ime.operations.AdjustBrightness;
+import ime.operations.Brighten;
+import ime.operations.Darken;
 import ime.operations.HorizontalFlip;
 import ime.operations.ImageOperationManager;
 import ime.operations.Load;
 import ime.operations.Save;
+import ime.operations.VerticalFlip;
 
 public class CommandFactory {
 
@@ -24,15 +26,18 @@ public class CommandFactory {
       case "red-component":
       case "green-component":
       case "blue-component":
-      case "brighten":
-      case "darken":
-        return new AdjustBrightness(imageLibrary);
-      case "vertical-flip":
-      case "horizontal-flip":
-        return new HorizontalFlip(imageLibrary);
       case "value-component":
       case "rgb-split":
       case "rgb-combine":
+        return null;
+      case "brighten":
+        return new Brighten(imageLibrary);
+      case "darken":
+        return new Darken(imageLibrary);
+      case "vertical-flip":
+        return new VerticalFlip(imageLibrary);
+      case "horizontal-flip":
+        return new HorizontalFlip(imageLibrary);
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
