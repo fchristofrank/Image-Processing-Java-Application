@@ -1,34 +1,49 @@
-//import org.junit.Test;
-//
-//import ime.models.Image;
-//import ime.operations.Visualize;
-//import ime.utils.ImageReader;
-//
-//import static org.junit.Assert.assertEquals;
-//
-//public class OperationsTest {
-//
-//  String testBasePath = "C:\\Users\\frank\\OneDrive\\Desktop\\PDP\\AssignmentProject\\ImageManipulationAndEnhancement";
-//
-//  @Test
-//  public void testVisualization() {
-//
-//    String actualImagePath = testBasePath + "\\Resources\\Operations\\VisualizationTest1.jpg";
-//    String expectedImagePath = testBasePath + "\\Resources\\Operations\\VisualizationTest1Expected.png";
-//
-//    Image actualImage = ImageReader.readImage(actualImagePath);
-//    Image expectedImage = ImageReader.readImage(expectedImagePath);
-//
-//    assert actualImage != null;
-//    System.out.println(actualImage.getHeight());
-//    System.out.println(actualImage.getWidth());
-//    System.out.println(actualImage.applyOperation(new Visualize(), "green"));
-//
-//    for (int i = 0; i < actualImage.getHeight(); i++) {
-//      for (int j = 0; j < actualImage.getWidth(); j++) {
-//        assertEquals(expectedImage.getPixel(i, j).getGreen(), actualImage.getPixel(i, j).getGreen(), 2);
-//      }
-//    }
-//
-//  }
-//}
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+import ime.cli.ImageProcessorCLI;
+
+import static org.junit.Assert.fail;
+
+public class OperationsTest {
+
+    private void runTest(List<String> commands) {
+
+        ImageProcessorCLI cli = new ImageProcessorCLI();
+        for (String command : commands) {
+            System.out.println("Executing command: " + command);
+            System.out.flush();
+            cli.processCommand(command);
+        }
+    }
+
+    private List<String> getCommandsFromFile(String path) throws IOException {
+        List<String> commands = new ArrayList<>();
+
+        try (Stream<String> lines = Files.lines(Paths.get(path))) {
+            lines.map(String::trim)
+                    .filter(line -> !line.startsWith("#") && !line.isEmpty())
+                    .forEach(commands::add);
+        }
+        return commands;
+    }
+
+    @Test
+    public void testVisualization() {
+
+        String path = "java/TestScripts/VisualizationTestScript";
+        try {
+            runTest(getCommandsFromFile(path));
+        } catch (IOException e) {
+            fail("File import failed.");
+        }
+    }
+}

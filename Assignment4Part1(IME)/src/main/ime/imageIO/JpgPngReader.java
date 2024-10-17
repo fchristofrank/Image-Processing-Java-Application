@@ -34,7 +34,7 @@ public class JpgPngReader implements Reader{
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
           simpleImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-          LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+          //LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
         }
       }
       return simpleImage;
