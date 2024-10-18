@@ -3,10 +3,7 @@ package ime.operations;
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
 
-public class VerticalFlip extends Flip {
-  public VerticalFlip(ImageLibrary library) {
-    super(library);
-  }
+public class ApplyVerticalFlip extends ApplyFlip {
 
   @Override
   protected void flipImage(Image inputImage, Image outputImage, int height, int width) {
@@ -17,8 +14,4 @@ public class VerticalFlip extends Flip {
     }
   }
 
-  @Override
-  protected String getFlipType() {
-    return "Vertical";
-  }
 }

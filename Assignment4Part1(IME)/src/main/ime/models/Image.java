@@ -1,5 +1,9 @@
 package ime.models;
 
+import java.io.IOException;
+
+import ime.operations.ImageOperation;
+
 public interface Image {
 
   int getHeight();
@@ -11,5 +15,7 @@ public interface Image {
   void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException;
 
   ImageType getType();
+
+  Image applyOperation(ImageOperation operation, String... args) throws IOException;
 
 }

@@ -2,6 +2,8 @@ package ime.operations;
 
 import java.io.IOException;
 
+import ime.models.Image;
+
 /**
  * Interface representing an operation that can be applied to an image.
  * Implementations of this interface define specific image processing
@@ -9,11 +11,7 @@ import java.io.IOException;
  * transform an Image object.
  */
 public interface ImageOperation {
-  /**
-   * Applies the specific image operation to the provided image.
-   *
-   * @param args the array of commands.
-   */
-  void apply(String[] args) throws IllegalArgumentException, IOException;
+
+  Image apply(Image inputImage, String... args) throws IllegalArgumentException, IOException;
 
 }
