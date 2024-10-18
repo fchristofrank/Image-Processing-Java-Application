@@ -13,9 +13,11 @@ import ime.models.ImageType;
 import ime.models.PixelFactory;
 import ime.models.SimpleImage;
 
-public class JpgPngReader implements Reader {
-  private static final Logger LOGGER = Logger.getLogger(PPMReader.class.getName());
-
+/**
+ * This class represents a reader for images in JPG and PNG formats from a specified file name.
+ */
+public class JpgPngReader implements Reader{
+  private static final Logger LOGGER = Logger.getLogger(JpgPngReader.class.getName());
   @Override
   public Image read(String filename) throws IOException {
     try {
@@ -35,7 +37,7 @@ public class JpgPngReader implements Reader {
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
           simpleImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-          //LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+          LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
         }
       }
       return simpleImage;

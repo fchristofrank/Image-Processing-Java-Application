@@ -11,6 +11,9 @@ public class ImageProcessorCLI {
   private final CommandFactory commandFactory;
   private final Scanner scanner;
 
+  /**
+   * This method creates an image processor cli instance.
+   */
   public ImageProcessorCLI() {
     this.commandFactory = new CommandFactory(new ImageLibrary());
     this.scanner = new Scanner(System.in);
