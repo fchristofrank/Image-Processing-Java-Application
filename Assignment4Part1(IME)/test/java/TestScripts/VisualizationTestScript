@@ -1,4 +1,4 @@
-load resources\manhattan-small.png test
+load Assignment4Part1(IME)\test\resources\manhattan-small.png test
 
 red-component test redImage
 green-component test greenImage
@@ -8,10 +8,10 @@ value-component test valueImage
 intensity-component test intensityImage
 luma-component test lumaImage
 
-save redImage.png redImage
-save greenImage.png greenImage
-save blueImage.png blueImage
+save TestResults\redImage.png redImage
+save TestResults\greenImage.png greenImage
+save TestResults\blueImage.png blueImage
 
-save valueImage.png valueImage
-save intensityImage.png intensityImage
-save lumaImage.png lumaImage
+save TestResults\valueImage.png valueImage
+save TestResults\intensityImage.png intensityImage
+save TestResults\lumaImage.png lumaImage
