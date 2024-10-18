@@ -1,5 +1,6 @@
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,15 +12,14 @@ import ime.cli.ImageProcessorCLI;
 public class TestUtil {
 
   static void runTest(String commands) {
-
-    ImageProcessorCLI cli = new ImageProcessorCLI();
     System.out.println(commands);
     ByteArrayInputStream inputCommands = new ByteArrayInputStream(commands.getBytes());
     System.setIn(inputCommands);
-    cli.run();
+    new ImageProcessorCLI().run();
   }
 
   static String getCommandsFromFile(String path) throws IOException {
+
     List<String> commands = new ArrayList<>();
 
     try (Stream<String> lines = Files.lines(Paths.get(path))) {
@@ -28,6 +28,10 @@ public class TestUtil {
               .map(line -> line + "\n")
               .forEach(commands::add);
     }
+
+
+
+
     return String.join("", commands);
   }
 }
