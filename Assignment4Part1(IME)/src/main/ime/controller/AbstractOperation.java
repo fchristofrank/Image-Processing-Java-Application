@@ -3,8 +3,12 @@ package ime.controller;
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
 
-public abstract class AbstractOperation implements CLIOperation{
+public abstract class AbstractOperation implements CLIOperation {
   private final ImageLibrary library;
+
+  public AbstractOperation(ImageLibrary library) {
+    this.library = library;
+  }
 
   protected Image getImage(String imageName) {
     return this.library.getImage(imageName);
@@ -18,8 +22,5 @@ public abstract class AbstractOperation implements CLIOperation{
     if (args.length != 2) {
       throw new IllegalArgumentException("Invalid number of arguments");
     }
-  }
-  public AbstractOperation(ImageLibrary library) {
-    this.library = library;
   }
 }

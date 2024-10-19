@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
-import ime.operations.ApplyHorizontalFlip;
 import ime.operations.ApplyVerticalFlip;
 
 public class VerticalFlip extends AbstractOperation {

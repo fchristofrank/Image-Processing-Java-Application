@@ -7,6 +7,7 @@ import ime.controller.HorizontalFlip;
 import ime.controller.Load;
 import ime.controller.Save;
 import ime.controller.VerticalFlip;
+import ime.controller.Visualize;
 import ime.imageIO.ImageLibrary;
 
 public class CommandFactory {
@@ -23,21 +24,9 @@ public class CommandFactory {
         return new Load(imageLibrary);
       case "save":
         return new Save(imageLibrary);
-//      case "red-component":
-//        return new VisualizeRed(imageLibrary);
-//      case "green-component":
-//        return new VisualizeGreen(imageLibrary);
-//      case "blue-component":
-//        return new VisualizeBlue(imageLibrary);
-//      case "value-component":
-//        return new VisualizeBlue(imageLibrary);
-//      case "luma-component":
-//        return new VisualizeLuma(imageLibrary);
-//      case "intensity-component":
-//        return new VisualizeIntensity(imageLibrary);
-//      case "rgb-split":
-//      case "rgb-combine":
-//        return null;
+      case "rgb-split":
+      case "rgb-combine":
+        return null;
       case "brighten":
         return new Brighten(imageLibrary);
       case "darken":
@@ -47,6 +36,9 @@ public class CommandFactory {
       case "horizontal-flip":
         return new HorizontalFlip(imageLibrary);
       default:
+        if (commandName.contains("component")) {
+          return new Visualize(imageLibrary, commandName);
+        }
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
   }

@@ -56,7 +56,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"luma.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "luma.png");
 
     assertEquals(expectedImage, actualImage);
   }
@@ -72,7 +72,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"red.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "red.png");
 
     assertEquals(expectedImage, actualImage);
   }
@@ -88,7 +88,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"blue.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "blue.png");
 
     assertEquals(expectedImage, actualImage);
   }
@@ -104,7 +104,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"green.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "green.png");
 
     assertEquals(expectedImage, actualImage);
   }
@@ -120,7 +120,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"intensity.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "intensity.png");
 
     assertEquals(expectedImage, actualImage);
   }
@@ -136,7 +136,7 @@ public class OperationsTest {
     assert actualImageURL != null;
 
     Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath()+"value.png");
+    Image actualImage = reader.read(actualImageURL.getPath() + "value.png");
 
     assertEquals(expectedImage, actualImage);
   }
