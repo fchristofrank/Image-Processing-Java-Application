@@ -1,7 +1,10 @@
 package ime.models;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
+
+import ime.operations.ImageOperation;
 
 public class SimpleImage implements Image {
   private final int height;
@@ -44,6 +47,11 @@ public class SimpleImage implements Image {
 
   public ImageType getType() {
     return imageType;
+  }
+
+  @Override
+  public Image applyOperation(ImageOperation operation, String... args) throws IOException {
+    return operation.apply(this, args);
   }
 
   @Override

@@ -1,13 +1,7 @@
 package ime.operations;
-
-import ime.imageIO.ImageLibrary;
 import ime.models.Image;
 
-public class HorizontalFlip extends Flip {
-
-  public HorizontalFlip(ImageLibrary imageLibrary) {
-    super(imageLibrary);
-  }
+public class ApplyHorizontalFlip extends ApplyFlip {
 
   @Override
   protected void flipImage(Image inputImage, Image outputImage, int height, int width) {
@@ -17,10 +11,4 @@ public class HorizontalFlip extends Flip {
       }
     }
   }
-
-  @Override
-  protected String getFlipType() {
-    return "Horizontal";
-  }
-
 }

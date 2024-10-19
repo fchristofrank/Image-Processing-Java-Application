@@ -1,21 +1,18 @@
-package ime.operations;
+package ime.controller;
 
 import java.io.IOException;
 
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
-import ime.models.ImageType;
-import ime.models.PixelFactory;
-import ime.models.SimpleImage;
+import ime.operations.ApplyBrightness;
 
-public class AdjustBrightness extends ImageOperationManager {
-
-  public AdjustBrightness(ImageLibrary imageLibrary) {
-    super(imageLibrary);
+public abstract class AdjustBrightness extends AbstractOperation {
+  public AdjustBrightness(ImageLibrary library) {
+    super(library);
   }
 
   @Override
-  public void apply(String[] args) throws IllegalArgumentException, IOException {
+  public void execute(String[] args) throws IOException {
     int alpha = Integer.parseInt(args[0]);
     String inputName = args[1];
     String outputName = args[2];
@@ -23,18 +20,7 @@ public class AdjustBrightness extends ImageOperationManager {
     if (inputImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    int height = inputImage.getHeight();
-    int width = inputImage.getWidth();
-    Image outputImage = new SimpleImage(height, width, ImageType.RGB);
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        int red = inputImage.getPixel(i, j).getRed() + alpha;
-        int green = inputImage.getPixel(i, j).getGreen() + alpha;
-        int blue = inputImage.getPixel(i, j).getBlue() + alpha;
-        outputImage.setPixel(i, j, PixelFactory.createPixel(outputImage.getType(), red, green,
-                blue));
-      }
-    }
+    Image outputImage = inputImage.applyOperation(new ApplyBrightness(), String.valueOf(alpha));
     addImage(outputName, outputImage);
     System.out.println("Adjusting Brightness. New image created: " + outputName);
   }

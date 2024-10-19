@@ -1,11 +1,17 @@
 import ime.cli.ImageProcessorCLI;
 
 /**
- * This class contains utility methods to read a PPM image from file and print its contents.
- * It also supports reading and writing images in JPEG and PNG formats.
+ * The Main class serves as the entry point for the image editor application.
+ * It initializes and runs the command-line interface for image processing.
  */
 public class Main {
 
+  /**
+   * The main method that starts the image editor application.
+   * It creates an instance of ImageProcessorCLI and calls its run method.
+   *
+   * @param args the CLI arguments passed to the image editor application.
+   */
   public static void main(String[] args) {
     new ImageProcessorCLI().run();
   }

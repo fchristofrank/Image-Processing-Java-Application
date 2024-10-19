@@ -1,18 +1,13 @@
 package ime.cli;
 
+import ime.controller.Brighten;
+import ime.controller.CLIOperation;
+import ime.controller.Darken;
+import ime.controller.HorizontalFlip;
+import ime.controller.Load;
+import ime.controller.Save;
+import ime.controller.VerticalFlip;
 import ime.imageIO.ImageLibrary;
-import ime.operations.Brighten;
-import ime.operations.Darken;
-import ime.operations.HorizontalFlip;
-import ime.operations.ImageOperationManager;
-import ime.operations.Load;
-import ime.operations.Save;
-import ime.operations.VerticalFlip;
-import ime.operations.VisualizeBlue;
-import ime.operations.VisualizeGreen;
-import ime.operations.VisualizeIntensity;
-import ime.operations.VisualizeLuma;
-import ime.operations.VisualizeRed;
 
 public class CommandFactory {
 
@@ -22,27 +17,27 @@ public class CommandFactory {
     this.imageLibrary = imageLibrary;
   }
 
-  public ImageOperationManager createCommand(String commandName) {
+  public CLIOperation createCommand(String commandName) {
     switch (commandName.toLowerCase()) {
       case "load":
         return new Load(imageLibrary);
       case "save":
         return new Save(imageLibrary);
-      case "red-component":
-        return new VisualizeRed(imageLibrary);
-      case "green-component":
-        return new VisualizeGreen(imageLibrary);
-      case "blue-component":
-        return new VisualizeBlue(imageLibrary);
-      case "value-component":
-        return new VisualizeBlue(imageLibrary);
-      case "luma-component":
-        return new VisualizeLuma(imageLibrary);
-      case "intensity-component":
-        return new VisualizeIntensity(imageLibrary);
-      case "rgb-split":
-      case "rgb-combine":
-        return null;
+//      case "red-component":
+//        return new VisualizeRed(imageLibrary);
+//      case "green-component":
+//        return new VisualizeGreen(imageLibrary);
+//      case "blue-component":
+//        return new VisualizeBlue(imageLibrary);
+//      case "value-component":
+//        return new VisualizeBlue(imageLibrary);
+//      case "luma-component":
+//        return new VisualizeLuma(imageLibrary);
+//      case "intensity-component":
+//        return new VisualizeIntensity(imageLibrary);
+//      case "rgb-split":
+//      case "rgb-combine":
+//        return null;
       case "brighten":
         return new Brighten(imageLibrary);
       case "darken":
