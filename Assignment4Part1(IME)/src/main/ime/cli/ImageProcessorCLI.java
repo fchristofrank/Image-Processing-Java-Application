@@ -19,6 +19,10 @@ public class ImageProcessorCLI {
     this.scanner = new Scanner(System.in);
   }
 
+  public static void main(String[] args) {
+    new ImageProcessorCLI().run();
+  }
+
   public void run() {
     System.out.println("Welcome to the Image Processor. Type 'exit' to quit.");
     while (true) {
@@ -45,9 +49,5 @@ public class ImageProcessorCLI {
     } catch (IllegalArgumentException | IOException e) {
       System.out.println(e.getMessage());
     }
-  }
-
-  public static void main(String[] args) {
-    new ImageProcessorCLI().run();
   }
 }

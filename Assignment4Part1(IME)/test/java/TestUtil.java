@@ -1,6 +1,5 @@
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -28,8 +27,6 @@ public class TestUtil {
               .map(line -> line + "\n")
               .forEach(commands::add);
     }
-
-
 
 
     return String.join("", commands);
