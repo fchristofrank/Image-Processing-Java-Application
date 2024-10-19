@@ -1,20 +1,20 @@
-package ime.operations;
+package ime.controller;
 
 import java.io.IOException;
+
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageLibrary;
 import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
 import ime.models.Image;
 
-public class Load extends ImageOperationManager{
-
-  public Load(ImageLibrary imageLibrary) {
-    super(imageLibrary);
+public class Load extends AbstractOperation {
+  public Load(ImageLibrary library) {
+    super(library);
   }
 
   @Override
-  public void apply(String[] args) throws IllegalArgumentException, IOException {
+  public void execute(String[] args) throws IOException {
     validateArgs(args);
     String imagePath = args[0];
     String imageName = args[1];

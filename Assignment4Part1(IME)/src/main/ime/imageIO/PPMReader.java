@@ -12,9 +12,13 @@ import ime.models.ImageType;
 import ime.models.PixelFactory;
 import ime.models.SimpleImage;
 
+/**
+ * This class represents a reader for images in PPM format from a specified file name.
+ */
 public class PPMReader implements Reader {
 
   private static final Logger LOGGER = Logger.getLogger(PPMReader.class.getName());
+
   @Override
   public Image read(String filename) throws IOException {
     Scanner sc;

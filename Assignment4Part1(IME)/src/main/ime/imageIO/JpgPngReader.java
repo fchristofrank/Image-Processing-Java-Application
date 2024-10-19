@@ -13,8 +13,11 @@ import ime.models.ImageType;
 import ime.models.PixelFactory;
 import ime.models.SimpleImage;
 
+/**
+ * This class represents a reader for images in JPG and PNG formats from a specified file name.
+ */
 public class JpgPngReader implements Reader{
-  private static final Logger LOGGER = Logger.getLogger(PPMReader.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(JpgPngReader.class.getName());
   @Override
   public Image read(String filename) throws IOException {
     try {

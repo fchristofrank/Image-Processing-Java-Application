@@ -1,4 +1,4 @@
-package ime.operations;
+package ime.controller;
 
 import java.awt.image.BufferedImage;
 
@@ -7,14 +7,13 @@ import ime.imageIO.ImageWriter;
 import ime.models.Image;
 import ime.models.Pixel;
 
-public class Save extends ImageOperationManager {
-
-  public Save(ImageLibrary imageLibrary) {
-    super(imageLibrary);
+public class Save extends AbstractOperation {
+  public Save(ImageLibrary library) {
+    super(library);
   }
 
   @Override
-  public void apply(String[] args) throws IllegalArgumentException{
+  public void execute(String[] args) {
     validateArgs(args);
     String imagePath = args[0];
     String[] parts = imagePath.split("\\.");
@@ -46,5 +45,4 @@ public class Save extends ImageOperationManager {
     }
     return bufferedImage;
   }
-
 }

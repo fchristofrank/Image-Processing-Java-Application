@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import ime.controller.CLIOperation;
 import ime.imageIO.ImageLibrary;
-import ime.operations.ImageOperationManager;
 
 public class ImageProcessorCLI {
   private final CommandFactory commandFactory;
   private final Scanner scanner;
 
+  /**
+   * This method creates an image processor cli instance.
+   */
   public ImageProcessorCLI() {
     this.commandFactory = new CommandFactory(new ImageLibrary());
     this.scanner = new Scanner(System.in);
@@ -37,8 +40,8 @@ public class ImageProcessorCLI {
     String operationName = parts[0];
     String[] args = Arrays.copyOfRange(parts, 1, parts.length);
     try {
-      ImageOperationManager operation = commandFactory.createCommand(operationName);
-      operation.apply(args);
+      CLIOperation operation = commandFactory.createCommand(operationName);
+      operation.execute(args);
     } catch (IllegalArgumentException | IOException e) {
       System.out.println(e.getMessage());
     }
