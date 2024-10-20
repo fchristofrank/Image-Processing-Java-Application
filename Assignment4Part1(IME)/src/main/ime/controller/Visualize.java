@@ -15,6 +15,7 @@ import ime.operations.VisualizeValue;
 public class Visualize extends AbstractOperation {
 
   private final String command;
+
   public Visualize(ImageLibrary library, String command) {
     super(library);
     this.command = command;
@@ -34,15 +35,21 @@ public class Visualize extends AbstractOperation {
   }
 
   private AbstractVisualize visualizeObjectFactory(String command) {
-
-    return switch (command) {
-      case "red-component" -> new VisualizeRed();
-      case "green-component" -> new VisualizeGreen();
-      case "blue-component" -> new VisualizeBlue();
-      case "value-component" -> new VisualizeValue();
-      case "luma-component" -> new VisualizeLuma();
-      case "intensity-component" -> new VisualizeIntensity();
-      default -> throw new IllegalArgumentException("Unknown component: " + command);
-    };
+    switch (command) {
+      case "red-component":
+        return new VisualizeRed();
+      case "green-component":
+        return new VisualizeGreen();
+      case "blue-component":
+        return new VisualizeBlue();
+      case "value-component":
+        return new VisualizeValue();
+      case "luma-component":
+        return new VisualizeLuma();
+      case "intensity-component":
+        return new VisualizeIntensity();
+      default:
+        throw new IllegalArgumentException("Unknown component: " + command);
+    }
   }
 }

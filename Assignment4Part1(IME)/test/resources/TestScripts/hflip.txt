@@ -1,0 +1,4 @@
+load <input_image_path> manhattan
+horizontal-flip manhattan manhattan-hflip
+save <output_image_path> manhattan-hflip
+exit

@@ -5,6 +5,8 @@ import ime.controller.CLIOperation;
 import ime.controller.Darken;
 import ime.controller.HorizontalFlip;
 import ime.controller.Load;
+import ime.controller.RGBSplit;
+import ime.controller.RunScript;
 import ime.controller.Save;
 import ime.controller.VerticalFlip;
 import ime.controller.Visualize;
@@ -20,11 +22,14 @@ public class CommandFactory {
 
   public CLIOperation createCommand(String commandName) {
     switch (commandName.toLowerCase()) {
+      case "run":
+        return new RunScript(imageLibrary);
       case "load":
         return new Load(imageLibrary);
       case "save":
         return new Save(imageLibrary);
       case "rgb-split":
+        return new RGBSplit(imageLibrary);
       case "rgb-combine":
         return null;
       case "brighten":

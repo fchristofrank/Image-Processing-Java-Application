@@ -1,77 +1,14 @@
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.net.URL;
+public class FlipTest extends ImageTestUtil {
 
-import ime.cli.ImageProcessorCLI;
-import ime.imageIO.ImageFormat;
-import ime.imageIO.Reader;
-import ime.imageIO.ReaderFactory;
-import ime.models.Image;
-
-import static org.junit.Assert.assertEquals;
-
-public class FlipTest {
   @Test
   public void testHorizontalFlip() {
-    URL inputURL = getClass().getClassLoader().getResource("manhattan-small.png");
-    URL outputURL = getClass().getClassLoader().getResource("");
-
-    Assert.assertNotNull("Input resource not found", inputURL);
-    Assert.assertNotNull("Output directory not found", outputURL);
-
-    String inputPath = inputURL.getPath();
-    String outputPath = outputURL.getPath() + "manhattan-small-hflip-actual.png";
-    String imageName = "manhattan";
-
-    String simulatedInput = String.format("load %s %s\nhorizontal-flip %s %s-hflip\nsave %s %s-hflip\nexit",
-            inputPath, imageName, imageName, imageName, outputPath, imageName);
-    ByteArrayInputStream input = new ByteArrayInputStream(simulatedInput.getBytes());
-    System.setIn(input);
-    new ImageProcessorCLI().run();
-    try {
-      Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
-      Image actualImage = reader.read(outputPath);
-      URL expectedURL = getClass().getClassLoader().getResource("manhattan-small-hflip-expected.png");
-      Assert.assertNotNull("Expected image resource not found", expectedURL);
-
-      Image expectedImage = reader.read(expectedURL.getPath());
-      assertEquals(actualImage, expectedImage);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    runImageTest("TestScripts/hflip.txt", "manhattan-small-hflip-actual.png", "manhattan-small-hflip-expected.png", "FlipImages");
   }
 
   @Test
   public void testVerticalFlip() {
-    URL inputURL = getClass().getClassLoader().getResource("manhattan-small.png");
-    URL outputURL = getClass().getClassLoader().getResource("");
-
-    Assert.assertNotNull("Input resource not found", inputURL);
-    Assert.assertNotNull("Output directory not found", outputURL);
-
-    String inputPath = inputURL.getPath();
-    String outputPath = outputURL.getPath() + "manhattan-small-vflip-actual.png";
-    String imageName = "manhattan";
-
-    String simulatedInput = String.format("load %s %s\nvertical-flip %s %s-vflip\nsave %s %s-vflip\nexit",
-            inputPath, imageName, imageName, imageName, outputPath, imageName);
-    ByteArrayInputStream input = new ByteArrayInputStream(simulatedInput.getBytes());
-    System.setIn(input);
-    new ImageProcessorCLI().run();
-    try {
-      Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
-      Image actualImage = reader.read(outputPath);
-      URL expectedURL = getClass().getClassLoader().getResource("manhattan-small-vflip-expected.png");
-      Assert.assertNotNull("Expected image resource not found", expectedURL);
-
-      Image expectedImage = reader.read(expectedURL.getPath());
-      assertEquals(actualImage, expectedImage);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    runImageTest("TestScripts/vflip.txt", "manhattan-small-vflip-actual.png", "manhattan-small-vflip-expected.png", "FlipImages");
   }
-
 }
