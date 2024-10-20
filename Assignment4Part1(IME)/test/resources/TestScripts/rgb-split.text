@@ -1,0 +1,4 @@
+load <input_image_path> manhattan
+rgb-split manhattan manhattan-red manhattan-green manhattan-blue
+save <output_image_path> manhattan-red
+exit

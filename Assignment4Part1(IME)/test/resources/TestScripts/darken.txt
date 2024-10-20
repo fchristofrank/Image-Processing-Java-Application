@@ -1,0 +1,4 @@
+load <input_image_path> manhattan
+darken <alpha_value> manhattan manhattan-dark
+save <output_image_path> manhattan-dark
+exit

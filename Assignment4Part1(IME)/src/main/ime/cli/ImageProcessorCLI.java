@@ -36,7 +36,7 @@ public class ImageProcessorCLI {
     System.out.println("Goodbye - may the gradients be with you!");
   }
 
-  public void processCommand(String input) {
+  private void processCommand(String input) {
     String[] parts = input.split("\\s+");
     if (parts.length == 0) {
       return;

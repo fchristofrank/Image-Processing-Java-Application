@@ -9,7 +9,7 @@ import ime.models.SimpleImage;
 
 public class ApplyBrightness implements ImageOperation {
   @Override
-  public Image apply(Image inputImage, String[] args) throws IllegalArgumentException, IOException {
+  public Image apply(Image inputImage, String... args) throws IllegalArgumentException, IOException {
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
     int alpha = Integer.parseInt(args[0]);

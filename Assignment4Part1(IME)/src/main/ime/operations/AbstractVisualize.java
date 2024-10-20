@@ -10,7 +10,7 @@ import ime.models.SimpleImage;
 public abstract class AbstractVisualize implements ImageOperation {
 
   @Override
-  public Image apply(Image inputImage, String[] args) throws IllegalArgumentException {
+  public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
     Image outputImage = new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
 
