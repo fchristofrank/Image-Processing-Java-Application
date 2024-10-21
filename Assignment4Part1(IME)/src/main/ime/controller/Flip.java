@@ -4,11 +4,9 @@ import java.io.IOException;
 
 import ime.imageIO.ImageLibrary;
 import ime.models.Image;
-import ime.operations.ApplyHorizontalFlip;
-import ime.operations.ApplyVerticalFlip;
 import ime.operations.ImageOperation;
 
-public abstract class Flip extends AbstractOperation{
+public abstract class Flip extends AbstractOperation {
   public Flip(ImageLibrary library) {
     super(library);
   }
