@@ -1,8 +1,10 @@
 package ime.models;
 
+import ime.operations.MultipleImageOperation;
 import java.io.IOException;
 
 import ime.operations.ImageOperation;
+import java.util.List;
 
 public interface Image {
 
@@ -17,5 +19,7 @@ public interface Image {
   ImageType getType();
 
   Image applyOperation(ImageOperation operation, String... args) throws IOException;
+
+  Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args) throws IOException;
 
 }

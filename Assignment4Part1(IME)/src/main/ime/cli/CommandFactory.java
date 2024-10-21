@@ -1,13 +1,15 @@
 package ime.cli;
 
+import java.util.Queue;
+
 import ime.controller.Brighten;
 import ime.controller.CLIOperation;
+import ime.controller.CombineRGB;
 import ime.controller.Darken;
 import ime.controller.Filter;
 import ime.controller.HorizontalFlip;
 import ime.controller.Load;
 import ime.controller.RGBSplit;
-import ime.controller.RunScript;
 import ime.controller.Save;
 import ime.controller.Sepia;
 import ime.controller.VerticalFlip;
@@ -17,23 +19,18 @@ import ime.imageIO.ImageLibrary;
 public class CommandFactory {
 
   private final ImageLibrary imageLibrary;
-
   public CommandFactory(ImageLibrary imageLibrary) {
     this.imageLibrary = imageLibrary;
   }
 
   public CLIOperation createCommand(String commandName) {
     switch (commandName.toLowerCase()) {
-      case "run":
-        return new RunScript(imageLibrary);
       case "load":
         return new Load(imageLibrary);
       case "save":
         return new Save(imageLibrary);
       case "rgb-split":
         return new RGBSplit(imageLibrary);
-      case "rgb-combine":
-        return null;
       case "brighten":
         return new Brighten(imageLibrary);
       case "darken":
@@ -44,6 +41,8 @@ public class CommandFactory {
         return new HorizontalFlip(imageLibrary);
       case "sepia":
         return new Sepia(imageLibrary);
+      case "rgb-combine":
+        return new CombineRGB(imageLibrary);
       case "blur":
       case "sharpen":
         return new Filter(imageLibrary,commandName);

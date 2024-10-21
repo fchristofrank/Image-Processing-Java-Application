@@ -1,7 +1,9 @@
 package ime.models;
 
+import ime.operations.MultipleImageOperation;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import ime.operations.ImageOperation;
@@ -52,6 +54,11 @@ public class SimpleImage implements Image {
   @Override
   public Image applyOperation(ImageOperation operation, String... args) throws IOException {
     return operation.apply(this, args);
+  }
+
+  @Override
+  public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args) throws IOException{
+    return operation.apply(images,args);
   }
 
   @Override

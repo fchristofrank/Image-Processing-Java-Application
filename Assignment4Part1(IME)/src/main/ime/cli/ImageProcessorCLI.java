@@ -6,14 +6,12 @@ import java.util.Scanner;
 
 import ime.controller.CLIOperation;
 import ime.imageIO.ImageLibrary;
+import ime.util.FileReader;
 
-public class ImageProcessorCLI {
+public class ImageProcessorCLI implements CommandExecutor {
   private final CommandFactory commandFactory;
   private final Scanner scanner;
 
-  /**
-   * This method creates an image processor cli instance.
-   */
   public ImageProcessorCLI() {
     this.commandFactory = new CommandFactory(new ImageLibrary());
     this.scanner = new Scanner(System.in);
@@ -28,16 +26,45 @@ public class ImageProcessorCLI {
     while (true) {
       System.out.print("> ");
       String input = scanner.nextLine().trim();
-      if (input.equalsIgnoreCase("exit")) {
+      if (input.equals("exit")) {
         break;
       }
-      processCommand(input);
+      processInput(input);
     }
     System.out.println("Goodbye - may the gradients be with you!");
   }
 
-  private void processCommand(String input) {
+  private void processInput(String input) {
+    if (input.startsWith("run")) {
+      executeScriptFile(input);
+    } else {
+      executeCommand(input);
+    }
+  }
+
+  private void executeScriptFile(String input) {
     String[] parts = input.split("\\s+");
+    if (parts.length != 2) {
+      System.out.println("Invalid 'run' command. Usage: run <filename>");
+      return;
+    }
+    String filename = parts[1];
+    String fileContent = null;
+    try {
+      fileContent = FileReader.readFromFile(filename);
+    } catch (IOException e) {
+      System.out.println("Error reading file: " + filename);
+    }
+    if (fileContent != null) {
+      for (String line : fileContent.split("\n")) {
+        executeCommand(line);
+      }
+    }
+  }
+
+  @Override
+  public void executeCommand(String command) {
+    String[] parts = command.split("\\s+");
     if (parts.length == 0) {
       return;
     }
@@ -47,7 +74,7 @@ public class ImageProcessorCLI {
       CLIOperation operation = commandFactory.createCommand(operationName);
       operation.execute(args);
     } catch (IllegalArgumentException | IOException e) {
-      System.out.println(e.getMessage());
+      System.out.println("Error executing command: " + e.getMessage());
     }
   }
 }

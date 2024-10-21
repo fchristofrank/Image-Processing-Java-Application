@@ -6,7 +6,7 @@ import ime.imageIO.ImageLibrary;
 import ime.models.Image;
 import ime.operations.ApplySepia;
 
-public class Sepia extends AbstractOperation{
+public class Sepia extends AbstractOperation {
   public Sepia(ImageLibrary library) {
     super(library);
   }
