@@ -1,0 +1,4 @@
+load <input_image_path> manhattan
+sepia manhattan manhattan-sepia
+save <output_image_path> manhattan-sepia
+exit

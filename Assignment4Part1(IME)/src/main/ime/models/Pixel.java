@@ -56,4 +56,8 @@ public interface Pixel {
    * @return the luma of the channel.
    */
   double getLuma();
+
+  Pixel shiftComponents(int alpha);
+
+  Pixel scaleComponents(double[][] factors) throws IllegalArgumentException;
 }
