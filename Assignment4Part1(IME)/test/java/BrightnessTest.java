@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class AdjustBrightnessTest extends ImageTestUtil {
+public class BrightnessTest extends ImageTestUtil {
 
   @Test
   public void testFullBrighten() {

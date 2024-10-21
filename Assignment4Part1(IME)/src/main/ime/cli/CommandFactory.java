@@ -8,6 +8,7 @@ import ime.controller.Load;
 import ime.controller.RGBSplit;
 import ime.controller.RunScript;
 import ime.controller.Save;
+import ime.controller.Sepia;
 import ime.controller.VerticalFlip;
 import ime.controller.Visualize;
 import ime.imageIO.ImageLibrary;
@@ -40,6 +41,8 @@ public class CommandFactory {
         return new VerticalFlip(imageLibrary);
       case "horizontal-flip":
         return new HorizontalFlip(imageLibrary);
+      case "sepia":
+        return new Sepia(imageLibrary);
       default:
         if (commandName.contains("component")) {
           return new Visualize(imageLibrary, commandName);
