@@ -8,13 +8,18 @@ import ime.models.ImageType;
 import ime.models.Pixel;
 import ime.models.PixelFactory;
 import ime.models.SimpleImage;
+import java.util.List;
 
 import static java.lang.System.load;
 
 public class Combine implements MultipleImageOperation {
 
-  public Image apply(Image redImage, Image blueImage, Image greenImage, Image... optional)
+  public Image apply(List<Image> images, String... args)
           throws IllegalArgumentException {
+
+    Image redImage = images.get(0);
+    Image greenImage = images.get(1);
+    Image blueImage = images.get(2);
 
     if (redImage.getHeight() != greenImage.getHeight() ||
             greenImage.getHeight() != blueImage.getHeight() ||
