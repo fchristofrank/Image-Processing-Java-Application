@@ -1,7 +1,6 @@
 package ime.controller;
 
 import ime.operations.Combine;
-import ime.operations.MultipleImageOperation;
 import java.io.IOException;
 
 import ime.imageIO.ImageLibrary;
@@ -21,11 +20,10 @@ public class CombineRGB extends AbstractOperation {
     Image redImage = getImage(args[1]);
     Image greenImage = getImage(args[2]);
     Image blueImage = getImage(args[3]);
-    Image inputImage = getImage(inputName);
-    if (inputImage == null) {
+    if (redImage == null || greenImage == null || blueImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    Image outputImage = inputImage.applyOperation(new Combine(),
+    Image outputImage = redImage.applyOperation(new Combine(),
         Arrays.asList(redImage,greenImage,blueImage), args);
     addImage(inputName, outputImage);
 
