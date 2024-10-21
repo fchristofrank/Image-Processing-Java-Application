@@ -4,6 +4,7 @@ import java.util.Queue;
 
 import ime.controller.Brighten;
 import ime.controller.CLIOperation;
+import ime.controller.CombineRGB;
 import ime.controller.Darken;
 import ime.controller.Filter;
 import ime.controller.HorizontalFlip;
@@ -30,8 +31,6 @@ public class CommandFactory {
         return new Save(imageLibrary);
       case "rgb-split":
         return new RGBSplit(imageLibrary);
-      case "rgb-combine":
-        return null;
       case "brighten":
         return new Brighten(imageLibrary);
       case "darken":
@@ -42,6 +41,8 @@ public class CommandFactory {
         return new HorizontalFlip(imageLibrary);
       case "sepia":
         return new Sepia(imageLibrary);
+      case "rgb-combine":
+        return new CombineRGB(imageLibrary);
       case "blur":
       case "sharpen":
         return new Filter(imageLibrary,commandName);

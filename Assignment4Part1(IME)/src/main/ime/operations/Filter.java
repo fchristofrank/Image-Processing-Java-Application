@@ -25,8 +25,12 @@ public abstract class Filter implements ImageOperation {
 
     Image outputImage = new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
     /*Filter operations applies the matrix on the pixel such that the kernel is inside the image array*/
-    for (int i = getStartIndexForRow(); i < getLastIndexForRow(inputImage.getWidth()); i++) {
-      for (int j = getStartIndexForColumn(); j < getLastIndexForColumn(inputImage.getHeight()) - 1; j++) {
+    System.out.println(inputImage.getWidth());
+    System.out.println(inputImage.getHeight());
+
+    for (int i = getStartIndexForColumn(); i < getLastIndexForColumn(inputImage.getHeight()); i++) {
+      for (int j = getStartIndexForRow(); j < getLastIndexForRow(inputImage.getWidth()); j++) {
+        System.out.println(i + " :: "+ j);
         System.out.println(inputImage.getPixel(i, j).getRed());
         Pixel newPixel = applyFilterToPixel(inputImage, i, j);
         outputImage.setPixel(i, j, newPixel);
