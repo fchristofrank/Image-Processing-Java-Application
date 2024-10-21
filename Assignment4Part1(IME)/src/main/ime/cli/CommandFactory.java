@@ -3,6 +3,7 @@ package ime.cli;
 import ime.controller.Brighten;
 import ime.controller.CLIOperation;
 import ime.controller.Darken;
+import ime.controller.Filter;
 import ime.controller.HorizontalFlip;
 import ime.controller.Load;
 import ime.controller.RGBSplit;
@@ -43,6 +44,9 @@ public class CommandFactory {
         return new HorizontalFlip(imageLibrary);
       case "sepia":
         return new Sepia(imageLibrary);
+      case "blur":
+      case "sharpen":
+        return new Filter(imageLibrary,commandName);
       default:
         if (commandName.contains("component")) {
           return new Visualize(imageLibrary, commandName);
