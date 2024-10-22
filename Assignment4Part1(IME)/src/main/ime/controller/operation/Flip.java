@@ -23,5 +23,5 @@ public abstract class Flip extends AbstractOperation {
     System.out.println("Applying horizontal flip. New image created: " + outputName);
   }
 
-  public abstract ImageOperation getOperation();
+  protected abstract ImageOperation getOperation();
 }

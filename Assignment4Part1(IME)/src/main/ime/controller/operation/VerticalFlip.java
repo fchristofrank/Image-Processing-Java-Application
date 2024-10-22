@@ -16,7 +16,7 @@ public class VerticalFlip extends Flip {
   }
 
   @Override
-  public ImageOperation getOperation() {
+  protected ImageOperation getOperation() {
     return new ApplyVerticalFlip();
   }
 }
