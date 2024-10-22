@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import ime.cli.ImageProcessorCLI;
+import ime.controller.cli.ImageProcessorCLI;
 import ime.imageIO.ImageFormat;
 import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
-import ime.models.Image;
+import ime.model.image.Image;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -23,10 +23,9 @@ import static org.junit.Assert.fail;
 public class ImageTestUtil {
 
   private void runTest(String command) {
-    System.out.println(command);
     ByteArrayInputStream inputCommands = new ByteArrayInputStream(command.getBytes());
     System.setIn(inputCommands);
-    new ImageProcessorCLI().run();
+    new ImageProcessorCLI(inputCommands).run();
   }
 
   private String getCommandsFromFile(String path) throws IOException {
@@ -40,13 +39,13 @@ public class ImageTestUtil {
     return String.join("", commands);
   }
 
-  protected void runImageTest(String commandScriptPath, String outputActualFileName, String outputExpectedFileName, String folderName, String... replacements) {
+  protected void runImageTest(String commandScriptPath,String inputImageFileName, String outputActualFileName, String outputExpectedFileName, String folderName, String... replacements) {
     try {
       URL inputURL = getClass().getClassLoader().getResource(commandScriptPath);
       Assert.assertNotNull("Test script not found", inputURL);
       Path inputScriptPath = Paths.get(inputURL.toURI());
       String command = getCommandsFromFile(inputScriptPath.toString());
-      URL inputImageURL = getClass().getClassLoader().getResource("manhattan-small.png");
+      URL inputImageURL = getClass().getClassLoader().getResource(inputImageFileName);
       URL outputFolderURL = getClass().getClassLoader().getResource(folderName);
       Assert.assertNotNull("Input resource not found", inputImageURL);
       Assert.assertNotNull("Output directory not found", outputFolderURL);
@@ -63,7 +62,8 @@ public class ImageTestUtil {
       }
 
       runTest(command);
-      Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+      String format = outputActualFileName.split("\\.")[1];
+      Reader reader = ReaderFactory.createrReader(ImageFormat.valueOf(format.toUpperCase()));
       Image actualImage = reader.read(outputActualImagePath.toString());
       Image expectedImage = reader.read(outputExpectedImagePath.toString());
       assertEquals(actualImage, expectedImage);

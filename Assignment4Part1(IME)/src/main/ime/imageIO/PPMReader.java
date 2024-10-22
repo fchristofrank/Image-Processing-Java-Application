@@ -4,20 +4,16 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import ime.models.Image;
-import ime.models.ImageType;
-import ime.models.PixelFactory;
-import ime.models.SimpleImage;
+import ime.model.image.Image;
+import ime.model.image.ImageType;
+import ime.model.pixel.PixelFactory;
+import ime.model.image.SimpleImage;
 
 /**
  * This class represents a reader for images in PPM format from a specified file name.
  */
 public class PPMReader implements Reader {
-
-  private static final Logger LOGGER = Logger.getLogger(PPMReader.class.getName());
 
   @Override
   public Image read(String filename) throws IOException {
@@ -26,7 +22,6 @@ public class PPMReader implements Reader {
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      LOGGER.log(Level.SEVERE, "File " + filename + " not found!", e);
       throw new IOException("File " + filename + " not found!");
     }
 
@@ -42,7 +37,6 @@ public class PPMReader implements Reader {
 
     String token = sc.next();
     if (!token.equals("P3")) {
-      LOGGER.log(Level.SEVERE, "Invalid PPM file: plain RAW file should begin with P3");
       throw new IOException("Invalid PPM file: plain RAW file should begin with P3");
     }
 
@@ -57,7 +51,6 @@ public class PPMReader implements Reader {
         int g = sc.nextInt();
         int b = sc.nextInt();
         simpleImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-        LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
       }
     }
     return simpleImage;
