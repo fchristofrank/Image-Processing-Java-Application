@@ -9,7 +9,7 @@
 //import ime.imageIO.ImageFormat;
 //import ime.imageIO.Reader;
 //import ime.imageIO.ReaderFactory;
-//import ime.models.Image;
+//import ime.models.image.Image;
 //
 //import static org.junit.Assert.assertEquals;
 //

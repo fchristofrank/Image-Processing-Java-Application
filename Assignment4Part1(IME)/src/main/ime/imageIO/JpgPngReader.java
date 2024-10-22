@@ -3,27 +3,23 @@ package ime.imageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import ime.models.Image;
-import ime.models.ImageType;
-import ime.models.PixelFactory;
-import ime.models.SimpleImage;
+import ime.model.image.Image;
+import ime.model.image.ImageType;
+import ime.model.pixel.PixelFactory;
+import ime.model.image.SimpleImage;
 
 /**
  * This class represents a reader for images in JPG and PNG formats from a specified file name.
  */
 public class JpgPngReader implements Reader{
-  private static final Logger LOGGER = Logger.getLogger(JpgPngReader.class.getName());
   @Override
   public Image read(String filename) throws IOException {
     try {
       BufferedImage image = ImageIO.read(new File(filename));
       if (image == null) {
-        LOGGER.log(Level.SEVERE, "Unsupported image format or corrupted file: " + filename);
         throw new IOException("Unsupported image format or corrupted file: " + filename);
       }
 
@@ -36,14 +32,12 @@ public class JpgPngReader implements Reader{
           int r = (pixel >> 16) & 0xFF;
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
-          simpleImage.setPixel(i, j, PixelFactory.createPixel(ImageType.RGB, r, g, b));
-          //LOGGER.info("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+          simpleImage.setPixel(i, j, PixelFactory.createPixel(simpleImage.getType(), r, g, b));
         }
       }
       return simpleImage;
 
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, "Error reading image: " + filename, e);
       throw new IOException("Error reading image: " + filename);
     }
   }
