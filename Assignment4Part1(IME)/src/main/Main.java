@@ -1,4 +1,4 @@
-import ime.cli.ImageProcessorCLI;
+import ime.controller.cli.ImageProcessorCLI;
 
 /**
  * The Main class serves as the entry point for the image editor application.
@@ -13,6 +13,6 @@ public class Main {
    * @param args the CLI arguments passed to the image editor application.
    */
   public static void main(String[] args) {
-    new ImageProcessorCLI().run();
+    new ImageProcessorCLI(System.in).run();
   }
 }

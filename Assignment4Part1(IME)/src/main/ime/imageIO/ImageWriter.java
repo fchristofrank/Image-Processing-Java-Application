@@ -16,7 +16,7 @@ public class ImageWriter {
     try {
       File outputFile = new File(outputFilename);
       ImageIO.write(image, format, outputFile);
-      LOGGER.info("Image written to " + outputFilename);
+      LOGGER.log(Level.FINE, "Image written to " + outputFilename);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error writing image to file: " + outputFilename, e);
     }
