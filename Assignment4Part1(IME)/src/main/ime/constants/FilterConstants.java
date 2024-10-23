@@ -1,7 +1,8 @@
 package ime.constants;
 
 /**
- * This class contains constant values used in various image filter operations.
+ * This class contains constant values used in various image filter operations. Centralized place to
+ * store constants that are used across multiple classes.
  */
 public class FilterConstants {
 

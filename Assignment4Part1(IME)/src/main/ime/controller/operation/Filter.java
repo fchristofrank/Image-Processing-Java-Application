@@ -6,6 +6,12 @@ import ime.model.operation.ImageOperation;
 import ime.model.operation.Sharpen;
 import ime.model.image.ImageLibrary;
 
+/**
+ * The given Filter controller validates the args received from the command line, and it gives the
+ * object of the right instance based on blur or sharpen object with which the actual filter
+ * operation can be implemented. It also is responsible in maintaining the output of the images
+ * inside the library object to maintain the historic operations and objects/
+ */
 public class Filter extends AbstractOperation {
 
   private final String command;
@@ -15,6 +21,14 @@ public class Filter extends AbstractOperation {
     this.command = command;
   }
 
+  /**
+   * Command line argument verification takes place after which the images on which the user intends
+   * to perform the operation is loaded from the library object and the request is routed to the
+   * correct and desired filter operations.
+   *
+   * @param args the arguments for an operations.
+   * @throws IllegalArgumentException if the user tries to operate on image that is not loaded yet.
+   */
   @Override
   public void execute(String[] args) throws IllegalArgumentException {
     validateArgs(args);
@@ -28,6 +42,12 @@ public class Filter extends AbstractOperation {
     addImage(outputName, outputImage);
   }
 
+  /**
+   * Responsible for returning the object as per the operation specified.
+   *
+   * @param command the intended operation is sent as argument for the method.
+   * @return returns the object based on the command received.
+   */
   private ImageOperation filterObjectFactory(String command) {
 
     switch (command) {

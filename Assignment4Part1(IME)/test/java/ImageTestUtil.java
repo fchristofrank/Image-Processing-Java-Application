@@ -66,10 +66,35 @@ public class ImageTestUtil {
       Reader reader = ReaderFactory.createrReader(ImageFormat.valueOf(format.toUpperCase()));
       Image actualImage = reader.read(outputActualImagePath.toString());
       Image expectedImage = reader.read(outputExpectedImagePath.toString());
+
+      for (int i=0; i < actualImage.getHeight(); i++){
+        for (int j=0; j< actualImage.getWidth(); j++){
+          System.out.println(actualImage.getPixel(i,j).getValue() + " :: " + expectedImage.getPixel(i,j).getValue());
+        }
+      }
       assertEquals(actualImage, expectedImage);
 
     } catch (IOException | URISyntaxException e) {
       fail("Exception should not have been thrown");
+    }
+  }
+
+  protected Image loadImageFromResources(String imageFileName) {
+    try {
+      URL imageUrl = getClass().getClassLoader().getResource(imageFileName);
+
+      String fileExtension = imageFileName.substring(imageFileName.lastIndexOf(".") + 1);
+      Reader imageReader = ReaderFactory.createrReader(ImageFormat.valueOf(fileExtension.toUpperCase()));
+
+      assert imageUrl != null;
+      Path imagePath = Paths.get(imageUrl.toURI());
+      return imageReader.read(imagePath.toString());
+
+    } catch (URISyntaxException e) {
+      throw new RuntimeException("Invalid URI for resource: " + imageFileName, e);
+
+    } catch (IOException e) {
+      throw new RuntimeException("Error reading image file: " + imageFileName, e);
     }
   }
 }
