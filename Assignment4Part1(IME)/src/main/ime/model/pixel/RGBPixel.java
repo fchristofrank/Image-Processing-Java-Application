@@ -8,7 +8,7 @@ import java.util.Objects;
  * calculate the pixel's value, intensity, and luma.
  */
 public class RGBPixel extends AbstractPixel {
-  private static final int TOLERANCE = 1;
+  private static final int TOLERANCE = 3;
   private final int red;
   private final int green;
   private final int blue;

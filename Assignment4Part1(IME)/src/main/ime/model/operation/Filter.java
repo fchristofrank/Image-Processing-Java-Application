@@ -13,38 +13,16 @@ public abstract class Filter implements ImageOperation {
 
   protected abstract float[][] getKernel();
 
-  protected abstract int getStartIndexForRow();
-
-  protected abstract int getLastIndexForRow(int width);
-
-  protected abstract int getStartIndexForColumn();
-
-  protected abstract int getLastIndexForColumn(int height);
-
   public Image apply(Image inputImage, String[] args) throws IllegalArgumentException {
 
     Image outputImage = new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
-    System.out.println(inputImage.getWidth());
     System.out.println(inputImage.getHeight());
-
-    int startRow = getStartIndexForRow();
-    int endRow = getLastIndexForRow(inputImage.getWidth());
-    int startColumn = getStartIndexForColumn();
-    int endColumn = getLastIndexForColumn(inputImage.getHeight());
-
-    for (int i = startColumn; i < endColumn; i++) {
-      for (int j = startRow; j < endRow; j++) {
-        Pixel newPixel = applyFilterToPixel(inputImage, i, j);
-        outputImage.setPixel(i, j, newPixel);
-      }
-    }
+    System.out.println(inputImage.getWidth());
 
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
-        if (i < startColumn || i >= endColumn || j < startRow || j >= endRow) {
-          Pixel borderPixel = inputImage.getPixel(i, j);
-          outputImage.setPixel(i, j, borderPixel);
-        }
+        Pixel newPixel = applyFilterToPixel(inputImage, i, j);
+        outputImage.setPixel(i, j, newPixel);
       }
     }
 
@@ -58,24 +36,36 @@ public abstract class Filter implements ImageOperation {
     double blueSum = 0;
 
     float[][] blurKernel = getKernel();
+    int kernelSize = blurKernel.length;
+    int kernelOffset = kernelSize / 2;
 
-    for (int i = -1; i <= 1; i++) {
-      for (int j = -1; j <= 1; j++) {
-        Pixel newPixel = image.getPixel(x + i, y + j);
-        redSum += newPixel.getRed() * blurKernel[i + 1][j + 1];
-        greenSum += newPixel.getGreen() * blurKernel[i + 1][j + 1];
-        blueSum += newPixel.getBlue() * blurKernel[i + 1][j + 1];
+    for (int i = -kernelOffset; i <= kernelOffset; i++) {
+      for (int j = -kernelOffset; j <= kernelOffset; j++) {
+        if (isOutOfBounds(image, x + i, y + j)) {
+          continue;
+        }
+        Pixel pixel = image.getPixel(x+i,y+j);
+        redSum += pixel.getRed() * blurKernel[i + kernelOffset][j + kernelOffset];
+        greenSum += pixel.getGreen() * blurKernel[i + kernelOffset][j + kernelOffset];
+        blueSum += pixel.getBlue() * blurKernel[i + kernelOffset][j + kernelOffset];
       }
     }
-    int newRed = clamp((int) redSum);
-    int newGreen = clamp((int) greenSum);
-    int newBlue = clamp((int) blueSum);
 
-    return PixelFactory.createPixel(ImageType.RGB, newRed, newGreen, newBlue);
+    return createClampedPixel((int) redSum, (int) greenSum, (int) blueSum);
+  }
+
+  private boolean isOutOfBounds(Image image, int currentX, int currentY) {
+    return currentX < 0 || currentX >= image.getHeight() || currentY < 0 || currentY >= image.getWidth();
+  }
+
+  private Pixel createClampedPixel(int red, int green, int blue) {
+    int clampedRed = clamp(red);
+    int clampedGreen = clamp(green);
+    int clampedBlue = clamp(blue);
+    return PixelFactory.createPixel(ImageType.RGB, clampedRed, clampedGreen, clampedBlue);
   }
 
   private int clamp(int value) {
     return Math.max(PIXEL_LOWER_LIMIT, Math.min(PIXEL_UPPER_LIMIT, value));
   }
-
 }
