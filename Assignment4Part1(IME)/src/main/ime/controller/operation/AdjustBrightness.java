@@ -1,10 +1,20 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.operation.ApplyBrightness;
 
+/**
+ * Abstract controller class for adjusting image brightness operations.
+ * This class is responsible for validating the input arguments and routing them
+ * to the appropriate operation for execution.
+ */
 public abstract class AdjustBrightness extends AbstractOperation {
+  /**
+   * This method creates an operation to adjust brightness.
+   *
+   * @param library the ImageLibrary to be used for image operations.
+   */
   public AdjustBrightness(ImageLibrary library) {
     super(library);
   }

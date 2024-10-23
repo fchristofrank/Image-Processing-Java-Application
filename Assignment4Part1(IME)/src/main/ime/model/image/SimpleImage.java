@@ -8,6 +8,11 @@ import java.util.Objects;
 import ime.model.operation.ImageOperation;
 import ime.model.pixel.Pixel;
 
+/**
+ * This class represents a Simple Image compose of pixels.
+ * It implements the Image interface, providing methods for pixel manipulation,
+ * applying image operations, and retrieving image properties such as height, width, and type.
+ */
 public class SimpleImage implements Image {
   private final int height;
   private final int width;
@@ -67,6 +72,11 @@ public class SimpleImage implements Image {
     return operation.apply(images,args);
   }
 
+  /**
+   * This method compares two images based on their height, width, image type and pixel attributes.
+   * @param obj the other image which has to be compared to be with this image.
+   * @return true if both the images are identical false otherwise.
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -78,6 +88,10 @@ public class SimpleImage implements Image {
             Arrays.deepEquals(pixels, that.pixels);
   }
 
+  /**
+   * This method returns the hash code of the simple image object.
+   * @return the hashcode of the simple image object.
+   */
   @Override
   public int hashCode() {
     return Objects.hash(height, width, imageType, Arrays.deepHashCode(pixels));

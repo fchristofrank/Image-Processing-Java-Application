@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FilterTest extends ImageTestUtil {
+public class FilterOperationTest extends ImageOperationTest {
 
   @Test
   public void testBlur() {

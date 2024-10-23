@@ -1,7 +1,6 @@
 import org.junit.Assert;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -19,10 +18,9 @@ import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
 import ime.model.image.Image;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ImageTestUtil {
+public class ImageOperationTest {
   @FunctionalInterface
   interface ImageAssertion {
     void assertImages(Image expected, Image actual);

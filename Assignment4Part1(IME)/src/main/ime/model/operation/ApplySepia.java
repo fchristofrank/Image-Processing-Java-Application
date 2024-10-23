@@ -3,7 +3,11 @@ package ime.model.operation;
 import ime.constants.FilterConstants;
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
-
+/**
+ * This abstract class represents an operation to apply sepia filter to an image.
+ * It implements the ImageOperation interface, providing functionality to
+ * apply sepia filter to an image.
+ */
 public class ApplySepia implements ImageOperation {
 
   @Override

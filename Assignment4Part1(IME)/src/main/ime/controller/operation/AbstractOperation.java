@@ -43,6 +43,7 @@ public abstract class AbstractOperation implements CLIOperation {
 
   /**
    * Validates the number of arguments provided to the operation.
+   * This is a basic validation and each operation will override this if necessary.
    *
    * @param args the array of argument strings to validate
    * @throws IllegalArgumentException if the number of arguments is not exactly two

@@ -5,7 +5,10 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class FlipTest extends ImageTestUtil {
+/**
+ * This class tests the functionalities of flip image operation.
+ */
+public class FlipOperationTest extends ImageOperationTest {
 
   @Test
   public void testHorizontalFlipPNG() {

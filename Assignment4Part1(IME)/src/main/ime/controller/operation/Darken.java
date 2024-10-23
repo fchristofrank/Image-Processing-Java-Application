@@ -2,7 +2,17 @@ package ime.controller.operation;
 
 import ime.model.image.ImageLibrary;
 
+/**
+ * Controller class for performing image darkening operations.
+ * This class is responsible for validating input arguments and routing them
+ * to the appropriate darkening operation for execution.
+ */
 public class Darken extends AdjustBrightness {
+  /**
+   * This method creates an operation to darken the image.
+   *
+   * @param library the ImageLibrary to be used for image operations.
+   */
   public Darken(ImageLibrary library) {
     super(library);
   }

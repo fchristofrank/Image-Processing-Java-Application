@@ -9,10 +9,18 @@ import ime.model.image.ImageLibrary;
 import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
 import ime.model.image.Image;
-
+/**
+ * Controller class for loading images into the image library.
+ * This class is responsible for reading an image file from the specified path
+ * and adding it to the image library under a given name.
+ */
 public class Load extends AbstractOperation {
   private static final Logger LOGGER = Logger.getLogger(Load.class.getName());
-
+  /**
+   * Constructs a Load operation controller with the specified image library.
+   *
+   * @param library the ImageLibrary instance that provides access to the images.
+   */
   public Load(ImageLibrary library) {
     super(library);
   }
