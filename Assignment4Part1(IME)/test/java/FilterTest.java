@@ -3,69 +3,53 @@ import org.junit.Test;
 import ime.model.image.Image;
 
 import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FilterTest extends ImageTestUtil {
 
   @Test
   public void testBlur() {
-    runImageTest(
-        "TestScripts/filter.txt",
-        "manhattan-small.jpg",
-        "manhattan-small-blur-actual.jpg",
-        "manhattan-small-blur-expected.jpg",
-        "FilterImages");
+    Map<String, String> outputFileMap1 = new HashMap<>();
+    outputFileMap1.put("manhattan-small-blur-actual.jpg", "manhattan-small-blur-expected.jpg");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "manhattan-small.png",
-            "manhattan-small-blur-actual.png",
-            "manhattan-small-blur-expected.png",
-            "FilterImages");
+    Map<String, String> outputFileMap2 = new HashMap<>();
+    outputFileMap2.put("manhattan-small-blur-actual.png", "manhattan-small-blur-expected.png");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "white_test.jpg",
-            "white_test_actual.jpg",
-            "white_test_expected.jpg",
-            "FilterImages");
+    Map<String, String> outputFileMap3 = new HashMap<>();
+    outputFileMap3.put("white_test_actual.jpg", "white_test_expected.jpg");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "white_test.png",
-            "white_test_actual.png",
-            "white_test_expected.png",
-            "FilterImages");
+    Map<String, String> outputFileMap4 = new HashMap<>();
+    outputFileMap4.put("white_test_actual.png", "white_test_expected.png");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "black_test.png",
-            "black_test_actual.png",
-            "black_test_expected.png",
-            "FilterImages");
+    Map<String, String> outputFileMap5 = new HashMap<>();
+    outputFileMap5.put("black_test_actual.png", "black_test_expected.png");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "black_test.jpg",
-            "black_test_actual.jpg",
-            "black_test_expected.jpg",
-            "FilterImages");
+    Map<String, String> outputFileMap6 = new HashMap<>();
+    outputFileMap6.put("black_test_actual.jpg", "black_test_expected.jpg");
+
+    Map<String, String> replacements = new HashMap<>();
+
+    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "white_test.jpg", outputFileMap3, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "white_test.png", outputFileMap4, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "black_test.png", outputFileMap5, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "black_test.jpg", outputFileMap6, "FilterImages", replacements);
   }
 
   @Test
   public void testSharpen() {
-    runImageTest(
-        "TestScripts/filter.txt",
-        "manhattan-small.jpg",
-        "manhattan-small-sharpen-actual.jpg",
-        "manhattan-small-sharpen-expected.jpg",
-        "FilterImages");
+    Map<String, String> outputFileMap1 = new HashMap<>();
+    outputFileMap1.put("manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
 
-    runImageTest(
-            "TestScripts/filter.txt",
-            "manhattan-small.png",
-            "manhattan-small-sharpen-actual.png",
-            "manhattan-small-sharpen-expected.png",
-            "FilterImages");
+    Map<String, String> outputFileMap2 = new HashMap<>();
+    outputFileMap2.put("manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
+
+    Map<String, String> replacements = new HashMap<>();
+
+    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements);
   }
 
   @Test
@@ -75,3 +59,4 @@ public class FilterTest extends ImageTestUtil {
     assertEquals(expectedImage, image);
   }
 }
+

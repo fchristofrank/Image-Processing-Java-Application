@@ -1,13 +1,25 @@
 import org.junit.Test;
+import java.util.HashMap;
 
-public class SepiaTest extends ImageTestUtil{
+public class SepiaTest extends ImageTestUtil {
+
   @Test
   public void testSepiaPNG() {
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.png", "manhattan-small-sepia-actual.png", "manhattan-small-sepia-expected.png", "FilterImages");
+    HashMap<String, String> outputFileMap = new HashMap<>();
+    outputFileMap.put("manhattan-small-sepia-actual.png", "manhattan-small-sepia-expected.png");
+
+    HashMap<String, String> replacements = new HashMap<>();
+
+    runImageTest("TestScripts/sepia.txt", "manhattan-small.png", outputFileMap, "FilterImages", replacements);
   }
 
   @Test
   public void testSepiaJPG() {
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg", "manhattan-small-sepia-actual.jpg", "manhattan-small-sepia-expected.jpg", "FilterImages");
+    HashMap<String, String> outputFileMap = new HashMap<>();
+    outputFileMap.put("manhattan-small-sepia-actual.jpg", "manhattan-small-sepia-expected.jpg");
+
+    HashMap<String, String> replacements = new HashMap<>();
+
+    runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg", outputFileMap, "FilterImages", replacements);
   }
 }
