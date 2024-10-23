@@ -79,10 +79,15 @@ public class ImageOperationFactory implements OperationCreator{
       case "blur":
       case "sharpen":
         return new Filter(imageLibrary, commandName);
+      case "red-component":
+      case "green-component":
+      case "blue-component":
+      case "luma-component":
+      case "value-component":
+      case "intensity-component":
+        return new Visualize(imageLibrary, commandName);
+
       default:
-        if (commandName.contains("component")) {
-          return new Visualize(imageLibrary, commandName);
-        }
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
   }

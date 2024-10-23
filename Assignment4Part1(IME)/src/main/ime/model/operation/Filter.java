@@ -34,8 +34,6 @@ public abstract class Filter implements ImageOperation {
 
     for (int i = startColumn; i < endColumn; i++) {
       for (int j = startRow; j < endRow; j++) {
-        System.out.println(i + " :: " + j);
-        System.out.println(inputImage.getPixel(i, j).getRed());
         Pixel newPixel = applyFilterToPixel(inputImage, i, j);
         outputImage.setPixel(i, j, newPixel);
       }
