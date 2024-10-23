@@ -1,0 +1,6 @@
+load <input_image_path> manhattan
+
+sharpen manhattan manhattan-sharpen
+save <output_image_path> manhattan-sharpen
+
+exit

@@ -28,13 +28,13 @@ public class ImageTestUtil {
     void assertImages(Image expected, Image actual);
   }
 
-  private void runTest(String command) {
+  protected void runTest(String command) {
     ByteArrayInputStream inputCommands = new ByteArrayInputStream(command.getBytes());
     System.setIn(inputCommands);
     new ImageProcessorCLI(inputCommands).run();
   }
 
-  private String getCommandsFromFile(String path) throws IOException {
+  protected String getCommandsFromFile(String path) throws IOException {
     List<String> commands = new ArrayList<>();
     try (Stream<String> lines = Files.lines(Paths.get(path))) {
       lines.map(String::trim)
