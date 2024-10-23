@@ -119,6 +119,7 @@ public class FilterTest extends ImageTestUtil {
     runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
     runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
 
+
     runImageTest(
         "TestScripts/sharpen.txt",
         "white_test.png",
