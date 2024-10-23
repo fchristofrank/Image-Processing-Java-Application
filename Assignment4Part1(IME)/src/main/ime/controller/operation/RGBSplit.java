@@ -1,11 +1,16 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
 import ime.model.operation.VisualizeRed;
 
+/**
+ * Controller class for performing RGB separation operations on images.
+ * This class is responsible for splitting an input image into its
+ * red, green, and blue components, creating separate images for each color.
+ */
 public class RGBSplit extends AbstractOperation {
   public RGBSplit(ImageLibrary library) {
     super(library);

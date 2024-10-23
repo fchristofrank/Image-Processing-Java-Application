@@ -2,7 +2,11 @@ package ime.model.operation;
 
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
-
+/**
+ * This abstract class represents an operation to apply brightness adjustment to an image.
+ * It implements the ImageOperation interface, providing functionality to
+ * manipulate the brightness of an input image based on a specified alpha value.
+ */
 public class ApplyBrightness implements ImageOperation {
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {

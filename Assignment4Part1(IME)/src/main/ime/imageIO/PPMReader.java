@@ -42,7 +42,6 @@ public class PPMReader implements Reader {
 
     int width = sc.nextInt();
     int height = sc.nextInt();
-    int maxValue = sc.nextInt();
     Image simpleImage = new SimpleImage(height, width, ImageType.RGB);
 
     for (int i = 0; i < height; i++) {

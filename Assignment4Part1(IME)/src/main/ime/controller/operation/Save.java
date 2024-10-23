@@ -6,8 +6,17 @@ import ime.model.image.ImageLibrary;
 import ime.imageIO.ImageWriter;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
-
+/**
+ * Controller class for saving images from the image library to the file system.
+ * This class is responsible for converting an image to a buffered image and writing it
+ * to the specified file path in the desired format.
+ */
 public class Save extends AbstractOperation {
+  /**
+   * Constructs a Save operation controller with the specified image library.
+   *
+   * @param library the ImageLibrary instance that provides access to the images.
+   */
   public Save(ImageLibrary library) {
     super(library);
   }

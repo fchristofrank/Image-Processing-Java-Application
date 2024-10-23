@@ -5,7 +5,10 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class RGBSplitTest extends ImageTestUtil{
+/**
+ * This class tests the functionalities of rgb split image operation.
+ */
+public class RGBSplitOperationTest extends ImageOperationTest {
   @Test
   public void testRGBSplitPNG() {
     Map<String, String> outputFileMap = new LinkedHashMap<>();

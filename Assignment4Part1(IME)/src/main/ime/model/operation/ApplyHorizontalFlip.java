@@ -1,6 +1,12 @@
 package ime.model.operation;
+
 import ime.model.image.Image;
 
+/**
+ * This abstract class represents an operation to flip an image horizontally.
+ * It implements the ImageOperation interface, providing functionality to
+ * flip an image horizontally.
+ */
 public class ApplyHorizontalFlip extends ApplyFlip {
 
   @Override

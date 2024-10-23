@@ -3,8 +3,17 @@ package ime.controller.operation;
 import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
 import ime.model.operation.ImageOperation;
-
+/**
+ * Abstract controller class for performing image flipping operations.
+ * This class is responsible for validating the input arguments and routing them
+ * to the appropriate operation for execution.
+ */
 public abstract class Flip extends AbstractOperation {
+  /**
+   * This method creates an operation to flip the image.
+   *
+   * @param library the ImageLibrary to be used for image operations.
+   */
   public Flip(ImageLibrary library) {
     super(library);
   }
