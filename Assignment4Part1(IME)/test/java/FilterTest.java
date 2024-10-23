@@ -14,6 +14,13 @@ public class FilterTest extends ImageTestUtil {
         "manhattan-small-blur-actual.jpg",
         "manhattan-small-blur-expected.jpg",
         "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "manhattan-small.png",
+            "manhattan-small-blur-actual.png",
+            "manhattan-small-blur-expected.png",
+            "FilterImages");
   }
 
   @Test
@@ -24,6 +31,13 @@ public class FilterTest extends ImageTestUtil {
         "manhattan-small-sharpen-actual.jpg",
         "manhattan-small-sharpen-expected.jpg",
         "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "manhattan-small.png",
+            "manhattan-small-sharpen-actual.png",
+            "manhattan-small-sharpen-expected.png",
+            "FilterImages");
   }
 
   @Test
