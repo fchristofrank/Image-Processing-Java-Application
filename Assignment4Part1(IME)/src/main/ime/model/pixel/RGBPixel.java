@@ -81,6 +81,15 @@ public class RGBPixel extends AbstractPixel {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
     RGBPixel rgbPixel = (RGBPixel) obj;
+    if(this.getRed() != rgbPixel.getRed()) {
+      System.out.println("RED" + this.getRed() + " " + rgbPixel.getRed());
+    }
+    if(this.getGreen() != rgbPixel.getGreen()) {
+      System.out.println("GREEN" + this.getGreen() + " " + rgbPixel.getGreen());
+    }
+    if(this.getBlue() != rgbPixel.getBlue()) {
+      System.out.println("BLUE" + this.getBlue() + " " + rgbPixel.getBlue());
+    }
     return Math.abs(this.getRed() - rgbPixel.getRed()) <= TOLERANCE &&
             Math.abs(this.getGreen() - rgbPixel.getGreen()) <= TOLERANCE &&
             Math.abs(this.getBlue() - rgbPixel.getBlue()) <= TOLERANCE;

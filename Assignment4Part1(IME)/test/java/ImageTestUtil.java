@@ -67,11 +67,11 @@ public class ImageTestUtil {
       Image actualImage = reader.read(outputActualImagePath.toString());
       Image expectedImage = reader.read(outputExpectedImagePath.toString());
 
-      for (int i=0; i < actualImage.getHeight(); i++){
-        for (int j=0; j< actualImage.getWidth(); j++){
-          System.out.println(actualImage.getPixel(i,j).getValue() + " :: " + expectedImage.getPixel(i,j).getValue());
-        }
-      }
+//      for (int i=0; i < actualImage.getHeight(); i++){
+//        for (int j=0; j< actualImage.getWidth(); j++){
+//          System.out.println(actualImage.getPixel(i,j).getValue() + " :: " + expectedImage.getPixel(i,j).getValue());
+//        }
+//      }
       assertEquals(actualImage, expectedImage);
 
     } catch (IOException | URISyntaxException e) {
