@@ -19,6 +19,7 @@ public class FilterTest extends ImageTestUtil {
         "manhattan-small-blur-expected.jpg",
         "FilterImages");
 
+    // Blur PNG test
     runImageTest(
         "TestScripts/blur.txt",
         "manhattan-small.png",
@@ -88,7 +89,7 @@ public class FilterTest extends ImageTestUtil {
         "white_test_sharpen_actual.jpg",
         "white_test_sharpen_expected.jpg",
         "FilterImages");
-    Map<String, String> replacements = new HashMap<>();
+
 
     runImageTest(
         "TestScripts/sharpen.txt",
