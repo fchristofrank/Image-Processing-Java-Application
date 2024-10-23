@@ -1,9 +1,13 @@
 import org.junit.Test;
+
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class SepiaTest extends ImageTestUtil {
+/**
+ * This class tests the functionalities of sepia filter image operation.
+ */
+public class SepiaOperationTest extends ImageOperationTest {
 
   @Test
   public void testSepiaPNG() {

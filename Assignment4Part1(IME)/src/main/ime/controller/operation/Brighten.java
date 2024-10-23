@@ -2,7 +2,17 @@ package ime.controller.operation;
 
 import ime.model.image.ImageLibrary;
 
+/**
+ * Controller class for performing image brightening operations.
+ * This class is responsible for validating input arguments and routing them
+ * to the appropriate brightening operation for execution.
+ */
 public class Brighten extends AdjustBrightness {
+  /**
+   * This method creates an operation to brighten the image.
+   *
+   * @param library the ImageLibrary to be used for image operations.
+   */
   public Brighten(ImageLibrary library) {
     super(library);
   }

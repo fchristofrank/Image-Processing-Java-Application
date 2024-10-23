@@ -1,10 +1,21 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.operation.ApplySepia;
 
+/**
+ * Controller class for applying sepia filter on images.
+ * This class is responsible for routing the control to the corresponding image operation
+ * for execution.
+ */
 public class Sepia extends AbstractOperation {
+
+  /**
+   * This method creates an operation to apply sepia filter to the image.
+   *
+   * @param library the ImageLibrary to be used for image operations.
+   */
   public Sepia(ImageLibrary library) {
     super(library);
   }
@@ -20,5 +31,6 @@ public class Sepia extends AbstractOperation {
     }
     Image outputImage = inputImage.applyOperation(new ApplySepia());
     addImage(outputName, outputImage);
+    System.out.println("Applying Sepia filter. New image created: " + outputName);
   }
 }

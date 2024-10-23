@@ -3,7 +3,10 @@ import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
 
-public class BrightnessTest extends ImageTestUtil {
+/**
+ * This class tests the functionalities of adjust brightness image operation.
+ */
+public class BrightnessOperationTest extends ImageOperationTest {
 
   @Test
   public void testFullBrightenPNG() {
