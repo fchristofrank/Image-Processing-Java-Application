@@ -52,6 +52,34 @@ public class FilterTest extends ImageTestUtil {
         "black_test_actual.jpg",
         "black_test_blur_expected.jpg",
         "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "white_test.jpg",
+            "white_test_actual.jpg",
+            "white_test_expected.jpg",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "white_test.png",
+            "white_test_actual.png",
+            "white_test_expected.png",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "black_test.png",
+            "black_test_actual.png",
+            "black_test_expected.png",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "black_test.jpg",
+            "black_test_actual.jpg",
+            "black_test_expected.jpg",
+            "FilterImages");
   }
 
   @Test
