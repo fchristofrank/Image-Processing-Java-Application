@@ -36,6 +36,40 @@ public class FilterTest extends ImageTestUtil {
     runImageTest("TestScripts/filter.txt", "white_test.png", outputFileMap4, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
     runImageTest("TestScripts/filter.txt", "black_test.png", outputFileMap5, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
     runImageTest("TestScripts/filter.txt", "black_test.jpg", outputFileMap6, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest(
+            "TestScripts/filter.txt",
+            "manhattan-small.png",
+            "manhattan-small-blur-actual.png",
+            "manhattan-small-blur-expected.png",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "white_test.jpg",
+            "white_test_actual.jpg",
+            "white_test_expected.jpg",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "white_test.png",
+            "white_test_actual.png",
+            "white_test_expected.png",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "black_test.png",
+            "black_test_actual.png",
+            "black_test_expected.png",
+            "FilterImages");
+
+    runImageTest(
+            "TestScripts/filter.txt",
+            "black_test.jpg",
+            "black_test_actual.jpg",
+            "black_test_expected.jpg",
+            "FilterImages");
   }
 
   @Test
