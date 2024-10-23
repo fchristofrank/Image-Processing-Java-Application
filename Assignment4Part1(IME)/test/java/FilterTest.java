@@ -84,4 +84,5 @@ public class FilterTest extends ImageTestUtil {
         "white_test_sharpen_expected.png",
         "FilterImages");
   }
+
 }
