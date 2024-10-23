@@ -28,13 +28,13 @@ public class ImageTestUtil {
     void assertImages(Image expected, Image actual);
   }
 
-  private void runTest(String command) {
+  protected void runTest(String command) {
     ByteArrayInputStream inputCommands = new ByteArrayInputStream(command.getBytes());
     System.setIn(inputCommands);
     new ImageProcessorCLI(inputCommands).run();
   }
 
-  private String getCommandsFromFile(String path) throws IOException {
+  protected String getCommandsFromFile(String path) throws IOException {
     List<String> commands = new ArrayList<>();
     try (Stream<String> lines = Files.lines(Paths.get(path))) {
       lines.map(String::trim)
@@ -88,6 +88,46 @@ public class ImageTestUtil {
       }
     } catch (IOException | URISyntaxException e) {
       fail("Exception should not have been thrown: " + e.getMessage());
+    }
+  }
+
+  protected void runImageTest(String commandScriptPath,String inputImageFileName, String outputActualFileName, String outputExpectedFileName, String folderName, String... replacements) {
+    try {
+      URL inputURL = getClass().getClassLoader().getResource(commandScriptPath);
+      Assert.assertNotNull("Test script not found", inputURL);
+      Path inputScriptPath = Paths.get(inputURL.toURI());
+      String command = getCommandsFromFile(inputScriptPath.toString());
+      URL inputImageURL = getClass().getClassLoader().getResource(inputImageFileName);
+      URL outputFolderURL = getClass().getClassLoader().getResource(folderName);
+      Assert.assertNotNull("Input resource not found", inputImageURL);
+      Assert.assertNotNull("Output directory not found", outputFolderURL);
+      Path outputFolderPath = Paths.get(outputFolderURL.toURI());
+      Path outputActualImagePath = outputFolderPath.resolve(outputActualFileName);
+      Path outputExpectedImagePath = outputFolderPath.resolve(outputExpectedFileName);
+      command = command.replace("<input_image_path>", inputImageURL.getPath())
+              .replace("<output_image_path>", outputActualImagePath.toString());
+
+      if (replacements != null && replacements.length > 0) {
+        for (int i = 0; i < replacements.length; i += 2) {
+          command = command.replace(replacements[i], replacements[i + 1]);
+        }
+      }
+
+      runTest(command);
+      String format = outputActualFileName.split("\\.")[1];
+      Reader reader = ReaderFactory.createrReader(ImageFormat.valueOf(format.toUpperCase()));
+      Image actualImage = reader.read(outputActualImagePath.toString());
+      Image expectedImage = reader.read(outputExpectedImagePath.toString());
+
+      for (int i=0; i < actualImage.getHeight(); i++){
+        for (int j=0; j< actualImage.getWidth(); j++){
+          System.out.println(actualImage.getPixel(i,j).getValue() + " :: " + expectedImage.getPixel(i,j).getValue());
+        }
+      }
+      assertEquals(actualImage, expectedImage);
+
+    } catch (IOException | URISyntaxException e) {
+      fail("Exception should not have been thrown");
     }
   }
 
