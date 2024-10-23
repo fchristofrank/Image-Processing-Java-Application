@@ -84,6 +84,7 @@ public class FilterTest extends ImageTestUtil {
         "black_test_actual.jpg",
         "black_test_blur_expected.jpg",
         "FilterImages");
+
   }
 
   @Test
