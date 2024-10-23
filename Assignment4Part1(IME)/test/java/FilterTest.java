@@ -78,6 +78,7 @@ public class FilterTest extends ImageTestUtil {
         "white_test_sharpen_expected.jpg",
         "FilterImages");
 
+
     runImageTest(
         "TestScripts/sharpen.txt",
         "white_test.png",
