@@ -10,6 +10,10 @@ import ime.model.operation.VisualizeLuma;
 import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 
+/**
+ * The controller class for the visualize operation. This class is responsible to validate the
+ * visualize arguments and then route to the intended operation.
+ */
 public class Visualize extends AbstractOperation {
 
   private final String command;
