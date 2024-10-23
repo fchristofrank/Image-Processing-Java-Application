@@ -1,6 +1,8 @@
 import org.junit.Test;
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
+
 public class BrightnessTest extends ImageTestUtil {
 
   @Test
@@ -11,7 +13,7 @@ public class BrightnessTest extends ImageTestUtil {
     HashMap<String, String> replacements = new HashMap<>();
     replacements.put("<alpha_value>", "300");
 
-    runImageTest("TestScripts/brighten.txt", "manhattan-small.png", outputFileMap, "AdjustBrightnessImages", replacements);
+    runImageTest("TestScripts/brighten.txt", "manhattan-small.png", outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -22,7 +24,7 @@ public class BrightnessTest extends ImageTestUtil {
     HashMap<String, String> replacements = new HashMap<>();
     replacements.put("<alpha_value>", "500");
 
-    runImageTest("TestScripts/darken.txt", "manhattan-small.png", outputFileMap, "AdjustBrightnessImages", replacements);
+    runImageTest("TestScripts/darken.txt", "manhattan-small.png", outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -33,7 +35,7 @@ public class BrightnessTest extends ImageTestUtil {
     HashMap<String, String> replacements = new HashMap<>();
     replacements.put("<alpha_value>", "300");
 
-    runImageTest("TestScripts/brighten.txt", "manhattan-small.jpg", outputFileMap, "AdjustBrightnessImages", replacements);
+    runImageTest("TestScripts/brighten.txt", "manhattan-small.jpg", outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -44,7 +46,7 @@ public class BrightnessTest extends ImageTestUtil {
     HashMap<String, String> replacements = new HashMap<>();
     replacements.put("<alpha_value>", "500");
 
-    runImageTest("TestScripts/darken.txt", "manhattan-small.jpg", outputFileMap, "AdjustBrightnessImages", replacements);
+    runImageTest("TestScripts/darken.txt", "manhattan-small.jpg", outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
 }

@@ -1,6 +1,8 @@
 import org.junit.Test;
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
+
 public class SepiaTest extends ImageTestUtil {
 
   @Test
@@ -10,7 +12,7 @@ public class SepiaTest extends ImageTestUtil {
 
     HashMap<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.png", outputFileMap, "FilterImages", replacements);
+    runImageTest("TestScripts/sepia.txt", "manhattan-small.png", outputFileMap, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -20,6 +22,6 @@ public class SepiaTest extends ImageTestUtil {
 
     HashMap<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg", outputFileMap, "FilterImages", replacements);
+    runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg", outputFileMap, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 }

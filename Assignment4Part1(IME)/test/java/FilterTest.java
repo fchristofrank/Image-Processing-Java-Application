@@ -30,12 +30,12 @@ public class FilterTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "white_test.jpg", outputFileMap3, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "white_test.png", outputFileMap4, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "black_test.png", outputFileMap5, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "black_test.jpg", outputFileMap6, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "white_test.jpg", outputFileMap3, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "white_test.png", outputFileMap4, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "black_test.png", outputFileMap5, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "black_test.jpg", outputFileMap6, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -48,8 +48,8 @@ public class FilterTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements);
-    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements);
+    runImageTest("TestScripts/filter.txt", "manhattan-small.jpg", outputFileMap1, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    runImageTest("TestScripts/filter.txt", "manhattan-small.png", outputFileMap2, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test

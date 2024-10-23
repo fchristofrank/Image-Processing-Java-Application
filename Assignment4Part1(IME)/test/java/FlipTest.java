@@ -3,6 +3,8 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 public class FlipTest extends ImageTestUtil {
 
   @Test
@@ -12,7 +14,7 @@ public class FlipTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/hflip.txt", "manhattan-small.png", outputFileMap, "FlipImages", replacements);
+    runImageTest("TestScripts/hflip.txt", "manhattan-small.png", outputFileMap, "FlipImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -22,7 +24,7 @@ public class FlipTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/vflip.txt", "manhattan-small.png", outputFileMap, "FlipImages", replacements);
+    runImageTest("TestScripts/vflip.txt", "manhattan-small.png", outputFileMap, "FlipImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -32,7 +34,7 @@ public class FlipTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/hflip.txt", "manhattan-small.jpg", outputFileMap, "FlipImages", replacements);
+    runImageTest("TestScripts/hflip.txt", "manhattan-small.jpg", outputFileMap, "FlipImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 
   @Test
@@ -42,7 +44,7 @@ public class FlipTest extends ImageTestUtil {
 
     Map<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/vflip.txt", "manhattan-small.jpg", outputFileMap, "FlipImages", replacements);
+    runImageTest("TestScripts/vflip.txt", "manhattan-small.jpg", outputFileMap, "FlipImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
   }
 }
 

@@ -23,6 +23,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ImageTestUtil {
+  @FunctionalInterface
+  interface ImageAssertion {
+    void assertImages(Image expected, Image actual);
+  }
 
   private void runTest(String command) {
     ByteArrayInputStream inputCommands = new ByteArrayInputStream(command.getBytes());
@@ -41,7 +45,7 @@ public class ImageTestUtil {
     return String.join("", commands);
   }
 
-  protected void runImageTest(String commandScriptPath, String inputImageFileName, Map<String, String> outputFileMap, String folderName, Map<String, String> replacements) {
+  protected void runImageTest(String commandScriptPath, String inputImageFileName, Map<String, String> outputFileMap, String folderName, Map<String, String> replacements, ImageAssertion assertion) {
     try {
       URL inputURL = getClass().getClassLoader().getResource(commandScriptPath);
       Assert.assertNotNull("Test script not found", inputURL);
@@ -80,7 +84,7 @@ public class ImageTestUtil {
 
         Image actualImage = reader.read(actualImagePath.toString());
         Image expectedImage = reader.read(expectedImagePath.toString());
-        assertEquals("Images should be identical", expectedImage, actualImage);
+        assertion.assertImages(expectedImage, actualImage);
       }
     } catch (IOException | URISyntaxException e) {
       fail("Exception should not have been thrown: " + e.getMessage());
