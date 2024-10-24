@@ -32,6 +32,7 @@ public class Load extends AbstractOperation {
   public void execute(String[] args) throws IllegalArgumentException {
     validateArgs(args);
     String imagePath = args[0];
+    imagePath = imagePath.replace("\"", "");
     String imageName = args[1];
     String[] parts = imagePath.split("\\.");
     String imageFormat = parts[parts.length - 1];

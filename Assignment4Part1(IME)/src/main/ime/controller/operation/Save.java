@@ -29,6 +29,7 @@ public class Save extends AbstractOperation {
   public void execute(String[] args) throws IllegalArgumentException {
     validateArgs(args);
     String imagePath = args[0];
+    imagePath = imagePath.replace("\"", "");
     String[] parts = imagePath.split("\\.");
     ImageFormat imageFormat = ImageFormat.valueOf(parts[parts.length - 1].toUpperCase());
     String imageName = args[1];
