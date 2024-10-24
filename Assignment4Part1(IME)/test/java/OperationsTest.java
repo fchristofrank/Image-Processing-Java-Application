@@ -13,7 +13,7 @@ import ime.model.image.Image;
 
 import static org.junit.Assert.assertEquals;
 
-public class OperationsTest extends ImageTestUtil {
+public class OperationsTest extends ImageOperationTest {
 
   @Test
   public void testSetup() {
