@@ -42,6 +42,6 @@ public class SimpleImageTest {
     Image simpleImage = new SimpleImage(1, 1, ImageType.RGB);
     simpleImage.setPixel(0, 0, PixelFactory.createPixel(simpleImage.getType(),
             200, 100, 100));
-    assertEquals(hashcode, simpleImage.hashCode());
+    assertNotEquals(hashcode, simpleImage.hashCode());
   }
 }

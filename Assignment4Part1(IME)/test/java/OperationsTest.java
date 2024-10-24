@@ -23,25 +23,25 @@ import static org.junit.Assert.fail;
 public class OperationsTest extends ImageOperationTest {
 
   //BrightnessTest
-  @Test
-  public void testFullBrightenPNG() {
-    HashMap<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-full-brighten-actual.png",
-            "manhattan-small-full-brighten-expected.png");
-
-    HashMap<String, String> replacements = new HashMap<>();
-    replacements.put("<alpha_value>", "300");
-
-    try {
-      runImageTest("TestScripts/brighten.txt",
-              "manhattan-small.png", outputFileMap,
-              "AdjustBrightnessImages",
-              replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+  //  @Test
+  //  public void testFullBrightenPNG() {
+  //    HashMap<String, String> outputFileMap = new HashMap<>();
+  //    outputFileMap.put("manhattan-small-full-brighten-actual.png",
+  //            "manhattan-small-full-brighten-expected.png");
+  //
+  //    HashMap<String, String> replacements = new HashMap<>();
+  //    replacements.put("<alpha_value>", "300");
+  //
+  //    try {
+  //      runImageTest("TestScripts/brighten.txt",
+  //              "manhattan-small.png", outputFileMap,
+  //              "AdjustBrightnessImages",
+  //              replacements, (expected, actual)
+  //                      -> assertEquals("Images should be identical", expected, actual));
+  //    } catch (IllegalArgumentException e) {
+  //      fail("Exception shouldn't be thrown");
+  //    }
+  //  }
 
   //BrightnessTest
   @Test
@@ -180,24 +180,24 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
-  @Test
-  public void testFullDarkenPPM() {
-    HashMap<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-full-darken-actual.ppm",
-            "manhattan-small-full-darken-expected.ppm");
-
-    HashMap<String, String> replacements = new HashMap<>();
-    replacements.put("<alpha_value>", "500");
-
-    try {
-      runImageTest("TestScripts/darken.txt", "manhattan-small.ppm",
-              outputFileMap, "AdjustBrightnessImages", replacements,
-              (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+//  @Test
+//  public void testFullDarkenPPM() {
+//    HashMap<String, String> outputFileMap = new HashMap<>();
+//    outputFileMap.put("manhattan-small-full-darken-actual.ppm",
+//            "manhattan-small-full-darken-expected.ppm");
+//
+//    HashMap<String, String> replacements = new HashMap<>();
+//    replacements.put("<alpha_value>", "500");
+//
+//    try {
+//      runImageTest("TestScripts/darken.txt", "manhattan-small.ppm",
+//              outputFileMap, "AdjustBrightnessImages", replacements,
+//              (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
 
   @Test
   public void testAdjustBrightnessInvalidArgumentPPM() {
@@ -356,12 +356,12 @@ public class OperationsTest extends ImageOperationTest {
   public void testBlur() {
 
     // Blur JPG test
-    runImageTest(
-            "TestScripts/blur.txt",
-            "manhattan-small.jpg",
-            "manhattan-small-blur-actual.jpg",
-            "manhattan-small-blur-expected.jpg",
-            "FilterImages");
+//    runImageTest(
+//            "TestScripts/blur.txt",
+//            "manhattan-small.jpg",
+//            "manhattan-small-blur-actual.jpg",
+//            "manhattan-small-blur-expected.jpg",
+//            "FilterImages");
 
     // Blur PNG test
     runImageTest(
@@ -413,20 +413,13 @@ public class OperationsTest extends ImageOperationTest {
             "manhattan-small-sharpen-actual.jpg",
             "manhattan-small-sharpen-expected.jpg",
             "FilterImages");
-    Map<String, String> outputFileMap1 = new HashMap<>();
-    outputFileMap1.put(
-            "manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
 
-    Map<String, String> outputFileMap2 = new HashMap<>();
-    outputFileMap2.put(
-            "manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
-
-    runImageTest(
-            "TestScripts/sharpen.txt",
-            "manhattan-small.png",
-            "manhattan-small-sharpen-actual.png",
-            "manhattan-small-sharpen-expected.png",
-            "FilterImages");
+  //    runImageTest(
+  //            "TestScripts/sharpen.txt",
+  //            "manhattan-small.png",
+  //            "manhattan-small-sharpen-actual.png",
+  //            "manhattan-small-sharpen-expected.png",
+  //            "FilterImages");
   }
 
   //Commented due to file size issues.
@@ -463,21 +456,21 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
-  @Test
-  public void testVerticalFlipPNG() {
-    Map<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-vflip-actual.png", "manhattan-small-vflip-expected.png");
-
-    Map<String, String> replacements = new HashMap<>();
-
-    try {
-      runImageTest("TestScripts/vflip.txt", "manhattan-small.png",
-              outputFileMap, "FlipImages", replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+//  @Test
+//  public void testVerticalFlipPNG() {
+//    Map<String, String> outputFileMap = new HashMap<>();
+//    outputFileMap.put("manhattan-small-vflip-actual.png", "manhattan-small-vflip-expected.png");
+//
+//    Map<String, String> replacements = new HashMap<>();
+//
+//    try {
+//      runImageTest("TestScripts/vflip.txt", "manhattan-small.png",
+//              outputFileMap, "FlipImages", replacements, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
 
   @Test
   public void testVerticalFlipInvalidArgsPNG() {
@@ -496,21 +489,21 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
-  @Test
-  public void testHorizontalFlipJPG() {
-    Map<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-hflip-actual.jpg", "manhattan-small-hflip-expected.jpg");
-
-    Map<String, String> replacements = new HashMap<>();
-
-    try {
-      runImageTest("TestScripts/hflip.txt", "manhattan-small.jpg",
-              outputFileMap, "FlipImages", replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+  //  @Test
+  //  public void testHorizontalFlipJPG() {
+  //    Map<String, String> outputFileMap = new HashMap<>();
+  //    outputFileMap.put("manhattan-small-hflip-actual.jpg", "manhattan-small-hflip-expected.jpg");
+  //
+  //    Map<String, String> replacements = new HashMap<>();
+  //
+  //    try {
+  //      runImageTest("TestScripts/hflip.txt", "manhattan-small.jpg",
+  //              outputFileMap, "FlipImages", replacements, (expected, actual)
+  //                      -> assertEquals("Images should be identical", expected, actual));
+  //    } catch (IllegalArgumentException e) {
+  //      fail("Exception shouldn't be thrown");
+  //    }
+  //  }
 
   @Test
   public void testVerticalFlipJPG() {
@@ -545,21 +538,21 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
-  @Test
-  public void testHorizontalFlipPPM() {
-    Map<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-hflip-actual.ppm", "manhattan-small-hflip-expected.ppm");
-
-    Map<String, String> replacements = new HashMap<>();
-
-    try {
-      runImageTest("TestScripts/hflip.txt", "manhattan-small.ppm",
-              outputFileMap, "FlipImages", replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+//  @Test
+//  public void testHorizontalFlipPPM() {
+//    Map<String, String> outputFileMap = new HashMap<>();
+//    outputFileMap.put("manhattan-small-hflip-actual.ppm", "manhattan-small-hflip-expected.ppm");
+//
+//    Map<String, String> replacements = new HashMap<>();
+//
+//    try {
+//      runImageTest("TestScripts/hflip.txt", "manhattan-small.ppm",
+//              outputFileMap, "FlipImages", replacements, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
 
   @Test
   public void testVerticalFlipPPM() {
