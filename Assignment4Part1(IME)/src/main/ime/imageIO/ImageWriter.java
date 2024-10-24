@@ -1,6 +1,8 @@
 package ime.imageIO;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 /**
  * Interface for writing images to a file.
  * Implementations of this interface are responsible for saving a
@@ -13,7 +15,7 @@ public interface ImageWriter {
    *
    * @param image the image to be written
    * @param outputFileName the name of the output file, including the file extension
-   * @throws IllegalArgumentException if the file name is invalid or unsupported
+   * @throws IOException if the file name is invalid or unsupported
    */
-  void writeImage(BufferedImage image, String outputFileName) throws IllegalArgumentException;
+  void writeImage(BufferedImage image, String outputFileName) throws IOException;
 }

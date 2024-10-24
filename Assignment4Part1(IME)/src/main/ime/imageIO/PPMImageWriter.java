@@ -19,7 +19,7 @@ public class PPMImageWriter implements ImageWriter {
    * @param outputFilename the path and name of the output PPM file.
    */
   @Override
-  public void writeImage(BufferedImage image, String outputFilename) {
+  public void writeImage(BufferedImage image, String outputFilename) throws IOException{
     try (FileWriter writer = new FileWriter(outputFilename)) {
       int width = image.getWidth();
       int height = image.getHeight();
@@ -44,6 +44,7 @@ public class PPMImageWriter implements ImageWriter {
       LOGGER.log(Level.FINE, "PPM image written to " + outputFilename);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error writing PPM image to file: " + outputFilename, e);
+      throw new IOException("Error writing PPM image to file: " + outputFilename, e);
     }
   }
 }

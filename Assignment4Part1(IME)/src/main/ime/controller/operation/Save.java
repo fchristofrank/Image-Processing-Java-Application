@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageWriter;
@@ -32,8 +33,12 @@ public class Save extends AbstractOperation {
     String imageName = args[1];
     Image simpleImage = getImage(imageName);
     BufferedImage bufferedImage = convertToBufferedImage(simpleImage);
-    ImageWriter writer = ImageWriterFactory.createWriter(imageFormat);
-    writer.writeImage(bufferedImage, imagePath);
+    try {
+      ImageWriter writer = ImageWriterFactory.createWriter(imageFormat);
+      writer.writeImage(bufferedImage, imagePath);
+    }catch (IllegalArgumentException | IOException e){
+      throw new IllegalArgumentException(e.getMessage());
+    }
     System.out.println("Saved " + imageName + " in " + imagePath);
   }
 
