@@ -1,0 +1,11 @@
+load <inputFilePath>/boston.png test
+red-component test redImage
+green-component test greenImage
+blue-component test blueImage
+value-component test valueImage
+intensity-component test intensityImage
+luma-component test lumaImage
+sharpen test blur
+save <inputFilePath>/sharpen.png blur
+save <inputFilePath>/red.png redImage
+exit
