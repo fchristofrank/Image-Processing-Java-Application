@@ -19,7 +19,8 @@ Currently we support CLI commands and Script file
     intensity-component image-name dest-image-name  
     horizontal-flip image-name dest-image-name  
     vertical-flip image-name dest-image-name  
-    brighten increment image-name dest-image-name  
+    brighten alpha image-name dest-image-name 
+    darken alpha image-name dest-image-name 
     rgb-split image-name dest-image-name-red dest-image-name-green dest-image-name-blue  
     rgb-combine image-name red-image green-image blue-image  
     blur image-name dest-image-name  
@@ -91,7 +92,7 @@ Models :
             - **Abstract Class**:
                 - `AdjustBrightness`: Conducts basic checks before handing over the image to operations.
                     - `Brighten`: Overrides the `AdjustBrightness` execute method for brightness operations.
-                    - `Darken`: Overrides the execute method for darken operations.
+                    - `Darken`: Overrides the `AdjustBrightness` execute method for darken operations.
                 - `Filter`: Handles calls to blur or sharpen methods by creating operations based on the passed command.
                 - `Flip`: Conducts sanity checks on arguments and the image involved in the operation.
                     - `VerticalFlip`: Returns the vertical flip operation object to interact with the model layer.
