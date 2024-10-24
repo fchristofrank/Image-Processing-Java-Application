@@ -1,7 +1,3 @@
-# ImageManipulationAndEnhancement
-
-An application to enhance and manipulte images.
-
 Design Objective:
 
     Enforce SOLID principles. 
@@ -47,21 +43,25 @@ Controller:
 
 Operations:
 Interface
-1.ImageOperation
-2.MultiplImageOperation
+1.ImageOperation : This interface is for operation involving operation with single image. (Eg: Darken,Blur are operations on single image)
+2.MultiplImageOperation : Used for Operations involving multiple images. (Eg: Combine three images from R,G,B)
 
         AbstractClass : 
-            1. AbstractVisualize:
-                VisualizeRed
-                VisualizeGreen
-                VisualizeBlue
-                VisualizeLuma
-                VisualizeIntensity
-                VisualizeValue
-            2. ApplyBrightness:
+            1. AbstractVisualize: Contains the generic apply operation for visualization operation and gets the replacement value from each concrete class.
+                VisualizeRed : Concrete class that returns the red-component from the image.
+                VisualizeGreen : Contains the implementaion of the abstract method to return the green component from image.
+                VisualizeBlue : Contains the method to return the blue component.
+                VisualizeLuma : Rounds the luma value and returns to abstract class.
+                VisualizeIntensity : Returns the intensity of the image.
+                VisualizeValue : Returns the value component of the image.
+            2. ApplyBrightness: Applies the alpha value received from the controller on the given image.
             3. ApplyFlip
-                ApplyHorizontalFlip
-                ApplyVerticalFlip
-            4. Filter
-                Blur
-                Sharpen
+                ApplyHorizontalFlip : Flips Image horizontally.
+                ApplyVerticalFlip : Flips Image vertically.
+            4. Filter : Applies the kernel by traversing across all image points. (Kernel Operations)
+                Blur : Returns the gaussian kernel matrix on the image.
+                Sharpen : Returns the sharpening 5 X 5 matrix on each pixel.
+            
+
+
+
