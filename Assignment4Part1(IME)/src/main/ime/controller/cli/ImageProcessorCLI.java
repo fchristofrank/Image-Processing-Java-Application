@@ -44,10 +44,10 @@ public class ImageProcessorCLI implements CommandExecutor {
       if (!input.isEmpty()) {
         try {
           processInput(input);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
           System.out.println("Error executing command: " + e.getMessage());
         }
-      }else{
+      } else {
         System.out.println("Please enter a command.");
       }
     }
@@ -88,7 +88,7 @@ public class ImageProcessorCLI implements CommandExecutor {
     }
     if (fileContent != null) {
       for (String line : fileContent.split("\n")) {
-        if (line.startsWith("#")){
+        if (line.startsWith("#")) {
           continue;
         }
         executeCommand(line);

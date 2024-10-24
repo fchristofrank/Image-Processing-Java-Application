@@ -1,10 +1,10 @@
 package ime.controller.operation;
 
-import ime.model.operation.Combine;
-
-import ime.model.image.ImageLibrary;
-import ime.model.image.Image;
 import java.util.Arrays;
+
+import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
+import ime.model.operation.Combine;
 
 /**
  * Controller for combining three images into one using their RGB channels.
@@ -41,8 +41,8 @@ public class CombineRGB extends AbstractOperation {
       throw new IllegalArgumentException("Input image not found");
     }
     Image outputImage =
-        redImage.applyOperation(
-            new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+            redImage.applyOperation(
+                    new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
     addImage(inputName, outputImage);
   }
 

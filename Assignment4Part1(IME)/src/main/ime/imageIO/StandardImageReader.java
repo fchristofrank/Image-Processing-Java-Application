@@ -8,8 +8,8 @@ import javax.imageio.ImageIO;
 
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import ime.model.pixel.PixelFactory;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.PixelFactory;
 
 /**
  * This class represents a reader for images in JPG and PNG formats from a specified file name.

@@ -1,7 +1,8 @@
 package ime.model.operation;
 
-import ime.model.image.Image;
 import java.util.List;
+
+import ime.model.image.Image;
 
 /**
  * This interface defines the contract for operations that involve multiple images.
@@ -17,7 +18,7 @@ public interface MultipleImageOperation {
    * such as when images have incompatible dimensions.
    *
    * @param images a list of input images to apply the operation.
-   * @param args additional optional arguments required by the operation.
+   * @param args   additional optional arguments required by the operation.
    * @return the resulting image after the operation is applied.
    * @throws IllegalArgumentException if the input images are invalid.
    */

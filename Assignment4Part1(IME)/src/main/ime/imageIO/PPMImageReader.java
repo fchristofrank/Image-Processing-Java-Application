@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import ime.model.pixel.PixelFactory;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.PixelFactory;
 
 /**
  * This class represents a reader for images in PPM format from a specified file name.

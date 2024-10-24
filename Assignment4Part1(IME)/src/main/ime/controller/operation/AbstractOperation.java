@@ -1,7 +1,7 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 
 /**
  * An abstract base class for CLI operations in an image processing application.

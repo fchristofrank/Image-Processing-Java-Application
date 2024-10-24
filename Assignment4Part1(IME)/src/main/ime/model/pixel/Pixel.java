@@ -60,6 +60,7 @@ public interface Pixel {
   /**
    * Shifts the pixel's color components by a specified amount.
    * This operation modifies each color channel of the pixel by adding the given value.
+   *
    * @param alpha the amount by which to shift the pixel's color components.
    * @return the new pixel instance with the shifted color components.
    */

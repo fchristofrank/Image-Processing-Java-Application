@@ -2,6 +2,7 @@ package ime.model.operation;
 
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
+
 /**
  * This abstract class represents an operation to apply brightness adjustment to an image.
  * It implements the ImageOperation interface, providing functionality to

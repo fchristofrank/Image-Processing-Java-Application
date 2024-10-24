@@ -6,6 +6,7 @@ package ime.controller.operation;
 public interface CLIOperation {
   /**
    * This method executes a specific operation with the given arguments.
+   *
    * @param args the arguments for an operations.
    * @throws IllegalArgumentException if the operation cannot be performed due to invalid
    *                                  or insufficient arguments.
