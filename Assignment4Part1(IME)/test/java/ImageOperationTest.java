@@ -49,7 +49,8 @@ public class ImageOperationTest {
             .append(" ").append("boston-rgb-darken").append("\n");
     commandScript.append("blur").append(" ").append("boston").append(" ").append("boston-blur")
             .append("\n");
-    commandScript.append("sharpen").append(" ").append("boston").append(" ").append("boston-sharpen")
+    commandScript.append("sharpen").append(" ").append("boston").append(" ")
+            .append("boston-sharpen")
             .append("\n");
     commandScript.append("sepia").append(" ").append("boston").append(" ").append("boston-sepia")
             .append("\n");
@@ -64,7 +65,8 @@ public class ImageOperationTest {
             .append("\n");
     commandScript.append("save").append(" ").append(resDirPath).append("boston-hv-actual.png")
             .append(" ").append("boston-rgb-horizontal-vertical").append("\n").append("exit");
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString().getBytes());
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString()
+            .getBytes());
     System.setIn(inputStream);
     new ImageProcessorCLI(inputStream).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
@@ -82,8 +84,8 @@ public class ImageOperationTest {
     Image expectedRGBImage;
     Image expectedHVFlipImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath+"boston.png", ImageType.RGB);
-      expectedHVFlipImage = imageReader.read(resDirPath+"boston-hv-expected.png",
+      expectedRGBImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
+      expectedHVFlipImage = imageReader.read(resDirPath + "boston-hv-expected.png",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -123,7 +125,8 @@ public class ImageOperationTest {
             .append(" ").append("boston-rgb-darken").append("\n");
     commandScript.append("blur").append(" ").append("boston").append(" ").append("boston-blur")
             .append("\n");
-    commandScript.append("sharpen").append(" ").append("boston").append(" ").append("boston-sharpen")
+    commandScript.append("sharpen").append(" ").append("boston").append(" ")
+            .append("boston-sharpen")
             .append("\n");
     commandScript.append("sepia").append(" ").append("boston").append(" ").append("boston-sepia")
             .append("\n");
@@ -138,7 +141,8 @@ public class ImageOperationTest {
             .append("\n");
     commandScript.append("save").append(" ").append(resDirPath).append("boston-hv-actual.jpg")
             .append(" ").append("boston-rgb-horizontal-vertical").append("\n").append("exit");
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString().getBytes());
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString()
+            .getBytes());
     System.setIn(inputStream);
     new ImageProcessorCLI(inputStream).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
@@ -156,8 +160,8 @@ public class ImageOperationTest {
     Image expectedRGBImage;
     Image expectedHVFlipImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath+"boston.jpg", ImageType.RGB);
-      expectedHVFlipImage = imageReader.read(resDirPath+"boston-hv-expected.jpg",
+      expectedRGBImage = imageReader.read(resDirPath + "boston.jpg", ImageType.RGB);
+      expectedHVFlipImage = imageReader.read(resDirPath + "boston-hv-expected.jpg",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -197,7 +201,8 @@ public class ImageOperationTest {
             .append(" ").append("boston-rgb-darken").append("\n");
     commandScript.append("blur").append(" ").append("boston").append(" ").append("boston-blur")
             .append("\n");
-    commandScript.append("sharpen").append(" ").append("boston").append(" ").append("boston-sharpen")
+    commandScript.append("sharpen").append(" ").append("boston").append(" ")
+            .append("boston-sharpen")
             .append("\n");
     commandScript.append("sepia").append(" ").append("boston").append(" ").append("boston-sepia")
             .append("\n");
@@ -212,7 +217,8 @@ public class ImageOperationTest {
             .append("\n");
     commandScript.append("save").append(" ").append(resDirPath).append("boston-hv-actual.ppm")
             .append(" ").append("boston-rgb-horizontal-vertical").append("\n").append("exit");
-    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString().getBytes());
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(commandScript.toString()
+            .getBytes());
     System.setIn(inputStream);
     new ImageProcessorCLI(inputStream).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PPM);
@@ -226,7 +232,7 @@ public class ImageOperationTest {
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath+"boston.ppm", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston.ppm", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
