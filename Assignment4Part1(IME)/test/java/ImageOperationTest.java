@@ -18,6 +18,7 @@ import ime.imageIO.Reader;
 import ime.imageIO.ReaderFactory;
 import ime.model.image.Image;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ImageOperationTest {

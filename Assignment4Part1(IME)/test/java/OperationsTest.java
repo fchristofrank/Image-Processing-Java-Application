@@ -13,7 +13,7 @@ import ime.model.image.Image;
 
 import static org.junit.Assert.assertEquals;
 
-public class VisualizeTest extends ImageTestUtil {
+public class OperationsTest extends ImageOperationTest {
 
   @Test
   public void testSetup() {
@@ -48,7 +48,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeLuma() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/luma.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-luma-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -64,7 +64,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeRed() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/red.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-red-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -80,7 +80,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeBlue() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/blue.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-blue-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -96,7 +96,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeGreen() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/green.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-green-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -112,7 +112,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeIntensity() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/intensity.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-intensity-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -128,7 +128,7 @@ public class VisualizeTest extends ImageTestUtil {
   @Test
   public void testVisualizeValue() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/value.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-value-expected.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
