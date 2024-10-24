@@ -8,7 +8,7 @@ import java.util.Objects;
  * This class is responsible for determining the appropriate writer implementation for
  * various image formats.
  */
-public class WriterFactory {
+public class ImageWriterFactory {
 
   /**
    * Creates an instance of {@link ImageWriter} based on the provided {@link ImageFormat}.

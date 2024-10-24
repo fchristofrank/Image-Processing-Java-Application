@@ -13,7 +13,7 @@ import java.util.Map;
 
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageReader;
-import ime.imageIO.ReaderFactory;
+import ime.imageIO.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.operation.Combine;
@@ -660,7 +660,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/luma.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
@@ -676,7 +676,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/red.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
@@ -692,7 +692,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/blue.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
@@ -708,7 +708,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/green.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
@@ -724,7 +724,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/intensity.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
@@ -740,7 +740,7 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/value.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 

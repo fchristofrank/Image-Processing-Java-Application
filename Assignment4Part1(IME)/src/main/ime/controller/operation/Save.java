@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageWriter;
-import ime.imageIO.WriterFactory;
+import ime.imageIO.ImageWriterFactory;
 import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
@@ -32,7 +32,7 @@ public class Save extends AbstractOperation {
     String imageName = args[1];
     Image simpleImage = getImage(imageName);
     BufferedImage bufferedImage = convertToBufferedImage(simpleImage);
-    ImageWriter writer = WriterFactory.createWriter(imageFormat);
+    ImageWriter writer = ImageWriterFactory.createWriter(imageFormat);
     writer.writeImage(bufferedImage, imagePath);
     System.out.println("Saved " + imageName + " in " + imagePath);
   }
