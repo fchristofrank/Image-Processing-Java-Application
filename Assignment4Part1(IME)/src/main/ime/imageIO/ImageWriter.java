@@ -13,7 +13,7 @@ public interface ImageWriter {
    * Writes the given image to the specified file.
    * The output file name should include the desired format extension (e.g., "image.png").
    *
-   * @param image the image to be written
+   * @param image          the image to be written
    * @param outputFileName the name of the output file, including the file extension
    * @throws IOException if the file name is invalid or unsupported
    */

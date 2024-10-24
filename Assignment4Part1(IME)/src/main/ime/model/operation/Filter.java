@@ -2,9 +2,9 @@ package ime.model.operation;
 
 import ime.model.image.Image;
 import ime.model.image.ImageType;
+import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
-import ime.model.image.SimpleImage;
 
 import static ime.constants.FilterConstants.PIXEL_LOWER_LIMIT;
 import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
@@ -31,14 +31,14 @@ public abstract class Filter implements ImageOperation {
    * altered according to the filter's kernel.
    *
    * @param inputImage the image on which the filter is applied
-   * @param args additional arguments, if any (not used in this operation)
+   * @param args       additional arguments, if any (not used in this operation)
    * @return a new filtered image
    * @throws IllegalArgumentException if the input image or arguments are invalid
    */
   public Image apply(Image inputImage, String[] args) throws IllegalArgumentException {
 
     Image outputImage =
-        new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
+            new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
 
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
@@ -56,8 +56,8 @@ public abstract class Filter implements ImageOperation {
    * out of bounds, it is skipped in the convolution process.
    *
    * @param image the input image
-   * @param x the x-coordinate of the pixel
-   * @param y the y-coordinate of the pixel
+   * @param x     the x-coordinate of the pixel
+   * @param y     the y-coordinate of the pixel
    * @return a new pixel with clamped RGB values based on the convolution results
    */
   private Pixel applyFilterToPixel(Image image, int x, int y) {
@@ -89,25 +89,25 @@ public abstract class Filter implements ImageOperation {
    * Checks if a given pixel is out of the bounds of the image. If the pixel coordinates fall
    * outside the image dimensions, it is considered out of bounds.
    *
-   * @param image the input image
+   * @param image    the input image
    * @param currentX the x-coordinate of the pixel
    * @param currentY the y-coordinate of the pixel
    * @return true if the pixel is out of bounds, false otherwise
    */
   private boolean isOutOfBounds(Image image, int currentX, int currentY) {
     return currentX < 0
-        || currentX >= image.getHeight()
-        || currentY < 0
-        || currentY >= image.getWidth();
+            || currentX >= image.getHeight()
+            || currentY < 0
+            || currentY >= image.getWidth();
   }
 
   /**
    * Creates a new pixel with clamped RGB values. Each RGB value is clamped between the pixel lower
    * limit and upper limit to prevent overflow or underflow.
    *
-   * @param red the red value to be clamped
+   * @param red   the red value to be clamped
    * @param green the green value to be clamped
-   * @param blue the blue value to be clamped
+   * @param blue  the blue value to be clamped
    * @return a new Pixel object with clamped RGB values
    */
   private Pixel createClampedPixel(int red, int green, int blue) {

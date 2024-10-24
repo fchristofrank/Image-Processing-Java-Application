@@ -6,9 +6,10 @@ import java.io.IOException;
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageWriter;
 import ime.imageIO.ImageWriterFactory;
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.pixel.Pixel;
+
 /**
  * Controller class for saving images from the image library to the file system.
  * This class is responsible for converting an image to a buffered image and writing it
@@ -25,7 +26,7 @@ public class Save extends AbstractOperation {
   }
 
   @Override
-  public void execute(String[] args) throws IllegalArgumentException{
+  public void execute(String[] args) throws IllegalArgumentException {
     validateArgs(args);
     String imagePath = args[0];
     String[] parts = imagePath.split("\\.");
@@ -36,7 +37,7 @@ public class Save extends AbstractOperation {
     try {
       ImageWriter writer = ImageWriterFactory.createWriter(imageFormat);
       writer.writeImage(bufferedImage, imagePath);
-    }catch (IllegalArgumentException | IOException e){
+    } catch (IllegalArgumentException | IOException e) {
       throw new IllegalArgumentException(e.getMessage());
     }
     System.out.println("Saved " + imageName + " in " + imagePath);

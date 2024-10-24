@@ -11,12 +11,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- *This test class evaluates the functionalities of the Simple Image class.
+ * This test class evaluates the functionalities of the Simple Image class.
  */
 public class SimpleImageTest {
   @Test
-  public void testImageEqualityEqualImages(){
-    Image simpleImage1  = new SimpleImage(1, 1, ImageType.RGB);
+  public void testImageEqualityEqualImages() {
+    Image simpleImage1 = new SimpleImage(1, 1, ImageType.RGB);
     simpleImage1.setPixel(0, 0, PixelFactory.createPixel(simpleImage1.getType(),
             100, 100, 100));
     Image simpleImage2 = new SimpleImage(1, 1, ImageType.RGB);
@@ -26,8 +26,8 @@ public class SimpleImageTest {
   }
 
   @Test
-  public void testImageEqualityUnEqualImages(){
-    Image simpleImage1  = new SimpleImage(1, 1, ImageType.RGB);
+  public void testImageEqualityUnEqualImages() {
+    Image simpleImage1 = new SimpleImage(1, 1, ImageType.RGB);
     simpleImage1.setPixel(0, 0, PixelFactory.createPixel(simpleImage1.getType(),
             200, 100, 100));
     Image simpleImage2 = new SimpleImage(1, 1, ImageType.RGB);
@@ -37,9 +37,9 @@ public class SimpleImageTest {
   }
 
   @Test
-  public void testHashCode(){
+  public void testHashCode() {
     int hashcode = 1688081780;
-    Image simpleImage  = new SimpleImage(1, 1, ImageType.RGB);
+    Image simpleImage = new SimpleImage(1, 1, ImageType.RGB);
     simpleImage.setPixel(0, 0, PixelFactory.createPixel(simpleImage.getType(),
             200, 100, 100));
     assertEquals(hashcode, simpleImage.hashCode());

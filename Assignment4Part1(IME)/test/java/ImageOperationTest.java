@@ -30,19 +30,6 @@ import static org.junit.Assert.fail;
 public class ImageOperationTest {
 
   /**
-   * Interface used to define custom assertions for comparing expected and actual images.
-   */
-  public interface ImageAssertion {
-    /**
-     * Performs an assertion to compare two images.
-     *
-     * @param expected the expected image result.
-     * @param actual   the actual image result after processing.
-     */
-    void assertImages(Image expected, Image actual);
-  }
-
-  /**
    * Runs a CLI command by simulating input. The command string is provided to the
    * CLI application via standard input.
    *
@@ -175,7 +162,6 @@ public class ImageOperationTest {
     }
   }
 
-
   protected void runImageTest(String commandScriptPath, String inputImageFileName,
                               String outputActualFileName, String outputExpectedFileName,
                               String folderName, String... replacements) {
@@ -239,5 +225,18 @@ public class ImageOperationTest {
     } catch (IOException e) {
       throw new RuntimeException("Error reading image file: " + imageFileName, e);
     }
+  }
+
+  /**
+   * Interface used to define custom assertions for comparing expected and actual images.
+   */
+  public interface ImageAssertion {
+    /**
+     * Performs an assertion to compare two images.
+     *
+     * @param expected the expected image result.
+     * @param actual   the actual image result after processing.
+     */
+    void assertImages(Image expected, Image actual);
   }
 }
