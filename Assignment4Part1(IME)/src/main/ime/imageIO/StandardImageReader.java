@@ -14,9 +14,9 @@ import ime.model.image.SimpleImage;
 /**
  * This class represents a reader for images in JPG and PNG formats from a specified file name.
  */
-public class JpgPngReader implements Reader{
+public class StandardImageReader implements ImageReader {
   @Override
-  public Image read(String filename) throws IOException {
+  public Image read(String filename, ImageType imageType) throws IOException {
     try {
       BufferedImage image = ImageIO.read(new File(filename));
       if (image == null) {
@@ -25,7 +25,7 @@ public class JpgPngReader implements Reader{
 
       int width = image.getWidth();
       int height = image.getHeight();
-      Image simpleImage = new SimpleImage(height, width, ImageType.RGB);
+      Image simpleImage = new SimpleImage(height, width, imageType);
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int pixel = image.getRGB(j, i);

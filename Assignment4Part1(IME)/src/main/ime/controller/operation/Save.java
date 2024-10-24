@@ -2,8 +2,10 @@ package ime.controller.operation;
 
 import java.awt.image.BufferedImage;
 
-import ime.model.image.ImageLibrary;
+import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageWriter;
+import ime.imageIO.WriterFactory;
+import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 /**
@@ -26,11 +28,12 @@ public class Save extends AbstractOperation {
     validateArgs(args);
     String imagePath = args[0];
     String[] parts = imagePath.split("\\.");
-    String imageFormat = parts[parts.length - 1];
+    ImageFormat imageFormat = ImageFormat.valueOf(parts[parts.length - 1].toUpperCase());
     String imageName = args[1];
     Image simpleImage = getImage(imageName);
     BufferedImage bufferedImage = convertToBufferedImage(simpleImage);
-    ImageWriter.writeImage(bufferedImage, imageFormat, imagePath);
+    ImageWriter writer = WriterFactory.createWriter(imageFormat);
+    writer.writeImage(bufferedImage, imagePath);
     System.out.println("Saved " + imageName + " in " + imagePath);
   }
 

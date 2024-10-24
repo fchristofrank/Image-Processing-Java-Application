@@ -13,16 +13,16 @@ import ime.model.image.SimpleImage;
 /**
  * This class represents a reader for images in PPM format from a specified file name.
  */
-public class PPMReader implements Reader {
+public class PPMImageReader implements ImageReader {
 
   @Override
-  public Image read(String filename) throws IOException {
+  public Image read(String filename, ImageType imageType) throws IOException {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      throw new IOException("File " + filename + " not found!");
+      throw new IOException("File does not exist: " + filename);
     }
 
     StringBuilder builder = new StringBuilder();
@@ -42,7 +42,7 @@ public class PPMReader implements Reader {
 
     int width = sc.nextInt();
     int height = sc.nextInt();
-    Image simpleImage = new SimpleImage(height, width, ImageType.RGB);
+    Image simpleImage = new SimpleImage(height, width, imageType);
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {

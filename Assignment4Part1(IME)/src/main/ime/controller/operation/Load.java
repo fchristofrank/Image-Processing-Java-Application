@@ -5,10 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ime.imageIO.ImageFormat;
-import ime.model.image.ImageLibrary;
-import ime.imageIO.Reader;
+import ime.imageIO.ImageReader;
 import ime.imageIO.ReaderFactory;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
+import ime.model.image.ImageType;
+
 /**
  * Controller class for loading images into the image library.
  * This class is responsible for reading an image file from the specified path
@@ -16,6 +18,7 @@ import ime.model.image.Image;
  */
 public class Load extends AbstractOperation {
   private static final Logger LOGGER = Logger.getLogger(Load.class.getName());
+
   /**
    * Constructs a Load operation controller with the specified image library.
    *
@@ -32,12 +35,14 @@ public class Load extends AbstractOperation {
     String imageName = args[1];
     String[] parts = imagePath.split("\\.");
     String imageFormat = parts[parts.length - 1];
-    Reader reader = ReaderFactory.createrReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
     Image image = null;
     try {
-      image = reader.read(imagePath);
+      image = imageReader.read(imagePath, ImageType.RGB);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
+      throw new IllegalArgumentException("Error reading image file: " + imagePath +
+              ". Please ensure the file exists and is a valid image format.", e);
     }
     addImage(imageName, image);
     System.out.println("Image loaded: " + imageName);

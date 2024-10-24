@@ -14,11 +14,11 @@ public class ReaderFactory {
    * @return A Reader object capable of reading the specified image format.
    * @throws IllegalArgumentException If the provided image format is not supported.
    */
-  public static Reader createrReader(ImageFormat imageFormat) throws IllegalArgumentException {
+  public static ImageReader createReader(ImageFormat imageFormat) throws IllegalArgumentException {
     if (Objects.requireNonNull(imageFormat) == ImageFormat.PNG || Objects.requireNonNull(imageFormat) == ImageFormat.JPG) {
-      return new JpgPngReader();
+      return new StandardImageReader();
     } else if (Objects.requireNonNull(imageFormat) == ImageFormat.PPM) {
-      return new PPMReader();
+      return new PPMImageReader();
     } else {
       throw new IllegalArgumentException("Unsupported image format.");
     }
