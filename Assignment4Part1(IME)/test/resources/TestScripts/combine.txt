@@ -1,0 +1,10 @@
+load <input_image_path> test
+
+red-component test red
+green-component test green
+blue-component test blue
+
+rgb-combine combined red green blue
+
+save <output_image_path> combined
+exit
