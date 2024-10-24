@@ -1,7 +1,7 @@
 package ime.imageIO;
 
 /**
- * The ImageWriter class provides functionality for writing image files to disk.
+ * The ImageWriter class provides functionality for writing PNG image files to disk.
  */
 public class PNGImageWriter extends AbstractWriter{
 

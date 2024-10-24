@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The ImageWriter class provides functionality for writing PPM image files to disk.
+ */
 public class PPMImageWriter implements ImageWriter {
   private static final Logger LOGGER = Logger.getLogger(PPMImageWriter.class.getName());
 

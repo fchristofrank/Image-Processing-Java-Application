@@ -8,6 +8,11 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Abstract class that provides a base implementation for writing images to a file.
+ * Concrete subclasses should implement the {@link #getFormat()} method to specify the
+ * format in which the image will be written (e.g., JPG, PNG).
+ */
 public abstract class AbstractWriter implements ImageWriter {
   private static final Logger LOGGER = Logger.getLogger(JPGImageWriter.class.getName());
 
@@ -28,5 +33,10 @@ public abstract class AbstractWriter implements ImageWriter {
     }
 
   }
+
+  /**
+   * This method gets the format of the image in which the image will be written.
+   * @return the format of the image.
+   */
   public abstract ImageFormat getFormat();
 }
