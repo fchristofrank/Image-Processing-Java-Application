@@ -1,8 +1,11 @@
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class tests the functionalities of sepia filter image operation.
@@ -16,7 +19,13 @@ public class SepiaOperationTest extends ImageOperationTest {
 
     HashMap<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.png", outputFileMap, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    try {
+      runImageTest("TestScripts/sepia.txt", "manhattan-small.png",
+              outputFileMap, "FilterImages", replacements, (expected, actual)
+                      -> assertEquals("Images should be identical", expected, actual));
+    } catch (IllegalArgumentException e) {
+      fail("Exception shouldn't be thrown");
+    }
   }
 
   @Test
@@ -26,6 +35,12 @@ public class SepiaOperationTest extends ImageOperationTest {
 
     HashMap<String, String> replacements = new HashMap<>();
 
-    runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg", outputFileMap, "FilterImages", replacements, (expected, actual) -> assertEquals("Images should be identical", expected, actual));
+    try {
+      runImageTest("TestScripts/sepia.txt", "manhattan-small.jpg",
+              outputFileMap, "FilterImages", replacements, (expected, actual)
+                      -> assertEquals("Images should be identical", expected, actual));
+    } catch (IllegalArgumentException e) {
+      fail("Exception shouldn't be thrown");
+    }
   }
 }

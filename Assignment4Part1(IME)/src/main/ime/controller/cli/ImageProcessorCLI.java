@@ -42,7 +42,12 @@ public class ImageProcessorCLI implements CommandExecutor {
         break;
       }
       if (!input.isEmpty()) {
-        processInput(input);
+        try {
+          processInput(input);
+        }catch (IllegalArgumentException e){
+          System.out.println("Error executing command: " + e.getMessage());
+          break;
+        }
       }else{
         System.out.println("Please enter a command.");
       }
@@ -106,12 +111,8 @@ public class ImageProcessorCLI implements CommandExecutor {
     }
     String operationName = parts[0];
     String[] args = Arrays.copyOfRange(parts, 1, parts.length);
-    try {
-      CLIOperation operation = imageOperationFactory.createOperation(operationName);
-      operation.execute(args);
-    } catch (IllegalArgumentException e) {
-      System.out.println("Error executing command: " + e.getMessage());
-    }
+    CLIOperation operation = imageOperationFactory.createOperation(operationName);
+    operation.execute(args);
   }
 
 }

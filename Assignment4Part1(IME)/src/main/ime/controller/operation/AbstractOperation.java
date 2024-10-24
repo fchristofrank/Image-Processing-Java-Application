@@ -26,9 +26,19 @@ public abstract class AbstractOperation implements CLIOperation {
    *
    * @param imageName the name of the image to retrieve
    * @return the Image object associated with the given name
+   * @throws IllegalArgumentException if the image is not found or the library is null
    */
   protected Image getImage(String imageName) {
-    return this.library.getImage(imageName);
+    if (this.library == null) {
+      throw new IllegalArgumentException("Image library is not initialized.");
+    }
+
+    Image image = this.library.getImage(imageName);
+    if (image == null) {
+      throw new IllegalArgumentException("Image not found in the library: " + imageName);
+    }
+
+    return image;
   }
 
   /**

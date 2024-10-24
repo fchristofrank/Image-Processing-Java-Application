@@ -7,9 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import ime.imageIO.ImageFormat;
-import ime.imageIO.Reader;
+import ime.imageIO.ImageReader;
 import ime.imageIO.ReaderFactory;
 import ime.model.image.Image;
+import ime.model.image.ImageType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -51,12 +52,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/luma.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/luma.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/luma.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
@@ -67,12 +68,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/red.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/red.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/red.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
@@ -83,12 +84,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/blue.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/blue.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/blue.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
@@ -99,12 +100,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/green.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/green.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/green.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
@@ -115,12 +116,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/intensity.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/intensity.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/intensity.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
@@ -131,12 +132,12 @@ public class OperationsTest extends ImageOperationTest {
     URL expectedImageURL = getClass().getResource("VisualizeImages/value.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
-    Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
+    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.PNG);
     assert expectedImageURL != null;
     assert actualImageURL != null;
 
-    Image expectedImage = reader.read(expectedImageURL.getPath());
-    Image actualImage = reader.read(actualImageURL.getPath() + "VisualizeImages/value.png");
+    Image expectedImage = imageReader.read(expectedImageURL.getPath(), ImageType.RGB);
+    Image actualImage = imageReader.read(actualImageURL.getPath() + "VisualizeImages/value.png", ImageType.RGB);
 
     assertEquals(expectedImage, actualImage);
   }
