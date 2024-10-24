@@ -41,6 +41,7 @@ public class Visualize extends AbstractOperation {
     }
     Image outputImage = inputImage.applyOperation(visualizeObjectFactory(this.command), args);
     addImage(outputName, outputImage);
+    System.out.println("Extracted given component. New Image :: "+outputName);
   }
 
   private AbstractVisualize visualizeObjectFactory(String command) {

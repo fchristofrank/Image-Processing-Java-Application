@@ -40,6 +40,7 @@ public class Filter extends AbstractOperation {
     }
     Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), args);
     addImage(outputName, outputImage);
+    System.out.println("Filtered given images. New Image :: "+outputName);
   }
 
   /**

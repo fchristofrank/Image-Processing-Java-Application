@@ -47,6 +47,7 @@ public class CombineRGB extends AbstractOperation {
             redImage.applyOperation(
                     new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
     addImage(inputName, outputImage);
+    System.out.println("Combine given images. New Image :: "+inputName);
   }
 
   @Override
