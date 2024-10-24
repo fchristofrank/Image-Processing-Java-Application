@@ -46,7 +46,6 @@ public class ImageProcessorCLI implements CommandExecutor {
           processInput(input);
         }catch (IllegalArgumentException e){
           System.out.println("Error executing command: " + e.getMessage());
-          break;
         }
       }else{
         System.out.println("Please enter a command.");

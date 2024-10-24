@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageReader;
-import ime.imageIO.ReaderFactory;
+import ime.imageIO.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageLibrary;
 import ime.model.image.ImageType;
@@ -35,7 +35,7 @@ public class Load extends AbstractOperation {
     String imageName = args[1];
     String[] parts = imagePath.split("\\.");
     String imageFormat = parts[parts.length - 1];
-    ImageReader imageReader = ReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
     Image image = null;
     try {
       image = imageReader.read(imagePath, ImageType.RGB);

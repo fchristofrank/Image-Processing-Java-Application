@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  * format in which the image will be written (e.g., JPG, PNG).
  */
 public abstract class AbstractWriter implements ImageWriter {
-  private static final Logger LOGGER = Logger.getLogger(JPGImageWriter.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(AbstractWriter.class.getName());
 
   /**
    * Writes a BufferedImage to a specified file in the given format.

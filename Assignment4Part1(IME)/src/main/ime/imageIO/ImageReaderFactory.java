@@ -6,7 +6,7 @@ import java.util.Objects;
  * The ReaderFactory class is responsible for creating appropriate Reader objects
  * based on the given image format.
  */
-public class ReaderFactory {
+public class ImageReaderFactory {
   /**
    * Creates and returns a Reader object appropriate for the specified image format.
    *

@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.imageIO.ImageFormat;
 import ime.imageIO.ImageReader;
-import ime.imageIO.ReaderFactory;
+import ime.imageIO.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 
@@ -134,7 +134,7 @@ public class ImageOperationTest {
       String expectedFileName = entry.getValue();
 
       String format = actualFileName.split("\\.")[1].toUpperCase();
-      ImageReader imageReader = ReaderFactory.createReader(ImageFormat.valueOf(format));
+      ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.valueOf(format));
 
       Path actualImagePath = outputFolderPath.resolve(actualFileName);
       Path expectedImagePath = outputFolderPath.resolve(expectedFileName);
@@ -202,7 +202,7 @@ public class ImageOperationTest {
 
       runTest(command);
       String format = outputActualFileName.split("\\.")[1];
-      ImageReader imageReader = ReaderFactory.createReader(ImageFormat.valueOf(format.toUpperCase()));
+      ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.valueOf(format.toUpperCase()));
       Image actualImage = imageReader.read(outputActualImagePath.toString(), ImageType.RGB);
       Image expectedImage = imageReader.read(outputExpectedImagePath.toString(), ImageType.RGB);
       assertEquals(actualImage, expectedImage);
@@ -226,7 +226,7 @@ public class ImageOperationTest {
 
       String fileExtension = imageFileName.substring(imageFileName.
               lastIndexOf(".") + 1);
-      ImageReader imageReader = ReaderFactory.createReader(ImageFormat.valueOf(fileExtension.
+      ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.valueOf(fileExtension.
               toUpperCase()));
 
       assert imageUrl != null;
