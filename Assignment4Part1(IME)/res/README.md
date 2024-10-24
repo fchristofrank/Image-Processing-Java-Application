@@ -31,7 +31,7 @@ To Run a script file use the below command:
 
 Sample Script File (Requires Replacing Image path and destination as per your machine):
 
-    load <inputFile> test
+    load <inputFilePath> test
     red-component test redImage
     green-component test greenImage
     blue-component test blueImage
@@ -55,13 +55,13 @@ Sample Script File (Requires Replacing Image path and destination as per your ma
 - Follow configurable coding practices.
 
 Controller :
-![ClassDiagram](Assignment4Part1(IME)/res/controller.jpg)
+![ClassDiagram](controller.jpg)
 
 Operations :
-![ClassDiagram](Assignment4Part1(IME)/res/model.jpg)
+![ClassDiagram](model.jpg)
 
 Models :
-![ClassDiagram](Assignment4Part1(IME)/res/models.png)
+![ClassDiagram](models.jpg)
 
 
 ---
