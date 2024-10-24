@@ -1,4 +1,0 @@
-load <input_image_path> manhattan
-vertical-flip manhattan manhattan-vflip
-save <output_image_path> manhattan-vflip
-exit

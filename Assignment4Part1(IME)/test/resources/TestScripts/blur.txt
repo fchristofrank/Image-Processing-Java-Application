@@ -1,6 +1,0 @@
-load <input_image_path> manhattan
-
-blur manhattan manhattan-blur
-save <output_image_path> manhattan-blur
-
-exit

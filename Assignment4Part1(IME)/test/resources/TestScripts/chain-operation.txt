@@ -1,7 +1,0 @@
-load <input_image_path> manhattan
-sepia manhattan manhattan-sepia
-vertical-flip manhattan-sepia manhattan-sepia-vflip
-horizontal-flip manhattan-sepia-vflip manhattan-sepia-vflip-hflip
-brighten <alpha_value> manhattan-sepia-vflip-hflip manhattan-sepia-vflip-hflip-bright
-save <output_image_path> manhattan-sepia-vflip-hflip-bright
-exit

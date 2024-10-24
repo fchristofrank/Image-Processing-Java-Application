@@ -1,4 +1,0 @@
-load <input_image_path> manhattan
-brighten <alpha_value> manhattan manhattan-bright
-save <output_image_path> manhattan-bright
-exit
