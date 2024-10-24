@@ -131,6 +131,9 @@ Models :
     - **Concrete Classes**:
         - `Blur`: Returns the Gaussian kernel matrix on the image.
         - `Sharpen`: Returns the sharpening 5x5 matrix for each pixel.
+5. **Sepia**: Applies the sepia filter to the image by performing color transformations on individual pixels.
+    - **Concrete Classes**:
+        - `Sepia`: Returns the sepia filter applied image.
 
 
 
