@@ -247,7 +247,8 @@ public class OperationsTest extends ImageOperationTest {
             "CombineImages");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  //Commented due to file size issues (number of files)
+ /* @Test(expected = IllegalArgumentException.class)
   public void combineDimensionTestRed() {
 
     MultipleImageOperation combine = new Combine();
@@ -255,9 +256,10 @@ public class OperationsTest extends ImageOperationTest {
     Image smallDimensionImage = loadImageFromResources("white_test.png");
 
     combine.apply(Arrays.asList(largeDimensionImage, smallDimensionImage, smallDimensionImage), "");
-  }
+  }*/
 
-  @Test
+  //Commented due to file size issues (number of files).
+  /*@Test
   public void combineDimensionTest() {
     MultipleImageOperation combine = new Combine();
     Image largeDimensionImage = loadImageFromResources("manhattan-small.png");
@@ -313,7 +315,7 @@ public class OperationsTest extends ImageOperationTest {
     } catch (IllegalArgumentException e) {
       // Expected
     }
-  }
+  }*/
 
   @Test
   public void testFromCLI() {
@@ -349,7 +351,8 @@ public class OperationsTest extends ImageOperationTest {
             "manhattan-small-blur-expected.png",
             "FilterImages");
 
-    // Blur White jpg test
+    //Commented due to file size issues.
+    /*// Blur White jpg test
     runImageTest(
             "TestScripts/blur.txt",
             "white_test.jpg",
@@ -379,33 +382,35 @@ public class OperationsTest extends ImageOperationTest {
             "black_test.jpg",
             "black_test_actual.jpg",
             "black_test_blur_expected.jpg",
-            "FilterImages");
+            "FilterImages");*/
   }
 
   @Test
   public void testSharpen() {
     runImageTest(
-            "TestScripts/sharpen.txt",
-            "manhattan-small.jpg",
-            "manhattan-small-sharpen-actual.jpg",
-            "manhattan-small-sharpen-expected.jpg",
-            "FilterImages");
+        "TestScripts/sharpen.txt",
+        "manhattan-small.jpg",
+        "manhattan-small-sharpen-actual.jpg",
+        "manhattan-small-sharpen-expected.jpg",
+        "FilterImages");
     Map<String, String> outputFileMap1 = new HashMap<>();
     outputFileMap1.put(
-            "manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
+        "manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
 
     Map<String, String> outputFileMap2 = new HashMap<>();
     outputFileMap2.put(
-            "manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
+        "manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
 
     runImageTest(
-            "TestScripts/sharpen.txt",
-            "manhattan-small.png",
-            "manhattan-small-sharpen-actual.png",
-            "manhattan-small-sharpen-expected.png",
-            "FilterImages");
+        "TestScripts/sharpen.txt",
+        "manhattan-small.png",
+        "manhattan-small-sharpen-actual.png",
+        "manhattan-small-sharpen-expected.png",
+        "FilterImages");
+    }
 
-    runImageTest(
+    //Commented due to file size issues.
+    /*runImageTest(
             "TestScripts/sharpen.txt",
             "white_test.jpg",
             "white_test_sharpen_actual.jpg",
@@ -420,7 +425,7 @@ public class OperationsTest extends ImageOperationTest {
             "white_test_sharpen_expected.png",
             "FilterImages");
   }
-
+*/
   //Flip Operation
   @Test
   public void testHorizontalFlipPNG() {
