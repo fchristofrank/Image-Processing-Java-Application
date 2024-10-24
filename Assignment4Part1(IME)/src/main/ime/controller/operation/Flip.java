@@ -30,8 +30,18 @@ public abstract class Flip extends AbstractOperation {
     }
     Image outputImage = inputImage.applyOperation(getOperation());
     addImage(outputName, outputImage);
-    System.out.println("Applying horizontal flip. New image created: " + outputName);
+    System.out.println("Applying " + getOperationName() + ". New image created: " + outputName);
   }
 
+  /**
+   * This method gets the corresponding operation.
+   * @return the specific ImageOperation instance.
+   */
   protected abstract ImageOperation getOperation();
+
+  /**
+   * This method gets the specific operation name.
+   * @return the name of the operation.
+   */
+  protected abstract String getOperationName();
 }

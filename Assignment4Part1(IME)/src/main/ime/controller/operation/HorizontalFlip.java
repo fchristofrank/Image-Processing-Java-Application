@@ -29,4 +29,10 @@ public class HorizontalFlip extends Flip {
   protected ImageOperation getOperation() {
     return new ApplyHorizontalFlip();
   }
+
+  @Override
+  protected String getOperationName() {
+    return "Horizontal Flip";
+  }
+
 }

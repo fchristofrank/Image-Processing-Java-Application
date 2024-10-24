@@ -39,5 +39,5 @@ public abstract class AbstractWriter implements ImageWriter {
    *
    * @return the format of the image.
    */
-  public abstract ImageFormat getFormat();
+  protected abstract ImageFormat getFormat();
 }

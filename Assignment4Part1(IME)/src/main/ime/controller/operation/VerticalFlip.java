@@ -31,4 +31,9 @@ public class VerticalFlip extends Flip {
   protected ImageOperation getOperation() {
     return new ApplyVerticalFlip();
   }
+
+  @Override
+  protected String getOperationName() {
+    return "Vertical Flip";
+  }
 }

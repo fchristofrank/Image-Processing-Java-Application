@@ -7,7 +7,7 @@ public class JPGImageWriter extends AbstractWriter {
 
 
   @Override
-  public ImageFormat getFormat() {
+  protected ImageFormat getFormat() {
     return ImageFormat.JPG;
   }
 }

@@ -43,6 +43,27 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
+  //BrightnessTest
+  @Test
+  public void testBrightenPNG() {
+    HashMap<String, String> outputFileMap = new HashMap<>();
+    outputFileMap.put("manhattan-small-brighten-actual.png",
+            "manhattan-small-brighten-expected.png");
+
+    HashMap<String, String> replacements = new HashMap<>();
+    replacements.put("<alpha_value>", "50");
+
+    try {
+      runImageTest("TestScripts/brighten.txt",
+              "manhattan-small.png", outputFileMap,
+              "AdjustBrightnessImages",
+              replacements, (expected, actual)
+                      -> assertEquals("Images should be identical", expected, actual));
+    } catch (IllegalArgumentException e) {
+      fail("Exception shouldn't be thrown");
+    }
+  }
+
   @Test
   public void testFullDarkenPNG() {
     HashMap<String, String> outputFileMap = new HashMap<>();
@@ -81,42 +102,43 @@ public class OperationsTest extends ImageOperationTest {
     }
   }
 
-  @Test
-  public void testFullBrightenJPG() {
-    HashMap<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-full-brighten-actual.jpg",
-            "manhattan-small-full-brighten-expected.jpg");
-
-    HashMap<String, String> replacements = new HashMap<>();
-    replacements.put("<alpha_value>", "300");
-
-    try {
-      runImageTest("TestScripts/brighten.txt",
-              "manhattan-small.jpg", outputFileMap,
-              "AdjustBrightnessImages", replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
-
-  @Test
-  public void testFullDarkenJPG() {
-    HashMap<String, String> outputFileMap = new HashMap<>();
-    outputFileMap.put("manhattan-small-full-darken-actual.jpg",
-            "manhattan-small-full-darken-expected.jpg");
-
-    HashMap<String, String> replacements = new HashMap<>();
-    replacements.put("<alpha_value>", "500");
-
-    try {
-      runImageTest("TestScripts/darken.txt", "manhattan-small.jpg",
-              outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual)
-                      -> assertEquals("Images should be identical", expected, actual));
-    } catch (IllegalArgumentException e) {
-      fail("Exception shouldn't be thrown");
-    }
-  }
+  //commented due to number of files limitation on the server.
+//  @Test
+//  public void testFullBrightenJPG() {
+//    HashMap<String, String> outputFileMap = new HashMap<>();
+//    outputFileMap.put("manhattan-small-full-brighten-actual.jpg",
+//            "manhattan-small-full-brighten-expected.jpg");
+//
+//    HashMap<String, String> replacements = new HashMap<>();
+//    replacements.put("<alpha_value>", "300");
+//
+//    try {
+//      runImageTest("TestScripts/brighten.txt",
+//              "manhattan-small.jpg", outputFileMap,
+//              "AdjustBrightnessImages", replacements, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
+//
+//  @Test
+//  public void testFullDarkenJPG() {
+//    HashMap<String, String> outputFileMap = new HashMap<>();
+//    outputFileMap.put("manhattan-small-full-darken-actual.jpg",
+//            "manhattan-small-full-darken-expected.jpg");
+//
+//    HashMap<String, String> replacements = new HashMap<>();
+//    replacements.put("<alpha_value>", "500");
+//
+//    try {
+//      runImageTest("TestScripts/darken.txt", "manhattan-small.jpg",
+//              outputFileMap, "AdjustBrightnessImages", replacements, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
 
   @Test
   public void testAdjustBrightnessInvalidArgumentJPG() {
