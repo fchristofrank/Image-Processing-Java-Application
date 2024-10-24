@@ -40,7 +40,8 @@ public class Combine implements MultipleImageOperation {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        validateGrayscaleImages(redImage.getPixel(i, j), greenImage.getPixel(i, j), blueImage.getPixel(i, j));
+        validateGrayscaleImages(redImage.getPixel(i, j), greenImage.getPixel(i, j), blueImage
+                .getPixel(i, j));
 
         int redValue = redImage.getPixel(i, j).getRed();
         int greenValue = greenImage.getPixel(i, j).getGreen();

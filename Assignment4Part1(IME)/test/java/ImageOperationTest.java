@@ -10,30 +10,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import ime.controller.cli.ImageProcessorCLI;
-import ime.controller.operation.Save;
 import ime.imageio.ImageFormat;
 import ime.imageio.ImageReader;
 import ime.imageio.ImageReaderFactory;
 import ime.model.image.Image;
-import ime.model.image.ImageLibrary;
 import ime.model.image.ImageType;
-import ime.model.operation.Blur;
 import ime.model.operation.Combine;
-import ime.model.operation.Filter;
 import ime.model.operation.ImageOperation;
 import ime.model.operation.MultipleImageOperation;
-import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
 import ime.model.operation.VisualizeRed;
-import jdk.dynalink.Operation;
 
-import static java.awt.Color.red;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
