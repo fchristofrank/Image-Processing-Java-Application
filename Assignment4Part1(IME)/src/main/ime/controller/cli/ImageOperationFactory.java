@@ -18,7 +18,7 @@ import ime.model.image.ImageLibrary;
  * A class for creating CLI operations in an image processing application.
  * This class creates CLI operations to corresponding operation specified in the command.
  */
-public class ImageOperationFactory implements OperationCreator{
+  public class ImageOperationFactory implements OperationCreator{
 
   private final ImageLibrary imageLibrary;
 

@@ -118,14 +118,6 @@ public class ImageOperationTest {
       Image actualImage = reader.read(outputActualImagePath.toString());
       Image expectedImage = reader.read(outputExpectedImagePath.toString());
 
-      /*
-      TODO: REMOVE FINALLY!
-
-      for (int i=0; i < actualImage.getHeight(); i++){
-        for (int j=0; j< actualImage.getWidth(); j++){
-          System.out.println(actualImage.getPixel(i,j).getValue() + " :: " + expectedImage.getPixel(i,j).getValue());
-        }
-      }*/
       assertEquals(actualImage, expectedImage);
 
     } catch (IOException | URISyntaxException e) {

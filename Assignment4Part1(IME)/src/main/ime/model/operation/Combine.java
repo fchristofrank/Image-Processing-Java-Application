@@ -7,8 +7,24 @@ import ime.model.pixel.PixelFactory;
 import ime.model.image.SimpleImage;
 import java.util.List;
 
+/**
+ * The Combine class merges three images by combining their red, green, and blue channels into a single RGB image.
+ * The first image supplies the red channel, the second supplies the green, and the third supplies the blue.
+ * All input images must have the same dimensions.
+ */
 public class Combine implements MultipleImageOperation {
 
+  /**
+   * Combines three images by using their red, green, and blue channels.
+   * The images must have the same width and height. The first image provides the red channel,
+   * the second image provides the green channel, and the third image provides the blue channel.
+   * If the dimensions of the input images do not match, an IllegalArgumentException is thrown.
+   *
+   * @param images a list of three images to extract red, green and blue channel in order.
+   * @param args additional arguments, if any.
+   * @return a new RGB image created from the three input images.
+   * @throws IllegalArgumentException if the images have different dimensions.
+   */
   public Image apply(List<Image> images, String... args)
           throws IllegalArgumentException {
 
