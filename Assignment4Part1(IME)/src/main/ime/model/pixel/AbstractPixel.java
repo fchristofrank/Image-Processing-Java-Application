@@ -8,14 +8,11 @@ package ime.model.pixel;
 public abstract class AbstractPixel implements Pixel {
 
   /**
-   * This method normalizes pixel channel values to ensure they remain within the valid range
-   * of 0 to 255, inclusive.
+   * This method normalizes pixel channel values to ensure they remain within the valid range.
    *
    * @param value the value of the channel which has to be clamped.
    * @return the clamped value of the channel.
    */
-  protected int clamp(int value) {
-    return Math.max(0, Math.min(255, value));
-  }
+  public abstract int clamp(int value);
 
 }

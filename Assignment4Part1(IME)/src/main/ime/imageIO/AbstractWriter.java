@@ -22,14 +22,14 @@ public abstract class AbstractWriter implements ImageWriter {
    * @param image          the BufferedImage to be written to file.
    * @param outputFilename the path and name of the output file where the image will be saved.
    */
-  public void writeImage(BufferedImage image, String outputFilename) {
+  public void writeImage(BufferedImage image, String outputFilename) throws IOException{
     try {
       File outputFile = new File(outputFilename);
       ImageIO.write(image, getFormat().getImageFormat(), outputFile);
       LOGGER.log(Level.FINE, "Image written to " + outputFilename);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, "Error writing image to file: " + outputFilename, e);
-      throw new RuntimeException(e);
+      throw new IOException("Error writing image to file: " + outputFilename, e);
     }
 
   }

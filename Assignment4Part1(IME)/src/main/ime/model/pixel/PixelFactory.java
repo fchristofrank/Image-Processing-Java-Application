@@ -20,7 +20,8 @@ public class PixelFactory {
    * @throws IllegalArgumentException when the image type is invalid or the number of components
    *                                  is incorrect.
    */
-  public static Pixel createPixel(ImageType imageType, int... components) throws IllegalArgumentException {
+  public static Pixel createPixel(ImageType imageType, int... components)
+          throws IllegalArgumentException {
     if (Objects.requireNonNull(imageType) == ImageType.RGB) {
       if (components.length != 3) {
         throw new IllegalArgumentException("RGB image must have 3 components");

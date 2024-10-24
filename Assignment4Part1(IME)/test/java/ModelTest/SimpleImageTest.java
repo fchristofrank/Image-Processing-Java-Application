@@ -35,4 +35,13 @@ public class SimpleImageTest {
             100, 100, 100));
     assertNotEquals(simpleImage1, simpleImage2);
   }
+
+  @Test
+  public void testHashCode(){
+    int hashcode = 1688081780;
+    Image simpleImage  = new SimpleImage(1, 1, ImageType.RGB);
+    simpleImage.setPixel(0, 0, PixelFactory.createPixel(simpleImage.getType(),
+            200, 100, 100));
+    assertEquals(hashcode, simpleImage.hashCode());
+  }
 }
