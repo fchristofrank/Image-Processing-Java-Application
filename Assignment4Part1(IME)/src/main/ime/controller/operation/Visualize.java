@@ -23,6 +23,13 @@ public class Visualize extends AbstractOperation {
     this.command = command;
   }
 
+  /**
+   * Responsible to interface between CLI and operation model. Performs the validation of arguments
+   * and adds image back to library that holds the list of image of processed images by the user.
+   *
+   * @param args the arguments for an operations.
+   * @throws IllegalArgumentException the input image must be valid.
+   */
   @Override
   public void execute(String[] args) throws IllegalArgumentException {
     validateArgs(args);

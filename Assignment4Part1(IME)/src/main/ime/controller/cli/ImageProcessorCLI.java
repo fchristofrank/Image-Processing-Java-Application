@@ -89,6 +89,9 @@ public class ImageProcessorCLI implements CommandExecutor {
     }
     if (fileContent != null) {
       for (String line : fileContent.split("\n")) {
+        if (line.startsWith("#")){
+          continue;
+        }
         executeCommand(line);
       }
     }

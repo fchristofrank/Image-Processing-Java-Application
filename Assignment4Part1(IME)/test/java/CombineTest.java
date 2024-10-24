@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -14,6 +13,10 @@ import ime.model.operation.MultipleImageOperation;
 
 import static org.junit.Assert.fail;
 
+/**
+ * This test class test the combine operation for correctness and also for expected errors. Makes
+ * sure the dimensions and image type are properly tested.
+ */
 public class CombineTest extends ImageOperationTest {
 
   @Test
@@ -33,12 +36,6 @@ public class CombineTest extends ImageOperationTest {
         "combine_expected.jpg",
         "CombineImages");
 
-    /*runImageTest(
-    "TestScripts/combine.txt",
-    "manhattan-small.png",
-    "combine_actual.png",
-    "combine_expected.png",
-    "CombineImages");*/
   }
 
   @Test(expected = RuntimeException.class)
@@ -120,16 +117,16 @@ public class CombineTest extends ImageOperationTest {
   }
 
   @Test
-  public void testFromCLI(){
+  public void testFromCLI() {
     URL inputURL = getClass().getClassLoader().getResource("TestScripts/script");
     Assert.assertNotNull("Test script not found", inputURL);
-    Path inputScriptPath = null;
+    Path inputScriptPath;
     try {
       inputScriptPath = Paths.get(inputURL.toURI());
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }
-    String command = "run "+inputScriptPath + "\n"+"exit" ;
+    String command = "run " + inputScriptPath + "\n" + "exit";
     runTest(command);
   }
 }
