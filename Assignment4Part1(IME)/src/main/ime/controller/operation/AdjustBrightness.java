@@ -41,8 +41,8 @@ public abstract class AdjustBrightness extends AbstractOperation {
     try {
       Integer.parseInt(args[0]);
     } catch (NumberFormatException e) {
-      throw new IllegalArgumentException(String.format("Invalid brightness adjustment value '%s'." +
-              " It must be an integer.", args[0]));
+      throw new IllegalArgumentException(String.format("Invalid brightness adjustment value '%s'."
+              + " It must be an integer.", args[0]));
     }
   }
 }

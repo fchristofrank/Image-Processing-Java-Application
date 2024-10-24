@@ -18,8 +18,8 @@ public class ApplySepia implements ImageOperation {
     Image outputImage = new SimpleImage(height, width, inputImage.getType());
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        outputImage.setPixel(i, j, inputImage.getPixel(i, j).
-                scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION));
+        outputImage.setPixel(i, j, inputImage.getPixel(i, j)
+                        .scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION));
       }
     }
     return outputImage;

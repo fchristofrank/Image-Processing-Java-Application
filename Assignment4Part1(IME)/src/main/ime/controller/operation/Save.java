@@ -3,9 +3,9 @@ package ime.controller.operation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import ime.imageIO.ImageFormat;
-import ime.imageIO.ImageWriter;
-import ime.imageIO.ImageWriterFactory;
+import ime.imageio.ImageFormat;
+import ime.imageio.ImageWriter;
+import ime.imageio.ImageWriterFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageLibrary;
 import ime.model.pixel.Pixel;

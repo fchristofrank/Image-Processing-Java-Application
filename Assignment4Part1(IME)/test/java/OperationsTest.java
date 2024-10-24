@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import ime.imageIO.ImageFormat;
-import ime.imageIO.ImageReader;
-import ime.imageIO.ImageReaderFactory;
+import ime.imageio.ImageFormat;
+import ime.imageio.ImageReader;
+import ime.imageio.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 

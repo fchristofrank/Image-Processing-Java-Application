@@ -1,4 +1,4 @@
-package ime.imageIO;
+package ime.imageio;
 
 /**
  * The ImageWriter class provides functionality for writing PNG image files to disk.

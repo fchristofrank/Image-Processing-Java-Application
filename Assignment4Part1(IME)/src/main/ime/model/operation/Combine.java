@@ -9,8 +9,10 @@ import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 
 /**
- * The Combine class merges three images by combining their red, green, and blue channels into a single RGB image.
- * The first image supplies the red channel, the second supplies the green, and the third supplies the blue.
+ * The Combine class merges three images by combining their red, green, and blue channels into
+ * a single RGB image.
+ * The first image supplies the red channel, the second supplies the green, and the third supplies
+ * the blue.
  * All input images must have the same dimensions.
  */
 public class Combine implements MultipleImageOperation {

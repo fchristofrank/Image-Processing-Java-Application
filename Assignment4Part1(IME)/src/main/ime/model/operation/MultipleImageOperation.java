@@ -6,8 +6,10 @@ import ime.model.image.Image;
 
 /**
  * This interface defines the contract for operations that involve multiple images.
- * Implementing classes should provide logic to process a list of images and return a resulting image.
- * It is particularly useful for operations that require combining or comparing images, such as blending or merging.
+ * Implementing classes should provide logic to process a list of images and return a
+ * resulting image.
+ * It is particularly useful for operations that require combining or comparing images,
+ * such as blending or merging.
  */
 public interface MultipleImageOperation {
 

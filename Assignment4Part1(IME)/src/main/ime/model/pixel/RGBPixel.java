@@ -71,15 +71,20 @@ public class RGBPixel extends AbstractPixel {
   @Override
   public Pixel scaleComponents(double[][] factors) {
     double red = factors[0][0] * this.red + factors[0][1] * this.green + factors[0][2] * this.blue;
-    double green = factors[1][0] * this.red + factors[1][1] * this.green + factors[1][2] * this.blue;
+    double green = factors[1][0] * this.red + factors[1][1] * this.green
+            + factors[1][2] * this.blue;
     double blue = factors[2][0] * this.red + factors[2][1] * this.green + factors[2][2] * this.blue;
     return new RGBPixel((int) Math.round(red), (int) Math.round(green), (int) Math.round(blue));
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     RGBPixel rgbPixel = (RGBPixel) obj;
     return Math.abs(this.getRed() - rgbPixel.getRed()) <= TOLERANCE &&
             Math.abs(this.getGreen() - rgbPixel.getGreen()) <= TOLERANCE &&

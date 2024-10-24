@@ -14,7 +14,8 @@ import ime.model.operation.Combine;
 public class CombineRGB extends AbstractOperation {
 
   /**
-   * Constructs a CombineRGB operation that will use the provided image library for its input/output.
+   * Constructs a CombineRGB operation that will use the provided image library for its
+   * input/output.
    *
    * @param library the library containing images available for operations.
    */
@@ -25,10 +26,12 @@ public class CombineRGB extends AbstractOperation {
   /**
    * Executes the combine operation by extracting red, green, and blue channels from three images
    * and merging them into one image. The first argument specifies the name of the output image.
-   * The next three arguments specify the names of the images used for red, green, and blue channels.
+   * The next three arguments specify the names of the images used for red, green,
+   * and blue channels.
    *
    * @param args an array containing the output image name and three input image names.
-   * @throws IllegalArgumentException if exactly three input images are not provided or any image is missing.
+   * @throws IllegalArgumentException if exactly three input images are not provided or any
+   *                                  image is missing.
    */
   @Override
   public void execute(String[] args) throws IllegalArgumentException {

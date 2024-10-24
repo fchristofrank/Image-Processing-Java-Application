@@ -1,4 +1,4 @@
-package ime.imageIO;
+package ime.imageio;
 
 import java.util.Objects;
 

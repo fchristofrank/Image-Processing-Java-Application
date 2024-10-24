@@ -32,8 +32,8 @@ public class RGBSplit extends AbstractOperation {
     addImage(redOutputImageName, redImage);
     addImage(greenOutputImageName, greenImage);
     addImage(blueOutputImageName, blueImage);
-    System.out.println("The images have been separated into their red, blue, and green components " +
-            "and combined accordingly.");
+    System.out.println("The images have been separated into their red, blue, and green components "
+            + "and combined accordingly.");
   }
 
   @Override

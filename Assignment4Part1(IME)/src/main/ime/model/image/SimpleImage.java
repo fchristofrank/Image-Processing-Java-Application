@@ -64,12 +64,14 @@ public class SimpleImage implements Image {
   }
 
   @Override
-  public Image applyOperation(ImageOperation operation, String... args) throws IllegalArgumentException {
+  public Image applyOperation(ImageOperation operation, String... args)
+          throws IllegalArgumentException {
     return operation.apply(this, args);
   }
 
   @Override
-  public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args) throws IllegalArgumentException {
+  public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args)
+          throws IllegalArgumentException {
     return operation.apply(images, args);
   }
 
@@ -81,20 +83,19 @@ public class SimpleImage implements Image {
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     SimpleImage that = (SimpleImage) obj;
-    return height == that.height &&
-            width == that.width &&
-            imageType == that.imageType &&
-            Arrays.deepEquals(pixels, that.pixels);
+    return height == that.height
+            && width == that.width
+            && imageType == that.imageType
+            && Arrays.deepEquals(pixels, that.pixels);
   }
 
-  /**
-   * This method returns the hash code of the simple image object.
-   *
-   * @return the hashcode of the simple image object.
-   */
   @Override
   public int hashCode() {
     return Objects.hash(height, width, imageType, Arrays.deepHashCode(pixels));

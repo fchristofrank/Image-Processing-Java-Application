@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ime.imageIO.ImageFormat;
-import ime.imageIO.ImageReader;
-import ime.imageIO.ImageReaderFactory;
+import ime.imageio.ImageFormat;
+import ime.imageio.ImageReader;
+import ime.imageio.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageLibrary;
 import ime.model.image.ImageType;
@@ -36,14 +36,15 @@ public class Load extends AbstractOperation {
     String imageName = args[1];
     String[] parts = imagePath.split("\\.");
     String imageFormat = parts[parts.length - 1];
-    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+    ImageReader imageReader = ImageReaderFactory.
+            createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
     Image image = null;
     try {
       image = imageReader.read(imagePath, ImageType.RGB);
     } catch (NullPointerException | IOException e) {
       LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
-      throw new IllegalArgumentException("Error reading image file: " + imagePath +
-              ". Please ensure the file exists and is a valid image format.", e);
+      throw new IllegalArgumentException("Error reading image file: " + imagePath
+              + ". Please ensure the file exists and is a valid image format.", e);
     }
     addImage(imageName, image);
     System.out.println("Image loaded: " + imageName);

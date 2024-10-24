@@ -1,4 +1,4 @@
-package ime.imageIO;
+package ime.imageio;
 
 /**
  * Enum representing supported image file formats in the image editor application.
