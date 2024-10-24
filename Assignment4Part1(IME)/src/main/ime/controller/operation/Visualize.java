@@ -1,7 +1,7 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.operation.AbstractVisualize;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;

@@ -1,11 +1,11 @@
 package ime.model.image;
 
-import ime.model.operation.MultipleImageOperation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import ime.model.operation.ImageOperation;
+import ime.model.operation.MultipleImageOperation;
 import ime.model.pixel.Pixel;
 
 /**
@@ -21,8 +21,9 @@ public class SimpleImage implements Image {
 
   /**
    * This method creates a simple image with the given type, height and width.
-   * @param height the height of the image.
-   * @param width the width of the image.
+   *
+   * @param height    the height of the image.
+   * @param width     the width of the image.
    * @param imageType the type of the
    */
   public SimpleImage(int height, int width, ImageType imageType) {
@@ -68,12 +69,13 @@ public class SimpleImage implements Image {
   }
 
   @Override
-  public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args) throws IllegalArgumentException{
-    return operation.apply(images,args);
+  public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args) throws IllegalArgumentException {
+    return operation.apply(images, args);
   }
 
   /**
    * This method compares two images based on their height, width, image type and pixel attributes.
+   *
    * @param obj the other image which has to be compared to be with this image.
    * @return true if both the images are identical false otherwise.
    */
@@ -90,6 +92,7 @@ public class SimpleImage implements Image {
 
   /**
    * This method returns the hash code of the simple image object.
+   *
    * @return the hashcode of the simple image object.
    */
   @Override

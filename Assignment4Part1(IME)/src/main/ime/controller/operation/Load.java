@@ -39,7 +39,7 @@ public class Load extends AbstractOperation {
     Image image = null;
     try {
       image = imageReader.read(imagePath, ImageType.RGB);
-    } catch ( NullPointerException | IOException e) {
+    } catch (NullPointerException | IOException e) {
       LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
       throw new IllegalArgumentException("Error reading image file: " + imagePath +
               ". Please ensure the file exists and is a valid image format.", e);

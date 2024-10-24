@@ -1,10 +1,10 @@
 package ime.controller.operation;
 
 import ime.model.image.Image;
+import ime.model.image.ImageLibrary;
 import ime.model.operation.Blur;
 import ime.model.operation.ImageOperation;
 import ime.model.operation.Sharpen;
-import ime.model.image.ImageLibrary;
 
 /**
  * The given Filter controller validates the args received from the command line, and it gives the

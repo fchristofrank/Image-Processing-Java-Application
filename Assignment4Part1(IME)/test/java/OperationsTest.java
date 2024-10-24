@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,8 +15,6 @@ import ime.imageIO.ImageReader;
 import ime.imageIO.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import ime.model.operation.Combine;
-import ime.model.operation.MultipleImageOperation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -199,6 +196,7 @@ public class OperationsTest extends ImageOperationTest {
       //exception is thrown as the arguments are invalid.
     }
   }
+
   //ChainOperationTest
   @Test
   public void testMultipleOperation() {
@@ -388,28 +386,28 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testSharpen() {
     runImageTest(
-        "TestScripts/sharpen.txt",
-        "manhattan-small.jpg",
-        "manhattan-small-sharpen-actual.jpg",
-        "manhattan-small-sharpen-expected.jpg",
-        "FilterImages");
+            "TestScripts/sharpen.txt",
+            "manhattan-small.jpg",
+            "manhattan-small-sharpen-actual.jpg",
+            "manhattan-small-sharpen-expected.jpg",
+            "FilterImages");
     Map<String, String> outputFileMap1 = new HashMap<>();
     outputFileMap1.put(
-        "manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
+            "manhattan-small-sharpen-actual.jpg", "manhattan-small-sharpen-expected.jpg");
 
     Map<String, String> outputFileMap2 = new HashMap<>();
     outputFileMap2.put(
-        "manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
+            "manhattan-small-sharpen-actual.png", "manhattan-small-sharpen-expected.png");
 
     runImageTest(
-        "TestScripts/sharpen.txt",
-        "manhattan-small.png",
-        "manhattan-small-sharpen-actual.png",
-        "manhattan-small-sharpen-expected.png",
-        "FilterImages");
-    }
+            "TestScripts/sharpen.txt",
+            "manhattan-small.png",
+            "manhattan-small-sharpen-actual.png",
+            "manhattan-small-sharpen-expected.png",
+            "FilterImages");
+  }
 
-    //Commented due to file size issues.
+  //Commented due to file size issues.
     /*runImageTest(
             "TestScripts/sharpen.txt",
             "white_test.jpg",
@@ -623,6 +621,39 @@ public class OperationsTest extends ImageOperationTest {
       fail("Exception shouldn't be thrown");
     }
   }
+
+  //Commented due to number of files limitation.
+  //  @Test
+//  public void testRGBSplitJPG() {
+//    Map<String, String> outputFileMap = new LinkedHashMap<>();
+//    outputFileMap.put("manhattan-small-red-actual.jpg", "manhattan-small-red-expected.jpg");
+//    outputFileMap.put("manhattan-small-green-actual.jpg", "manhattan-small-green-expected.jpg");
+//    outputFileMap.put("manhattan-small-blue-actual.jpg", "manhattan-small-blue-expected.jpg");
+//    try {
+//      runImageTest("TestScripts/rgb-split.txt",
+//              "manhattan-small.jpg", outputFileMap, "RGBSplitImages",
+//              null, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
+//
+//  @Test
+//  public void testRGBSplitPPM() {
+//    Map<String, String> outputFileMap = new LinkedHashMap<>();
+//    outputFileMap.put("manhattan-small-red-actual.ppm", "manhattan-small-red-expected.ppm");
+//    outputFileMap.put("manhattan-small-green-actual.ppm", "manhattan-small-green-expected.ppm");
+//    outputFileMap.put("manhattan-small-blue-actual.ppm", "manhattan-small-blue-expected.ppm");
+//    try {
+//      runImageTest("TestScripts/rgb-split.txt",
+//              "manhattan-small.ppm", outputFileMap, "RGBSplitImages",
+//              null, (expected, actual)
+//                      -> assertEquals("Images should be identical", expected, actual));
+//    } catch (IllegalArgumentException e) {
+//      fail("Exception shouldn't be thrown");
+//    }
+//  }
 
   @Test
   public void testSetup() {

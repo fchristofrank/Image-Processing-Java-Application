@@ -22,7 +22,7 @@ public abstract class AbstractWriter implements ImageWriter {
    * @param image          the BufferedImage to be written to file.
    * @param outputFilename the path and name of the output file where the image will be saved.
    */
-  public void writeImage(BufferedImage image, String outputFilename) throws IOException{
+  public void writeImage(BufferedImage image, String outputFilename) throws IOException {
     try {
       File outputFile = new File(outputFilename);
       ImageIO.write(image, getFormat().getImageFormat(), outputFile);
@@ -36,6 +36,7 @@ public abstract class AbstractWriter implements ImageWriter {
 
   /**
    * This method gets the format of the image in which the image will be written.
+   *
    * @return the format of the image.
    */
   public abstract ImageFormat getFormat();
