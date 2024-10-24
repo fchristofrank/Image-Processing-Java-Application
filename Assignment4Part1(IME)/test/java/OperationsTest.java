@@ -48,7 +48,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeLuma() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-luma-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/luma.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -64,7 +64,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeRed() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-red-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/red.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -80,7 +80,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeBlue() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-blue-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/blue.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -96,7 +96,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeGreen() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-green-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/green.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -112,7 +112,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeIntensity() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-intensity-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/intensity.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);
@@ -128,7 +128,7 @@ public class OperationsTest extends ImageOperationTest {
   @Test
   public void testVisualizeValue() throws IOException {
 
-    URL expectedImageURL = getClass().getResource("VisualizeImages/manhattan-value-expected.png");
+    URL expectedImageURL = getClass().getResource("VisualizeImages/value.png");
     URL actualImageURL = getClass().getClassLoader().getResource("");
 
     Reader reader = ReaderFactory.createrReader(ImageFormat.PNG);

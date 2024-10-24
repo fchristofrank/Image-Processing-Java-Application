@@ -1,0 +1,16 @@
+load <input_image_path> test
+load <input_image_path> test
+
+
+red-component test red
+green-component test green
+blue-component test blue
+
+rgb-combine combined red green unknown
+rgb-combine combined red unknown blue
+rgb-combine combined unknown green blue
+rgb-combine arg1 arg2 arg3 arg4 arg5 arg6
+rgb-combine
+
+save <output_image_path> combined
+exit
