@@ -7,9 +7,9 @@ import ime.model.image.ImageLibrary;
 import ime.model.operation.Combine;
 
 /**
- * Controller for combining three images into one using their RGB channels.
- * The first image supplies the red channel, the second the green, and the third the blue.
- * The operation is strictly ordered and requires exactly three images.
+ * Controller for combining three images into one using their RGB channels. The first image supplies
+ * the red channel, the second the green, and the third the blue. The operation is strictly ordered
+ * and requires exactly three images.
  */
 public class CombineRGB extends AbstractOperation {
 
@@ -25,13 +25,12 @@ public class CombineRGB extends AbstractOperation {
 
   /**
    * Executes the combine operation by extracting red, green, and blue channels from three images
-   * and merging them into one image. The first argument specifies the name of the output image.
-   * The next three arguments specify the names of the images used for red, green,
-   * and blue channels.
+   * and merging them into one image. The first argument specifies the name of the output image. The
+   * next three arguments specify the names of the images used for red, green, and blue channels.
    *
    * @param args an array containing the output image name and three input image names.
-   * @throws IllegalArgumentException if exactly three input images are not provided or any
-   *                                  image is missing.
+   * @throws IllegalArgumentException if exactly three input images are not provided or any image is
+   *     missing.
    */
   @Override
   public void execute(String[] args) throws IllegalArgumentException {
@@ -44,10 +43,10 @@ public class CombineRGB extends AbstractOperation {
       throw new IllegalArgumentException("Input image not found");
     }
     Image outputImage =
-            redImage.applyOperation(
-                    new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+        redImage.applyOperation(
+            new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
     addImage(inputName, outputImage);
-    System.out.println("Combine given images. New Image :: "+inputName);
+    System.out.println("Combine given images. New Image :: " + inputName);
   }
 
   @Override
