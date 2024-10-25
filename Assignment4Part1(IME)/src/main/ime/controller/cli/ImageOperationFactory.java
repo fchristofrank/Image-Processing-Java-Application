@@ -12,7 +12,7 @@ import ime.controller.operation.Save;
 import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
-import ime.model.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * A class for creating CLI operations in an image processing application.
@@ -21,6 +21,29 @@ import ime.model.image.ImageLibrary;
 public class ImageOperationFactory implements OperationCreator {
 
   private final ImageLibrary imageLibrary;
+
+  /**
+   * Contains command names for CLI operations as constants.
+   */
+  private static class Commands {
+    public static final String LOAD = "load";
+    public static final String SAVE = "save";
+    public static final String RGB_SPLIT = "rgb-split";
+    public static final String BRIGHTEN = "brighten";
+    public static final String DARKEN = "darken";
+    public static final String VERTICAL_FLIP = "vertical-flip";
+    public static final String HORIZONTAL_FLIP = "horizontal-flip";
+    public static final String SEPIA = "sepia";
+    public static final String RGB_COMBINE = "rgb-combine";
+    public static final String BLUR = "blur";
+    public static final String SHARPEN = "sharpen";
+    public static final String RED_COMPONENT = "red-component";
+    public static final String GREEN_COMPONENT = "green-component";
+    public static final String BLUE_COMPONENT = "blue-component";
+    public static final String LUMA_COMPONENT = "luma-component";
+    public static final String VALUE_COMPONENT = "value-component";
+    public static final String INTENSITY_COMPONENT = "intensity-component";
+  }
 
   /**
    * Constructs a CommandFactory with the specified image library.
@@ -58,33 +81,33 @@ public class ImageOperationFactory implements OperationCreator {
   @Override
   public CLIOperation createOperation(String commandName) {
     switch (commandName.toLowerCase()) {
-      case "load":
+      case Commands.LOAD:
         return new Load(imageLibrary);
-      case "save":
+      case Commands.SAVE:
         return new Save(imageLibrary);
-      case "rgb-split":
+      case Commands.RGB_SPLIT:
         return new RGBSplit(imageLibrary);
-      case "brighten":
+      case Commands.BRIGHTEN:
         return new Brighten(imageLibrary);
-      case "darken":
+      case Commands.DARKEN:
         return new Darken(imageLibrary);
-      case "vertical-flip":
+      case Commands.VERTICAL_FLIP:
         return new VerticalFlip(imageLibrary);
-      case "horizontal-flip":
+      case Commands.HORIZONTAL_FLIP:
         return new HorizontalFlip(imageLibrary);
-      case "sepia":
+      case Commands.SEPIA:
         return new Sepia(imageLibrary);
-      case "rgb-combine":
+      case Commands.RGB_COMBINE:
         return new CombineRGB(imageLibrary);
-      case "blur":
-      case "sharpen":
+      case Commands.BLUR:
+      case Commands.SHARPEN:
         return new Filter(imageLibrary, commandName);
-      case "red-component":
-      case "green-component":
-      case "blue-component":
-      case "luma-component":
-      case "value-component":
-      case "intensity-component":
+      case Commands.RED_COMPONENT:
+      case Commands.GREEN_COMPONENT:
+      case Commands.BLUE_COMPONENT:
+      case Commands.LUMA_COMPONENT:
+      case Commands.VALUE_COMPONENT:
+      case Commands.INTENSITY_COMPONENT:
         return new Visualize(imageLibrary, commandName);
 
       default:

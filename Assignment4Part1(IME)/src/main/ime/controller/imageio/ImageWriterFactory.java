@@ -1,4 +1,4 @@
-package ime.imageio;
+package ime.controller.imageio;
 
 import java.util.Objects;
 
@@ -25,14 +25,16 @@ public class ImageWriterFactory {
    * @throws IllegalArgumentException if the provided image format is unsupported or null
    */
   public static ImageWriter createWriter(ImageFormat imageFormat) throws IllegalArgumentException {
-    if (Objects.requireNonNull(imageFormat) == ImageFormat.PNG) {
-      return new PNGImageWriter();
-    } else if (Objects.requireNonNull(imageFormat) == ImageFormat.JPG) {
-      return new JPGImageWriter();
-    } else if (Objects.requireNonNull(imageFormat) == ImageFormat.PPM) {
-      return new PPMImageWriter();
-    } else {
-      throw new IllegalArgumentException("Unsupported image format.");
+    Objects.requireNonNull(imageFormat, "Image format cannot be null");
+    switch (imageFormat) {
+      case PNG:
+        return new PNGImageWriter();
+      case JPG:
+        return new JPGImageWriter();
+      case PPM:
+        return new PPMImageWriter();
+      default:
+        throw new IllegalArgumentException("Unsupported image format.");
     }
   }
 }

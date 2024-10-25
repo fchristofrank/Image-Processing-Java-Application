@@ -1,4 +1,4 @@
-package ime.imageio;
+package ime.controller.imageio;
 
 import java.util.Objects;
 
@@ -15,13 +15,15 @@ public class ImageReaderFactory {
    * @throws IllegalArgumentException If the provided image format is not supported.
    */
   public static ImageReader createReader(ImageFormat imageFormat) throws IllegalArgumentException {
-    if (Objects.requireNonNull(imageFormat) == ImageFormat.PNG
-            || Objects.requireNonNull(imageFormat) == ImageFormat.JPG) {
-      return new StandardImageReader();
-    } else if (Objects.requireNonNull(imageFormat) == ImageFormat.PPM) {
-      return new PPMImageReader();
-    } else {
-      throw new IllegalArgumentException("Unsupported image format.");
+    Objects.requireNonNull(imageFormat, "Image format cannot be null");
+    switch (imageFormat) {
+      case PNG:
+      case JPG:
+        return new StandardImageReader();
+      case PPM:
+        return new PPMImageReader();
+      default:
+        throw new IllegalArgumentException("Unsupported image format: " + imageFormat);
     }
   }
 }

@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Objects;
 
 import ime.controller.cli.ImageProcessorCLI;
-import ime.imageio.ImageFormat;
-import ime.imageio.ImageReader;
-import ime.imageio.ImageReaderFactory;
+import ime.controller.imageio.ImageFormat;
+import ime.controller.imageio.ImageReader;
+import ime.controller.imageio.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.operation.Combine;

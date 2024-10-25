@@ -22,13 +22,13 @@ public class PixelFactory {
    */
   public static Pixel createPixel(ImageType imageType, int... components)
           throws IllegalArgumentException {
-    if (Objects.requireNonNull(imageType) == ImageType.RGB) {
+    Objects.requireNonNull(imageType, "Image type cannot be null");
+    if (imageType == ImageType.RGB) {
       if (components.length != 3) {
         throw new IllegalArgumentException("RGB image must have 3 components");
       }
       return new RGBPixel(components[0], components[1], components[2]);
-    } else {
-      throw new IllegalArgumentException("Unsupported image type: " + imageType);
     }
+    throw new IllegalArgumentException("Unsupported image type: " + imageType);
   }
 }

@@ -1,4 +1,4 @@
-package ime.imageio;
+package ime.controller.imageio;
 
 import java.io.IOException;
 

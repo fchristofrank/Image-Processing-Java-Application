@@ -1,7 +1,7 @@
 package ime.controller.operation;
 
+import ime.controller.operation.repository.ImageLibrary;
 import ime.model.image.Image;
-import ime.model.image.ImageLibrary;
 import ime.model.operation.ApplySepia;
 
 /**

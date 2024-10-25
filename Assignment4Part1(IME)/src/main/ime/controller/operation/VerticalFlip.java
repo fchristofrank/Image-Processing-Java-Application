@@ -1,6 +1,6 @@
 package ime.controller.operation;
 
-import ime.model.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 import ime.model.operation.ApplyVerticalFlip;
 import ime.model.operation.ImageOperation;
 

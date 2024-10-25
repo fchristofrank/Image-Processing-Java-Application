@@ -1,4 +1,4 @@
-package ime.imageio;
+package ime.controller.imageio;
 
 /**
  * The ImageWriter class provides functionality for writing JPG image files to disk.

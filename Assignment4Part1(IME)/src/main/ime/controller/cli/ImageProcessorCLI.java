@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import ime.controller.operation.CLIOperation;
-import ime.model.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 import ime.util.FileReader;
 
 /**

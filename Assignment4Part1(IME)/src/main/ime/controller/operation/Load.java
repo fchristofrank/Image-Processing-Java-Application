@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ime.imageio.ImageFormat;
-import ime.imageio.ImageReader;
-import ime.imageio.ImageReaderFactory;
+import ime.controller.imageio.ImageFormat;
+import ime.controller.imageio.ImageReader;
+import ime.controller.imageio.ImageReaderFactory;
+import ime.controller.operation.repository.ImageLibrary;
 import ime.model.image.Image;
-import ime.model.image.ImageLibrary;
 import ime.model.image.ImageType;
 
 /**
