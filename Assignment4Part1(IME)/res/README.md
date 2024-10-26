@@ -56,7 +56,7 @@ Sample Script File (Requires Replacing Image path and destination as per your ma
 - Follow configurable coding practices.
 
 ClassDiagram :
-![ClassDiagram](IMEClassDiagramSign.png)
+![ClassDiagram](IMEClassDiagram.png)
 
 
 
