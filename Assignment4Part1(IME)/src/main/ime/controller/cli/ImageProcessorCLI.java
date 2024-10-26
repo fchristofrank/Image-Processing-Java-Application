@@ -1,13 +1,13 @@
 package ime.controller.cli;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import ime.controller.operation.CLIOperation;
-import ime.controller.operation.repository.ImageLibrary;
-import ime.util.FileReader;
+import ime.controller.operation.repository.image.ImageLibrary;
 
 /**
  * The main command-line interface for the Image Processor application.
@@ -82,7 +82,7 @@ public class ImageProcessorCLI implements CommandExecutor {
     String filename = parts[1];
     String fileContent = null;
     try {
-      fileContent = FileReader.readFromFile(filename);
+      fileContent = readFromFile(filename);
     } catch (IOException e) {
       System.out.println("Error reading file: " + filename);
     }
@@ -112,6 +112,33 @@ public class ImageProcessorCLI implements CommandExecutor {
     String[] args = Arrays.copyOfRange(parts, 1, parts.length);
     CLIOperation operation = imageOperationFactory.createOperation(operationName);
     operation.execute(args);
+  }
+
+  /**
+   * Reads the contents of a file, ignoring comments and empty lines.
+   * <p>
+   * This method reads from a file specified by the given file path and returns
+   * the contents as a string. It ignores lines that are empty or start with '#'
+   * (considered as comments).
+   * </p>
+   *
+   * @param filePath the path to the file to be read.
+   * @return a string containing the contents of the file, with comments and empty lines removed.
+   * @throws IOException if an I/O error occurs while reading the file.
+   */
+  private String readFromFile(String filePath) throws IOException {
+    StringBuilder content = new StringBuilder();
+    BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));
+    String line;
+    while ((line = reader.readLine()) != null) {
+      line = line.trim();
+      if (line.isEmpty() || line.startsWith("#")) {
+        continue;
+      }
+      content.append(line).append("\n");
+    }
+    reader.close();
+    return content.toString();
   }
 
 }

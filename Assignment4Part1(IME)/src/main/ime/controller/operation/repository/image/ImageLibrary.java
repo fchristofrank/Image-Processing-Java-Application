@@ -1,4 +1,4 @@
-package ime.controller.operation.repository;
+package ime.controller.operation.repository.image;
 
 import java.util.HashMap;
 import java.util.Map;

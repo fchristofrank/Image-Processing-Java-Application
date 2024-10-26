@@ -9,9 +9,6 @@ import java.util.Objects;
  */
 public class RGBPixel extends AbstractPixel {
   private static final int TOLERANCE = 4;
-  private final int red;
-  private final int green;
-  private final int blue;
 
   /**
    * This method creates the RGB channel with the corresponding values to the components.
@@ -21,25 +18,7 @@ public class RGBPixel extends AbstractPixel {
    * @param blue  the value of the blue component.
    */
   public RGBPixel(int red, int green, int blue) {
-    super();
-    this.red = clamp(red);
-    this.green = clamp(green);
-    this.blue = clamp(blue);
-  }
-
-  @Override
-  public int getRed() {
-    return this.red;
-  }
-
-  @Override
-  public int getGreen() {
-    return this.green;
-  }
-
-  @Override
-  public int getBlue() {
-    return this.blue;
+    super(red, green, blue);
   }
 
   @Override
@@ -70,10 +49,12 @@ public class RGBPixel extends AbstractPixel {
 
   @Override
   public Pixel scaleComponents(double[][] factors) {
-    double red = factors[0][0] * this.red + factors[0][1] * this.green + factors[0][2] * this.blue;
-    double green = factors[1][0] * this.red + factors[1][1] * this.green
-            + factors[1][2] * this.blue;
-    double blue = factors[2][0] * this.red + factors[2][1] * this.green + factors[2][2] * this.blue;
+    double red = factors[0][0] * this.getRed() + factors[0][1] * this.getGreen()
+            + factors[0][2] * this.getBlue();
+    double green = factors[1][0] * this.getRed() + factors[1][1] * this.getGreen()
+            + factors[1][2] * this.getBlue();
+    double blue = factors[2][0] * this.getRed() + factors[2][1] * this.getGreen()
+            + factors[2][2] * this.getBlue();
     return new RGBPixel((int) Math.round(red), (int) Math.round(green), (int) Math.round(blue));
   }
 
@@ -95,10 +76,5 @@ public class RGBPixel extends AbstractPixel {
   public int hashCode() {
     return Objects.hash((getRed() / TOLERANCE) * TOLERANCE,
             (getGreen() / TOLERANCE) * TOLERANCE, (getBlue() / TOLERANCE) * TOLERANCE);
-  }
-
-  @Override
-  public int clamp(int value) {
-    return Math.max(0, Math.min(255, value));
   }
 }

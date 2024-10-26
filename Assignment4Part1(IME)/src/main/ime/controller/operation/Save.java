@@ -6,7 +6,7 @@ import java.io.IOException;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageWriter;
 import ime.controller.imageio.ImageWriterFactory;
-import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.image.ImageLibrary;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 

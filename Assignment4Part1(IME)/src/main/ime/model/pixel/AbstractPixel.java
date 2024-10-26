@@ -6,6 +6,27 @@ package ime.model.pixel;
  * (such as RGBPixel and RGBAPixel) that define how color pixels are represented and accessed.
  */
 public abstract class AbstractPixel implements Pixel {
+  private final int red;
+  private final int green;
+  private final int blue;
+
+  public AbstractPixel(int red, int green, int blue) {
+    this.red = clamp(red);
+    this.green = clamp(green);
+    this.blue = clamp(blue);
+  }
+
+  public int getRed() {
+    return this.red;
+  }
+
+  public int getGreen() {
+    return this.green;
+  }
+
+  public int getBlue() {
+    return this.blue;
+  }
 
   /**
    * This method normalizes pixel channel values to ensure they remain within the valid range.
@@ -13,6 +34,8 @@ public abstract class AbstractPixel implements Pixel {
    * @param value the value of the channel which has to be clamped.
    * @return the clamped value of the channel.
    */
-  public abstract int clamp(int value);
+  public int clamp(int value) {
+    return Math.max(0, Math.min(255, value));
+  }
 
 }
