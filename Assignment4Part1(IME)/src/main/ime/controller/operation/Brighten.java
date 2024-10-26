@@ -1,6 +1,6 @@
 package ime.controller.operation;
 
-import ime.controller.operation.repository.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * Controller class for performing image brightening operations.

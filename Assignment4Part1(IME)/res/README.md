@@ -55,14 +55,9 @@ Sample Script File (Requires Replacing Image path and destination as per your ma
 - Avoid duplicate code.
 - Follow configurable coding practices.
 
-Controller :
-![ClassDiagram](controller.jpg)
+ClassDiagram :
+![ClassDiagram](IMEClassDiagramSign.png)
 
-Operations :
-![ClassDiagram](model.jpg)
-
-Models :
-![ClassDiagram](models.jpg)
 
 
 ---

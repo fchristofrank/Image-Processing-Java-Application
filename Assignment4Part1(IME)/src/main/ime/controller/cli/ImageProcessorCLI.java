@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import ime.controller.operation.CLIOperation;
-import ime.controller.operation.repository.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * The main command-line interface for the Image Processor application.
