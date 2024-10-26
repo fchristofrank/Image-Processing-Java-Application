@@ -12,7 +12,7 @@ import ime.controller.operation.Save;
 import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
-import ime.controller.operation.repository.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * A class for creating CLI operations in an image processing application.

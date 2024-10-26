@@ -3,7 +3,7 @@ package ime.model.pixel;
 /**
  * This abstract class represents a pixel, holding the values for the red, green, and blue
  * components of a pixel. It serves as a base class for specific pixel implementations
- * (such as RGBPixel and RGBAPixel) that define how color pixels are represented and accessed.
+ * (such as RGBPixel, RGBAPixel etc.,) that define how color pixels are represented and accessed.
  */
 public abstract class AbstractPixel implements Pixel {
   private final int red;

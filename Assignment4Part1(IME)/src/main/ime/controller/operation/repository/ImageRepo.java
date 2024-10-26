@@ -1,4 +1,4 @@
-package ime.controller.operation.repository.image;
+package ime.controller.operation.repository;
 
 import ime.model.image.Image;
 

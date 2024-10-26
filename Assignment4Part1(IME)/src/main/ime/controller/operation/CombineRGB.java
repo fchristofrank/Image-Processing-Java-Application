@@ -2,7 +2,7 @@ package ime.controller.operation;
 
 import java.util.Arrays;
 
-import ime.controller.operation.repository.image.ImageLibrary;
+import ime.controller.operation.repository.ImageLibrary;
 import ime.model.image.Image;
 import ime.model.operation.Combine;
 
