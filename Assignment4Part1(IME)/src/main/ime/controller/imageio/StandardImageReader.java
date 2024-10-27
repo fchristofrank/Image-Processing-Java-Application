@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
-import ime.model.pixel.PixelFactory;
+import ime.model.pixel.RGBPixel;
 
 /**
  * This class represents a reader for images in JPG and PNG formats from a specified file name.
@@ -32,7 +32,9 @@ public class StandardImageReader implements ImageReader {
           int r = (pixel >> 16) & 0xFF;
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
-          simpleImage.setPixel(i, j, PixelFactory.createPixel(simpleImage.getType(), r, g, b));
+          if(imageType.equals(ImageType.RGB)){
+            simpleImage.setPixel(i, j, new RGBPixel(r, g, b));
+          }
         }
       }
       return simpleImage;

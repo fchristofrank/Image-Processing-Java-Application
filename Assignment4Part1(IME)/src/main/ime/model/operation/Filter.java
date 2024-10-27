@@ -4,7 +4,7 @@ import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
+import ime.model.pixel.RGBPixel;
 
 import static ime.constants.FilterConstants.PIXEL_LOWER_LIMIT;
 import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
@@ -114,7 +114,7 @@ public abstract class Filter implements ImageOperation {
     int clampedRed = clamp(red);
     int clampedGreen = clamp(green);
     int clampedBlue = clamp(blue);
-    return PixelFactory.createPixel(ImageType.RGB, clampedRed, clampedGreen, clampedBlue);
+    return new RGBPixel(clampedRed, clampedGreen, clampedBlue);
   }
 
   /**
