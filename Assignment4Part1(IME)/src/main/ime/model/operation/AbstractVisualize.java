@@ -1,9 +1,10 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
+import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
+import ime.model.pixel.RGBPixel;
 
 /**
  * Abstract class that defines the structure for visualizing operations on an image. This class
@@ -38,10 +39,12 @@ public abstract class AbstractVisualize implements ImageOperation {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         int colorValue = getColorComponent(inputImage.getPixel(i, j));
-        outputImage.setPixel(
-                i,
-                j,
-                PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue, colorValue));
+        if (inputImage.getType().equals(ImageType.RGB)) {
+          outputImage.setPixel(
+                  i,
+                  j,
+                  new RGBPixel(colorValue, colorValue, colorValue));
+        }
       }
     }
     return outputImage;

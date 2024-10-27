@@ -5,7 +5,7 @@ import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
+import ime.model.pixel.RGBPixel;
 
 /**
  * The Combine class merges three images by combining their red, green, and blue channels into a
@@ -84,6 +84,6 @@ public class Combine implements MultipleImageOperation {
   }
 
   private Pixel createRgbPixel(int redValue, int greenValue, int blueValue) {
-    return PixelFactory.createPixel(ImageType.RGB, redValue, greenValue, blueValue);
+    return new RGBPixel(redValue, greenValue, blueValue);
   }
 }
