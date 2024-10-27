@@ -1,5 +1,7 @@
 package ime.model.pixel;
 
+import ime.constants.FilterConstants;
+
 /**
  * This abstract class represents a pixel, holding the values for the red, green, and blue
  * components of a pixel. It serves as a base class for specific pixel implementations
@@ -35,7 +37,7 @@ public abstract class AbstractPixel implements Pixel {
    * @return the clamped value of the channel.
    */
   public int clamp(int value) {
-    return Math.max(0, Math.min(255, value));
+    return Math.max(FilterConstants.PIXEL_LOWER_LIMIT, Math.min(FilterConstants.PIXEL_UPPER_LIMIT, value));
   }
 
 }
