@@ -4,7 +4,7 @@ import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
+import ime.model.pixel.RGBPixel;
 
 /**
  * Abstract class that defines the structure for visualizing operations on an image. This class
