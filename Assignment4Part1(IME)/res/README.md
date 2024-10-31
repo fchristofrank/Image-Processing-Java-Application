@@ -130,6 +130,22 @@ ClassDiagram :
     - **Concrete Classes**:
         - `Sepia`: Returns the sepia filter applied image.
 
+### ImageIO:
 
+1. **Interfaces**:
+    - **ImageWriter**: Defines methods for writing image files to disk.
+    - **ImageReader**: Defines methods for reading image files from disk.
+
+2. **Abstract Classes**:
+    - **AbstractWriter**:
+        - `JPGImageWriter`: Provides functionality for writing JPG image files to disk.
+        - `PNGImageWriter`: Provides functionality for writing PNG image files to disk.
+        - `PPMImageWriter`: Represents a reader for images in PPM format from a specified file name.
+        - `ImageWriterFactory`: Supplies the respective object based on the formats.
+
+3. **Concrete Classes**:
+    - `PPMImageReader`: Supplies the reader object specifically for PPM formats.
+    - `ImageReaderFactory`: Supplies the respective reader objects.
+    - `StandardImageReader`: Represents a reader for images in JPG and PNG formats from a specified file name.
 
 
