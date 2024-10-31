@@ -5,6 +5,8 @@ import ime.controller.operation.CLIOperation;
 import ime.controller.operation.CombineRGB;
 import ime.controller.operation.Compress;
 import ime.controller.operation.Darken;
+import ime.controller.operation.Filter;
+import ime.controller.operation.Histogram;
 import ime.controller.operation.FilterWithPreview;
 import ime.controller.operation.HorizontalFlip;
 import ime.controller.operation.Load;
@@ -44,6 +46,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String LUMA_COMPONENT = "luma-component";
     public static final String VALUE_COMPONENT = "value-component";
     public static final String INTENSITY_COMPONENT = "intensity-component";
+    public static final String HISTOGRAM = "histogram";
     public static final String COMPRESS = "compress";
   }
 
@@ -110,6 +113,8 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.VALUE_COMPONENT:
       case Commands.INTENSITY_COMPONENT:
         return new Visualize(imageLibrary, commandName);
+      case Commands.HISTOGRAM:
+        return new Histogram(imageLibrary);
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
       default:
