@@ -15,6 +15,7 @@ import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.AdjustLevel;
 
 /**
  * A class for creating CLI operations in an image processing application.
@@ -46,7 +47,8 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String VALUE_COMPONENT = "value-component";
     public static final String INTENSITY_COMPONENT = "intensity-component";
     public static final String HISTOGRAM = "histogram";
-    public static final String COLORCORRECTION = "color-correct";
+    public static final String COLOR_CORRECTION = "color-correct";
+    public static final String LEVELS_ADJUST = "levels-adjust";
   }
 
   /**
@@ -115,8 +117,10 @@ public class ImageOperationFactory implements OperationCreator {
         return new Visualize(imageLibrary, commandName);
       case Commands.HISTOGRAM:
         return new Histogram(imageLibrary);
-      case Commands.COLORCORRECTION:
+      case Commands.COLOR_CORRECTION:
         return new ColorCorrection(imageLibrary);
+      case Commands.LEVELS_ADJUST:
+        return new AdjustLevel(imageLibrary);
 
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
