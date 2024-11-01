@@ -1,6 +1,9 @@
 package ime.model.operation;
 
+import ime.model.pixel.Pixel;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ime.model.image.Image;
@@ -21,9 +24,7 @@ public class Histogram implements ImageOperation {
 
     calculateFrequencies(inputImage, frequencyRed, frequencyGreen, frequencyBlue);
 
-    int histogramWidth = 256;
-    int histogramHeight = 256;
-    Image outputImage = new SimpleImage(histogramHeight, histogramWidth, ImageType.RGB);
+    Image outputImage = new SimpleImage(256, 256, ImageType.RGB);
 
     createHistogramImage(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
 
@@ -61,16 +62,13 @@ public class Histogram implements ImageOperation {
     int histogramWidth = 256;
     int histogramHeight = 256;
 
-    // Fill background with white
     fillBackground(outputImage, histogramHeight, histogramWidth);
     System.out.println("Background filled");
 
-    // Draw grid lines
     drawGridLines(outputImage, histogramWidth, histogramHeight);
     System.out.println("Grid lines drawn");
 
-    // Draw frequency curves
-    drawFrequencyCurves(outputImage, frequencyRed, frequencyGreen, frequencyBlue, histogramHeight);
+    drawFrequencyCurves(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
     System.out.println("Frequency curves drawn");
   }
 
@@ -84,15 +82,15 @@ public class Histogram implements ImageOperation {
 
   private void drawGridLines(Image histogramImage, int width, int height) {
     for (int j = 0; j < width; j += 16) {
-      drawLine(histogramImage, 0, j, width - 1, j, 200, 200, 200); // Horizontal gray lines
+      drawLine(histogramImage, 0, j, width - 1, j, new RGBPixel(200, 200, 200));
     }
 
     for (int i = 0; i < height; i += 16) {
-      drawLine(histogramImage, i, 0, i, height - 1, 200, 200, 200); // Vertical gray lines
+      drawLine(histogramImage, i, 0, i, height - 1, new RGBPixel(200, 200, 200));
     }
   }
 
-  private int findMaxFrequency(Map<Integer, Integer>... frequencyMaps) {
+  private int findMaxFrequency(List<Map<Integer, Integer>> frequencyMaps) {
     int maxFrequency = 0;
     for (Map<Integer, Integer> frequencyMap : frequencyMaps) {
       maxFrequency =
@@ -101,82 +99,72 @@ public class Histogram implements ImageOperation {
     return maxFrequency;
   }
 
-  private void drawFrequencyCurves(
-          Image histogramImage,
-          Map<Integer, Integer> frequencyRed,
-          Map<Integer, Integer> frequencyGreen,
-          Map<Integer, Integer> frequencyBlue,
-          int histogramWidth) {
+  private void drawFrequencyCurves(Image histogramImage, Map<Integer, Integer> frequencyRed,
+      Map<Integer, Integer> frequencyGreen,
+      Map<Integer, Integer> frequencyBlue) {
 
-    int maxFrequency = findMaxFrequency(frequencyRed, frequencyGreen, frequencyBlue);
+    int maxFrequency = findMaxFrequency(Arrays.asList(frequencyRed, frequencyGreen, frequencyBlue));
 
-    for (int i = 0; i < 255; i++) {
-      drawCurveSegment(
-              histogramImage, i, frequencyRed, maxFrequency, histogramWidth, 255, 0, 0); // Red curve
-      drawCurveSegment(
-              histogramImage, i, frequencyGreen, maxFrequency, histogramWidth, 0, 255, 0); // Green curve
-      drawCurveSegment(
-              histogramImage, i, frequencyBlue, maxFrequency, histogramWidth, 0, 0, 255); // Blue curve
+    for (int i = 0; i <= 255; i++) {
+      drawCurveSegment(histogramImage, i, frequencyRed, maxFrequency, new RGBPixel(255, 0, 0));
+      drawCurveSegment(histogramImage, i, frequencyGreen, maxFrequency, new RGBPixel(0, 255, 0));
+      drawCurveSegment(histogramImage, i, frequencyBlue, maxFrequency, new RGBPixel(0, 0, 255));
     }
   }
 
-  private void drawCurveSegment(
-          Image histogramImage,
-          int i,
-          Map<Integer, Integer> frequencyMap,
-          int maxFrequency,
-          int histogramWidth,
-          int red,
-          int green,
-          int blue) {
+  private void drawCurveSegment(Image histogramImage, int pixelValue,
+      Map<Integer, Integer> frequencyMap,
+      int maxFrequency,
+      Pixel pixel) {
 
-    // Calculate X coordinates based on the frequency value, normalized by max frequency
-    int currentX = (int) ((double) frequencyMap.getOrDefault(i, 0) / maxFrequency * histogramWidth);
-    int nextX = (int) ((double) frequencyMap.getOrDefault(i + 1, 0) / maxFrequency * histogramWidth);
+    int currentFrequency =
+        histogramImage.getHeight() - (int) (
+            (double) frequencyMap.getOrDefault(pixelValue, 0) / maxFrequency
+                * histogramImage.getHeight());
+    int nextFrequency = histogramImage.getHeight() - (int) (
+        (double) frequencyMap.getOrDefault(pixelValue + 1, 0) / maxFrequency
+            * histogramImage.getHeight());
 
-    // Flip Y coordinates to make the histogram grow upwards
-    int yCoord = i;
+    if (pixelValue < histogramImage.getHeight() - 1
+        && currentFrequency >= 0
+        && currentFrequency < histogramImage.getWidth()
+        && nextFrequency >= 0
+        && nextFrequency < histogramImage.getWidth()) {
 
-    // Draw line segment with corrected orientation
-    if (yCoord >= 0
-            && yCoord < histogramImage.getHeight()
-            && currentX >= 0
-            && currentX < histogramWidth
-            && nextX >= 0
-            && nextX < histogramWidth) {
-      drawLine(histogramImage, currentX, yCoord, nextX, yCoord - 1, red, green, blue);
+      drawLine(histogramImage, pixelValue, currentFrequency,
+          pixelValue + 1, nextFrequency, pixel);
     }
   }
-  // Helper method to draw a line between two points with specified RGB color
-  private void drawLine(Image image, int x1, int y1, int x2, int y2, int red, int green, int blue) {
-    if (x1 < 0
-        || x1 >= image.getWidth()
-        || y1 < 0
-        || y1 >= image.getHeight()
-        || x2 < 0
-        || x2 >= image.getWidth()
-        || y2 < 0
-        || y2 >= image.getHeight()) {
-      return;
-    }
 
+  /**
+   * Implements the Bresenham's algorithm as described here.
+   * <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Link to Wiki</a>
+   */
+  private void drawLine(Image image, int x1, int y1, int x2, int y2, Pixel pixel) {
     int dx = Math.abs(x2 - x1);
     int dy = Math.abs(y2 - y1);
     int sx = x1 < x2 ? 1 : -1;
     int sy = y1 < y2 ? 1 : -1;
-    int err = dx - dy;
+    int D = dx - dy;
 
     while (true) {
-      image.setPixel(x1, y1, new RGBPixel(red, green, blue));
 
-      if (x1 == x2 && y1 == y2) break;
-      int e2 = 2 * err;
-      if (e2 > -dy) {
-        err -= dy;
+      if (x1 >= 0 && x1 < image.getWidth() && y1 >= 0 && y1 < image.getHeight()) {
+        System.out.println(x1 + "," + y1);
+        image.setPixel(y1, x1, pixel);
+      }
+
+      if (x1 == x2 && y1 == y2) {
+        break;
+      }
+
+      int D2 = 2 * D;
+      if (D2 > -dy) {
+        D -= dy;
         x1 += sx;
       }
-      if (e2 < dx) {
-        err += dx;
+      if (D2 < dx) {
+        D += dx;
         y1 += sy;
       }
     }
