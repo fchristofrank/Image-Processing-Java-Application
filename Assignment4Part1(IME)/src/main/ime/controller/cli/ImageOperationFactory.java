@@ -2,6 +2,7 @@ package ime.controller.cli;
 
 import ime.controller.operation.Brighten;
 import ime.controller.operation.CLIOperation;
+import ime.controller.operation.ColorCorrection;
 import ime.controller.operation.CombineRGB;
 import ime.controller.operation.Compress;
 import ime.controller.operation.Darken;
@@ -47,6 +48,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String VALUE_COMPONENT = "value-component";
     public static final String INTENSITY_COMPONENT = "intensity-component";
     public static final String HISTOGRAM = "histogram";
+    public static final String COLORCORRECTION = "color-correct";
     public static final String COMPRESS = "compress";
   }
 
@@ -117,6 +119,9 @@ public class ImageOperationFactory implements OperationCreator {
         return new Histogram(imageLibrary);
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
+      case Commands.COLORCORRECTION:
+        return new ColorCorrection(imageLibrary);
+
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
