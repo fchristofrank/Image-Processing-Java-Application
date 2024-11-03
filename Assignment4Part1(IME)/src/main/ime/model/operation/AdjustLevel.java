@@ -3,7 +3,6 @@ package ime.model.operation;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
 
 public class AdjustLevel implements ImageOperation {
@@ -31,18 +30,13 @@ public class AdjustLevel implements ImageOperation {
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
-    System.out.println("Applying at Model");
-    //args check is at controller.
     int blackValue = Integer.parseInt(args[0]);
     int midValue = Integer.parseInt(args[1]);
     int whiteValue = Integer.parseInt(args[2]);
 
     setCoefficients(blackValue, midValue, whiteValue);
-    System.out.println("Found the Coeffs!");
 
     Image outputImage = new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
-    System.out.println(outputImage.getHeight());
-    System.out.println(outputImage.getWidth());
 
     for (int x = 0; x < inputImage.getHeight(); x++) {
       for (int y = 0; y < inputImage.getWidth(); y++) {

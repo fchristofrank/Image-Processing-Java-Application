@@ -1,5 +1,7 @@
 package ime.model.operation;
 
+import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
+
 import ime.model.pixel.Pixel;
 import java.util.Arrays;
 import java.util.List;
@@ -109,7 +111,7 @@ public class Histogram implements ImageOperation {
         (double) frequencyMap.getOrDefault(pixelValue + 1, 0) / maxFrequency
             * histogramImage.getHeight());
 
-    if (pixelValue < histogramImage.getHeight() - 1
+    if (pixelValue < PIXEL_UPPER_LIMIT
         && currentFrequency >= 0
         && currentFrequency < histogramImage.getWidth()
         && nextFrequency >= 0
@@ -123,6 +125,7 @@ public class Histogram implements ImageOperation {
   /**
    * Implements the Bresenham's algorithm as described here.
    * <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Link to Wiki</a>
+   * Variable naming are done as per the common convention used in the algorithm derivation.
    */
   private void drawLine(Image image, int x1, int y1, int x2, int y2, Pixel pixel) {
     int dx = Math.abs(x2 - x1);
@@ -141,12 +144,16 @@ public class Histogram implements ImageOperation {
         break;
       }
 
-      int D2 = 2 * D;
-      if (D2 > -dy) {
+      int updatedD = 2 * D;
+      if (updatedD > -dy) {
+        /*This Condition would mean that the difference in Y direction is minimal
+        * and that we should move towards X.
+        * updatedD is proportional to D which is in turn proportional to dx.
+        *  */
         D -= dy;
         x1 += sx;
       }
-      if (D2 < dx) {
+      if (updatedD < dx) {
         D += dx;
         y1 += sy;
       }
