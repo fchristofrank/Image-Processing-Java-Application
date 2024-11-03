@@ -1,11 +1,9 @@
 package ime.model.operation;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.RGBPixel;
+import java.util.Map;
 
 public class ColorCorrection implements ImageOperation {
 
@@ -17,8 +15,6 @@ public class ColorCorrection implements ImageOperation {
 
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
-
-    System.out.println("Reached Color Correction");
 
     Map<String,Map<Integer, Integer>> frequency;
 
@@ -51,27 +47,19 @@ public class ColorCorrection implements ImageOperation {
       Map<Integer, Integer> greenFrequency,
       Map<Integer, Integer> blueFrequency) {
 
-    // Step 1: Find peaks for each color channel
     int peakRed = findPeak(redFrequency);
     int peakGreen = findPeak(greenFrequency);
     int peakBlue = findPeak(blueFrequency);
 
-    // Step 2: Compute the average peak position
     int avgPeak = (peakRed + peakGreen + peakBlue) / 3;
 
-    // Step 3: Calculate offsets for each channel
     int offsetRed = avgPeak - peakRed;
     int offsetGreen = avgPeak - peakGreen;
     int offsetBlue = avgPeak - peakBlue;
 
-    // Step 4: Apply the offsets to each pixel in the image
     for (int x = 0; x < image.getHeight(); x++) {
       for (int y = 0; y < image.getWidth(); y++) {
 
-        System.out.println(x+","+y);
-        System.out.println(image.getWidth());
-        System.out.println(image.getHeight());
-        System.out.println(image.getPixel(x,y));
         int red = image.getPixel(x, y).getRed() + offsetRed;
         int green = image.getPixel(x, y).getGreen() + offsetGreen;
         int blue = image.getPixel(x, y).getBlue() + offsetBlue;
@@ -85,7 +73,6 @@ public class ColorCorrection implements ImageOperation {
     int peak = 10;
     int maxFrequency = 0;
 
-    // Limit range from 10 to 245 as specified
     for (int i = 10; i <= 245; i++) {
       int frequency = histogram.getOrDefault(i, 0);
       if (frequency > maxFrequency) {
