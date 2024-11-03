@@ -2,7 +2,6 @@ package ime.model.operation;
 
 import ime.model.pixel.Pixel;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,13 +50,10 @@ public class Histogram implements ImageOperation {
     int histogramHeight = 256;
 
     fillBackground(outputImage, histogramHeight, histogramWidth);
-    System.out.println("Background filled");
 
     drawGridLines(outputImage, histogramWidth, histogramHeight);
-    System.out.println("Grid lines drawn");
 
     drawFrequencyCurves(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
-    System.out.println("Frequency curves drawn");
   }
 
   private void fillBackground(Image histogramImage, int height, int width) {
@@ -138,7 +134,6 @@ public class Histogram implements ImageOperation {
     while (true) {
 
       if (x1 >= 0 && x1 < image.getWidth() && y1 >= 0 && y1 < image.getHeight()) {
-        System.out.println(x1 + "," + y1);
         image.setPixel(y1, x1, pixel);
       }
 
