@@ -9,16 +9,26 @@ import ime.model.pixel.RGBPixel;
 
 public class ColorCorrection implements ImageOperation {
 
+  private final CountFrequency countFrequencyOperation;
+
+  public ColorCorrection(CountFrequency countFrequency) {
+    this.countFrequencyOperation = countFrequency;
+  }
+
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
     System.out.println("Reached Color Correction");
 
-    Map<Integer, Integer> frequencyRed = new HashMap<>();
-    Map<Integer, Integer> frequencyGreen = new HashMap<>();
-    Map<Integer, Integer> frequencyBlue = new HashMap<>();
+    Map<String,Map<Integer, Integer>> frequency;
 
-    calculateFrequencies(inputImage, frequencyRed, frequencyGreen, frequencyBlue);
+    frequency = countFrequencyOperation.calculateFrequencies(inputImage);
+
+    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
+        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
+        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
+      throw new IllegalStateException("Frequency maps could not be calculated.");
+    }
 
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
@@ -31,31 +41,9 @@ public class ColorCorrection implements ImageOperation {
       }
     }
 
-    correctColor(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
+    correctColor(outputImage, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
 
     return outputImage;
-  }
-
-  private void calculateFrequencies(
-          Image inputImage,
-          Map<Integer, Integer> frequencyRed,
-          Map<Integer, Integer> frequencyGreen,
-          Map<Integer, Integer> frequencyBlue) {
-
-    int imageHeight = inputImage.getHeight();
-    int imageWidth = inputImage.getWidth();
-
-    for (int i = 0; i < imageHeight; i++) {
-      for (int j = 0; j < imageWidth; j++) {
-        int red = inputImage.getPixel(i, j).getRed();
-        int green = inputImage.getPixel(i, j).getGreen();
-        int blue = inputImage.getPixel(i, j).getBlue();
-
-        frequencyRed.put(red, frequencyRed.getOrDefault(red, 0) + 1);
-        frequencyGreen.put(green, frequencyGreen.getOrDefault(green, 0) + 1);
-        frequencyBlue.put(blue, frequencyBlue.getOrDefault(blue, 0) + 1);
-      }
-    }
   }
 
   private void correctColor( Image image,
@@ -88,18 +76,13 @@ public class ColorCorrection implements ImageOperation {
         int green = image.getPixel(x, y).getGreen() + offsetGreen;
         int blue = image.getPixel(x, y).getBlue() + offsetBlue;
 
-        // Clamping values to stay within RGB range [0, 255]
-        red = clamp(red);
-        green = clamp(green);
-        blue = clamp(blue);
-
         image.setPixel(x, y, new RGBPixel(red, green, blue));
       }
     }
   }
 
   private static int findPeak(Map<Integer, Integer> histogram) {
-    int peak = 10; // Start checking from value 10
+    int peak = 10;
     int maxFrequency = 0;
 
     // Limit range from 10 to 245 as specified
@@ -114,8 +97,4 @@ public class ColorCorrection implements ImageOperation {
     return peak;
   }
 
-  private static int clamp(int value) {
-    if (value < 0) return 0;
-    return Math.min(value, 255);
-  }
 }

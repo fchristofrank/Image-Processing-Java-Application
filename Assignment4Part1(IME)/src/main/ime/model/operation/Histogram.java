@@ -13,45 +13,33 @@ import ime.model.pixel.RGBPixel;
 
 public class Histogram implements ImageOperation {
 
+  private final CountFrequency countFrequencyOperation;
+
+  public Histogram(CountFrequency countFrequencyOperation) {
+    this.countFrequencyOperation = countFrequencyOperation;
+  }
+
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
-    System.out.println("Reached Histogram");
+    Map<String, Map<Integer,Integer>> frequency;
 
-    Map<Integer, Integer> frequencyRed = new HashMap<>();
-    Map<Integer, Integer> frequencyGreen = new HashMap<>();
-    Map<Integer, Integer> frequencyBlue = new HashMap<>();
+    frequency = countFrequencyOperation.calculateFrequencies(inputImage);
 
-    calculateFrequencies(inputImage, frequencyRed, frequencyGreen, frequencyBlue);
+    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
+        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
+        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
+      throw new IllegalStateException("Frequency maps could not be calculated.");
+    }
 
     Image outputImage = new SimpleImage(256, 256, ImageType.RGB);
 
-    createHistogramImage(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
+    createHistogramImage(outputImage, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
 
     return outputImage;
   }
 
-  private void calculateFrequencies(
-      Image inputImage,
-      Map<Integer, Integer> frequencyRed,
-      Map<Integer, Integer> frequencyGreen,
-      Map<Integer, Integer> frequencyBlue) {
 
-    int imageHeight = inputImage.getHeight();
-    int imageWidth = inputImage.getWidth();
-
-    for (int i = 0; i < imageHeight; i++) {
-      for (int j = 0; j < imageWidth; j++) {
-        int red = inputImage.getPixel(i, j).getRed();
-        int green = inputImage.getPixel(i, j).getGreen();
-        int blue = inputImage.getPixel(i, j).getBlue();
-
-        frequencyRed.put(red, frequencyRed.getOrDefault(red, 0) + 1);
-        frequencyGreen.put(green, frequencyGreen.getOrDefault(green, 0) + 1);
-        frequencyBlue.put(blue, frequencyBlue.getOrDefault(blue, 0) + 1);
-      }
-    }
-  }
 
   private void createHistogramImage(
       Image outputImage,

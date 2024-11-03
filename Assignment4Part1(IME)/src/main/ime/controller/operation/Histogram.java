@@ -2,6 +2,7 @@ package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.operation.CountFrequency;
 
 public class Histogram extends AbstractOperation {
 
@@ -23,7 +24,8 @@ public class Histogram extends AbstractOperation {
     if (inputImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    Image outputImage = inputImage.applyOperation(new ime.model.operation.Histogram(), args);
+    Image outputImage = inputImage.applyOperation(
+        new ime.model.operation.Histogram(new CountFrequency()), args);
     addImage(outputName, outputImage);
     System.out.println("Generated Histogram. New Image :: " + outputName);
   }

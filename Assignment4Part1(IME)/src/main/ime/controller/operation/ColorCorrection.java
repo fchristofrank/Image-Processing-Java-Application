@@ -3,8 +3,9 @@ package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
 import ime.model.image.Image;
+import ime.model.operation.CountFrequency;
 
-public class ColorCorrection extends AbstractOperation  {
+public class ColorCorrection extends AbstractOperation {
 
   public ColorCorrection(ImageLibrary library) {
     super(library);
@@ -19,7 +20,8 @@ public class ColorCorrection extends AbstractOperation  {
     if (inputImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    Image outputImage = inputImage.applyOperation(new ime.model.operation.ColorCorrection(), args);
+    Image outputImage = inputImage.applyOperation(
+        new ime.model.operation.ColorCorrection(new CountFrequency()), args);
     addImage(outputName, outputImage);
     System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
   }
