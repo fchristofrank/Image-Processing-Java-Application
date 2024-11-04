@@ -13,7 +13,6 @@ public class FilterConstants {
           {1f / 8f, 1f / 4f, 1f / 8f},
           {1f / 16f, 1f / 8f, 1f / 16f}
   };
-
   public static final float[][] SHARPEN_KERNEL = {
           {-1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f},
           {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
@@ -22,7 +21,6 @@ public class FilterConstants {
           {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
 
   };
-
   public static final double[][] SEPIA_COLOR_TRANSFORMATION = {
           {0.393, 0.769, 0.189},
           {0.349, 0.686, 0.168},

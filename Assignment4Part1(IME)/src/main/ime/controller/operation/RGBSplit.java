@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
@@ -12,7 +13,7 @@ import ime.model.operation.VisualizeRed;
  * red, green, and blue components, creating separate images for each color.
  */
 public class RGBSplit extends AbstractOperation {
-  public RGBSplit(ImageLibrary library) {
+  public RGBSplit(ImageRepo library) {
     super(library);
   }
 

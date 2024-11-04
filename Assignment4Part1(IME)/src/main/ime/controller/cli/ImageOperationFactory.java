@@ -3,16 +3,17 @@ package ime.controller.cli;
 import ime.controller.operation.Brighten;
 import ime.controller.operation.CLIOperation;
 import ime.controller.operation.CombineRGB;
+import ime.controller.operation.Compress;
 import ime.controller.operation.Darken;
-import ime.controller.operation.Filter;
+import ime.controller.operation.FilterWithPreview;
 import ime.controller.operation.HorizontalFlip;
 import ime.controller.operation.Load;
 import ime.controller.operation.RGBSplit;
 import ime.controller.operation.Save;
-import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 
 /**
  * A class for creating CLI operations in an image processing application.
@@ -20,7 +21,7 @@ import ime.controller.operation.repository.ImageLibrary;
  */
 public class ImageOperationFactory implements OperationCreator {
 
-  private final ImageLibrary imageLibrary;
+  private final ImageRepo imageLibrary;
 
   /**
    * Contains command names for CLI operations as constants.
@@ -43,15 +44,14 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String LUMA_COMPONENT = "luma-component";
     public static final String VALUE_COMPONENT = "value-component";
     public static final String INTENSITY_COMPONENT = "intensity-component";
+    public static final String COMPRESS = "compress";
   }
 
   /**
    * Constructs a CommandFactory with the specified image library.
-   *
-   * @param imageLibrary the ImageLibrary to be used by all created operations
    */
-  public ImageOperationFactory(ImageLibrary imageLibrary) {
-    this.imageLibrary = imageLibrary;
+  public ImageOperationFactory() {
+    this.imageLibrary = new ImageLibrary();
   }
 
   /**
@@ -95,13 +95,14 @@ public class ImageOperationFactory implements OperationCreator {
         return new VerticalFlip(imageLibrary);
       case Commands.HORIZONTAL_FLIP:
         return new HorizontalFlip(imageLibrary);
-      case Commands.SEPIA:
-        return new Sepia(imageLibrary);
       case Commands.RGB_COMBINE:
         return new CombineRGB(imageLibrary);
+      //filter commands;
       case Commands.BLUR:
       case Commands.SHARPEN:
-        return new Filter(imageLibrary, commandName);
+      case Commands.SEPIA:
+        return new FilterWithPreview(imageLibrary, commandName);
+      //visualize commands;
       case Commands.RED_COMPONENT:
       case Commands.GREEN_COMPONENT:
       case Commands.BLUE_COMPONENT:
@@ -109,7 +110,8 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.VALUE_COMPONENT:
       case Commands.INTENSITY_COMPONENT:
         return new Visualize(imageLibrary, commandName);
-
+      case Commands.COMPRESS:
+        return new Compress(imageLibrary);
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }

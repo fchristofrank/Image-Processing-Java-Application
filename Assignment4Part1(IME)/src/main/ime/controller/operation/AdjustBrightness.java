@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.ApplyBrightness;
 
@@ -15,7 +16,7 @@ public abstract class AdjustBrightness extends AbstractOperation {
    *
    * @param library the ImageLibrary to be used for image operations.
    */
-  public AdjustBrightness(ImageLibrary library) {
+  public AdjustBrightness(ImageRepo library) {
     super(library);
   }
 
@@ -30,7 +31,7 @@ public abstract class AdjustBrightness extends AbstractOperation {
     }
     Image outputImage = inputImage.applyOperation(new ApplyBrightness(), String.valueOf(alpha));
     addImage(outputName, outputImage);
-    System.out.println("Adjusting Brightness. New image created: " + outputName);
+    System.out.println("Adjusting Brightness. New image created :: " + outputName);
   }
 
   @Override

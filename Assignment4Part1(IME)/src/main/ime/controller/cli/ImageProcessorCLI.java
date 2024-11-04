@@ -1,10 +1,13 @@
 package ime.controller.cli;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ime.controller.operation.CLIOperation;
 import ime.controller.operation.repository.ImageLibrary;
@@ -18,42 +21,64 @@ import ime.controller.operation.repository.ImageLibrary;
  * </p>
  */
 public class ImageProcessorCLI implements CommandExecutor {
-  private final InputStream in;
-  private final ImageOperationFactory imageOperationFactory;
+  private static final String EXIT_COMMAND = "exit";
+  private static final String RUN_COMMAND = "run";
+  private static final String COMMENT_PREFIX = "#";
+  private static final String WELCOME_MESSAGE = "Welcome to the Image Processor. Type 'exit' " +
+          "to quit.";
+  private static final String GOODBYE_MESSAGE = "Goodbye - may the gradients be with you!";
+  private static final String PROMPT = "> ";
+  private static final String EMPTY_COMMAND_MESSAGE = "Please enter a command.";
+  private static final String INVALID_RUN_COMMAND = "Invalid 'run' command. Usage: run <filename>";
+
+  private final Readable readable;
+  private final Appendable appendable;
+  private final OperationCreator imageOperationFactory;
 
   /**
    * Constructs a new ImageProcessorCLI instance.
    * Initializes the command factory with a new ImageLibrary and sets up
    * the input scanner.
    */
-  public ImageProcessorCLI(InputStream in) {
-    this.in = in;
-    this.imageOperationFactory = new ImageOperationFactory(new ImageLibrary());
+  public ImageProcessorCLI(Readable readable, Appendable appendable,
+                           OperationCreator operationCreator) {
+    this.readable = readable;
+    this.appendable = appendable;
+    this.imageOperationFactory = operationCreator;
   }
 
   @Override
   public void run() {
-    Scanner scanner = new Scanner(in);
-    System.out.println("Welcome to the Image Processor. Type 'exit' to quit.");
-    while (true) {
-      System.out.print("> ");
-      String input = scanner.nextLine().trim();
-      if (input.equals("exit")) {
-        break;
-      }
-      if (!input.isEmpty()) {
-        try {
-          processInput(input);
-        } catch (IllegalArgumentException e) {
-          System.out.println("Error executing command: " + e.getMessage());
+    try (Scanner scanner = new Scanner(readable)) {
+      writeMessage(WELCOME_MESSAGE + System.lineSeparator());
+      while (true) {
+        writeMessage(PROMPT);
+        String input = scanner.nextLine().trim();
+        if (EXIT_COMMAND.equals(input)) {
+          break;
         }
-      } else {
-        System.out.println("Please enter a command.");
+        if (!input.isEmpty()) {
+          try {
+            processInput(input);
+          } catch (IllegalArgumentException e) {
+            writeMessage("Error executing command: " + e.getMessage());
+          }
+        } else {
+          writeMessage(EMPTY_COMMAND_MESSAGE + System.lineSeparator());
+        }
       }
+      writeMessage(GOODBYE_MESSAGE + System.lineSeparator());
     }
-    System.out.println("Goodbye - may the gradients be with you!");
   }
 
+  private void writeMessage(String message) throws IllegalStateException {
+    try {
+      appendable.append(message);
+
+    } catch (IOException e) {
+      throw new IllegalStateException(e.getMessage());
+    }
+  }
 
   /**
    * Processes the user input, determining whether to execute a script file or a single command.
@@ -61,7 +86,7 @@ public class ImageProcessorCLI implements CommandExecutor {
    * @param input the user input string
    */
   private void processInput(String input) {
-    if (input.startsWith("run")) {
+    if (input.startsWith(RUN_COMMAND)) {
       executeScriptFile(input);
     } else {
       executeCommand(input);
@@ -76,42 +101,37 @@ public class ImageProcessorCLI implements CommandExecutor {
   private void executeScriptFile(String input) {
     String[] parts = input.split("\\s+");
     if (parts.length != 2) {
-      System.out.println("Invalid 'run' command. Usage: run <filename>");
+      writeMessage(INVALID_RUN_COMMAND + System.lineSeparator());
       return;
     }
     String filename = parts[1];
-    String fileContent = null;
     try {
-      fileContent = readFromFile(filename);
+      String fileContent = readFromFile(filename);
+      Arrays.stream(fileContent.split("\n"))
+              .filter(line -> !line.startsWith(COMMENT_PREFIX))
+              .forEach(this::executeCommand);
     } catch (IOException e) {
-      System.out.println("Error reading file: " + filename);
-    }
-    if (fileContent != null) {
-      for (String line : fileContent.split("\n")) {
-        if (line.startsWith("#")) {
-          continue;
-        }
-        executeCommand(line);
-      }
+      writeMessage("Error reading file: " + filename);
     }
   }
 
   /**
    * Executes a single command.
    * This method creates a corresponding operation for the specific command and
-   * pass the appropriate arguments.
+   * passes the appropriate arguments.
    *
    * @param command the command string to execute
    */
   private void executeCommand(String command) {
-    String[] parts = command.split("\\s+");
-    if (parts.length == 0) {
-      return;
+    try {
+      String[] parts = command.split("\\s+");
+      String operationName = parts[0];
+      String[] args = Arrays.copyOfRange(parts, 1, parts.length);
+      CLIOperation operation = imageOperationFactory.createOperation(operationName);
+      operation.execute(args);
+    } catch (Exception e) {
+      writeMessage("An error occurred: " + e.getMessage() + System.lineSeparator());
     }
-    String operationName = parts[0];
-    String[] args = Arrays.copyOfRange(parts, 1, parts.length);
-    CLIOperation operation = imageOperationFactory.createOperation(operationName);
-    operation.execute(args);
   }
 
   /**
@@ -127,18 +147,11 @@ public class ImageProcessorCLI implements CommandExecutor {
    * @throws IOException if an I/O error occurs while reading the file.
    */
   private String readFromFile(String filePath) throws IOException {
-    StringBuilder content = new StringBuilder();
-    BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));
-    String line;
-    while ((line = reader.readLine()) != null) {
-      line = line.trim();
-      if (line.isEmpty() || line.startsWith("#")) {
-        continue;
-      }
-      content.append(line).append("\n");
+    try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+      return lines
+              .map(String::trim)
+              .filter(line -> !line.isEmpty() && !line.startsWith(COMMENT_PREFIX))
+              .collect(Collectors.joining("\n"));
     }
-    reader.close();
-    return content.toString();
   }
-
 }

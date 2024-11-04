@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.operation.ApplyHorizontalFlip;
 import ime.model.operation.ImageOperation;
 
@@ -16,7 +17,7 @@ public class HorizontalFlip extends Flip {
    *
    * @param library the ImageLibrary to be used for image operations.
    */
-  public HorizontalFlip(ImageLibrary library) {
+  public HorizontalFlip(ImageRepo library) {
     super(library);
   }
 

@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 
 /**
@@ -10,14 +11,14 @@ public abstract class AbstractOperation implements CLIOperation {
   /**
    * The image library used for storing and retrieving images.
    */
-  private final ImageLibrary library;
+  private final ImageRepo library;
 
   /**
    * Constructs an AbstractOperation with the specified image library.
    *
    * @param library the ImageLibrary to be used for image operations
    */
-  public AbstractOperation(ImageLibrary library) {
+  public AbstractOperation(ImageRepo library) {
     this.library = library;
   }
 
@@ -48,6 +49,10 @@ public abstract class AbstractOperation implements CLIOperation {
    * @param image     the Image object to be added
    */
   protected void addImage(String imageName, Image image) {
+    if (this.library == null) {
+      throw new IllegalArgumentException("Image library is not initialized.");
+    }
+
     this.library.addImage(imageName, image);
   }
 
