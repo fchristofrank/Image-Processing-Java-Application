@@ -75,6 +75,17 @@ public class SimpleImage implements Image {
     return operation.apply(images, args);
   }
 
+  @Override
+  public Image copy() {
+    Image outputImage = new SimpleImage(height, width, imageType);
+    for(int i = 0; i < height; i++){
+      for(int j = 0; j < width; j++){
+        outputImage.setPixel(i, j, pixels[i][j]);
+      }
+    }
+    return outputImage;
+  }
+
   /**
    * This method compares two images based on their height, width, image type and pixel attributes.
    *

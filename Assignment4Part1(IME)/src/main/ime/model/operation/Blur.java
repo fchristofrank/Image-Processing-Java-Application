@@ -11,7 +11,7 @@ import static ime.constants.FilterConstants.GAUSSIAN_BLUR_KERNEL;
  * matrix defines the degree of blurring by averaging the pixel values in a weighted manner. The
  * larger the kernel, the stronger the blur effect.
  */
-public class Blur extends Filter {
+public class Blur extends FilterWithPreview {
 
   /**
    * Retrieves the Gaussian blur kernel, which is a pre-defined matrix used for applying the blur

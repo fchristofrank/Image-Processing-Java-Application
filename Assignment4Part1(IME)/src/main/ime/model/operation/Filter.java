@@ -39,15 +39,17 @@ public abstract class Filter implements ImageOperation {
 
     Image outputImage =
             new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
+    processImage(inputImage, outputImage, args);
+    return outputImage;
+  }
 
+  protected void processImage(Image inputImage, Image outputImage, String... args) {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         Pixel newPixel = applyFilterToPixel(inputImage, i, j);
         outputImage.setPixel(i, j, newPixel);
       }
     }
-
-    return outputImage;
   }
 
   /**
@@ -60,7 +62,7 @@ public abstract class Filter implements ImageOperation {
    * @param y     the y-coordinate of the pixel
    * @return a new pixel with clamped RGB values based on the convolution results
    */
-  private Pixel applyFilterToPixel(Image image, int x, int y) {
+  protected Pixel applyFilterToPixel(Image image, int x, int y) {
 
     double redSum = 0;
     double greenSum = 0;

@@ -7,7 +7,7 @@ import static ime.constants.FilterConstants.SHARPEN_KERNEL;
  * Filter class and provides the specific kernel used for sharpening. The sharpening process
  * emphasizes edges by applying the sharpen kernel to each pixel maintained in the constants file.
  */
-public class Sharpen extends Filter {
+public class Sharpen extends FilterWithPreview {
 
   /**
    * Returns the sharpen kernel used to apply the sharpening filter. The kernel defines how pixel

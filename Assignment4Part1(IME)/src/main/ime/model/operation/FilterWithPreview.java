@@ -1,9 +1,9 @@
 package ime.model.operation;
 
-import ime.constants.FilterConstants;
 import ime.model.image.Image;
+import ime.model.pixel.Pixel;
 
-public class ApplySepiaWithPreview extends ApplySepia {
+public abstract class FilterWithPreview extends Filter{
 
   @Override
   protected void processImage(Image inputImage, Image outputImage, String... args) {
@@ -17,14 +17,13 @@ public class ApplySepiaWithPreview extends ApplySepia {
         heightSplitPercentage = Integer.parseInt(args[1]);
       }
     }
-
-    outputImage = inputImage.copy();
     int splitWidth = inputImage.getWidth() * widthSplitPercentage / 100;
     int splitHeight = inputImage.getHeight() * heightSplitPercentage / 100;
+    outputImage = inputImage.copy();
     for (int i = 0; i < splitHeight; i++) {
       for (int j = 0; j < splitWidth; j++) {
-        outputImage.setPixel(i, j, inputImage.getPixel(i, j)
-                .scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION));
+        Pixel newPixel = applyFilterToPixel(inputImage, i, j);
+        outputImage.setPixel(i, j, newPixel);
       }
     }
   }

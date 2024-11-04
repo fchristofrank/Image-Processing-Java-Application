@@ -79,4 +79,10 @@ public interface Image {
   Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args)
           throws IllegalArgumentException;
 
+  /**
+   * This method returns a deep copy of this image.
+   * @return the deep copy of this image.
+   */
+  Image copy();
+
 }
