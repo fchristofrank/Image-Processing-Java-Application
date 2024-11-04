@@ -3,6 +3,7 @@ import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
+import ime.model.operation.CountFrequency;
 import ime.model.operation.Histogram;
 import ime.model.operation.ImageOperation;
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class HistogramTest {
 
   @Test
   public void histogramTest() {
-    ImageOperation operation = new Histogram();
+    ImageOperation operation = new Histogram(new CountFrequency());
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     String resDirPath =
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
