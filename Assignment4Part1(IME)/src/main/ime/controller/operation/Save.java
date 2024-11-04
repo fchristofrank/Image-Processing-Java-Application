@@ -7,6 +7,7 @@ import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageWriter;
 import ime.controller.imageio.ImageWriterFactory;
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 
@@ -21,7 +22,7 @@ public class Save extends AbstractOperation {
    *
    * @param library the ImageLibrary instance that provides access to the images.
    */
-  public Save(ImageLibrary library) {
+  public Save(ImageRepo library) {
     super(library);
   }
 
@@ -41,7 +42,7 @@ public class Save extends AbstractOperation {
     } catch (IllegalArgumentException | IOException e) {
       throw new IllegalArgumentException(e.getMessage());
     }
-    System.out.println("Saved " + imageName + " in " + imagePath);
+    System.out.println("Saved :: " + imageName + " in " + imagePath);
   }
 
   /**

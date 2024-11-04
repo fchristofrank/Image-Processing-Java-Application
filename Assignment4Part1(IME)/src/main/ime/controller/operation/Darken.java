@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 
 /**
  * Controller class for performing image darkening operations.
@@ -13,7 +14,7 @@ public class Darken extends AdjustBrightness {
    *
    * @param library the ImageLibrary to be used for image operations.
    */
-  public Darken(ImageLibrary library) {
+  public Darken(ImageRepo library) {
     super(library);
   }
 

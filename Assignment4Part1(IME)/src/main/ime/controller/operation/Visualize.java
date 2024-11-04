@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.AbstractVisualize;
 import ime.model.operation.VisualizeBlue;
@@ -18,7 +19,7 @@ public class Visualize extends AbstractOperation {
 
   private final String command;
 
-  public Visualize(ImageLibrary library, String command) {
+  public Visualize(ImageRepo library, String command) {
     super(library);
     this.command = command;
   }

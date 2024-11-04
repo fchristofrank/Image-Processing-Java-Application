@@ -3,6 +3,7 @@ package ime.controller.operation;
 import java.util.Arrays;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.Combine;
 
@@ -19,7 +20,7 @@ public class CombineRGB extends AbstractOperation {
    *
    * @param library the library containing images available for operations.
    */
-  public CombineRGB(ImageLibrary library) {
+  public CombineRGB(ImageRepo library) {
     super(library);
   }
 

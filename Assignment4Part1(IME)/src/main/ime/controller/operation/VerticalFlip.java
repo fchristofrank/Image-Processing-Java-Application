@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.operation.ApplyVerticalFlip;
 import ime.model.operation.ImageOperation;
 
@@ -17,7 +18,7 @@ public class VerticalFlip extends Flip {
    *
    * @param library the ImageLibrary to be used for image operations.
    */
-  public VerticalFlip(ImageLibrary library) {
+  public VerticalFlip(ImageRepo library) {
     super(library);
   }
 

@@ -1,6 +1,7 @@
 package ime.model.operation;
 
 import java.util.List;
+
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
@@ -21,7 +22,7 @@ public class Combine implements MultipleImageOperation {
    * images do not match, an IllegalArgumentException is thrown.
    *
    * @param images a list of three images to extract red, green and blue channel in order.
-   * @param args additional arguments, if any.
+   * @param args   additional arguments, if any.
    * @return a new RGB image created from the three input images.
    * @throws IllegalArgumentException if the images have different dimensions.
    */
@@ -55,12 +56,27 @@ public class Combine implements MultipleImageOperation {
     return outputImage;
   }
 
+  /**
+   * Validates that the list contains exactly three images.
+   * Throws an IllegalArgumentException if the count is not three.
+   *
+   * @param images the list of images to validate.
+   * @throws IllegalArgumentException if the list size is not three.
+   */
   private void validateImageCount(List<Image> images) {
     if (images.size() != 3) {
       throw new IllegalArgumentException("Not Enough images for operation. Expected " + 3);
     }
   }
 
+
+  /**
+   * Ensures all images have the same width and height.
+   * Throws an IllegalArgumentException if dimensions do not match.
+   *
+   * @param images the array of images to check for matching dimensions.
+   * @throws IllegalArgumentException if any image has a different width or height.
+   */
   private void validateSameDimensions(Image... images) {
     int height = images[0].getHeight();
     int width = images[0].getWidth();
@@ -71,6 +87,13 @@ public class Combine implements MultipleImageOperation {
     }
   }
 
+  /**
+   * Checks that each pixel is grayscale by validating the equality of red, green, and blue values.
+   * Throws an IllegalArgumentException if any pixel is not grayscale.
+   *
+   * @param pixels the array of pixels to validate as grayscale.
+   * @throws IllegalArgumentException if any pixel is not grayscale.
+   */
   private void validateGrayscaleImages(Pixel... pixels) {
     for (Pixel pixel : pixels) {
       if (!isGreyscaleImage(pixel)) {
@@ -79,10 +102,24 @@ public class Combine implements MultipleImageOperation {
     }
   }
 
+  /**
+   * Determines if a pixel is grayscale by checking if its red, green, and blue values are equal.
+   *
+   * @param pixel the pixel to check.
+   * @return true if the pixel is grayscale; otherwise, false.
+   */
   private boolean isGreyscaleImage(Pixel pixel) {
     return pixel.getRed() == pixel.getGreen() && pixel.getRed() == pixel.getBlue();
   }
 
+  /**
+   * Creates a new RGB pixel from specified red, green, and blue values.
+   *
+   * @param redValue   the red component value.
+   * @param greenValue the green component value.
+   * @param blueValue  the blue component value.
+   * @return a new RGBPixel with the specified color values.
+   */
   private Pixel createRgbPixel(int redValue, int greenValue, int blueValue) {
     return new RGBPixel(redValue, greenValue, blueValue);
   }

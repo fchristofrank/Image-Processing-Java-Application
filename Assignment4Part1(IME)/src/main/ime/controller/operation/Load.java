@@ -8,6 +8,7 @@ import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 
@@ -24,7 +25,7 @@ public class Load extends AbstractOperation {
    *
    * @param library the ImageLibrary instance that provides access to the images.
    */
-  public Load(ImageLibrary library) {
+  public Load(ImageRepo library) {
     super(library);
   }
 
@@ -47,6 +48,6 @@ public class Load extends AbstractOperation {
               + ". Please ensure the file exists and is a valid image format.", e);
     }
     addImage(imageName, image);
-    System.out.println("Image loaded: " + imageName);
+    System.out.println("Image loaded :: " + imageName);
   }
 }

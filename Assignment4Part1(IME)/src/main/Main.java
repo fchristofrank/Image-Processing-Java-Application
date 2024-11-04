@@ -1,4 +1,8 @@
+import java.io.InputStreamReader;
+
+import ime.controller.cli.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
+import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * The Main class serves as the entry point for the image editor application.
@@ -13,6 +17,8 @@ public class Main {
    * @param args the command-line arguments; not used in this application.
    */
   public static void main(String[] args) {
-    new ImageProcessorCLI(System.in).run();
+    Readable rd = new InputStreamReader(System.in);
+    Appendable ap = System.out;
+    new ImageProcessorCLI(rd, ap, new ImageOperationFactory()).run();
   }
 }

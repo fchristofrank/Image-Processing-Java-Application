@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.ImageOperation;
 
@@ -15,7 +16,7 @@ public abstract class Flip extends AbstractOperation {
    *
    * @param library the ImageLibrary to be used for image operations.
    */
-  public Flip(ImageLibrary library) {
+  public Flip(ImageRepo library) {
     super(library);
   }
 

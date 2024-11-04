@@ -1,7 +1,10 @@
 package ime.controller.operation;
 
-import ime.controller.operation.repository.ImageLibrary;
+import java.util.Arrays;
+
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
+import ime.model.operation.ApplySepia;
 import ime.model.operation.Blur;
 import ime.model.operation.ImageOperation;
 import ime.model.operation.Sharpen;
@@ -16,7 +19,7 @@ public class Filter extends AbstractOperation {
 
   private final String command;
 
-  public Filter(ImageLibrary library, String command) {
+  public Filter(ImageRepo library, String command) {
     super(library);
     this.command = command;
   }
@@ -38,7 +41,8 @@ public class Filter extends AbstractOperation {
     if (inputImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), args);
+    String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
+    Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), commandArgs);
     addImage(outputName, outputImage);
     System.out.println("Filtered given images. New Image :: " + outputName);
   }
@@ -49,13 +53,15 @@ public class Filter extends AbstractOperation {
    * @param command the intended operation is sent as argument for the method.
    * @return returns the object based on the command received.
    */
-  private ImageOperation filterObjectFactory(String command) {
+  protected ImageOperation filterObjectFactory(String command) {
 
     switch (command) {
       case "blur":
         return new Blur();
       case "sharpen":
         return new Sharpen();
+      case "sepia":
+        return new ApplySepia();
       default:
         throw new UnsupportedOperationException("Unknown command given.");
     }
