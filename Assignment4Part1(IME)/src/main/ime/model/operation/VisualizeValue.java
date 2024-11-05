@@ -8,7 +8,7 @@ import ime.model.pixel.Pixel;
  * representation that emphasizes the overall lightness or darkness of the original image. The
  * output will be a grayscale image where pixel values are determined by their brightness levels.
  */
-public class VisualizeValue extends AbstractVisualize {
+public class VisualizeValue extends AbstractVisualizeWithPreview {
 
   /**
    * Retrieves the value of the provided pixel. This method overrides the getColorComponent method

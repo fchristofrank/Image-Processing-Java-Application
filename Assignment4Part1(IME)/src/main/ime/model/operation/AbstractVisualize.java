@@ -1,7 +1,6 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
-import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
@@ -32,16 +31,20 @@ public abstract class AbstractVisualize implements ImageOperation {
    */
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
-
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
+    processImage(inputImage, pixels);
+    return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(),
+            pixels);
+  }
+
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         int colorValue = getColorComponent(inputImage.getPixel(i, j));
-        pixels[i][j] = PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue, colorValue);
+        pixels[i][j] = PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue,
+                colorValue);
       }
     }
-    return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(),
-            pixels);
   }
 
   /**

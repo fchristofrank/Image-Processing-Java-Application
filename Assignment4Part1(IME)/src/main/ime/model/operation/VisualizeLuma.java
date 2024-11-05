@@ -8,7 +8,7 @@ import ime.model.pixel.Pixel;
  * different colors. This visualization focuses on providing a grayscale representation where the
  * output pixel values correspond to the luma values of the original image.
  */
-public class VisualizeLuma extends AbstractVisualize {
+public class VisualizeLuma extends AbstractVisualizeWithPreview {
 
   /**
    * Retrieves the luma of the provided pixel. This method overrides the getColorComponent method

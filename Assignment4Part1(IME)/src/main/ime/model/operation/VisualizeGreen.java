@@ -11,7 +11,7 @@ import ime.model.pixel.Pixel;
  * while the other color channels (red and blue) will not influence the pixel values
  * in the output image.
  */
-public class VisualizeGreen extends AbstractVisualize {
+public class VisualizeGreen extends AbstractVisualizeWithPreview {
 
   /**
    * Extracts the green component from the provided pixel.
