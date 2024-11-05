@@ -149,4 +149,5 @@ public class HistogramTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
   }
+
 }
