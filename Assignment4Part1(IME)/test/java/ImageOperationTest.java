@@ -1435,13 +1435,13 @@ public class ImageOperationTest {
             .append("boston-luma")
             .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-luma-actual.ppm")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-luma-expected.ppm")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
             .append("save")
             .append(" ")
