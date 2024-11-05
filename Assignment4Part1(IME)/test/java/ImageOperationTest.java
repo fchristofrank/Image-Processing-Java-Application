@@ -1365,6 +1365,7 @@ public class ImageOperationTest {
     assertEquals(actualCompressedImage, expectedCompressedImage);
   }
 
+
   @Test
   public void testCompressionZeroPercentPNG() {
     String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
