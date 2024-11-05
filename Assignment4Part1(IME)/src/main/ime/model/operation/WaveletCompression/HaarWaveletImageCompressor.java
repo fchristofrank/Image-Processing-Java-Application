@@ -6,6 +6,7 @@ import java.util.List;
 
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 
 /**
@@ -46,19 +47,17 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     invertTransform(tRed);
     invertTransform(tGreen);
     invertTransform(tBlue);
-
-    Image outputImage = new SimpleImage(height, width, image.getType());
-
+    Pixel[][] pixels = new Pixel[height][width];
     // Set the reconstructed pixel values into the output image
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        outputImage.setPixel(i, j, PixelFactory.createPixel(outputImage.getType(),
+        pixels[i][j] = PixelFactory.createPixel(image.getType(),
                 Math.round(tRed[i][j]),
                 Math.round(tGreen[i][j]),
-                Math.round(tBlue[i][j])));
+                Math.round(tBlue[i][j]));
       }
     }
-    return outputImage;
+    return new SimpleImage(height, width, image.getType(), pixels);
   }
 
   /**
@@ -224,23 +223,19 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
    */
   private void compressSequence(float[][] sequence, float compressionRatio) {
     List<Float> coefficients = new ArrayList<>();
-
-    // Collect coefficients into a list for processing
     for (float[] row : sequence) {
       for (float value : row) {
-        coefficients.add(value);
+        if (value != 0) {
+          coefficients.add(Math.abs(value));
+        }
       }
     }
-
-    // Sort coefficients and determine how many to retain
-    Collections.sort(coefficients);
-    int numToRetain = (int) ((1 - compressionRatio) * coefficients.size());
-    float threshold = coefficients.get(numToRetain);
-
-    // Set coefficients below the threshold to zero
+    coefficients.sort(Collections.reverseOrder());
+    int numToRetain = (int) ((1 - (compressionRatio / 100)) * coefficients.size());
+    float threshold = numToRetain > 0 ? coefficients.get(numToRetain - 1) : Float.MAX_VALUE;
     for (int i = 0; i < sequence.length; i++) {
       for (int j = 0; j < sequence[i].length; j++) {
-        if (Math.abs(sequence[i][j]) < Math.abs(threshold)) {
+        if (Math.abs(sequence[i][j]) < threshold) {
           sequence[i][j] = 0;
         }
       }

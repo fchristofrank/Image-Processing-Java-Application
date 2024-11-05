@@ -707,36 +707,16 @@ public class ImageOperationTest {
     String resDirPath =
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("brighten")
-        .append(" ")
-        .append("25")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-brighten")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-brighten-actual.png")
-        .append(" ")
-        .append("boston-brighten")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("brighten").append(" ").append("25").append(" ").append("boston")
+            .append(" ").append("boston-brighten").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-brighten-actual.png")
+            .append(" ").append("boston-brighten").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
@@ -757,51 +737,32 @@ public class ImageOperationTest {
 
   @Test
   public void testBrightenJPG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.jpg")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("brighten")
-        .append(" ")
-        .append("25")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-brighten")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-brighten-actual.jpg")
-        .append(" ")
-        .append("boston-brighten")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.jpg").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("brighten").append(" ").append("25").append(" ").append("boston")
+            .append(" ").append("boston-brighten").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-brighten-actual.jpg")
+            .append(" ").append("boston-brighten").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-brighten-actual.jpg", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-brighten-actual.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage =
-          imageReader.read(resDirPath + "boston-brighten-expected.jpg", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-brighten-expected.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -810,50 +771,32 @@ public class ImageOperationTest {
 
   @Test
   public void testDarkenPNG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("darken")
-        .append(" ")
-        .append("25")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-darken")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-darken-actual.png")
-        .append(" ")
-        .append("boston-darken")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("darken").append(" ").append("25").append(" ").append("boston")
+            .append(" ").append("boston-darken").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-darken-actual.png")
+            .append(" ").append("boston-darken").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-darken-actual.png", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-darken-actual.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.png", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -862,50 +805,32 @@ public class ImageOperationTest {
 
   @Test
   public void testDarkenJPG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.jpg")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("darken")
-        .append(" ")
-        .append("25")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-darken")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-darken-actual.jpg")
-        .append(" ")
-        .append("boston-darken")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.jpg").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("darken").append(" ").append("25").append(" ").append("boston")
+            .append(" ").append("boston-darken").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-darken-actual.jpg")
+            .append(" ").append("boston-darken").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-darken-actual.jpg", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-darken-actual.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.jpg", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -914,48 +839,32 @@ public class ImageOperationTest {
 
   @Test
   public void testSepiaPNG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("sepia")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-sepia")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-sepia-actual.png")
-        .append(" ")
-        .append("boston-sepia")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("sepia").append(" ").append("boston")
+            .append(" ").append("boston-sepia").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-sepia-actual.png")
+            .append(" ").append("boston-sepia").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-actual.png", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-actual.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-expected.png", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-expected.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -964,48 +873,32 @@ public class ImageOperationTest {
 
   @Test
   public void testSepiaJPG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.jpg")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("sepia")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-sepia")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-sepia-actual.jpg")
-        .append(" ")
-        .append("boston-sepia")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.jpg").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("sepia").append(" ").append("boston")
+            .append(" ").append("boston-sepia").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-sepia-actual.jpg")
+            .append(" ").append("boston-sepia").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-actual.jpg", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-actual.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-expected.jpg", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-expected.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1014,48 +907,32 @@ public class ImageOperationTest {
 
   @Test
   public void testHFlipPNG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("horizontal-flip")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-hflip")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-hflip-actual.png")
-        .append(" ")
-        .append("boston-hflip")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("horizontal-flip").append(" ").append("boston")
+            .append(" ").append("boston-hflip").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-hflip-actual.png")
+            .append(" ").append("boston-hflip").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-hflip-actual.png", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-hflip-actual.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-hflip-expected.png", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-hflip-expected.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1064,48 +941,32 @@ public class ImageOperationTest {
 
   @Test
   public void testHFlipJPG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.jpg")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("horizontal-flip")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-hflip")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-hflip-actual.jpg")
-        .append(" ")
-        .append("boston-hflip")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.jpg").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("horizontal-flip").append(" ").append("boston")
+            .append(" ").append("boston-hflip").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-hflip-actual.jpg")
+            .append(" ").append("boston-hflip").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-hflip-actual.jpg", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-hflip-actual.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-hflip-expected.jpg", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-hflip-expected.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1114,48 +975,32 @@ public class ImageOperationTest {
 
   @Test
   public void testVFlipPNG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("vertical-flip")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-vflip")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-vflip-actual.png")
-        .append(" ")
-        .append("boston-vflip")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("vertical-flip").append(" ").append("boston")
+            .append(" ").append("boston-vflip").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-vflip-actual.png")
+            .append(" ").append("boston-vflip").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-vflip-actual.png", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-vflip-actual.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-vflip-expected.png", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-vflip-expected.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1164,48 +1009,32 @@ public class ImageOperationTest {
 
   @Test
   public void testVFlipJPG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.jpg")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("vertical-flip")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-vflip")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-vflip-actual.jpg")
-        .append(" ")
-        .append("boston-vflip")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.jpg").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("vertical-flip").append(" ").append("boston")
+            .append(" ").append("boston-vflip").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-vflip-actual.jpg")
+            .append(" ").append("boston-vflip").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-vflip-actual.jpg", ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-vflip-actual.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-vflip-expected.jpg", ImageType.RGB);
+      expectedRGBImage = imageReader.read(resDirPath + "boston-vflip-expected.jpg",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1214,65 +1043,35 @@ public class ImageOperationTest {
 
   @Test
   public void testRGBSplitPNG() {
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("rgb-split")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-red")
-        .append(" ")
-        .append("boston-green")
-        .append(" ")
-        .append("boston-blue")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-red-actual.png")
-        .append(" ")
-        .append("boston-red")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-green-actual.png")
-        .append(" ")
-        .append("boston-green")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-blue-actual.png")
-        .append(" ")
-        .append("boston-blue")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    commandScript.append("load").append(" ").append(resDirPath).append("boston.png").append(" ")
+            .append("boston").append("\n");
+    commandScript.append("rgb-split").append(" ").append("boston")
+            .append(" ").append("boston-red").append(" ").append("boston-green").append(" ")
+            .append("boston-blue").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-red-actual.png")
+            .append(" ").append("boston-red").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-green-actual.png")
+            .append(" ").append("boston-green").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("boston-blue-actual.png")
+            .append(" ").append("boston-blue").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRedImage;
     Image actualGreenImage;
     Image actualBlueImage;
     try {
-      actualRedImage = imageReader.read(resDirPath + "boston-red-actual.png", ImageType.RGB);
-      actualGreenImage = imageReader.read(resDirPath + "boston-green-actual.png", ImageType.RGB);
-      actualBlueImage = imageReader.read(resDirPath + "boston-blue-actual.png", ImageType.RGB);
+      actualRedImage = imageReader.read(resDirPath + "boston-red-actual.png",
+              ImageType.RGB);
+      actualGreenImage = imageReader.read(resDirPath + "boston-green-actual.png",
+              ImageType.RGB);
+      actualBlueImage = imageReader.read(resDirPath + "boston-blue-actual.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1281,10 +1080,12 @@ public class ImageOperationTest {
     Image expectedGreenImage;
     Image expectedBlueImage;
     try {
-      expectedRedImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
-      expectedGreenImage =
-          imageReader.read(resDirPath + "boston-green-expected.png", ImageType.RGB);
-      expectedBlueImage = imageReader.read(resDirPath + "boston-blue-expected.png", ImageType.RGB);
+      expectedRedImage = imageReader.read(resDirPath + "boston-red-expected.png",
+              ImageType.RGB);
+      expectedGreenImage = imageReader.read(resDirPath + "boston-green-expected.png",
+              ImageType.RGB);
+      expectedBlueImage = imageReader.read(resDirPath + "boston-blue-expected.png",
+              ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1295,6 +1096,29 @@ public class ImageOperationTest {
 
   @Test
   public void testVisualizePPM() {
+  public void testCompressionPNG() {
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
+    StringBuilder commandScript = new StringBuilder();
+    commandScript.append("load").append(" ").append(resDirPath).append("test-compress.png")
+            .append(" ")
+            .append("test").append("\n");
+    commandScript.append("compress").append(" ").append("50").append(" ").append("test")
+            .append(" ").append("test-compress").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-actual.png")
+            .append(" ").append("test-compress").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
+    Image actualCompressedImage;
+    try {
+      actualCompressedImage = imageReader.read(resDirPath + "test-compress-actual.png",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
 
     String resDirPath =
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
@@ -1367,6 +1191,15 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(lumaImageExpected, lumaImageActual);
+    Image expectedCompressedImage;
+    try {
+      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(actualCompressedImage, expectedCompressedImage);
+  }
 
     //    Image intensityExpected;
     //    Image intensityActual;

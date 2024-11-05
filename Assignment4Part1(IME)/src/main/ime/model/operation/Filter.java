@@ -35,19 +35,19 @@ public abstract class Filter implements ImageOperation {
    * @return a new filtered image
    * @throws IllegalArgumentException if the input image or arguments are invalid
    */
-  public Image apply(Image inputImage, String[] args) throws IllegalArgumentException {
+  public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
+    Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
+    processImage(inputImage, pixels);
+    return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB, pixels);
+  }
 
-    Image outputImage =
-            new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
-
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         Pixel newPixel = applyFilterToPixel(inputImage, i, j);
-        outputImage.setPixel(i, j, newPixel);
+        pixels[i][j] = newPixel;
       }
     }
-
-    return outputImage;
   }
 
   /**
@@ -60,7 +60,7 @@ public abstract class Filter implements ImageOperation {
    * @param y     the y-coordinate of the pixel
    * @return a new pixel with clamped RGB values based on the convolution results
    */
-  private Pixel applyFilterToPixel(Image image, int x, int y) {
+  protected Pixel applyFilterToPixel(Image image, int x, int y) {
 
     double redSum = 0;
     double greenSum = 0;

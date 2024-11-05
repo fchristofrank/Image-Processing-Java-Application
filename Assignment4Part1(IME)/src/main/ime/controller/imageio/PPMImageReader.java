@@ -8,7 +8,8 @@ import java.util.Scanner;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
-import ime.model.pixel.RGBPixel;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 
 /**
  * This class represents a reader for images in PPM format from a specified file name.
@@ -42,19 +43,16 @@ public class PPMImageReader implements ImageReader {
 
     int width = sc.nextInt();
     int height = sc.nextInt();
-    Image simpleImage = new SimpleImage(height, width, imageType);
-
+    Pixel[][] pixels = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
-        if(imageType.equals(ImageType.RGB)){
-          simpleImage.setPixel(i, j, new RGBPixel(r, g, b));
-        }
+        pixels[i][j] = PixelFactory.createPixel(ImageType.RGB, r, g, b);
       }
     }
-    return simpleImage;
+    return new SimpleImage(height, width, ImageType.RGB, pixels);
   }
 }
 

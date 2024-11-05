@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
 
 /**
@@ -25,7 +26,7 @@ public class StandardImageReader implements ImageReader {
 
       int width = image.getWidth();
       int height = image.getHeight();
-      Image simpleImage = new SimpleImage(height, width, imageType);
+      Pixel[][] pixels = new Pixel[height][width];
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int pixel = image.getRGB(j, i);
@@ -33,11 +34,11 @@ public class StandardImageReader implements ImageReader {
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
           if(imageType.equals(ImageType.RGB)){
-            simpleImage.setPixel(i, j, new RGBPixel(r, g, b));
+            pixels[i][j] = new RGBPixel(r, g, b);
           }
         }
       }
-      return simpleImage;
+      return new SimpleImage(height, width, imageType, pixels);
 
     } catch (IOException e) {
       throw new IOException("Error reading image: " + filename);

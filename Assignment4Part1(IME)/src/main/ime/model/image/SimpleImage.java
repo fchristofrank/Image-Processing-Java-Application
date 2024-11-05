@@ -19,18 +19,11 @@ public class SimpleImage implements Image {
   private final ImageType imageType;
   private final Pixel[][] pixels;
 
-  /**
-   * This method creates a simple image with the given type, height and width.
-   *
-   * @param height    the height of the image.
-   * @param width     the width of the image.
-   * @param imageType the type of the
-   */
-  public SimpleImage(int height, int width, ImageType imageType) {
+  public SimpleImage(int height, int width, ImageType imageType, Pixel[][] pixels) {
     this.height = height;
     this.width = width;
     this.imageType = imageType;
-    this.pixels = new Pixel[height][width];
+    this.pixels = pixels;
   }
 
   @Override
@@ -41,13 +34,6 @@ public class SimpleImage implements Image {
     return pixels[row][column];
   }
 
-  @Override
-  public void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException {
-    if (row < 0 || row >= height || column < 0 || column >= width) {
-      throw new IllegalArgumentException("Invalid row or column for a pixel.");
-    }
-    pixels[row][column] = pixel;
-  }
 
   @Override
   public int getHeight() {

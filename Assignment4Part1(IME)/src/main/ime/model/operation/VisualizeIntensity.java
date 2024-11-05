@@ -9,7 +9,7 @@ import ime.model.pixel.Pixel;
  * The intensity is calculated as a weighted average of the red, green, and blue components,
  * representing the perceived brightness of each pixel.
  */
-public class VisualizeIntensity extends AbstractVisualize {
+public class VisualizeIntensity extends AbstractVisualizeWithPreview {
 
   /**
    * Retrieves the intensity of the provided pixel. This method overrides the getColorComponent

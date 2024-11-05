@@ -22,6 +22,7 @@ public class Compress extends AbstractOperation {
 
   @Override
   public void execute(String[] args) throws IllegalArgumentException {
+    validateArgs(args);
     String inputImageName = args[1];
     String outputImageName = args[2];
     Image inputImage = getImage(inputImageName);

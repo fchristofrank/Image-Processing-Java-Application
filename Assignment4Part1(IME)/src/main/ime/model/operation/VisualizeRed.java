@@ -8,7 +8,7 @@ import ime.model.pixel.Pixel;
  * representation that emphasizes the red hues present in the original image. The output will be a
  * grayscale image where pixel values are determined by their red component intensity.
  */
-public class VisualizeRed extends AbstractVisualize {
+public class VisualizeRed extends AbstractVisualizeWithPreview {
 
   /**
    * Retrieves the red value of the provided pixel. This method overrides the getColorComponent

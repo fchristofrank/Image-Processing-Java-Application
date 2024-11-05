@@ -9,7 +9,7 @@ import ime.model.pixel.Pixel;
  * the image. The visualized output will contain only the blue component, while the other color
  * channels (red and green) will not contribute to the pixel values in the resulting image.
  */
-public class VisualizeBlue extends AbstractVisualize {
+public class VisualizeBlue extends AbstractVisualizeWithPreview {
 
   /**
    * Extracts the blue component from the given pixel. This method is overridden from the

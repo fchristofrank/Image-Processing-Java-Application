@@ -1,14 +1,12 @@
 package ime.model.operation;
 
-import ime.constants.FilterConstants;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 
-public class ApplySepiaWithPreview extends ApplySepia {
-
+public abstract class AbstractVisualizeWithPreview extends AbstractVisualize {
   @Override
-  protected void processImage(Image inputImage, Pixel[][] pixels,
-                              String... args) {
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
     if (args.length != 0) {
@@ -26,8 +24,9 @@ public class ApplySepiaWithPreview extends ApplySepia {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (i < splitHeight && j < splitWidth) {
-          pixels[i][j] = inputImage.getPixel(i, j)
-                  .scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION);
+          int colorValue = getColorComponent(inputImage.getPixel(i, j));
+          pixels[i][j] = PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue,
+                  colorValue);
         } else {
           pixels[i][j] = inputImage.getPixel(i, j);
         }
