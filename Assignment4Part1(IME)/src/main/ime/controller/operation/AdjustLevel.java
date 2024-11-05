@@ -1,6 +1,6 @@
 package ime.controller.operation;
 
-import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 
 public class AdjustLevel extends AbstractOperation{
@@ -11,7 +11,7 @@ public class AdjustLevel extends AbstractOperation{
    *
    * @param library the ImageLibrary to be used for image operations
    */
-  public AdjustLevel(ImageLibrary library) {
+  public AdjustLevel(ImageRepo library) {
     super(library);
   }
 

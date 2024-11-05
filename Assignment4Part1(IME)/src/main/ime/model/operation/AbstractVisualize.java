@@ -3,6 +3,7 @@ package ime.model.operation;
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
 
 /**

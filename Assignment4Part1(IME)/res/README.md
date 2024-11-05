@@ -7,7 +7,7 @@ ImageCitationAndPermission:
 
 <h2>How to RUN Script:</h2>
 
-Currently we support CLI commands and Script file
+Currently, we support CLI commands and Script file
 
     load image-path image-name  
     save image-path image-name  

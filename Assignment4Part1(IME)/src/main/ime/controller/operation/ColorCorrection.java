@@ -2,12 +2,13 @@ package ime.controller.operation;
 
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.CountFrequency;
 
 public class ColorCorrection extends AbstractOperation {
 
-  public ColorCorrection(ImageLibrary library) {
+  public ColorCorrection(ImageRepo library) {
     super(library);
   }
 

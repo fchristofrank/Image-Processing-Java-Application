@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageLibrary;
+import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.operation.CountFrequency;
 
@@ -11,7 +12,7 @@ public class Histogram extends AbstractOperation {
    *
    * @param library the ImageLibrary to be used for image operations
    */
-  public Histogram(ImageLibrary library) {
+  public Histogram(ImageRepo library) {
     super(library);
   }
 

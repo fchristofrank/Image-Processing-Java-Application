@@ -9,6 +9,7 @@ import ime.controller.operation.Darken;
 import ime.controller.operation.Filter;
 import ime.controller.operation.Histogram;
 import ime.controller.operation.FilterWithPreview;
+import ime.controller.operation.Histogram;
 import ime.controller.operation.HorizontalFlip;
 import ime.controller.operation.Load;
 import ime.controller.operation.RGBSplit;
@@ -18,6 +19,9 @@ import ime.controller.operation.Visualize;
 import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
 import ime.controller.operation.AdjustLevel;
+import ime.model.image.ImageType;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.RGBPixel;
 
 /**
  * A class for creating CLI operations in an image processing application.
@@ -118,12 +122,11 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.VALUE_COMPONENT:
       case Commands.INTENSITY_COMPONENT:
         return new Visualize(imageLibrary, commandName);
-      case Commands.HISTOGRAM:
-        return new Histogram(imageLibrary);
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
+      case Commands.HISTOGRAM:
+        return new Histogram((ImageLibrary) imageLibrary);
       case Commands.COLORCORRECTION:
-      case Commands.COLOR_CORRECTION:
         return new ColorCorrection(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);
