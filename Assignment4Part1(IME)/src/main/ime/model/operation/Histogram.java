@@ -23,28 +23,21 @@ public class Histogram implements ImageOperation {
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
-    inputImage.setPixel(0,0,new RGBPixel(20,20,20));
-    inputImage.setPixel(0,1,new RGBPixel(20,20,20));
-    inputImage.setPixel(1,0,new RGBPixel(20,20,20));
-    inputImage.setPixel(1,1,new RGBPixel(30,30,30));
+    Map<String, Map<Integer,Integer>> frequency;
 
-    return inputImage;
+    frequency = countFrequencyOperation.calculateFrequencies(inputImage);
 
-//    Map<String, Map<Integer,Integer>> frequency;
-//
-//    frequency = countFrequencyOperation.calculateFrequencies(inputImage);
-//
-//    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
-//        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
-//        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
-//      throw new IllegalStateException("Frequency maps could not be calculated.");
-//    }
-//
-//    Image outputImage = new SimpleImage(256, 256, ImageType.RGB);
-//
-//    createHistogramImage(outputImage, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
-//
-//    return outputImage;
+    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
+        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
+        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
+      throw new IllegalStateException("Frequency maps could not be calculated.");
+    }
+
+    Image outputImage = new SimpleImage(256, 256, ImageType.RGB);
+
+    createHistogramImage(outputImage, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
+
+    return outputImage;
   }
 
 

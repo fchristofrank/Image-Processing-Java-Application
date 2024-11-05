@@ -14,6 +14,7 @@ import ime.controller.operation.HorizontalFlip;
 import ime.controller.operation.Load;
 import ime.controller.operation.RGBSplit;
 import ime.controller.operation.Save;
+import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
 import ime.controller.operation.repository.ImageLibrary;
@@ -22,6 +23,7 @@ import ime.controller.operation.AdjustLevel;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.RGBPixel;
+import ime.controller.operation.AdjustLevel;
 
 /**
  * A class for creating CLI operations in an image processing application.
@@ -61,6 +63,8 @@ public class ImageOperationFactory implements OperationCreator {
 
   /**
    * Constructs a CommandFactory with the specified image library.
+   *
+   * @param imageLibrary the ImageLibrary to be used by all created operations
    */
   public ImageOperationFactory() {
     this.imageLibrary = new ImageLibrary();
