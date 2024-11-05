@@ -1,6 +1,7 @@
 package ime.controller.operation;
 
 import ime.controller.operation.repository.ImageRepo;
+import ime.model.operation.ApplySepia;
 import ime.model.operation.ApplySepiaWithPreview;
 import ime.model.operation.ImageOperation;
 

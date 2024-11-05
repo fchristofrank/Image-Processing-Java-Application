@@ -1,7 +1,9 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
+import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
 
 /**
  * This abstract class represents an operation to apply brightness adjustment to an image.
@@ -14,12 +16,12 @@ public class ApplyBrightness implements ImageOperation {
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
     int alpha = Integer.parseInt(args[0]);
-    Image outputImage = new SimpleImage(height, width, inputImage.getType());
+    Pixel[][] pixels = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        outputImage.setPixel(i, j, inputImage.getPixel(i, j).shiftComponents(alpha));
+        pixels[i][j] = inputImage.getPixel(i, j).shiftComponents(alpha);
       }
     }
-    return outputImage;
+    return new SimpleImage(height, width, inputImage.getType(), pixels);
   }
 }

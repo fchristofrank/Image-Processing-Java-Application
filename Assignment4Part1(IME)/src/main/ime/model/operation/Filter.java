@@ -35,19 +35,17 @@ public abstract class Filter implements ImageOperation {
    * @return a new filtered image
    * @throws IllegalArgumentException if the input image or arguments are invalid
    */
-  public Image apply(Image inputImage, String[] args) throws IllegalArgumentException {
-
-    Image outputImage =
-            new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
-    processImage(inputImage, outputImage, args);
-    return outputImage;
+  public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
+    Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
+    processImage(inputImage, pixels);
+    return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB, pixels);
   }
 
-  protected void processImage(Image inputImage, Image outputImage, String... args) {
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         Pixel newPixel = applyFilterToPixel(inputImage, i, j);
-        outputImage.setPixel(i, j, newPixel);
+        pixels[i][j] = newPixel;
       }
     }
   }

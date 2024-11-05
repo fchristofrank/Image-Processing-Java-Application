@@ -14,11 +14,9 @@ public abstract class ApplyFlip implements ImageOperation {
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
-    Image outputImage = new SimpleImage(height, width, inputImage.getType());
-    flipImage(inputImage, outputImage, height, width);
-    return outputImage;
+    return flipImage(inputImage, height, width);
   }
 
-  protected abstract void flipImage(Image inputImage, Image outputImage, int height, int width);
+  protected abstract Image flipImage(Image inputImage, int height, int width);
 
 }

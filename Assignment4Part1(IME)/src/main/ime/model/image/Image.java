@@ -38,15 +38,7 @@ public interface Image {
    */
   Pixel getPixel(int row, int column) throws IllegalArgumentException;
 
-  /**
-   * Sets the pixel at the specified row and column to a new value.
-   *
-   * @param row    the row index of the pixel (0-based).
-   * @param column the column index of the pixel (0-based).
-   * @param pixel  the new Pixel object to set at the specified location.
-   * @throws IllegalArgumentException if the specified row or column index is out of bounds.
-   */
-  void setPixel(int row, int column, Pixel pixel) throws IllegalArgumentException;
+
 
   /**
    * Get the type of the image.
@@ -78,11 +70,5 @@ public interface Image {
    */
   Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args)
           throws IllegalArgumentException;
-
-  /**
-   * This method returns a deep copy of this image.
-   * @return the deep copy of this image.
-   */
-  Image copy();
 
 }

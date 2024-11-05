@@ -6,6 +6,7 @@ import java.util.List;
 
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 
 /**
@@ -46,19 +47,17 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     invertTransform(tRed);
     invertTransform(tGreen);
     invertTransform(tBlue);
-
-    Image outputImage = new SimpleImage(height, width, image.getType());
-
+    Pixel[][] pixels = new Pixel[height][width];
     // Set the reconstructed pixel values into the output image
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        outputImage.setPixel(i, j, PixelFactory.createPixel(outputImage.getType(),
+        pixels[i][j] = PixelFactory.createPixel(image.getType(),
                 Math.round(tRed[i][j]),
                 Math.round(tGreen[i][j]),
-                Math.round(tBlue[i][j])));
+                Math.round(tBlue[i][j]));
       }
     }
-    return outputImage;
+    return new SimpleImage(height, width, image.getType(), pixels);
   }
 
   /**

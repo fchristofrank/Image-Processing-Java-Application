@@ -3,10 +3,10 @@ package ime.model.operation;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 
-public abstract class FilterWithPreview extends Filter{
+public abstract class FilterWithPreview extends Filter {
 
   @Override
-  protected void processImage(Image inputImage, Image outputImage, String... args) {
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
     if (args.length != 0) {
@@ -17,13 +17,17 @@ public abstract class FilterWithPreview extends Filter{
         heightSplitPercentage = Integer.parseInt(args[1]);
       }
     }
+    int height = inputImage.getHeight();
+    int width = inputImage.getWidth();
     int splitWidth = inputImage.getWidth() * widthSplitPercentage / 100;
     int splitHeight = inputImage.getHeight() * heightSplitPercentage / 100;
-    outputImage = inputImage.copy();
-    for (int i = 0; i < splitHeight; i++) {
-      for (int j = 0; j < splitWidth; j++) {
-        Pixel newPixel = applyFilterToPixel(inputImage, i, j);
-        outputImage.setPixel(i, j, newPixel);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Pixel newPixel = inputImage.getPixel(i, j);
+        if (i < splitHeight && j < splitWidth) {
+          newPixel = applyFilterToPixel(inputImage, i, j);
+        }
+        pixels[i][j] = newPixel;
       }
     }
   }
