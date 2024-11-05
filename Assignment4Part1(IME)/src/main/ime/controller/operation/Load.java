@@ -39,7 +39,7 @@ public class Load extends AbstractOperation {
     String imageFormat = parts[parts.length - 1];
     ImageReader imageReader = ImageReaderFactory.
             createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
-    Image image = null;
+    Image image;
     try {
       image = imageReader.read(imagePath, ImageType.RGB);
     } catch (NullPointerException | IOException e) {

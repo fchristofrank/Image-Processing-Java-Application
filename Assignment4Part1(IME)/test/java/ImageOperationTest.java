@@ -1,20 +1,5 @@
-import java.io.ByteArrayInputStream;
-import org.junit.Assert;
-import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import ime.controller.cli.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
@@ -32,14 +17,27 @@ import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
 import ime.model.operation.VisualizeRed;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.StringReader;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * This class tests the functionalities of Image Manipulation and Enhancement application.
  */
 public class ImageOperationTest {
+
   @Test
   public void testMultipleOperationsPNG() {
     String resDirPath =
@@ -734,10 +732,10 @@ public class ImageOperationTest {
         .append("boston-brighten")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
 
@@ -788,10 +786,10 @@ public class ImageOperationTest {
         .append("boston-brighten")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
@@ -841,10 +839,10 @@ public class ImageOperationTest {
         .append("boston-darken")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
@@ -893,10 +891,10 @@ public class ImageOperationTest {
         .append("boston-darken")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
@@ -943,10 +941,10 @@ public class ImageOperationTest {
         .append("boston-sepia")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
@@ -993,10 +991,10 @@ public class ImageOperationTest {
         .append("boston-sepia")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
@@ -1043,10 +1041,10 @@ public class ImageOperationTest {
         .append("boston-hflip")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
@@ -1093,10 +1091,10 @@ public class ImageOperationTest {
         .append("boston-hflip")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
@@ -1143,10 +1141,10 @@ public class ImageOperationTest {
         .append("boston-vflip")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
@@ -1193,10 +1191,10 @@ public class ImageOperationTest {
         .append("boston-vflip")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
@@ -1263,10 +1261,10 @@ public class ImageOperationTest {
         .append("boston-blue")
         .append("\n")
         .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRedImage;
     Image actualGreenImage;
@@ -1296,7 +1294,6 @@ public class ImageOperationTest {
   }
 
   @Test
-  public void testVisualizePPM() {
   public void testCompressionPNG() {
     String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
         .getResource("")).getPath();
@@ -1330,181 +1327,7 @@ public class ImageOperationTest {
     assertEquals(actualCompressedImage, expectedCompressedImage);
   }
 
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
-    StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("value-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-value")
-        .append("\n");
-    commandScript
-        .append("intensity-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-intensity")
-        .append("\n");
-    commandScript
-        .append("luma-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-luma")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-luma-actual.ppm")
-        .append(" ")
-        .append("boston-luma")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-value-actual.ppm")
-        .append(" ")
-        .append("boston-value")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-intensity-actual.ppm")
-        .append(" ")
-        .append("boston-intensity")
-        .append("\n")
-        .append("exit");
-    ByteArrayInputStream inputStream =
-        new ByteArrayInputStream(commandScript.toString().getBytes());
-    System.setIn(inputStream);
-    new ImageProcessorCLI(inputStream).run();
-    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PPM);
-    Image lumaImageExpected;
-    Image lumaImageActual;
-    try {
-      lumaImageExpected = imageReader.read(resDirPath + "boston-luma.ppm", ImageType.RGB);
-      lumaImageActual = imageReader.read(resDirPath + "boston-luma-actual.ppm", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(lumaImageExpected, lumaImageActual);
-    String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
-    StringBuilder commandScript = new StringBuilder();
-    commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
-    commandScript
-        .append("value-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-value")
-        .append("\n");
-    commandScript
-        .append("intensity-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-intensity")
-        .append("\n");
-    commandScript
-        .append("luma-component")
-        .append(" ")
-        .append("boston")
-        .append(" ")
-        .append("boston-luma")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-luma-actual.ppm")
-        .append(" ")
-        .append("boston-luma")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-value-actual.ppm")
-        .append(" ")
-        .append("boston-value")
-        .append("\n");
-    commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-intensity-actual.ppm")
-        .append(" ")
-        .append("boston-intensity")
-        .append("\n")
-        .append("exit");
-    Readable readableInput = new StringReader(commandScript.toString());
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    OperationCreator operationCreator = new ImageOperationFactory();
-    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
-    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PPM);
-    Image lumaImageExpected;
-    Image lumaImageActual;
-    try {
-      lumaImageExpected = imageReader.read(resDirPath + "boston-luma.ppm", ImageType.RGB);
-      lumaImageActual = imageReader.read(resDirPath + "boston-luma-actual.ppm", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(lumaImageExpected, lumaImageActual);
-    Image expectedCompressedImage;
-    try {
-      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
-              ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualCompressedImage, expectedCompressedImage);
-  }
 
-    //    Image intensityExpected;
-    //    Image intensityActual;
-    //    try {
-    //      intensityExpected =
-    //          imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
-    //      intensityActual =
-    //          imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
-    //    } catch (IOException e) {
-    //      throw new IllegalArgumentException("Failed to read image file", e);
-    //    }
-    //    assertEquals(intensityActual, intensityExpected);
-    //
-    //    Image valueExpected;
-    //    Image valueActual;
-    //    try {
-    //      valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
-    //      valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
-    // ImageType.RGB);
-    //    } catch (IOException e) {
-    //      throw new IllegalArgumentException("Failed to read image file", e);
-    //    }
-    //    assertEquals(valueActual, valueExpected);
-  }
   @Test
   public void testVisualizePPM() {
 

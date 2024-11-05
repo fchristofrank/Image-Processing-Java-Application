@@ -1,41 +1,32 @@
 package ime.controller.cli;
 
+import ime.controller.operation.AdjustLevel;
 import ime.controller.operation.Brighten;
 import ime.controller.operation.CLIOperation;
 import ime.controller.operation.ColorCorrection;
 import ime.controller.operation.CombineRGB;
 import ime.controller.operation.Compress;
 import ime.controller.operation.Darken;
-import ime.controller.operation.Filter;
-import ime.controller.operation.Histogram;
 import ime.controller.operation.FilterWithPreview;
 import ime.controller.operation.Histogram;
 import ime.controller.operation.HorizontalFlip;
 import ime.controller.operation.Load;
 import ime.controller.operation.RGBSplit;
 import ime.controller.operation.Save;
-import ime.controller.operation.Sepia;
 import ime.controller.operation.VerticalFlip;
 import ime.controller.operation.Visualize;
 import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
-import ime.controller.operation.AdjustLevel;
-import ime.model.image.ImageType;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.RGBPixel;
-import ime.controller.operation.AdjustLevel;
 
 /**
- * A class for creating CLI operations in an image processing application.
- * This class creates CLI operations to corresponding operation specified in the command.
+ * A class for creating CLI operations in an image processing application. This class creates CLI
+ * operations to corresponding operation specified in the command.
  */
 public class ImageOperationFactory implements OperationCreator {
 
   private final ImageRepo imageLibrary;
 
-  /**
-   * Contains command names for CLI operations as constants.
-   */
+  /** Contains command names for CLI operations as constants. */
   private static class Commands {
     public static final String LOAD = "load";
     public static final String SAVE = "save";
@@ -55,40 +46,35 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String VALUE_COMPONENT = "value-component";
     public static final String INTENSITY_COMPONENT = "intensity-component";
     public static final String HISTOGRAM = "histogram";
-    public static final String COLORCORRECTION = "color-correct";
     public static final String COMPRESS = "compress";
     public static final String COLOR_CORRECTION = "color-correct";
     public static final String LEVELS_ADJUST = "levels-adjust";
   }
 
-  /**
-   * Constructs a CommandFactory with the specified image library.
-   *
-   * @param imageLibrary the ImageLibrary to be used by all created operations
-   */
+  /** Constructs a CommandFactory with the specified image library. */
   public ImageOperationFactory() {
     this.imageLibrary = new ImageLibrary();
   }
 
   /**
    * Creates and returns a CLIOperation based on the given command name.
-   * <p>
-   * This method supports the following commands:
+   *
+   * <p>This method supports the following commands:
+   *
    * <ul>
-   *   <li>load</li>
-   *   <li>save</li>
-   *   <li>rgb-split</li>
-   *   <li>brighten</li>
-   *   <li>darken</li>
-   *   <li>vertical-flip</li>
-   *   <li>horizontal-flip</li>
-   *   <li>sepia</li>
-   *   <li>rgb-combine</li>
-   *   <li>blur</li>
-   *   <li>sharpen</li>
-   *   <li>component (various component visualizations)</li>
+   *   <li>load
+   *   <li>save
+   *   <li>rgb-split
+   *   <li>brighten
+   *   <li>darken
+   *   <li>vertical-flip
+   *   <li>horizontal-flip
+   *   <li>sepia
+   *   <li>rgb-combine
+   *   <li>blur
+   *   <li>sharpen
+   *   <li>component (various component visualizations)
    * </ul>
-   * </p>
    *
    * @param commandName the name of the operation to create
    * @return a CLIOperation instance corresponding to the given command name
@@ -113,12 +99,12 @@ public class ImageOperationFactory implements OperationCreator {
         return new HorizontalFlip(imageLibrary);
       case Commands.RGB_COMBINE:
         return new CombineRGB(imageLibrary);
-      //filter commands;
+      // filter commands;
       case Commands.BLUR:
       case Commands.SHARPEN:
       case Commands.SEPIA:
         return new FilterWithPreview(imageLibrary, commandName);
-      //visualize commands;
+      // visualize commands;
       case Commands.RED_COMPONENT:
       case Commands.GREEN_COMPONENT:
       case Commands.BLUE_COMPONENT:
@@ -129,8 +115,8 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
       case Commands.HISTOGRAM:
-        return new Histogram((ImageLibrary) imageLibrary);
-      case Commands.COLORCORRECTION:
+        return new Histogram(imageLibrary);
+      case Commands.COLOR_CORRECTION:
         return new ColorCorrection(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);

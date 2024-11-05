@@ -3,6 +3,8 @@ package ime.model.operation;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
 
 public class AdjustLevel implements ImageOperation {
@@ -12,15 +14,23 @@ public class AdjustLevel implements ImageOperation {
   private double coefficient_c;
 
   /**
-   * Sets the coefficients for the levels adjustment based on black, mid, and white values.
-   * This method should be called once before applying the operation to an image.
+   * Sets the coefficients for the levels adjustment based on black, mid, and white values. This
+   * method should be called once before applying the operation to an image.
    */
   public void setCoefficients(int blackValue, int midValue, int whiteValue) {
-    double A = Math.pow(blackValue, 2) * (midValue - whiteValue) - blackValue * (Math.pow(midValue, 2) - Math.pow(whiteValue, 2))
-        + whiteValue * Math.pow(midValue, 2) - midValue * Math.pow(whiteValue, 2);
+    double A =
+        Math.pow(blackValue, 2) * (midValue - whiteValue)
+            - blackValue * (Math.pow(midValue, 2) - Math.pow(whiteValue, 2))
+            + whiteValue * Math.pow(midValue, 2)
+            - midValue * Math.pow(whiteValue, 2);
     double Aa = -blackValue * (128 - 255) + 128 * whiteValue - 255 * midValue;
-    double Ab = Math.pow(blackValue, 2) * (128 - 255) + 255 * Math.pow(midValue, 2) - 128 * Math.pow(whiteValue, 2);
-    double Ac = Math.pow(blackValue, 2) * (255 * midValue - 128 * whiteValue) - blackValue * (255 * Math.pow(midValue, 2) - 128 * Math.pow(whiteValue, 2));
+    double Ab =
+        Math.pow(blackValue, 2) * (128 - 255)
+            + 255 * Math.pow(midValue, 2)
+            - 128 * Math.pow(whiteValue, 2);
+    double Ac =
+        Math.pow(blackValue, 2) * (255 * midValue - 128 * whiteValue)
+            - blackValue * (255 * Math.pow(midValue, 2) - 128 * Math.pow(whiteValue, 2));
 
     this.coefficient_a = Aa / A;
     this.coefficient_b = Ab / A;
@@ -36,22 +46,26 @@ public class AdjustLevel implements ImageOperation {
 
     setCoefficients(blackValue, midValue, whiteValue);
 
-    Image outputImage = new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB);
+    Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
 
     for (int x = 0; x < inputImage.getHeight(); x++) {
       for (int y = 0; y < inputImage.getWidth(); y++) {
         int redComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getRed());
         int greenComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getGreen());
         int blueComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getBlue());
-        System.out.println(x+","+y);
-        System.out.println(redComponent+","+greenComponent+","+blueComponent);
-        outputImage.setPixel(x, y, new RGBPixel(redComponent,greenComponent,blueComponent));
+        System.out.println(x + "," + y);
+        System.out.println(redComponent + "," + greenComponent + "," + blueComponent);
+        pixels[x][y] =
+            PixelFactory.createPixel(
+                inputImage.getType(), redComponent, greenComponent, blueComponent);
       }
     }
-    return outputImage;
+    return new SimpleImage(
+        inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(), pixels);
   }
 
   private int evaluateQuadraticEquation(int pixelValue) {
-    return (int) (coefficient_a * Math.pow(pixelValue, 2) + coefficient_b * pixelValue + coefficient_c);
+    return (int)
+        (coefficient_a * Math.pow(pixelValue, 2) + coefficient_b * pixelValue + coefficient_c);
   }
 }

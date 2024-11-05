@@ -10,6 +10,7 @@ import java.util.Map;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
 
 public class Histogram implements ImageOperation {
@@ -23,27 +24,29 @@ public class Histogram implements ImageOperation {
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
 
-    Map<String, Map<Integer,Integer>> frequency;
+    Map<String, Map<Integer, Integer>> frequency;
 
     frequency = countFrequencyOperation.calculateFrequencies(inputImage);
 
-    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
-        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
-        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
+    if (!frequency.containsKey("red")
+        || frequency.get("red").isEmpty()
+        || !frequency.containsKey("green")
+        || frequency.get("green").isEmpty()
+        || !frequency.containsKey("blue")
+        || frequency.get("blue").isEmpty()) {
       throw new IllegalStateException("Frequency maps could not be calculated.");
     }
 
-    Image outputImage = new SimpleImage(256, 256, ImageType.RGB);
+    Pixel[][] pixels = new Pixel[256][256];
 
-    createHistogramImage(outputImage, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
+    createHistogramImage(
+        pixels, frequency.get("red"), frequency.get("green"), frequency.get("blue"));
 
-    return outputImage;
+    return new SimpleImage(256, 256, inputImage.getType(), pixels);
   }
 
-
-
   private void createHistogramImage(
-      Image outputImage,
+      Pixel[][] outputPixels,
       Map<Integer, Integer> frequencyRed,
       Map<Integer, Integer> frequencyGreen,
       Map<Integer, Integer> frequencyBlue) {
@@ -51,28 +54,28 @@ public class Histogram implements ImageOperation {
     int histogramWidth = 256;
     int histogramHeight = 256;
 
-    fillBackground(outputImage, histogramHeight, histogramWidth);
+    fillBackground(outputPixels, histogramHeight, histogramWidth);
 
-    drawGridLines(outputImage, histogramWidth, histogramHeight);
+    drawGridLines(outputPixels, histogramWidth, histogramHeight);
 
-    drawFrequencyCurves(outputImage, frequencyRed, frequencyGreen, frequencyBlue);
+    drawFrequencyCurves(outputPixels, frequencyRed, frequencyGreen, frequencyBlue);
   }
 
-  private void fillBackground(Image histogramImage, int height, int width) {
+  private void fillBackground(Pixel[][] pixels, int height, int width) {
     for (int x = 0; x < height; x++) {
       for (int y = 0; y < width; y++) {
-        histogramImage.setPixel(x, y, new RGBPixel(255, 255, 255)); // White color
+        pixels[x][y] = PixelFactory.createPixel(ImageType.RGB, 255, 255, 255); // WhiteBG
       }
     }
   }
 
-  private void drawGridLines(Image histogramImage, int width, int height) {
+  private void drawGridLines(Pixel[][] pixels, int width, int height) {
     for (int j = 0; j < width; j += 16) {
-      drawLine(histogramImage, 0, j, width - 1, j, new RGBPixel(200, 200, 200));
+      drawLine(pixels, 0, j, width - 1, j, new RGBPixel(200, 200, 200));
     }
 
     for (int i = 0; i < height; i += 16) {
-      drawLine(histogramImage, i, 0, i, height - 1, new RGBPixel(200, 200, 200));
+      drawLine(pixels, i, 0, i, height - 1, new RGBPixel(200, 200, 200));
     }
   }
 
@@ -85,49 +88,55 @@ public class Histogram implements ImageOperation {
     return maxFrequency;
   }
 
-  private void drawFrequencyCurves(Image histogramImage, Map<Integer, Integer> frequencyRed,
+  private void drawFrequencyCurves(
+      Pixel[][] pixels,
+      Map<Integer, Integer> frequencyRed,
       Map<Integer, Integer> frequencyGreen,
       Map<Integer, Integer> frequencyBlue) {
 
     int maxFrequency = findMaxFrequency(Arrays.asList(frequencyRed, frequencyGreen, frequencyBlue));
 
     for (int i = 0; i <= 255; i++) {
-      drawCurveSegment(histogramImage, i, frequencyRed, maxFrequency, new RGBPixel(255, 0, 0));
-      drawCurveSegment(histogramImage, i, frequencyGreen, maxFrequency, new RGBPixel(0, 255, 0));
-      drawCurveSegment(histogramImage, i, frequencyBlue, maxFrequency, new RGBPixel(0, 0, 255));
+      drawCurveSegment(pixels, i, frequencyRed, maxFrequency, new RGBPixel(255, 0, 0));
+      drawCurveSegment(pixels, i, frequencyGreen, maxFrequency, new RGBPixel(0, 255, 0));
+      drawCurveSegment(pixels, i, frequencyBlue, maxFrequency, new RGBPixel(0, 0, 255));
     }
   }
 
-  private void drawCurveSegment(Image histogramImage, int pixelValue,
+  private void drawCurveSegment(
+      Pixel[][] pixels,
+      int pixelValue,
       Map<Integer, Integer> frequencyMap,
       int maxFrequency,
       Pixel pixel) {
 
     int currentFrequency =
-        histogramImage.getHeight() - (int) (
-            (double) frequencyMap.getOrDefault(pixelValue, 0) / maxFrequency
-                * histogramImage.getHeight());
-    int nextFrequency = histogramImage.getHeight() - (int) (
-        (double) frequencyMap.getOrDefault(pixelValue + 1, 0) / maxFrequency
-            * histogramImage.getHeight());
+        pixels.length
+            - (int)
+                ((double) frequencyMap.getOrDefault(pixelValue, 0) / maxFrequency * pixels.length);
+    int nextFrequency =
+        pixels.length
+            - (int)
+                ((double) frequencyMap.getOrDefault(pixelValue + 1, 0)
+                    / maxFrequency
+                    * pixels.length);
 
     if (pixelValue < PIXEL_UPPER_LIMIT
         && currentFrequency >= 0
-        && currentFrequency < histogramImage.getWidth()
+        && currentFrequency < pixels[0].length
         && nextFrequency >= 0
-        && nextFrequency < histogramImage.getWidth()) {
+        && nextFrequency < pixels.length) {
 
-      drawLine(histogramImage, pixelValue, currentFrequency,
-          pixelValue + 1, nextFrequency, pixel);
+      drawLine(pixels, pixelValue, currentFrequency, pixelValue + 1, nextFrequency, pixel);
     }
   }
 
   /**
-   * Implements the Bresenham's algorithm as described here.
-   * <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Link to Wiki</a>
-   * Variable naming are done as per the common convention used in the algorithm derivation.
+   * Implements the Bresenham's algorithm as described here. <a
+   * href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Link to Wiki</a> Variable
+   * naming are done as per the common convention used in the algorithm derivation.
    */
-  private void drawLine(Image image, int x1, int y1, int x2, int y2, Pixel pixel) {
+  private void drawLine(Pixel[][] pixels, int x1, int y1, int x2, int y2, Pixel pixel) {
     int dx = Math.abs(x2 - x1);
     int dy = Math.abs(y2 - y1);
     int sx = x1 < x2 ? 1 : -1;
@@ -136,8 +145,8 @@ public class Histogram implements ImageOperation {
 
     while (true) {
 
-      if (x1 >= 0 && x1 < image.getWidth() && y1 >= 0 && y1 < image.getHeight()) {
-        image.setPixel(y1, x1, pixel);
+      if (x1 >= 0 && x1 < pixels[0].length && y1 >= 0 && y1 < pixels.length) {
+        pixels[y1][x1] = pixel;
       }
 
       if (x1 == x2 && y1 == y2) {
@@ -147,9 +156,9 @@ public class Histogram implements ImageOperation {
       int updatedD = 2 * D;
       if (updatedD > -dy) {
         /*This Condition would mean that the difference in Y direction is minimal
-        * and that we should move towards X.
-        * updatedD is proportional to D which is in turn proportional to dx.
-        *  */
+         * and that we should move towards X.
+         * updatedD is proportional to D which is in turn proportional to dx.
+         *  */
         D -= dy;
         x1 += sx;
       }

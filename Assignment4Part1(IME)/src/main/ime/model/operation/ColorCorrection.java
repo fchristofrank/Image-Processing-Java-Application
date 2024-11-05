@@ -2,6 +2,8 @@ package ime.model.operation;
 
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
 import java.util.Map;
 
@@ -67,7 +69,7 @@ public class ColorCorrection implements ImageOperation {
     int offsetGreen = avgPeak - peakGreen;
     int offsetBlue = avgPeak - peakBlue;
 
-    Image outputImage = new SimpleImage(image.getHeight(), image.getWidth(), image.getType());
+    Pixel[][] pixels = new Pixel[image.getHeight()][image.getWidth()];
 
     for (int x = 0; x < image.getHeight(); x++) {
       for (int y = 0; y < image.getWidth(); y++) {
@@ -76,10 +78,10 @@ public class ColorCorrection implements ImageOperation {
         int green = image.getPixel(x, y).getGreen() + offsetGreen;
         int blue = image.getPixel(x, y).getBlue() + offsetBlue;
 
-        outputImage.setPixel(x, y, new RGBPixel(red, green, blue));
+        pixels[x][y] = PixelFactory.createPixel(image.getType(), red, green, blue);
       }
     }
-    return outputImage;
+    return new SimpleImage(image.getHeight(), image.getWidth(), image.getType(), pixels);
   }
 
 }
