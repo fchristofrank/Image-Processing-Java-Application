@@ -46,15 +46,26 @@ public class AdjustLevel implements ImageOperation {
 
     setCoefficients(blackValue, midValue, whiteValue);
 
+    int previewWidthPercentage = 100;
+    if (args.length == 6){
+      previewWidthPercentage = Integer.parseInt(args[5]);
+    }
+
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
 
     for (int x = 0; x < inputImage.getHeight(); x++) {
       for (int y = 0; y < inputImage.getWidth(); y++) {
-        int redComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getRed());
-        int greenComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getGreen());
-        int blueComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getBlue());
-        System.out.println(x + "," + y);
-        System.out.println(redComponent + "," + greenComponent + "," + blueComponent);
+
+        int redComponent = inputImage.getPixel(x, y).getRed();
+        int greenComponent = inputImage.getPixel(x, y).getGreen();
+        int blueComponent = inputImage.getPixel(x, y).getBlue();
+
+        if (y < (previewWidthPercentage*inputImage.getWidth())/100){
+          System.out.println("inside");
+          redComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getRed());
+          greenComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getGreen());
+          blueComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getBlue());
+        }
         pixels[x][y] =
             PixelFactory.createPixel(
                 inputImage.getType(), redComponent, greenComponent, blueComponent);

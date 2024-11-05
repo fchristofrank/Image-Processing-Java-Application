@@ -31,7 +31,7 @@ public class AdjustLevel extends AbstractOperation{
 
   @Override
   protected void validateArgs(String[] args) throws IllegalArgumentException {
-    if (args.length != 5) {
+    if (args.length < 5) {
       throw new IllegalArgumentException("Invalid number of arguments");
     }
   }

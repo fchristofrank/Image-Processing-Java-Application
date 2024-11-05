@@ -1338,7 +1338,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -1367,7 +1367,7 @@ public class ImageOperationTest {
         .append("save")
         .append(" ")
         .append(resDirPath)
-        .append("boston-luma-actual.ppm")
+        .append("boston-luma-expected.ppm")
         .append(" ")
         .append("boston-luma")
         .append("\n");
@@ -1396,33 +1396,34 @@ public class ImageOperationTest {
     Image lumaImageExpected;
     Image lumaImageActual;
     try {
-      lumaImageExpected = imageReader.read(resDirPath + "boston-luma.ppm", ImageType.RGB);
+      lumaImageExpected = imageReader.read(resDirPath + "boston-luma-expected.ppm", ImageType.RGB);
       lumaImageActual = imageReader.read(resDirPath + "boston-luma-actual.ppm", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(lumaImageExpected, lumaImageActual);
-    //    Image intensityExpected;
-    //    Image intensityActual;
-    //    try {
-    //      intensityExpected =
-    //          imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
-    //      intensityActual =
-    //          imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
-    //    } catch (IOException e) {
-    //      throw new IllegalArgumentException("Failed to read image file", e);
-    //    }
-    //    assertEquals(intensityActual, intensityExpected);
-    //
-    //    Image valueExpected;
-    //    Image valueActual;
-    //    try {
-    //      valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
-    //      valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
-    // ImageType.RGB);
-    //    } catch (IOException e) {
-    //      throw new IllegalArgumentException("Failed to read image file", e);
-    //    }
-    //    assertEquals(valueActual, valueExpected);
+        Image intensityExpected;
+        Image intensityActual;
+        try {
+          intensityExpected =
+              imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
+          intensityActual =
+              imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
+        } catch (IOException e) {
+          throw new IllegalArgumentException("Failed to read image file", e);
+        }
+        assertEquals(intensityActual, intensityExpected);
+
+        Image valueExpected;
+        Image valueActual;
+        try {
+          valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
+          valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
+     ImageType.RGB);
+        } catch (IOException e) {
+          throw new IllegalArgumentException("Failed to read image file", e);
+        }
+        assertEquals(valueActual, valueExpected);
   }
+
 }

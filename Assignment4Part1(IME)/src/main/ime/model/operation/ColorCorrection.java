@@ -5,6 +5,8 @@ import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
+
+import java.util.Arrays;
 import java.util.Map;
 
 public class ColorCorrection implements ImageOperation {
@@ -31,8 +33,14 @@ public class ColorCorrection implements ImageOperation {
 
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
+    System.out.println(Arrays.deepToString(args));
 
     Map<String, Map<Integer, Integer>> frequency;
+    int previewWidthPercentage = 100;
+    if (args.length == 3){
+      previewWidthPercentage = Integer.parseInt(args[2]);
+    }
+
 
     frequency = countFrequencyOperation.calculateFrequencies(inputImage);
 
@@ -42,7 +50,7 @@ public class ColorCorrection implements ImageOperation {
       throw new IllegalStateException("Frequency maps could not be calculated.");
     }
 
-    return correctColor(inputImage, frequency.get("red"), frequency.get("green"),
+    return correctColor(inputImage, previewWidthPercentage, frequency.get("red"), frequency.get("green"),
         frequency.get("blue"));
   }
 
@@ -55,6 +63,7 @@ public class ColorCorrection implements ImageOperation {
    *
    */
   private Image correctColor(Image image,
+      int previewWidthPercentage,
       Map<Integer, Integer> redFrequency,
       Map<Integer, Integer> greenFrequency,
       Map<Integer, Integer> blueFrequency) {
@@ -74,9 +83,15 @@ public class ColorCorrection implements ImageOperation {
     for (int x = 0; x < image.getHeight(); x++) {
       for (int y = 0; y < image.getWidth(); y++) {
 
-        int red = image.getPixel(x, y).getRed() + offsetRed;
-        int green = image.getPixel(x, y).getGreen() + offsetGreen;
-        int blue = image.getPixel(x, y).getBlue() + offsetBlue;
+        int red = image.getPixel(x, y).getRed();
+        int green = image.getPixel(x, y).getGreen();
+        int blue = image.getPixel(x, y).getBlue();
+
+        if (y < (image.getWidth()*previewWidthPercentage)/100){
+          red += offsetRed;
+          green += offsetGreen;
+          blue += offsetBlue;
+        }
 
         pixels[x][y] = PixelFactory.createPixel(image.getType(), red, green, blue);
       }
