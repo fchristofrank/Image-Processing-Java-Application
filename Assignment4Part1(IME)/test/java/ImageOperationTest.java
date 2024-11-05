@@ -9,9 +9,11 @@ import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
+import ime.model.operation.Blur;
 import ime.model.operation.Combine;
 import ime.model.operation.ImageOperation;
 import ime.model.operation.MultipleImageOperation;
+import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
 import ime.model.operation.VisualizeRed;
@@ -671,35 +673,35 @@ public class ImageOperationTest {
     assertEquals(expectedCombined, actualImage);
   }
 
-//  @Test
-//  public void testFilter() {
-//
-//    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
-//    String resDirPath =
-//        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
-//    Image actualImage;
-//    Image expectedBlurImage;
-//    Image expectedSharpenImage;
-//
-//    try {
-//      actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
-//      expectedBlurImage = imageReader.read(resDirPath + "boston-blur-expected.png", ImageType.RGB);
-//      expectedSharpenImage =
-//          imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
-//
-//    } catch (IOException e) {
-//      throw new IllegalArgumentException("Failed to read image file", e);
-//    }
-//
-//    ImageOperation blur = new Blur();
-//    ImageOperation sharpen = new Sharpen();
-//
-//    Image blurredImage = blur.apply(actualImage);
-//    Image sharpendImage = sharpen.apply(actualImage);
-//
-//    assertEquals(expectedBlurImage, blurredImage);
-//    assertEquals(expectedSharpenImage, sharpendImage);
-//  }
+  @Test
+  public void testFilter() {
+
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
+    String resDirPath =
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    Image actualImage;
+    Image expectedBlurImage;
+    Image expectedSharpenImage;
+
+    try {
+      actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
+      expectedBlurImage = imageReader.read(resDirPath + "boston-blur-expected.png", ImageType.RGB);
+      expectedSharpenImage =
+          imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
+
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+
+    ImageOperation blur = new Blur();
+    ImageOperation sharpen = new Sharpen();
+
+    Image blurredImage = blur.apply(actualImage);
+    Image sharpendImage = sharpen.apply(actualImage);
+
+    assertEquals(expectedBlurImage, blurredImage);
+    assertEquals(expectedSharpenImage, sharpendImage);
+  }
 
   @Test
   public void testBrightenPNG() {
@@ -1438,7 +1440,7 @@ public class ImageOperationTest {
         .append("save")
         .append(" ")
         .append(resDirPath)
-        .append("boston-luma-expected.ppm")
+        .append("boston-luma-actual.ppm")
         .append(" ")
         .append("boston-luma")
         .append("\n");
