@@ -1,6 +1,5 @@
 package ime.controller.operation;
 
-import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 

@@ -1,20 +1,6 @@
-package ime.controller.cli;
+package ime.controller.operation;
 
-import ime.controller.operation.AdjustLevel;
-import ime.controller.operation.Brighten;
-import ime.controller.operation.CLIOperation;
-import ime.controller.operation.ColorCorrection;
-import ime.controller.operation.CombineRGB;
-import ime.controller.operation.Compress;
-import ime.controller.operation.Darken;
-import ime.controller.operation.FilterWithPreview;
-import ime.controller.operation.Histogram;
-import ime.controller.operation.HorizontalFlip;
-import ime.controller.operation.Load;
-import ime.controller.operation.RGBSplit;
-import ime.controller.operation.Save;
-import ime.controller.operation.VerticalFlip;
-import ime.controller.operation.Visualize;
+import ime.controller.cli.OperationCreator;
 import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
 

@@ -1,20 +1,17 @@
 import static org.junit.Assert.assertEquals;
 
-import ime.controller.cli.ImageOperationFactory;
+import ime.controller.operation.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
-import ime.controller.operation.Save;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import ime.model.image.SimpleImage;
 import ime.model.operation.CountFrequency;
 import ime.model.operation.Histogram;
 import ime.model.operation.ImageOperation;
-import ime.model.pixel.RGBPixel;
-import java.io.BufferedOutputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;

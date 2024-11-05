@@ -1,8 +1,7 @@
 import java.io.InputStreamReader;
 
-import ime.controller.cli.ImageOperationFactory;
+import ime.controller.operation.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
-import ime.controller.operation.repository.ImageLibrary;
 
 /**
  * The Main class serves as the entry point for the image editor application.
