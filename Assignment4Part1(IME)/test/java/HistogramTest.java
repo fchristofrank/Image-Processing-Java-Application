@@ -117,42 +117,36 @@ public class HistogramTest {
   }
 
   @Test
-  public void testVisualizePreview(){
+  public void testVisualizePreview() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript
-            .append("load ")
-            .append(resDirPath)
-            .append("testImage.png ")
-            .append("test");
+    commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript.append("\n");
 
     commandScript
-            .append("red-component ")
-            .append("test ")
-            .append("result")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("level-adjusted-actual.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("red-component ")
+        .append("test ")
+        .append("result")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("level-adjusted-actual.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     Image actualImage;
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
-      actualImage =
-              imageReader.read(resDirPath + "level-adjusted-actual.png", ImageType.RGB);
-      System.out.println(actualImage.getPixel(0,0).getColorComponents());
-      System.out.println(actualImage.getPixel(0,1).getColorComponents());
-      System.out.println(actualImage.getPixel(1,0).getColorComponents());
-      System.out.println(actualImage.getPixel(1,1).getColorComponents());
+      actualImage = imageReader.read(resDirPath + "level-adjusted-actual.png", ImageType.RGB);
+      System.out.println(actualImage.getPixel(0, 0).getColorComponents());
+      System.out.println(actualImage.getPixel(0, 1).getColorComponents());
+      System.out.println(actualImage.getPixel(1, 0).getColorComponents());
+      System.out.println(actualImage.getPixel(1, 1).getColorComponents());
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
-
-    }
+  }
 }
