@@ -1,4 +1,4 @@
-package ime.controller.cli;
+package ime.controller.operation;
 
 /**
  * The CommandExecutor interface defines a contract for classes that can execute

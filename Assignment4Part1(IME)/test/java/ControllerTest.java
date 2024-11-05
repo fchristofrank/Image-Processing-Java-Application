@@ -4,8 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
 
-import ime.controller.cli.CommandExecutor;
-import ime.controller.cli.ImageOperationFactory;
+import ime.controller.operation.CommandExecutor;
+import ime.controller.operation.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.AbstractOperation;
