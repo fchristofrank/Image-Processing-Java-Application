@@ -223,23 +223,19 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
    */
   private void compressSequence(float[][] sequence, float compressionRatio) {
     List<Float> coefficients = new ArrayList<>();
-
-    // Collect coefficients into a list for processing
     for (float[] row : sequence) {
       for (float value : row) {
-        coefficients.add(value);
+        if (value != 0) {
+          coefficients.add(Math.abs(value));
+        }
       }
     }
-
-    // Sort coefficients and determine how many to retain
-    Collections.sort(coefficients);
-    int numToRetain = (int) ((1 - compressionRatio) * coefficients.size());
-    float threshold = coefficients.get(numToRetain);
-
-    // Set coefficients below the threshold to zero
+    coefficients.sort(Collections.reverseOrder());
+    int numToRetain = (int) ((1 - (compressionRatio / 100)) * coefficients.size());
+    float threshold = numToRetain > 0 ? coefficients.get(numToRetain - 1) : Float.MAX_VALUE;
     for (int i = 0; i < sequence.length; i++) {
       for (int j = 0; j < sequence[i].length; j++) {
-        if (Math.abs(sequence[i][j]) < Math.abs(threshold)) {
+        if (Math.abs(sequence[i][j]) < threshold) {
           sequence[i][j] = 0;
         }
       }

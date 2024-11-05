@@ -1105,8 +1105,38 @@ public class ImageOperationTest {
   }
 
   @Test
-  public void testCompressionPNG(){
+  public void testCompressionPNG() {
+    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
+            .getResource("")).getPath();
+    StringBuilder commandScript = new StringBuilder();
+    commandScript.append("load").append(" ").append(resDirPath).append("test-compress.png")
+            .append(" ")
+            .append("test").append("\n");
+    commandScript.append("compress").append(" ").append("50").append(" ").append("test")
+            .append(" ").append("test-compress").append("\n");
+    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-actual.png")
+            .append(" ").append("test-compress").append("\n").append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
+    Image actualCompressedImage;
+    try {
+      actualCompressedImage = imageReader.read(resDirPath + "test-compress-actual.png",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
 
+    Image expectedCompressedImage;
+    try {
+      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(actualCompressedImage, expectedCompressedImage);
   }
 
 }
