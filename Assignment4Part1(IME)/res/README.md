@@ -1,6 +1,7 @@
 ImageCitationAndPermission:
 
 #### Sample Image Path inside the Project : **Assignment4Part1(IME)
+
 /test/resources/manhattan-small.png**
 
     All Image used within the project file are owned by Project owners and can be used for testing for project purposes.
@@ -150,16 +151,16 @@ ClassDiagram :
     - **Concrete Classes**:
         - `Sepia`: Returns the sepia filter applied image.
 6. **Compress**: Compress the input image by the given value. Follows Haar Wavelet Transformation to
-   transform the pixel array, zero out the less insignificant values computed based on the 
+   transform the pixel array, zero out the less insignificant values computed based on the
    compression ratio.
-   - **Concrete Classes**:
-       - `HaarWaveletImageCompressor`: Applies haar wavelet compression to the given image by the 
-          following steps. 
+    - **Concrete Classes**:
+        - `HaarWaveletImageCompressor`: Applies haar wavelet compression to the given image by the
+          following steps.
             - Apply haar wavelet transformation.
             - Zero out less insignificant values based on the compression ratio.
             - Invert the transformed sequence and create a corresponding image for the sequence.
             - Return the image.
-       - `ApplyCompression`: Returns the compressed image.
+        - `ApplyCompression`: Returns the compressed image.
 
 ### ImageIO:
 
@@ -181,22 +182,30 @@ ClassDiagram :
       file name.
 
 ### CHANGES:
-1. New operations added: Compress, Histogram, Color Correction, Levels Adjustment.**(No design changes required.)**
-    - The existing codebase remained unaltered to incorporate the new operations. Instead, 
-      we extended the system's functionality by introducing new command classes and their 
-      corresponding model classes. This approach allowed us to seamlessly integrate additional 
-      features without modifying the core structure, adhering to the principles of modularity and 
+
+1. New operations added: Compress, Histogram, Color Correction, Levels Adjustment.**(No design
+   changes required.)**
+    - The existing codebase remained unaltered to incorporate the new operations. Instead,
+      we extended the system's functionality by introducing new command classes and their
+      corresponding model classes. This approach allowed us to seamlessly integrate additional
+      features without modifying the core structure, adhering to the principles of modularity and
       extensibility in software design.
+    - For Every new operation we extended the ImageOperation.java interface and override the apply
+      method with the new logics.
+    - For new corresponding controllers, we have implemented the CLIOperations.java and extended the
+      AbstractOperation.java abstract class tha contains the common validation and delegation
+      logics.
 2. We made few refactoring **as we hit the file limit(125)**. Following were the changes,
     - Removed the FileReader.java class. Moved the readFile method to the controller class,
       ImageProcessorCLI.java
-    - Removed the individual controller classes for the operations such as Filter.java, Blur.java etc.,
+    - Removed the individual controller classes for the operations such as Filter.java, Blur.java
+      etc.,
       and moved them to ImageOperationFactory.java as inner classes.
     - Remove FilterConstants.java and moved the constants to their corresponding usage area.
 3. Package Refactoring: More meaningful organisation.
     - imageio package from ime to controller.(ime ----> ime.controller).
-    - Moved ImageLibrary.java to the package Repository and moved repository to ime.controller.operation package. 
-
+    - Moved ImageLibrary.java to the package Repository and moved repository to
+      ime.controller.operation package.
 
 
 
