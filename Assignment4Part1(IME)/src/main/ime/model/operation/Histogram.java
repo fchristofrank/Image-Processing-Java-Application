@@ -1,7 +1,5 @@
 package ime.model.operation;
 
-import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
-
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
@@ -20,7 +18,7 @@ import java.util.Map;
 public class Histogram implements ImageOperation {
 
   private final CountFrequency countFrequencyOperation;
-
+  private static final int PIXEL_UPPER_LIMIT = 255;
   public Histogram(CountFrequency countFrequencyOperation) {
     this.countFrequencyOperation = countFrequencyOperation;
   }
