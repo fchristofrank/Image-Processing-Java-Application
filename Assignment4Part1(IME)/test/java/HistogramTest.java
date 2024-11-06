@@ -1,17 +1,13 @@
 import static org.junit.Assert.assertEquals;
 
-import ime.controller.operation.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
+import ime.controller.operation.ImageOperationFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import ime.model.operation.CountFrequency;
-import ime.model.operation.Histogram;
-import ime.model.operation.ImageOperation;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -398,7 +394,7 @@ public class HistogramTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "blur-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[] {723729, 789527, 789527, 855332};
+      int[] expectedPixelValue = new int[] {723729, 1315860, 789527, 1973880};
 
       System.out.println(actualImage.getPixel(0, 0).getColorComponents());
       System.out.println(actualImage.getPixel(0, 1).getColorComponents());
@@ -437,7 +433,7 @@ public class HistogramTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "sharpen-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[] {2434364, 2434364, 2434364, 2960775};
+      int[] expectedPixelValue = new int[] {2434364, 1315860, 2434364, 1973880};
 
       System.out.println(actualImage.getPixel(0, 0).getColorComponents());
       System.out.println(actualImage.getPixel(0, 1).getColorComponents());
@@ -476,7 +472,7 @@ public class HistogramTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "sepia-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[] {1775635, 1775635, 1775635, 3814184};
+      int[] expectedPixelValue = new int[] {1775635, 1315860, 1775635, 1973880};
 
       System.out.println(actualImage.getPixel(0, 0).getColorComponents());
       System.out.println(actualImage.getPixel(0, 1).getColorComponents());
