@@ -99,6 +99,3 @@ save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-ld.png b
 # Apply level adjustments with min 50, mid 100, max 150 to 'boston' and save it as 'boston-ld-50'
 levels-adjust 50 100 150 boston boston-ld-50 50
 save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-ld-preview.png boston-ld-50
-
-# Exit the program
-exit
