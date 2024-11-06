@@ -141,21 +141,22 @@ rgb-combine boston-rgb boston-r boston-g boston-b
 
 ### 12. Component Extraction
 Extracts various components from an image.
+Optionally, this command can be used with preview widht.
 
 ```
-<component>-component <source_name> <destination_name>
+<component>-component <source_name> <destination_name> [preview_width]
 ```
 
 Where `<component>` can be: value, luma, intensity, red, green, or blue.
 
 **Examples:**
 ```
-value-component boston boston-value
-luma-component boston boston-luma
-intensity-component boston boston-intensity
-red-component boston boston-red
-green-component boston boston-green
-blue-component boston boston-blue
+value-component boston boston-value 50
+luma-component boston boston-luma 40
+intensity-component boston boston-intensity 30
+red-component boston boston-red 20
+green-component boston boston-green 60
+blue-component boston boston-blue 70
 ```
 
 ### 13. Compress
