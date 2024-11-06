@@ -965,6 +965,59 @@ public class ImageOperationTest {
   }
 
   @Test
+  public void testSepiaWithPreviewPNG() {
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    StringBuilder commandScript = new StringBuilder();
+    commandScript
+            .append("load")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston.png")
+            .append(" ")
+            .append("boston")
+            .append("\n");
+    commandScript
+            .append("sepia")
+            .append(" ")
+            .append("boston")
+            .append(" ")
+            .append("boston-sepia")
+            .append(" ")
+            .append("50")
+            .append("\n");
+    commandScript
+            .append("save")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston-sepia-wp-actual.png")
+            .append(" ")
+            .append("boston-sepia")
+            .append("\n")
+            .append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
+    Image actualRGBImage;
+    try {
+      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-wp-actual.png",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+
+    Image expectedRGBImage;
+    try {
+      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-wp-expected.png", ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(actualRGBImage, expectedRGBImage);
+  }
+
+  @Test
   public void testSepiaJPG() {
     String resDirPath =
             Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
@@ -1340,7 +1393,7 @@ public class ImageOperationTest {
             .append("test").append("\n");
     commandScript.append("compress").append(" ").append("100").append(" ").append("test")
             .append(" ").append("test-compress").append("\n");
-    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-actual.png")
+    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-full-actual.png")
             .append(" ").append("test-compress").append("\n").append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -1349,7 +1402,7 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualCompressedImage;
     try {
-      actualCompressedImage = imageReader.read(resDirPath + "test-compress-actual.png",
+      actualCompressedImage = imageReader.read(resDirPath + "test-compress-full-actual.png",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -1357,7 +1410,7 @@ public class ImageOperationTest {
 
     Image expectedCompressedImage;
     try {
-      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
+      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-full-expected.png",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -1376,7 +1429,7 @@ public class ImageOperationTest {
             .append("test").append("\n");
     commandScript.append("compress").append(" ").append("0").append(" ").append("test")
             .append(" ").append("test-compress").append("\n");
-    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-actual.png")
+    commandScript.append("save").append(" ").append(resDirPath).append("test-no-compress-actual.png")
             .append(" ").append("test-compress").append("\n").append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -1385,7 +1438,7 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualCompressedImage;
     try {
-      actualCompressedImage = imageReader.read(resDirPath + "test-compress-actual.png",
+      actualCompressedImage = imageReader.read(resDirPath + "test-no-compress-actual.png",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -1393,14 +1446,14 @@ public class ImageOperationTest {
 
     Image expectedCompressedImage;
     try {
-      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
+      expectedCompressedImage = imageReader.read(resDirPath
+                      + "test-no-compress-expected.png",
               ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(actualCompressedImage, expectedCompressedImage);
   }
-
 
   @Test
   public void testVisualizePPM() {
@@ -1500,4 +1553,113 @@ public class ImageOperationTest {
         assertEquals(valueActual, valueExpected);
   }
 
+<<<<<<< HEAD
+=======
+  @Test
+  public void testBlurWithPreviewPNG(){
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    StringBuilder commandScript = new StringBuilder();
+    commandScript
+            .append("load")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston.png")
+            .append(" ")
+            .append("boston")
+            .append("\n");
+    commandScript
+            .append("blur")
+            .append(" ")
+            .append("boston")
+            .append(" ")
+            .append("boston-blur")
+            .append(" ")
+            .append("70")
+            .append("\n");
+    commandScript
+            .append("save")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston-blur-wp-actual.jpg")
+            .append(" ")
+            .append("boston-blur")
+            .append("\n")
+            .append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
+    Image actualRGBImage;
+    try {
+      actualRGBImage = imageReader.read(resDirPath + "boston-blur-wp-actual.jpg", ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+
+    Image expectedRGBImage;
+    try {
+      expectedRGBImage = imageReader.read(resDirPath + "boston-blur-wp-expected.jpg", ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(actualRGBImage, expectedRGBImage);
+  }
+
+  @Test
+  public void testSharpenWithPreviewPNG(){
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    StringBuilder commandScript = new StringBuilder();
+    commandScript
+            .append("load")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston.png")
+            .append(" ")
+            .append("boston")
+            .append("\n");
+    commandScript
+            .append("sharpen")
+            .append(" ")
+            .append("boston")
+            .append(" ")
+            .append("boston-sharpen")
+            .append(" ")
+            .append("70")
+            .append("\n");
+    commandScript
+            .append("save")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston-sharpen-wp-actual.jpg")
+            .append(" ")
+            .append("boston-sharpen")
+            .append("\n")
+            .append("exit");
+    Readable readableInput = new StringReader(commandScript.toString());
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    OperationCreator operationCreator = new ImageOperationFactory();
+    new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
+    ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
+    Image actualRGBImage;
+    try {
+      actualRGBImage = imageReader.read(resDirPath + "boston-sharpen-wp-actual.jpg",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+
+    Image expectedRGBImage;
+    try {
+      expectedRGBImage = imageReader.read(resDirPath + "boston-sharpen-wp-expected.jpg",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(actualRGBImage, expectedRGBImage);
+  }
+
+>>>>>>> 0603735 (Refactor controller components)
 }

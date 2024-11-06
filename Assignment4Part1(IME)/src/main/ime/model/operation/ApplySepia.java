@@ -19,7 +19,7 @@ public class ApplySepia implements ImageOperation {
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
     Pixel[][] pixels = new Pixel[height][width];
-    processImage(inputImage, pixels);
+    processImage(inputImage, pixels, args);
     return new SimpleImage(height, width, inputImage.getType(),
             pixels);
   }

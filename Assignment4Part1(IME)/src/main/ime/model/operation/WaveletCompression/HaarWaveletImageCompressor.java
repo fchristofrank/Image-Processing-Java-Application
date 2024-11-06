@@ -1,6 +1,7 @@
 package ime.model.operation.WaveletCompression;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,7 +48,10 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     invertTransform(tRed);
     invertTransform(tGreen);
     invertTransform(tBlue);
+
+    // create a new pixel array
     Pixel[][] pixels = new Pixel[height][width];
+
     // Set the reconstructed pixel values into the output image
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -83,7 +87,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     while (m > 1) {
       for (int i = 0; i < m; i++) {
         float[] rowTransformedRes = rowTransform(paddedSequence, i, m);
-        System.arraycopy(rowTransformedRes, 0, paddedSequence[i], 0, rowTransformedRes.length);
+        System.arraycopy(rowTransformedRes, 0, paddedSequence[i], 0,
+                rowTransformedRes.length);
       }
       for (int i = 0; i < m; i++) {
         float[] colTransformedRes = columnTransform(paddedSequence, i, m);
@@ -107,7 +112,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     while (m <= sequence.length) {
       for (int i = 0; i < m; i++) {
         float[] invertRowTransformedResult = invertRowTransform(sequence, i, m);
-        System.arraycopy(invertRowTransformedResult, 0, sequence[i], 0, invertRowTransformedResult.length);
+        System.arraycopy(invertRowTransformedResult, 0, sequence[i], 0,
+                invertRowTransformedResult.length);
       }
       for (int i = 0; i < m; i++) {
         float[] invertColTransformedResult = invertColTransform(sequence, i, m);
@@ -132,12 +138,13 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     float[] avg = new float[length / 2];
     float[] diff = new float[length / 2];
     float[] result = new float[length];
-    int count = 0;
-    for (int i = 0; i < length - 1; i = i + 2) {
-      avg[count] = (float) ((sequence[row][i] + sequence[row][i + 1]) / SQRT2);
-      diff[count] = (float) ((sequence[row][i] - sequence[row][i + 1]) / SQRT2);
-      count++;
+
+    for (int i = 0; i < length - 1; i += 2) {
+      int idx = i / 2;
+      avg[idx] = (float) ((sequence[row][i] + sequence[row][i + 1]) / SQRT2);
+      diff[idx] = (float) ((sequence[row][i] - sequence[row][i + 1]) / SQRT2);
     }
+
     System.arraycopy(avg, 0, result, 0, length / 2);
     System.arraycopy(diff, 0, result, length / 2, length / 2);
     return result;
@@ -158,16 +165,15 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     float[] avg = new float[length / 2];
     float[] diff = new float[length / 2];
     float[] result = new float[length];
-    int count = 0;
-    for (int i = 0; i < length - 1; i = i + 2) {
-      avg[count] = (float) ((sequence[i][col] + sequence[i + 1][col]) / SQRT2);
-      diff[count] = (float) ((sequence[i][col] - sequence[i + 1][col]) / SQRT2);
-      count++;
+
+    for (int i = 0; i < length - 1; i += 2) {
+      int idx = i / 2;
+      avg[idx] = (float) ((sequence[i][col] + sequence[i + 1][col]) / SQRT2);
+      diff[idx] = (float) ((sequence[i][col] - sequence[i + 1][col]) / SQRT2);
     }
-    for (int i = 0; i < length / 2; i++) {
-      result[i] = avg[i];
-      result[i + length / 2] = diff[i];
-    }
+
+    System.arraycopy(avg, 0, result, 0, length / 2);
+    System.arraycopy(diff, 0, result, length / 2, length / 2);
     return result;
   }
 
@@ -222,6 +228,17 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
    * @param compressionRatio the ratio indicating how much of the data should be retained
    */
   private void compressSequence(float[][] sequence, float compressionRatio) {
+    if (compressionRatio == 0) {
+      return;
+    }
+
+    if (compressionRatio == 100) {
+      for (float[] floats : sequence) {
+        Arrays.fill(floats, 0);
+      }
+      return;
+    }
+
     List<Float> coefficients = new ArrayList<>();
     for (float[] row : sequence) {
       for (float value : row) {
@@ -233,10 +250,16 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     coefficients.sort(Collections.reverseOrder());
     int numToRetain = (int) ((1 - (compressionRatio / 100)) * coefficients.size());
     float threshold = numToRetain > 0 ? coefficients.get(numToRetain - 1) : Float.MAX_VALUE;
+    int zeroedOutCount = 0;
+
     for (int i = 0; i < sequence.length; i++) {
       for (int j = 0; j < sequence[i].length; j++) {
-        if (Math.abs(sequence[i][j]) < threshold) {
+        if (sequence[i][j] != 0 && Math.abs(sequence[i][j]) <= threshold) {
           sequence[i][j] = 0;
+          zeroedOutCount++;
+        }
+        if (zeroedOutCount >= coefficients.size() - numToRetain) {
+          return;
         }
       }
     }

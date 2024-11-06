@@ -37,7 +37,7 @@ public abstract class Filter implements ImageOperation {
    */
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
-    processImage(inputImage, pixels);
+    processImage(inputImage, pixels, args);
     return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), ImageType.RGB, pixels);
   }
 

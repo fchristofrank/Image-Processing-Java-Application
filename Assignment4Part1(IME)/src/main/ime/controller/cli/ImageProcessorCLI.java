@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import ime.controller.operation.CLIOperation;
 import ime.controller.operation.CommandExecutor;
+import ime.controller.operation.ImageOperationFactory;
 
 /**
  * The main command-line interface for the Image Processor application.

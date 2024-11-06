@@ -12,14 +12,14 @@ public abstract class AbstractVisualizeWithPreview extends AbstractVisualize {
 
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
-
-    if (args.length == 3 && args[2] != null && !args[2].isEmpty()) {
-      widthSplitPercentage = Integer.parseInt(args[2]);
+    if (args.length != 0) {
+      if (args[0] != null && args[0].isEmpty()) {
+        widthSplitPercentage = Integer.parseInt(args[0]);
+      }
+      if (args.length > 1 && args[1] != null && !args[1].isEmpty()) {
+        heightSplitPercentage = Integer.parseInt(args[1]);
+      }
     }
-    if (args.length == 4 && args[3] != null && !args[3].isEmpty()) {
-      heightSplitPercentage = Integer.parseInt(args[3]);
-    }
-
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
     int splitWidth = (inputImage.getWidth() * widthSplitPercentage) / 100;

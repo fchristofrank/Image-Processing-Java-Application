@@ -12,17 +12,17 @@ public class ApplySepiaWithPreview extends ApplySepia {
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
     if (args.length != 0) {
-      if (args[0] != null && args[0].isEmpty()) {
+      if (args[0] != null && !args[0].isEmpty()) {
         widthSplitPercentage = Integer.parseInt(args[0]);
       }
-      if (args[1] != null && args[1].isEmpty()) {
+      if (args.length > 1 && args[1] != null && !args[1].isEmpty()) {
         heightSplitPercentage = Integer.parseInt(args[1]);
       }
     }
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
-    int splitWidth = inputImage.getWidth() * widthSplitPercentage / 100;
-    int splitHeight = inputImage.getHeight() * heightSplitPercentage / 100;
+    int splitWidth = inputImage.getWidth() * (widthSplitPercentage / 100);
+    int splitHeight = inputImage.getHeight() * (heightSplitPercentage / 100);
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (i < splitHeight && j < splitWidth) {

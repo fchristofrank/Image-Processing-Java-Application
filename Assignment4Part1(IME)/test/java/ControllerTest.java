@@ -4,12 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
 
-import ime.controller.operation.CommandExecutor;
-import ime.controller.operation.ImageOperationFactory;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.AbstractOperation;
 import ime.controller.operation.CLIOperation;
+import ime.controller.operation.CommandExecutor;
+import ime.controller.operation.ImageOperationFactory;
 import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
 
@@ -145,7 +145,7 @@ public class ControllerTest {
   }
 
   @Test
-  public void testCompressCommand(){
+  public void testCompressCommand() {
     String input = "compress 50 koala koala-compress\nexit\n";
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
@@ -158,7 +158,7 @@ public class ControllerTest {
     assertEquals(input, actualInput);
   }
 
-  class MockOperation extends AbstractOperation {
+  static class MockOperation extends AbstractOperation {
 
     private final StringBuilder logger;
 
@@ -179,7 +179,7 @@ public class ControllerTest {
     }
   }
 
-  class MockCommandFactory implements OperationCreator {
+  static class MockCommandFactory implements OperationCreator {
 
     private final ImageRepo library;
     private final StringBuilder logger;
