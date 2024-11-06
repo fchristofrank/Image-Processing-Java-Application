@@ -765,7 +765,9 @@ class Visualize extends AbstractOperation {
     if (inputImage == null) {
       throw new IllegalArgumentException("Input image not found");
     }
-    Image outputImage = inputImage.applyOperation(visualizeObjectFactory(this.command), args);
+    String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
+    Image outputImage = inputImage.applyOperation(visualizeObjectFactory(this.command),
+            commandArgs);
     addImage(outputName, outputImage);
     System.out.println("Extracted given component. New Image :: " + outputName);
   }
