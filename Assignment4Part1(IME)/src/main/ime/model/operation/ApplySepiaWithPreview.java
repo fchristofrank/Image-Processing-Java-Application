@@ -4,6 +4,10 @@ import ime.constants.FilterConstants;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 
+/**
+ * This is new requirement as per the assignment 5 which is incorporated without any impact to
+ * earlier version of the code. It generates the operation applied only to the given width.
+ */
 public class ApplySepiaWithPreview extends ApplySepia {
 
   @Override

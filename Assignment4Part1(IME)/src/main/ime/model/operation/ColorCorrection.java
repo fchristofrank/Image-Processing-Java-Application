@@ -6,6 +6,10 @@ import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 import java.util.Map;
 
+/**
+ * This class color corrects the image by calculating the average of the peaks generated in the
+ * histogram and accordingly offsetting the values of each pixel to coincide the peaks of the image.
+ */
 public class ColorCorrection implements ImageOperation {
 
   private final CountFrequency countFrequencyOperation;

@@ -18,6 +18,15 @@ public class SimpleImage implements Image {
   private final ImageType imageType;
   private final Pixel[][] pixels;
 
+  /**
+   * Public method to create a new image with all the collection of pixels. Once image is created
+   * then pixels cannot be modified.
+   *
+   * @param height height of the image.
+   * @param width width of the image.
+   * @param imageType the type of image.
+   * @param pixels final pixel arrays to create the image.
+   */
   public SimpleImage(int height, int width, ImageType imageType, Pixel[][] pixels) {
     this.height = height;
     this.width = width;

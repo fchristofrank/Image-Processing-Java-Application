@@ -1,10 +1,14 @@
 package ime.model.operation;
 
-
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 
+/**
+ * This is an extended feature of Visualize methods. The new feature required no code change to
+ * existing tested code. This extends the Visualize function and process the operation for the given
+ * width only.
+ */
 public abstract class AbstractVisualizeWithPreview extends AbstractVisualize {
   @Override
   protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {

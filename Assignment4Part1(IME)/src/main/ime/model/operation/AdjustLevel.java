@@ -5,6 +5,10 @@ import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 
+/**
+ * This operation involves providing the black, mid and white values. It generates a quadratic
+ * function which is applied to each of the pixels, and it generates the corrected image.
+ */
 public class AdjustLevel implements ImageOperation {
 
   private double coefficient_a;
@@ -16,23 +20,23 @@ public class AdjustLevel implements ImageOperation {
    * method should be called once before applying the operation to an image.
    */
   public void setCoefficients(int blackValue, int midValue, int whiteValue) {
-    double A =
+    double calculatedA =
         Math.pow(blackValue, 2) * (midValue - whiteValue)
             - blackValue * (Math.pow(midValue, 2) - Math.pow(whiteValue, 2))
             + whiteValue * Math.pow(midValue, 2)
             - midValue * Math.pow(whiteValue, 2);
-    double Aa = -blackValue * (128 - 255) + 128 * whiteValue - 255 * midValue;
-    double Ab =
+    double calculatedAa = -blackValue * (128 - 255) + 128 * whiteValue - 255 * midValue;
+    double calculatedAb =
         Math.pow(blackValue, 2) * (128 - 255)
             + 255 * Math.pow(midValue, 2)
             - 128 * Math.pow(whiteValue, 2);
-    double Ac =
+    double calculatedAc =
         Math.pow(blackValue, 2) * (255 * midValue - 128 * whiteValue)
             - blackValue * (255 * Math.pow(midValue, 2) - 128 * Math.pow(whiteValue, 2));
 
-    this.coefficient_a = Aa / A;
-    this.coefficient_b = Ab / A;
-    this.coefficient_c = Ac / A;
+    this.coefficient_a = calculatedAa / calculatedA;
+    this.coefficient_b = calculatedAb / calculatedA;
+    this.coefficient_c = calculatedAc / calculatedA;
   }
 
   @Override
