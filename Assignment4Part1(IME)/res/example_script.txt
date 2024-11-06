@@ -1,0 +1,104 @@
+# Load the image boston.png into the workspace with the name 'boston'
+load C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston.png boston
+
+# Brighten the image 'boston' by 50 units and save it as 'boston-bright'
+brighten 50 boston boston-bright
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-bright.png boston-bright
+
+# Darken the image 'boston' by 50 units and save it as 'boston-dark'
+darken 50 boston boston-dark
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-dark.png boston-dark
+
+# Flip the image 'boston' vertically and save it as 'boston-vflip'
+vertical-flip boston boston-vflip 
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-vflip.png boston-vflip
+
+# Flip the image 'boston' horizontally and save it as 'boston-hflip'
+horizontal-flip boston boston-hflip
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-hflip.png boston-hflip
+
+# Apply a basic blur to the image 'boston' and save it as 'boston-blur'
+blur boston boston-blur
+
+# Apply a stronger blur with preview width 50 to 'boston' and save it as 'boston-blur-50'
+blur boston boston-blur-50 50
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-blur-mid-preview.png boston-blur-50
+
+# Sharpen the image 'boston' and save it as 'boston-sharp'
+sharpen boston boston-sharp
+
+# Apply sharpening with preview width 40 to 'boston' and save it as 'boston-sharp-40'
+sharpen boston boston-sharp-40 40
+save "C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-sharp-preview-40.png" boston-sharp-40
+
+# Apply a sepia tone to 'boston' and save it as 'boston-sep'
+sepia boston boston-sep
+
+# Apply sepia with preview width 50 to 'boston' and save it as 'boston-sep-50'
+sepia boston boston-sep-50 50
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-sepia-mid-preview.png boston-sep-50
+
+# Split the RGB channels of 'boston' into separate images 'boston-r', 'boston-g', and 'boston-b'
+rgb-split boston boston-r boston-g boston-b
+
+# Save the red channel of 'boston' as 'boston-r'
+save "C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-red.png" boston-r
+
+# Save the green channel of 'boston' as 'boston-g'
+save "C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-green.png" boston-g
+
+# Save the blue channel of 'boston' as 'boston-b'
+save "C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-blue.png" boston-b
+
+# Extract the value component of 'boston' and save it as 'boston-value'
+value-component boston boston-value
+
+# Extract the luma component of 'boston' and save it as 'boston-luma'
+luma-component boston boston-luma
+
+# Extract the intensity component of 'boston' and save it as 'boston-intensity'
+intensity-component boston boston-intensity
+
+# Extract the red component of 'boston' and save it as 'boston-red'
+red-component boston boston-red
+
+# Extract the green component of 'boston' and save it as 'boston-green'
+green-component boston boston-green
+
+# Extract the blue component of 'boston' and save it as 'boston-blue'
+blue-component boston boston-blue
+
+# Recombine the RGB channels into one image 'boston-rgb' and save it
+rgb-combine boston-rgb boston-r boston-g boston-b
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston.png boston-rgb
+
+# Compress the image 'boston' with a quality factor of 20 and save as 'boston-compress-20'
+compress 20 boston boston-compress-20
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-compress-20.png boston-compress-20
+
+# Compress the image 'boston' with a quality factor of 95 and save as 'boston-95'
+compress 95 boston boston-95
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-compress-95.png boston-95
+
+# Generate a histogram for the image 'boston' and save it as 'boston-histogram'
+histogram boston boston-histogram
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-histogram.png boston-histogram
+
+# Apply color correction to 'boston' and save it as 'boston-color-correction'
+color-correct boston boston-color-correction
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-color-correct.png boston-color-correction
+
+# Apply color correction with intensity 50 to 'boston' and save as 'boston-color-correction-50'
+color-correct boston boston-color-correction-50 50
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-color-correct-50.png boston-color-correction-50
+
+# Adjust the levels with min 50, mid 100, max 150 with preview width 50 on 'boston' and save it as 'boston-ld'
+levels-adjust 50 100 150 boston boston-ld
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-ld.png boston-ld
+
+# Apply level adjustments with min 50, mid 100, max 150 to 'boston' and save it as 'boston-ld-50'
+levels-adjust 50 100 150 boston boston-ld-50 50
+save C:\fall2024\cs5010\projects\group\Assignment4Part1(IME)\res\boston-ld-preview.png boston-ld-50
+
+# Exit the program
+exit
