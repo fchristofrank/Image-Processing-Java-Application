@@ -98,6 +98,7 @@ ClassDiagram :
                 - `Load`: Loads a given image from the path and uses the reader based on the image format.
                 - `Save`: Saves the image to the given path by converting it to a buffered image before using the `ImageIO` JDK.
                 - `Sepia`: Handles sepia image operations by request and argument validation.
+                - `Compress`: Handles image compression requests by validating arguments and executing the appropriate operations.
 
 ---
 
