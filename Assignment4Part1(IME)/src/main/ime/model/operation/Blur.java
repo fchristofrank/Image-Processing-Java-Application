@@ -1,6 +1,5 @@
 package ime.model.operation;
 
-import static ime.constants.FilterConstants.GAUSSIAN_BLUR_KERNEL;
 
 /**
  * The Blur class is a specific type of filter operation that applies a Gaussian blur to an image.
@@ -22,6 +21,10 @@ public class Blur extends FilterWithPreview {
    * @return a 2D array representing the Gaussian blur kernel used for this filter.
    */
   protected float[][] getKernel() {
-    return GAUSSIAN_BLUR_KERNEL;
+    return new float[][] {
+            {1f / 16f, 1f / 8f, 1f / 16f},
+            {1f / 8f, 1f / 4f, 1f / 8f},
+            {1f / 16f, 1f / 8f, 1f / 16f}
+    };
   }
 }

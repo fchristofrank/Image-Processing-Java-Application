@@ -1,6 +1,5 @@
 package ime.model.operation;
 
-import static ime.constants.FilterConstants.SHARPEN_KERNEL;
 
 /**
  * This class represents the sharpen filter operation that enhances image details. It extends the
@@ -16,6 +15,12 @@ public class Sharpen extends FilterWithPreview {
    * @return a 2D float array representing the sharpen kernel.
    */
   protected float[][] getKernel() {
-    return SHARPEN_KERNEL;
+    return new float[][] {
+      {-1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f},
+      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+      {-1f / 8f, 1f / 4f, 1, 1f / 4f, -1f / 8f},
+      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+    };
   }
 }
