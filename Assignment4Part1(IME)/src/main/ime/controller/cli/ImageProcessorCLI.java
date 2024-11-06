@@ -10,6 +10,9 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import ime.controller.operation.CLIOperation;
+import ime.controller.operation.CommandExecutor;
+
 /**
  * The main command-line interface for the Image Processor application.
  *
@@ -139,6 +142,7 @@ public class ImageProcessorCLI implements CommandExecutor {
    * @throws IOException if an I/O error occurs while reading the file.
    */
   private String readFromFile(String filePath) throws IOException {
+    filePath = filePath.replace("\"", "");
     try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
       return lines
           .map(String::trim)
