@@ -20,18 +20,6 @@ public class RGBPixel extends AbstractPixel {
     super(red, green, blue);
   }
 
-  /**
-   * This method creates the RGB pixel based on the no clamp flag.
-   *
-   * @param red     the value of the red component.
-   * @param green   the value of the green component.
-   * @param blue    the value of the blue component.
-   * @param noClamp the value of the no clamp flag.
-   */
-  private RGBPixel(int red, int green, int blue, boolean noClamp) {
-    super(red, green, blue, noClamp);
-  }
-
   @Override
   public int getColorComponents() {
     return (this.getRed() << 16) | (this.getGreen() << 8) | this.getBlue();
@@ -55,7 +43,7 @@ public class RGBPixel extends AbstractPixel {
   @Override
   public Pixel shiftComponents(int alpha) {
     return new RGBPixel(this.getRed() + alpha, this.getGreen() + alpha,
-            this.getBlue() + alpha, true);
+            this.getBlue() + alpha);
   }
 
   @Override

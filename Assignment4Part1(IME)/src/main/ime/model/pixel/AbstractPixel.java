@@ -12,37 +12,18 @@ public abstract class AbstractPixel implements Pixel {
   private final int blue;
   private static final int PIXEL_LOWER_LIMIT = 0;
   private static final int PIXEL_UPPER_LIMIT = 255;
+
   /**
    * a public constructor to generate a pixel with red, green, blue values.
    *
-   * @param red value of the red pixel.
+   * @param red   value of the red pixel.
    * @param green value of the green pixel.
-   * @param blue value of the blue pixel.
+   * @param blue  value of the blue pixel.
    */
   public AbstractPixel(int red, int green, int blue) {
     this.red = clamp(red);
     this.green = clamp(green);
     this.blue = clamp(blue);
-  }
-
-  /**
-   * This method creates an abstract pixel based on the clamp flag.
-   *
-   * @param red     the red value of the pixel.
-   * @param green   the green value of the pixel.
-   * @param blue    the blue value of the pixel.
-   * @param noClamp the no clamp flag.
-   */
-  public AbstractPixel(int red, int green, int blue, boolean noClamp) {
-    if (noClamp) {
-      this.red = red;
-      this.green = green;
-      this.blue = blue;
-    } else {
-      this.red = clamp(red);
-      this.green = clamp(green);
-      this.blue = clamp(blue);
-    }
   }
 
   public int getRed() {
