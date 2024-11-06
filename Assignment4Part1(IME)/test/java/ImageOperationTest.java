@@ -33,157 +33,155 @@ import java.util.Objects;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * This class tests the functionalities of Image Manipulation and Enhancement application.
- */
+/** This class tests the functionalities of Image Manipulation and Enhancement application. */
 public class ImageOperationTest {
 
   @Test
   public void testMultipleOperationsPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston");
     commandScript.append("\n");
     commandScript
-            .append("red-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-red")
-            .append("\n");
+        .append("red-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-red")
+        .append("\n");
     commandScript
-            .append("green-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-green")
-            .append("\n");
+        .append("green-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-green")
+        .append("\n");
     commandScript
-            .append("blue-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("blue-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("rgb-combine")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-red")
-            .append(" ")
-            .append("boston-green")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("rgb-combine")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-red")
+        .append(" ")
+        .append("boston-green")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("horizontal-flip")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append("\n");
+        .append("horizontal-flip")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append("\n");
     commandScript
-            .append("vertical-flip")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n");
+        .append("vertical-flip")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n");
     commandScript
-            .append("rgb-split")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-split-red")
-            .append(" ")
-            .append("boston-split-green")
-            .append(" ")
-            .append("boston-split-blue")
-            .append("\n");
+        .append("rgb-split")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-split-red")
+        .append(" ")
+        .append("boston-split-green")
+        .append(" ")
+        .append("boston-split-blue")
+        .append("\n");
     commandScript
-            .append("brighten")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-brighten")
-            .append("\n");
+        .append("brighten")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-brighten")
+        .append("\n");
     commandScript
-            .append("darken")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-darken")
-            .append("\n");
+        .append("darken")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-darken")
+        .append("\n");
     commandScript
-            .append("blur")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blur")
-            .append("\n");
+        .append("blur")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blur")
+        .append("\n");
     commandScript
-            .append("sharpen")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sharpen")
-            .append("\n");
+        .append("sharpen")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sharpen")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n");
     commandScript
-            .append("luma-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("luma-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
-            .append("value-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-value")
-            .append("\n");
+        .append("value-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-value")
+        .append("\n");
     commandScript
-            .append("intensity-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-intensity")
-            .append("\n")
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-rgb-actual.png")
-            .append(" ")
-            .append("boston-rgb")
-            .append("\n");
+        .append("intensity-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-intensity")
+        .append("\n")
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-rgb-actual.png")
+        .append(" ")
+        .append("boston-rgb")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-hv-actual.png")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-hv-actual.png")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -213,149 +211,149 @@ public class ImageOperationTest {
   @Test
   public void testMultipleOperationsJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston");
     commandScript.append("\n");
     commandScript
-            .append("red-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-red")
-            .append("\n");
+        .append("red-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-red")
+        .append("\n");
     commandScript
-            .append("green-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-green")
-            .append("\n");
+        .append("green-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-green")
+        .append("\n");
     commandScript
-            .append("blue-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("blue-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("rgb-combine")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-red")
-            .append(" ")
-            .append("boston-green")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("rgb-combine")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-red")
+        .append(" ")
+        .append("boston-green")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("horizontal-flip")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append("\n");
+        .append("horizontal-flip")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append("\n");
     commandScript
-            .append("vertical-flip")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n");
+        .append("vertical-flip")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n");
     commandScript
-            .append("rgb-split")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-split-red")
-            .append(" ")
-            .append("boston-split-green")
-            .append(" ")
-            .append("boston-split-blue")
-            .append("\n");
+        .append("rgb-split")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-split-red")
+        .append(" ")
+        .append("boston-split-green")
+        .append(" ")
+        .append("boston-split-blue")
+        .append("\n");
     commandScript
-            .append("brighten")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-brighten")
-            .append("\n");
+        .append("brighten")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-brighten")
+        .append("\n");
     commandScript
-            .append("darken")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-darken")
-            .append("\n");
+        .append("darken")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-darken")
+        .append("\n");
     commandScript
-            .append("blur")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blur")
-            .append("\n");
+        .append("blur")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blur")
+        .append("\n");
     commandScript
-            .append("sharpen")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sharpen")
-            .append("\n");
+        .append("sharpen")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sharpen")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n");
     commandScript
-            .append("luma-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("luma-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
-            .append("value-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-value")
-            .append("\n");
+        .append("value-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-value")
+        .append("\n");
     commandScript
-            .append("intensity-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-intensity")
-            .append("\n")
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-rgb-actual.jpg")
-            .append(" ")
-            .append("boston-rgb")
-            .append("\n");
+        .append("intensity-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-intensity")
+        .append("\n")
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-rgb-actual.jpg")
+        .append(" ")
+        .append("boston-rgb")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-hv-actual.jpg")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-hv-actual.jpg")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -385,149 +383,149 @@ public class ImageOperationTest {
   @Test
   public void testMultipleOperationsPPM() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.ppm")
-            .append(" ")
-            .append("boston");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.ppm")
+        .append(" ")
+        .append("boston");
     commandScript.append("\n");
     commandScript
-            .append("red-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-red")
-            .append("\n");
+        .append("red-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-red")
+        .append("\n");
     commandScript
-            .append("green-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-green")
-            .append("\n");
+        .append("green-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-green")
+        .append("\n");
     commandScript
-            .append("blue-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("blue-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("rgb-combine")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-red")
-            .append(" ")
-            .append("boston-green")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("rgb-combine")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-red")
+        .append(" ")
+        .append("boston-green")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("horizontal-flip")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append("\n");
+        .append("horizontal-flip")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append("\n");
     commandScript
-            .append("vertical-flip")
-            .append(" ")
-            .append("boston-rgb-horizontal")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n");
+        .append("vertical-flip")
+        .append(" ")
+        .append("boston-rgb-horizontal")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n");
     commandScript
-            .append("rgb-split")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-split-red")
-            .append(" ")
-            .append("boston-split-green")
-            .append(" ")
-            .append("boston-split-blue")
-            .append("\n");
+        .append("rgb-split")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-split-red")
+        .append(" ")
+        .append("boston-split-green")
+        .append(" ")
+        .append("boston-split-blue")
+        .append("\n");
     commandScript
-            .append("brighten")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-brighten")
-            .append("\n");
+        .append("brighten")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-brighten")
+        .append("\n");
     commandScript
-            .append("darken")
-            .append(" ")
-            .append("10")
-            .append(" ")
-            .append("boston-rgb")
-            .append(" ")
-            .append("boston-rgb-darken")
-            .append("\n");
+        .append("darken")
+        .append(" ")
+        .append("10")
+        .append(" ")
+        .append("boston-rgb")
+        .append(" ")
+        .append("boston-rgb-darken")
+        .append("\n");
     commandScript
-            .append("blur")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blur")
-            .append("\n");
+        .append("blur")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blur")
+        .append("\n");
     commandScript
-            .append("sharpen")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sharpen")
-            .append("\n");
+        .append("sharpen")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sharpen")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n");
     commandScript
-            .append("luma-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("luma-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
-            .append("value-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-value")
-            .append("\n");
+        .append("value-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-value")
+        .append("\n");
     commandScript
-            .append("intensity-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-intensity")
-            .append("\n")
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-rgb-actual.ppm")
-            .append(" ")
-            .append("boston-rgb")
-            .append("\n");
+        .append("intensity-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-intensity")
+        .append("\n")
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-rgb-actual.ppm")
+        .append(" ")
+        .append("boston-rgb")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-hv-actual.ppm")
-            .append(" ")
-            .append("boston-rgb-horizontal-vertical")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-hv-actual.ppm")
+        .append(" ")
+        .append("boston-rgb-horizontal-vertical")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -577,7 +575,7 @@ public class ImageOperationTest {
     // Replace a certain string (example: replace "oldString" with "newString")
     String oldString = "<inputFilePath>";
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     fileContent.replaceAll(s -> s.replace(oldString, resDirPath));
 
     // Write the modified content back to the same file
@@ -626,7 +624,7 @@ public class ImageOperationTest {
     Image actualImage;
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
 
     try {
       actualImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
@@ -643,7 +641,7 @@ public class ImageOperationTest {
 
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     Image actualImage;
     Image expectedRed;
 
@@ -676,7 +674,7 @@ public class ImageOperationTest {
 
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     Image actualImage;
     Image expectedBlurImage;
     Image expectedSharpenImage;
@@ -685,7 +683,7 @@ public class ImageOperationTest {
       actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
       expectedBlurImage = imageReader.read(resDirPath + "boston-blur-expected.png", ImageType.RGB);
       expectedSharpenImage =
-              imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
 
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -704,34 +702,34 @@ public class ImageOperationTest {
   @Test
   public void testBrightenPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("brighten")
-            .append(" ")
-            .append("25")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-brighten")
-            .append("\n");
+        .append("brighten")
+        .append(" ")
+        .append("25")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-brighten")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-brighten-actual.png")
-            .append(" ")
-            .append("boston-brighten")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-brighten-actual.png")
+        .append(" ")
+        .append("boston-brighten")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -748,7 +746,7 @@ public class ImageOperationTest {
     Image expectedRGBImage;
     try {
       expectedRGBImage =
-              imageReader.read(resDirPath + "boston-brighten-expected.png", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-brighten-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -758,34 +756,34 @@ public class ImageOperationTest {
   @Test
   public void testBrightenJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("brighten")
-            .append(" ")
-            .append("25")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-brighten")
-            .append("\n");
+        .append("brighten")
+        .append(" ")
+        .append("25")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-brighten")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-brighten-actual.jpg")
-            .append(" ")
-            .append("boston-brighten")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-brighten-actual.jpg")
+        .append(" ")
+        .append("boston-brighten")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -801,7 +799,7 @@ public class ImageOperationTest {
     Image expectedRGBImage;
     try {
       expectedRGBImage =
-              imageReader.read(resDirPath + "boston-brighten-expected.jpg", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-brighten-expected.jpg", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -811,34 +809,34 @@ public class ImageOperationTest {
   @Test
   public void testDarkenPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("darken")
-            .append(" ")
-            .append("25")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-darken")
-            .append("\n");
+        .append("darken")
+        .append(" ")
+        .append("25")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-darken")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-darken-actual.png")
-            .append(" ")
-            .append("boston-darken")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-darken-actual.png")
+        .append(" ")
+        .append("boston-darken")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -863,34 +861,34 @@ public class ImageOperationTest {
   @Test
   public void testDarkenJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("darken")
-            .append(" ")
-            .append("25")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-darken")
-            .append("\n");
+        .append("darken")
+        .append(" ")
+        .append("25")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-darken")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-darken-actual.jpg")
-            .append(" ")
-            .append("boston-darken")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-darken-actual.jpg")
+        .append(" ")
+        .append("boston-darken")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -915,32 +913,32 @@ public class ImageOperationTest {
   @Test
   public void testSepiaPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-sepia-actual.png")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-sepia-actual.png")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -965,34 +963,34 @@ public class ImageOperationTest {
   @Test
   public void testSepiaWithPreviewPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append(" ")
-            .append("50")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append(" ")
+        .append("50")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-sepia-wp-actual.png")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-sepia-wp-actual.png")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1000,15 +998,15 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-wp-actual.png",
-              ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-sepia-wp-actual.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-wp-expected.png", ImageType.RGB);
+      expectedRGBImage =
+          imageReader.read(resDirPath + "boston-sepia-wp-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1018,32 +1016,32 @@ public class ImageOperationTest {
   @Test
   public void testSepiaJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("sepia")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n");
+        .append("sepia")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-sepia-actual.jpg")
-            .append(" ")
-            .append("boston-sepia")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-sepia-actual.jpg")
+        .append(" ")
+        .append("boston-sepia")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1068,32 +1066,32 @@ public class ImageOperationTest {
   @Test
   public void testHFlipPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("horizontal-flip")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-hflip")
-            .append("\n");
+        .append("horizontal-flip")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-hflip")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-hflip-actual.png")
-            .append(" ")
-            .append("boston-hflip")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-hflip-actual.png")
+        .append(" ")
+        .append("boston-hflip")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1118,32 +1116,32 @@ public class ImageOperationTest {
   @Test
   public void testHFlipJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("horizontal-flip")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-hflip")
-            .append("\n");
+        .append("horizontal-flip")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-hflip")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-hflip-actual.jpg")
-            .append(" ")
-            .append("boston-hflip")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-hflip-actual.jpg")
+        .append(" ")
+        .append("boston-hflip")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1168,32 +1166,32 @@ public class ImageOperationTest {
   @Test
   public void testVFlipPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("vertical-flip")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-vflip")
-            .append("\n");
+        .append("vertical-flip")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-vflip")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-vflip-actual.png")
-            .append(" ")
-            .append("boston-vflip")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-vflip-actual.png")
+        .append(" ")
+        .append("boston-vflip")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1218,32 +1216,32 @@ public class ImageOperationTest {
   @Test
   public void testVFlipJPG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.jpg")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.jpg")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("vertical-flip")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-vflip")
-            .append("\n");
+        .append("vertical-flip")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-vflip")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-vflip-actual.jpg")
-            .append(" ")
-            .append("boston-vflip")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-vflip-actual.jpg")
+        .append(" ")
+        .append("boston-vflip")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1268,52 +1266,52 @@ public class ImageOperationTest {
   @Test
   public void testRGBSplitPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("rgb-split")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-red")
-            .append(" ")
-            .append("boston-green")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n");
+        .append("rgb-split")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-red")
+        .append(" ")
+        .append("boston-green")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-red-actual.png")
-            .append(" ")
-            .append("boston-red")
-            .append("\n");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-red-actual.png")
+        .append(" ")
+        .append("boston-red")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-green-actual.png")
-            .append(" ")
-            .append("boston-green")
-            .append("\n");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-green-actual.png")
+        .append(" ")
+        .append("boston-green")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-blue-actual.png")
-            .append(" ")
-            .append("boston-blue")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-blue-actual.png")
+        .append(" ")
+        .append("boston-blue")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1336,7 +1334,7 @@ public class ImageOperationTest {
     try {
       expectedRedImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
       expectedGreenImage =
-              imageReader.read(resDirPath + "boston-green-expected.png", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-green-expected.png", ImageType.RGB);
       expectedBlueImage = imageReader.read(resDirPath + "boston-blue-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -1348,16 +1346,35 @@ public class ImageOperationTest {
 
   @Test
   public void testCompression50PercentPNG() {
-    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
-            .getResource("")).getPath();
+    String resDirPath =
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript.append("load").append(" ").append(resDirPath).append("test-compress.png")
-            .append(" ")
-            .append("test").append("\n");
-    commandScript.append("compress").append(" ").append("50").append(" ").append("test")
-            .append(" ").append("test-compress").append("\n");
-    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-actual.png")
-            .append(" ").append("test-compress").append("\n").append("exit");
+    commandScript
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-compress.png")
+        .append(" ")
+        .append("test")
+        .append("\n");
+    commandScript
+        .append("compress")
+        .append(" ")
+        .append("50")
+        .append(" ")
+        .append("test")
+        .append(" ")
+        .append("test-compress")
+        .append("\n");
+    commandScript
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-compress-actual.png")
+        .append(" ")
+        .append("test-compress")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1365,16 +1382,16 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualCompressedImage;
     try {
-      actualCompressedImage = imageReader.read(resDirPath + "test-compress-actual.png",
-              ImageType.RGB);
+      actualCompressedImage =
+          imageReader.read(resDirPath + "test-compress-actual.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedCompressedImage;
     try {
-      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-expected.png",
-              ImageType.RGB);
+      expectedCompressedImage =
+          imageReader.read(resDirPath + "test-compress-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1383,16 +1400,35 @@ public class ImageOperationTest {
 
   @Test
   public void testCompression100PercentPNG() {
-    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
-            .getResource("")).getPath();
+    String resDirPath =
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript.append("load").append(" ").append(resDirPath).append("test-compress.png")
-            .append(" ")
-            .append("test").append("\n");
-    commandScript.append("compress").append(" ").append("100").append(" ").append("test")
-            .append(" ").append("test-compress").append("\n");
-    commandScript.append("save").append(" ").append(resDirPath).append("test-compress-full-actual.png")
-            .append(" ").append("test-compress").append("\n").append("exit");
+    commandScript
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-compress.png")
+        .append(" ")
+        .append("test")
+        .append("\n");
+    commandScript
+        .append("compress")
+        .append(" ")
+        .append("100")
+        .append(" ")
+        .append("test")
+        .append(" ")
+        .append("test-compress")
+        .append("\n");
+    commandScript
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-compress-full-actual.png")
+        .append(" ")
+        .append("test-compress")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1400,35 +1436,53 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualCompressedImage;
     try {
-      actualCompressedImage = imageReader.read(resDirPath + "test-compress-full-actual.png",
-              ImageType.RGB);
+      actualCompressedImage =
+          imageReader.read(resDirPath + "test-compress-full-actual.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedCompressedImage;
     try {
-      expectedCompressedImage = imageReader.read(resDirPath + "test-compress-full-expected.png",
-              ImageType.RGB);
+      expectedCompressedImage =
+          imageReader.read(resDirPath + "test-compress-full-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(actualCompressedImage, expectedCompressedImage);
   }
 
-
   @Test
   public void testCompressionZeroPercentPNG() {
-    String resDirPath = Objects.requireNonNull(getClass().getClassLoader()
-            .getResource("")).getPath();
+    String resDirPath =
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
-    commandScript.append("load").append(" ").append(resDirPath).append("test-compress.png")
-            .append(" ")
-            .append("test").append("\n");
-    commandScript.append("compress").append(" ").append("0").append(" ").append("test")
-            .append(" ").append("test-compress").append("\n");
-    commandScript.append("save").append(" ").append(resDirPath).append("test-no-compress-actual.png")
-            .append(" ").append("test-compress").append("\n").append("exit");
+    commandScript
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-compress.png")
+        .append(" ")
+        .append("test")
+        .append("\n");
+    commandScript
+        .append("compress")
+        .append(" ")
+        .append("0")
+        .append(" ")
+        .append("test")
+        .append(" ")
+        .append("test-compress")
+        .append("\n");
+    commandScript
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("test-no-compress-actual.png")
+        .append(" ")
+        .append("test-compress")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1436,17 +1490,16 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     Image actualCompressedImage;
     try {
-      actualCompressedImage = imageReader.read(resDirPath + "test-no-compress-actual.png",
-              ImageType.RGB);
+      actualCompressedImage =
+          imageReader.read(resDirPath + "test-no-compress-actual.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedCompressedImage;
     try {
-      expectedCompressedImage = imageReader.read(resDirPath
-                      + "test-no-compress-expected.png",
-              ImageType.RGB);
+      expectedCompressedImage =
+          imageReader.read(resDirPath + "test-no-compress-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1457,62 +1510,62 @@ public class ImageOperationTest {
   public void testVisualizePPM() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("testImage.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("testImage.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("value-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-value")
-            .append("\n");
+        .append("value-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-value")
+        .append("\n");
     commandScript
-            .append("intensity-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-intensity")
-            .append("\n");
+        .append("intensity-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-intensity")
+        .append("\n");
     commandScript
-            .append("luma-component")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("luma-component")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-luma-actual.ppm")
-            .append(" ")
-            .append("boston-luma")
-            .append("\n");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-luma-actual.ppm")
+        .append(" ")
+        .append("boston-luma")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-value-actual.ppm")
-            .append(" ")
-            .append("boston-value")
-            .append("\n");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-value-actual.ppm")
+        .append(" ")
+        .append("boston-value")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-intensity-actual.ppm")
-            .append(" ")
-            .append("boston-intensity")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-intensity-actual.ppm")
+        .append(" ")
+        .append("boston-intensity")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1531,9 +1584,9 @@ public class ImageOperationTest {
     Image intensityActual;
     try {
       intensityExpected =
-              imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
       intensityActual =
-              imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
+          imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1543,8 +1596,7 @@ public class ImageOperationTest {
     Image valueActual;
     try {
       valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
-      valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
-              ImageType.RGB);
+      valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1554,34 +1606,34 @@ public class ImageOperationTest {
   @Test
   public void testBlurWithPreviewPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("blur")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-blur")
-            .append(" ")
-            .append("70")
-            .append("\n");
+        .append("blur")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-blur")
+        .append(" ")
+        .append("70")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-blur-wp-actual.jpg")
-            .append(" ")
-            .append("boston-blur")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-blur-wp-actual.jpg")
+        .append(" ")
+        .append("boston-blur")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1596,7 +1648,8 @@ public class ImageOperationTest {
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-blur-wp-expected.jpg", ImageType.RGB);
+      expectedRGBImage =
+          imageReader.read(resDirPath + "boston-blur-wp-expected.jpg", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1606,34 +1659,34 @@ public class ImageOperationTest {
   @Test
   public void testSharpenWithPreviewPNG() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("boston")
-            .append("\n");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("boston")
+        .append("\n");
     commandScript
-            .append("sharpen")
-            .append(" ")
-            .append("boston")
-            .append(" ")
-            .append("boston-sharpen")
-            .append(" ")
-            .append("70")
-            .append("\n");
+        .append("sharpen")
+        .append(" ")
+        .append("boston")
+        .append(" ")
+        .append("boston-sharpen")
+        .append(" ")
+        .append("70")
+        .append("\n");
     commandScript
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston-sharpen-wp-actual.jpg")
-            .append(" ")
-            .append("boston-sharpen")
-            .append("\n")
-            .append("exit");
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston-sharpen-wp-actual.jpg")
+        .append(" ")
+        .append("boston-sharpen")
+        .append("\n")
+        .append("exit");
     Readable readableInput = new StringReader(commandScript.toString());
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
@@ -1641,26 +1694,23 @@ public class ImageOperationTest {
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
     try {
-      actualRGBImage = imageReader.read(resDirPath + "boston-sharpen-wp-actual.jpg",
-              ImageType.RGB);
+      actualRGBImage = imageReader.read(resDirPath + "boston-sharpen-wp-actual.jpg", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
     Image expectedRGBImage;
     try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-sharpen-wp-expected.jpg",
-              ImageType.RGB);
+      expectedRGBImage =
+          imageReader.read(resDirPath + "boston-sharpen-wp-expected.jpg", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(actualRGBImage, expectedRGBImage);
   }
 
-  /** --File2 Tests--**/
-
-  public void runTest(String commandScript) {
-    Readable readableInput = new StringReader(commandScript.toString());
+  private void runTest(String commandScript) {
+    Readable readableInput = new StringReader(commandScript);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     OperationCreator operationCreator = new ImageOperationFactory();
     new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
@@ -1669,31 +1719,31 @@ public class ImageOperationTest {
   @Test
   public void histogramTest() {
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("boston.png")
-            .append(" ")
-            .append("test");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("boston.png")
+        .append(" ")
+        .append("test");
     commandScript.append("\n");
     commandScript
-            .append("histogram")
-            .append(" ")
-            .append("test")
-            .append(" ")
-            .append("result")
-            .append("\n")
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("histogram-actual.png")
-            .append(" ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("histogram")
+        .append(" ")
+        .append("test")
+        .append(" ")
+        .append("result")
+        .append("\n")
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("histogram-actual.png")
+        .append(" ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
@@ -1712,31 +1762,31 @@ public class ImageOperationTest {
   public void testLevelAdjustment() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-            .append("load")
-            .append(" ")
-            .append(resDirPath)
-            .append("testImage.png")
-            .append(" ")
-            .append("test");
+        .append("load")
+        .append(" ")
+        .append(resDirPath)
+        .append("testImage.png")
+        .append(" ")
+        .append("test");
     commandScript.append("\n");
     commandScript
-            .append("levels-adjust 0 100 200")
-            .append(" ")
-            .append("test")
-            .append(" ")
-            .append("result")
-            .append("\n")
-            .append("save")
-            .append(" ")
-            .append(resDirPath)
-            .append("level-adjusted-actual.png")
-            .append(" ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("levels-adjust 0 100 200")
+        .append(" ")
+        .append("test")
+        .append(" ")
+        .append("result")
+        .append("\n")
+        .append("save")
+        .append(" ")
+        .append(resDirPath)
+        .append("level-adjusted-actual.png")
+        .append(" ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
@@ -1744,9 +1794,9 @@ public class ImageOperationTest {
     Image expectedLevelAdjusted;
     try {
       actualLevelAdjusted =
-              imageReader.read(resDirPath + "level-adjusted-actual.png", ImageType.RGB);
+          imageReader.read(resDirPath + "level-adjusted-actual.png", ImageType.RGB);
       expectedLevelAdjusted =
-              imageReader.read(resDirPath + "level-adjusted-expected.png", ImageType.RGB);
+          imageReader.read(resDirPath + "level-adjusted-expected.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1757,19 +1807,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewRedComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("red-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("red-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("red-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("red-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1784,29 +1834,29 @@ public class ImageOperationTest {
       assertEquals(expectedPixelValue[3], actualImage.getPixel(1, 1).getColorComponents());
 
       System.out.println(
-              actualImage.getPixel(0, 0).getRed()
-                      + ","
-                      + actualImage.getPixel(0, 0).getGreen()
-                      + ","
-                      + actualImage.getPixel(0, 0).getBlue());
+          actualImage.getPixel(0, 0).getRed()
+              + ","
+              + actualImage.getPixel(0, 0).getGreen()
+              + ","
+              + actualImage.getPixel(0, 0).getBlue());
       System.out.println(
-              actualImage.getPixel(0, 1).getRed()
-                      + ","
-                      + actualImage.getPixel(0, 1).getGreen()
-                      + ","
-                      + actualImage.getPixel(0, 1).getBlue());
+          actualImage.getPixel(0, 1).getRed()
+              + ","
+              + actualImage.getPixel(0, 1).getGreen()
+              + ","
+              + actualImage.getPixel(0, 1).getBlue());
       System.out.println(
-              actualImage.getPixel(1, 0).getRed()
-                      + ","
-                      + actualImage.getPixel(1, 0).getGreen()
-                      + ","
-                      + actualImage.getPixel(1, 0).getBlue());
+          actualImage.getPixel(1, 0).getRed()
+              + ","
+              + actualImage.getPixel(1, 0).getGreen()
+              + ","
+              + actualImage.getPixel(1, 0).getBlue());
       System.out.println(
-              actualImage.getPixel(1, 1).getRed()
-                      + ","
-                      + actualImage.getPixel(1, 1).getGreen()
-                      + ","
-                      + actualImage.getPixel(1, 1).getBlue());
+          actualImage.getPixel(1, 1).getRed()
+              + ","
+              + actualImage.getPixel(1, 1).getGreen()
+              + ","
+              + actualImage.getPixel(1, 1).getBlue());
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -1816,19 +1866,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewGreenComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("green-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("green-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("green-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("green-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1850,19 +1900,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewBlueComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("blue-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("blue-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("blue-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("blue-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1884,19 +1934,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewIntensityComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("intensity-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("intensity-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("intensity-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("intensity-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1918,19 +1968,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewLumaComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("luma-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("luma-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("luma-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("luma-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1952,19 +2002,19 @@ public class ImageOperationTest {
   public void testVisualizePreviewValueComponent() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("value-component test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("value-component-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("value-component test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("value-component-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -1986,19 +2036,19 @@ public class ImageOperationTest {
   public void testFilterPreviewBlur() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("blur test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("blur-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("blur test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("blur-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2020,19 +2070,19 @@ public class ImageOperationTest {
   public void testFilterPreviewSharpen() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("sharpen test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("sharpen-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("sharpen test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("sharpen-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2054,19 +2104,19 @@ public class ImageOperationTest {
   public void testFilterPreviewSepia() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("sepia test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("sepia-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("sepia test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("sepia-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2088,19 +2138,19 @@ public class ImageOperationTest {
   public void testLevelAdjustPreview() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("levels-adjust 10 80 250 test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("lvl-adjust-preview.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("levels-adjust 10 80 250 test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("lvl-adjust-preview.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2122,19 +2172,19 @@ public class ImageOperationTest {
   public void testLevelAdjustWithoutPreview() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("levels-adjust 10 80 250 test result")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("lvl-adjust-comb1.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("levels-adjust 10 80 250 test result")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("lvl-adjust-comb1.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2156,19 +2206,19 @@ public class ImageOperationTest {
   public void testLevelAdjustBMWChanged() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("levels-adjust 100 80 250 test result")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("lvl-adjust-comb2.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("levels-adjust 100 80 250 test result")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("lvl-adjust-comb2.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2190,19 +2240,19 @@ public class ImageOperationTest {
   public void testLevelAdjustBMWChanged2() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("levels-adjust 250 80 100 test result")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("lvl-adjust-comb3.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("levels-adjust 250 80 100 test result")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("lvl-adjust-comb3.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2224,19 +2274,19 @@ public class ImageOperationTest {
   public void testColorCorrectionPreview() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("color-correct test result 50")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("correction.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("color-correct test result 50")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("correction.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;
@@ -2258,19 +2308,19 @@ public class ImageOperationTest {
   public void testColorCorrection() {
 
     String resDirPath =
-            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
-            .append("\n")
-            .append("color-correct test result")
-            .append("\n")
-            .append("save ")
-            .append(resDirPath)
-            .append("correction-expected.png ")
-            .append("result")
-            .append("\n")
-            .append("exit");
+        .append("\n")
+        .append("color-correct test result")
+        .append("\n")
+        .append("save ")
+        .append(resDirPath)
+        .append("correction-expected.png ")
+        .append("result")
+        .append("\n")
+        .append("exit");
 
     runTest(commandScript.toString());
     Image actualImage;

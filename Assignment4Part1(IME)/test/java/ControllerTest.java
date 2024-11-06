@@ -13,9 +13,7 @@ import java.io.PrintStream;
 import java.io.StringReader;
 import org.junit.Test;
 
-/**
- * This class tests the functionalities of the image processor CLI's controller class.
- */
+/** This class tests the functionalities of the image processor CLI's controller class. */
 public class ControllerTest {
 
   @Test
@@ -23,8 +21,9 @@ public class ControllerTest {
     String input = "exit\n";
     Readable readableInput = new StringReader(input);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
-            new PrintStream(outputStream), new ImageOperationFactory());
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput, new PrintStream(outputStream), new ImageOperationFactory());
     commandExecutor.run();
     String[] output = outputStream.toString().split("\n");
     assertEquals("> Goodbye - may the gradients be with you!\r", output[output.length - 1]);
@@ -36,7 +35,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -50,7 +51,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -64,7 +67,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -78,7 +83,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -92,7 +99,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -106,7 +115,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -120,7 +131,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -134,7 +147,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -148,7 +163,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -162,7 +179,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -176,7 +195,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -190,7 +211,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -204,7 +227,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -218,7 +243,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -232,7 +259,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -246,7 +275,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -260,7 +291,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -274,7 +307,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -288,7 +323,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -302,7 +339,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -316,7 +355,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -330,7 +371,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -344,7 +387,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -358,7 +403,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -372,7 +419,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -386,7 +435,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -400,7 +451,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -414,7 +467,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -428,7 +483,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -442,7 +499,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -456,7 +515,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -470,7 +531,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -484,7 +547,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -498,7 +563,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -512,7 +579,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -526,7 +595,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -540,7 +611,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -554,7 +627,9 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
@@ -568,17 +643,15 @@ public class ControllerTest {
     Readable readableInput = new StringReader(input);
     StringBuilder logger = new StringBuilder();
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+    CommandExecutor commandExecutor =
+        new ImageProcessorCLI(
+            readableInput,
             new PrintStream(outputStream),
             new MockCommandFactory(new ImageLibrary(), logger));
     commandExecutor.run();
     String actualInput = logger.toString();
     assertEquals(input, actualInput);
   }
-
-
-
-
 
   static class MockOperation extends AbstractOperation {
 

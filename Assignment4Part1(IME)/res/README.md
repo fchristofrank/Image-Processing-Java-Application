@@ -1,6 +1,7 @@
 ImageCitationAndPermission:
 
 #### Sample Image Path inside the Project : **Assignment4Part1(IME)
+
 /test/resources/manhattan-small.png**
 
     All Image used within the project file are owned by Project owners and can be used for testing for project purposes.

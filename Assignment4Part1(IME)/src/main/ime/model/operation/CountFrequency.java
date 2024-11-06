@@ -4,6 +4,10 @@ import ime.model.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Accepts an image and from the entire range of 0 to 255 counts the frequency of the pixels and
+ * returns it in a map object for each channel.
+ */
 public class CountFrequency implements CommonOperation {
   @Override
   public Map<String, Map<Integer, Integer>> calculateFrequencies(Image inputImage) {

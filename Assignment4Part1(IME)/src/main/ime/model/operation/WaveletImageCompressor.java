@@ -1,4 +1,4 @@
-package ime.model.operation.WaveletCompression;
+package ime.model.operation;
 
 import ime.model.image.Image;
 

@@ -3,6 +3,10 @@ package ime.model.operation;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 
+/**
+ * This is newly added feature which takes the argument of width and only applies the effect inside
+ * the given width.
+ */
 public abstract class FilterWithPreview extends Filter {
 
   @Override

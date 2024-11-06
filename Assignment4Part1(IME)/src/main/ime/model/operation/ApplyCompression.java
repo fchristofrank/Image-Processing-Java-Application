@@ -1,8 +1,6 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
-import ime.model.operation.WaveletCompression.HaarWaveletImageCompressor;
-import ime.model.operation.WaveletCompression.WaveletImageCompressor;
 
 /**
  * Implements image compression using wavelet transformation through a combination of Haar wavelet

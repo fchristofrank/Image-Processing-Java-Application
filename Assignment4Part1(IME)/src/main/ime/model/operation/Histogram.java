@@ -12,6 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class contains the operation to generate the histogram of the given image but calculating
+ * the frequency of the red, green and blue channels. It uses the Bresenham's algorithm to generate
+ * the lines for the histogram.
+ */
 public class Histogram implements ImageOperation {
 
   private final CountFrequency countFrequencyOperation;
@@ -140,7 +145,7 @@ public class Histogram implements ImageOperation {
     int dy = Math.abs(y2 - y1);
     int sx = x1 < x2 ? 1 : -1;
     int sy = y1 < y2 ? 1 : -1;
-    int D = dx - dy;
+    int computedD = dx - dy;
 
     while (true) {
 
@@ -152,17 +157,17 @@ public class Histogram implements ImageOperation {
         break;
       }
 
-      int updatedD = 2 * D;
+      int updatedD = 2 * computedD;
       if (updatedD > -dy) {
         /*This Condition would mean that the difference in Y direction is minimal
          * and that we should move towards X.
          * updatedD is proportional to D which is in turn proportional to dx.
          *  */
-        D -= dy;
+        computedD -= dy;
         x1 += sx;
       }
       if (updatedD < dx) {
-        D += dx;
+        computedD += dx;
         y1 += sy;
       }
     }

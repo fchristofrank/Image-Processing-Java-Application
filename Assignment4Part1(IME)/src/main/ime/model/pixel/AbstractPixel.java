@@ -12,6 +12,13 @@ public abstract class AbstractPixel implements Pixel {
   private final int green;
   private final int blue;
 
+  /**
+   * a public constructor to generate a pixel with red, green, blue values.
+   *
+   * @param red value of the red pixel.
+   * @param green value of the green pixel.
+   * @param blue value of the blue pixel.
+   */
   public AbstractPixel(int red, int green, int blue) {
     this.red = clamp(red);
     this.green = clamp(green);
