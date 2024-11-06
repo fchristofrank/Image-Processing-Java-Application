@@ -158,6 +158,402 @@ public class ControllerTest {
     assertEquals(input, actualInput);
   }
 
+  @Test
+  public void testLevelAdjustCommand() {
+    String input = "levels-adjust 0 120 250 koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testLevelAdjustCommandPreview() {
+    String input = "levels-adjust 0 120 250 koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testColorCorrectCommand() {
+    String input = "color-correct koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testColorCorrectCommandPreview() {
+    String input = "color-correct koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testHistogramCommand() {
+    String input = "histogram koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testHistogramCommandPreview() {
+    String input = "histogram koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testRedComponentCommand() {
+    String input = "red-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testRedComponentCommandPreview() {
+    String input = "red-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testGreenComponentCommand() {
+    String input = "green-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testGreenComponentCommandPreview() {
+    String input = "green-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBlueComponentCommand() {
+    String input = "blue-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBlueComponentCommandPreview() {
+    String input = "blue-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testLumaComponentCommand() {
+    String input = "luma-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testLumaComponentCommandPreview() {
+    String input = "luma-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testIntensityComponentCommand() {
+    String input = "intensity-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testIntensityComponentCommandPreview() {
+    String input = "intensity-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testValueComponentCommand2() {
+    String input = "value-component koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testValueComponentCommandPreview() {
+    String input = "value-component koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBlurCommand() {
+    String input = "blur koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBlurCommandPreview() {
+    String input = "blur koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testSharpenCommand() {
+    String input = "sharpen koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testSharpenCommandPreview() {
+    String input = "sharpen koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testCompressPreview() {
+    String input = "compress koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testSepia() {
+    String input = "sepia koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testSepiaPreview2() {
+    String input = "sepia koala koala-processed 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBrightness() {
+    String input = "brighten 10 koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testDarkness() {
+    String input = "darken 10 koala koala-processed\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testBrightnessPreview() {
+    String input = "brighten 10 koala koala-brighter 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+
+
+
+
   static class MockOperation extends AbstractOperation {
 
     private final StringBuilder logger;
