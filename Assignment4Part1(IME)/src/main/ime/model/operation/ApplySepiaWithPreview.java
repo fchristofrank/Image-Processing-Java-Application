@@ -1,6 +1,5 @@
 package ime.model.operation;
 
-import ime.constants.FilterConstants;
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
 
@@ -30,7 +29,7 @@ public class ApplySepiaWithPreview extends ApplySepia {
       for (int j = 0; j < width; j++) {
         if (i < splitHeight && j < splitWidth) {
           pixels[i][j] =
-              inputImage.getPixel(i, j).scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION);
+              inputImage.getPixel(i, j).scaleComponents(SEPIA_COLOR_TRANSFORMATION);
         } else {
           pixels[i][j] = inputImage.getPixel(i, j);
         }

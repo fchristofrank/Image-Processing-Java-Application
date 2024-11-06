@@ -29,7 +29,7 @@ sharpen boston boston-sharp
 
 # Apply sharpening with preview width 40 to 'boston' and save it as 'boston-sharp-40'
 sharpen boston boston-sharp-40 40
-save "boston-sharp-preview-40.png" boston-sharp-40
+save boston-sharp-preview-40.png boston-sharp-40
 
 # Apply a sepia tone to 'boston' and save it as 'boston-sep'
 sepia boston boston-sep
@@ -42,13 +42,13 @@ save boston-sepia-mid-preview.png boston-sep-50
 rgb-split boston boston-r boston-g boston-b
 
 # Save the red channel of 'boston' as 'boston-r'
-save "boston-red.png" boston-r
+save boston-red.png boston-r
 
 # Save the green channel of 'boston' as 'boston-g'
-save "boston-green.png" boston-g
+save boston-green.png boston-g
 
 # Save the blue channel of 'boston' as 'boston-b'
-save "boston-blue.png" boston-b
+save boston-blue.png boston-b
 
 # Extract the value component of 'boston' and save it as 'boston-value'
 value-component boston boston-value

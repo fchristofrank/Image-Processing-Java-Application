@@ -1,6 +1,5 @@
 package ime.model.pixel;
 
-import ime.constants.FilterConstants;
 
 /**
  * This abstract class represents a pixel, holding the values for the red, green, and blue
@@ -11,7 +10,8 @@ public abstract class AbstractPixel implements Pixel {
   private final int red;
   private final int green;
   private final int blue;
-
+  private static final int PIXEL_LOWER_LIMIT = 0;
+  private static final int PIXEL_UPPER_LIMIT = 255;
   /**
    * a public constructor to generate a pixel with red, green, blue values.
    *
@@ -65,6 +65,6 @@ public abstract class AbstractPixel implements Pixel {
    */
   public int clamp(int value) {
     return Math.max(
-            FilterConstants.PIXEL_LOWER_LIMIT, Math.min(FilterConstants.PIXEL_UPPER_LIMIT, value));
+            PIXEL_LOWER_LIMIT, Math.min(PIXEL_UPPER_LIMIT, value));
   }
 }
