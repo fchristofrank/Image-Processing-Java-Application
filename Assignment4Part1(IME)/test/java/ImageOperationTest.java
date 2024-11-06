@@ -1,22 +1,5 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import ime.controller.operation.ImageOperationFactory;
-import ime.controller.cli.ImageProcessorCLI;
-import ime.controller.cli.OperationCreator;
-import ime.controller.imageio.ImageFormat;
-import ime.controller.imageio.ImageReader;
-import ime.controller.imageio.ImageReaderFactory;
-import ime.model.image.Image;
-import ime.model.image.ImageType;
-import ime.model.operation.Blur;
-import ime.model.operation.Combine;
-import ime.model.operation.ImageOperation;
-import ime.model.operation.MultipleImageOperation;
-import ime.model.operation.Sharpen;
-import ime.model.operation.VisualizeBlue;
-import ime.model.operation.VisualizeGreen;
-import ime.model.operation.VisualizeRed;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,8 +15,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import org.junit.Assert;
-import org.junit.Test;
+import ime.controller.cli.ImageProcessorCLI;
+import ime.controller.cli.OperationCreator;
+import ime.controller.imageio.ImageFormat;
+import ime.controller.imageio.ImageReader;
+import ime.controller.imageio.ImageReaderFactory;
+import ime.controller.operation.ImageOperationFactory;
+import ime.model.image.Image;
+import ime.model.image.ImageType;
+import ime.model.operation.Blur;
+import ime.model.operation.Combine;
+import ime.model.operation.ImageOperation;
+import ime.model.operation.MultipleImageOperation;
+import ime.model.operation.Sharpen;
+import ime.model.operation.VisualizeBlue;
+import ime.model.operation.VisualizeGreen;
+import ime.model.operation.VisualizeRed;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class tests the functionalities of Image Manipulation and Enhancement application.
@@ -678,7 +678,7 @@ public class ImageOperationTest {
 
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
     String resDirPath =
-        Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     Image actualImage;
     Image expectedBlurImage;
     Image expectedSharpenImage;
@@ -687,7 +687,7 @@ public class ImageOperationTest {
       actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
       expectedBlurImage = imageReader.read(resDirPath + "boston-blur-expected.png", ImageType.RGB);
       expectedSharpenImage =
-          imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
+              imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
 
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -1462,13 +1462,13 @@ public class ImageOperationTest {
             Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
     commandScript
-        .append("load")
-        .append(" ")
-        .append(resDirPath)
-        .append("testImage.png")
-        .append(" ")
-        .append("boston")
-        .append("\n");
+            .append("load")
+            .append(" ")
+            .append(resDirPath)
+            .append("testImage.png")
+            .append(" ")
+            .append("boston")
+            .append("\n");
     commandScript
             .append("value-component")
             .append(" ")
@@ -1491,13 +1491,13 @@ public class ImageOperationTest {
             .append("boston-luma")
             .append("\n");
     commandScript
-        .append("save")
-        .append(" ")
-        .append(resDirPath)
-        .append("boston-luma-actual.ppm")
-        .append(" ")
-        .append("boston-luma")
-        .append("\n");
+            .append("save")
+            .append(" ")
+            .append(resDirPath)
+            .append("boston-luma-actual.ppm")
+            .append(" ")
+            .append("boston-luma")
+            .append("\n");
     commandScript
             .append("save")
             .append(" ")
@@ -1529,34 +1529,32 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
     assertEquals(lumaImageExpected, lumaImageActual);
-        Image intensityExpected;
-        Image intensityActual;
-        try {
-          intensityExpected =
+    Image intensityExpected;
+    Image intensityActual;
+    try {
+      intensityExpected =
               imageReader.read(resDirPath + "boston-intensity-actual.ppm", ImageType.RGB);
-          intensityActual =
+      intensityActual =
               imageReader.read(resDirPath + "boston-intensity-expected.ppm", ImageType.RGB);
-        } catch (IOException e) {
-          throw new IllegalArgumentException("Failed to read image file", e);
-        }
-        assertEquals(intensityActual, intensityExpected);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(intensityActual, intensityExpected);
 
-        Image valueExpected;
-        Image valueActual;
-        try {
-          valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
-          valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
-     ImageType.RGB);
-        } catch (IOException e) {
-          throw new IllegalArgumentException("Failed to read image file", e);
-        }
-        assertEquals(valueActual, valueExpected);
+    Image valueExpected;
+    Image valueActual;
+    try {
+      valueActual = imageReader.read(resDirPath + "boston-value-actual.ppm", ImageType.RGB);
+      valueExpected = imageReader.read(resDirPath + "boston-value-expected.ppm",
+              ImageType.RGB);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Failed to read image file", e);
+    }
+    assertEquals(valueActual, valueExpected);
   }
 
-<<<<<<< HEAD
-=======
   @Test
-  public void testBlurWithPreviewPNG(){
+  public void testBlurWithPreviewPNG() {
     String resDirPath =
             Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
@@ -1608,7 +1606,7 @@ public class ImageOperationTest {
   }
 
   @Test
-  public void testSharpenWithPreviewPNG(){
+  public void testSharpenWithPreviewPNG() {
     String resDirPath =
             Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     StringBuilder commandScript = new StringBuilder();
@@ -1660,6 +1658,4 @@ public class ImageOperationTest {
     }
     assertEquals(actualRGBImage, expectedRGBImage);
   }
-
->>>>>>> 0603735 (Refactor controller components)
 }
