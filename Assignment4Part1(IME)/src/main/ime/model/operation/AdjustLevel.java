@@ -37,6 +37,7 @@ public class AdjustLevel implements ImageOperation {
     this.coefficient_a = calculatedAa / calculatedA;
     this.coefficient_b = calculatedAb / calculatedA;
     this.coefficient_c = calculatedAc / calculatedA;
+
   }
 
   @Override
