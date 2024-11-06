@@ -1,6 +1,5 @@
 package ime.controller.operation;
 
-import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 
 /** An abstract base class for CLI operations in an image processing application. */

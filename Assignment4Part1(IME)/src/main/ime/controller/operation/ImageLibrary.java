@@ -1,4 +1,4 @@
-package ime.controller.operation.repository;
+package ime.controller.operation;
 
 import ime.model.image.Image;
 import java.util.HashMap;

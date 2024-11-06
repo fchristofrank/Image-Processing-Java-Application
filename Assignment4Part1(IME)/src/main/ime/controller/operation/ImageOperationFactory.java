@@ -12,8 +12,6 @@ import ime.controller.imageio.ImageReader;
 import ime.controller.imageio.ImageReaderFactory;
 import ime.controller.imageio.ImageWriter;
 import ime.controller.imageio.ImageWriterFactory;
-import ime.controller.operation.repository.ImageLibrary;
-import ime.controller.operation.repository.ImageRepo;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.operation.AbstractVisualize;
