@@ -2,16 +2,15 @@ package ime.model.operation;
 
 import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
 
-import ime.model.pixel.Pixel;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Histogram implements ImageOperation {
 

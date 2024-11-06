@@ -1,6 +1,5 @@
 package ime.model.operation;
 
-import java.util.Arrays;
 
 import ime.model.image.Image;
 import ime.model.pixel.Pixel;
@@ -28,8 +27,8 @@ public abstract class AbstractVisualizeWithPreview extends AbstractVisualize {
       for (int j = 0; j < width; j++) {
         if (i < splitHeight && j < splitWidth) {
           int colorValue = getColorComponent(inputImage.getPixel(i, j));
-          pixels[i][j] = PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue,
-                  colorValue);
+          pixels[i][j] =
+              PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue, colorValue);
         } else {
           pixels[i][j] = inputImage.getPixel(i, j);
         }

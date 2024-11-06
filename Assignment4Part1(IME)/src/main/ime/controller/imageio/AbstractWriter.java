@@ -5,13 +5,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 
 /**
- * Abstract class that provides a base implementation for writing images to a file.
- * Concrete subclasses should implement the {@link #getFormat()} method to specify the
- * format in which the image will be written (e.g., JPG, PNG).
+ * Abstract class that provides a base implementation for writing images to a file. Concrete
+ * subclasses should implement the {@link #getFormat()} method to specify the format in which the
+ * image will be written (e.g., JPG, PNG).
  */
 public abstract class AbstractWriter implements ImageWriter {
   private static final Logger LOGGER = Logger.getLogger(AbstractWriter.class.getName());
@@ -19,7 +18,7 @@ public abstract class AbstractWriter implements ImageWriter {
   /**
    * Writes a BufferedImage to a specified file in the given format.
    *
-   * @param image          the BufferedImage to be written to file.
+   * @param image the BufferedImage to be written to file.
    * @param outputFilename the path and name of the output file where the image will be saved.
    */
   public void writeImage(BufferedImage image, String outputFilename) throws IOException {
@@ -31,7 +30,6 @@ public abstract class AbstractWriter implements ImageWriter {
       LOGGER.log(Level.SEVERE, "Error writing image to file: " + outputFilename, e);
       throw new IOException("Error writing image to file: " + outputFilename, e);
     }
-
   }
 
   /**

@@ -1,8 +1,4 @@
-import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.StringReader;
+import static org.junit.Assert.assertEquals;
 
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
@@ -12,8 +8,10 @@ import ime.controller.operation.CommandExecutor;
 import ime.controller.operation.ImageOperationFactory;
 import ime.controller.operation.repository.ImageLibrary;
 import ime.controller.operation.repository.ImageRepo;
-
-import static org.junit.Assert.assertEquals;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.StringReader;
+import org.junit.Test;
 
 /**
  * This class tests the functionalities of the image processor CLI's controller class.

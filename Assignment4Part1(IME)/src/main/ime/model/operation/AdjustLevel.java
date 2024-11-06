@@ -1,11 +1,9 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
-import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
-import ime.model.pixel.RGBPixel;
 
 public class AdjustLevel implements ImageOperation {
 
@@ -47,7 +45,7 @@ public class AdjustLevel implements ImageOperation {
     setCoefficients(blackValue, midValue, whiteValue);
 
     int previewWidthPercentage = 100;
-    if (args.length == 6){
+    if (args.length == 6) {
       previewWidthPercentage = Integer.parseInt(args[5]);
       System.out.println(previewWidthPercentage);
     }
@@ -61,7 +59,7 @@ public class AdjustLevel implements ImageOperation {
         int greenComponent = inputImage.getPixel(x, y).getGreen();
         int blueComponent = inputImage.getPixel(x, y).getBlue();
 
-        if (y < (previewWidthPercentage*inputImage.getWidth())/100){
+        if (y < (previewWidthPercentage * inputImage.getWidth()) / 100) {
           redComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getRed());
           greenComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getGreen());
           blueComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getBlue());

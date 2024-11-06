@@ -1,12 +1,10 @@
 package ime.model.operation;
 
-import java.util.List;
-
 import ime.model.image.Image;
-import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
+import java.util.List;
 
 /**
  * The Combine class merges three images by combining their red, green, and blue channels into a
@@ -22,7 +20,7 @@ public class Combine implements MultipleImageOperation {
    * images do not match, an IllegalArgumentException is thrown.
    *
    * @param images a list of three images to extract red, green and blue channel in order.
-   * @param args   additional arguments, if any.
+   * @param args additional arguments, if any.
    * @return a new RGB image created from the three input images.
    * @throws IllegalArgumentException if the images have different dimensions.
    */
@@ -40,8 +38,8 @@ public class Combine implements MultipleImageOperation {
     Pixel[][] pixels = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        validateGrayscaleImages(redImage.getPixel(i, j), greenImage.getPixel(i, j), blueImage
-                .getPixel(i, j));
+        validateGrayscaleImages(
+            redImage.getPixel(i, j), greenImage.getPixel(i, j), blueImage.getPixel(i, j));
 
         int redValue = redImage.getPixel(i, j).getRed();
         int greenValue = greenImage.getPixel(i, j).getGreen();
@@ -55,8 +53,8 @@ public class Combine implements MultipleImageOperation {
   }
 
   /**
-   * Validates that the list contains exactly three images.
-   * Throws an IllegalArgumentException if the count is not three.
+   * Validates that the list contains exactly three images. Throws an IllegalArgumentException if
+   * the count is not three.
    *
    * @param images the list of images to validate.
    * @throws IllegalArgumentException if the list size is not three.
@@ -67,10 +65,9 @@ public class Combine implements MultipleImageOperation {
     }
   }
 
-
   /**
-   * Ensures all images have the same width and height.
-   * Throws an IllegalArgumentException if dimensions do not match.
+   * Ensures all images have the same width and height. Throws an IllegalArgumentException if
+   * dimensions do not match.
    *
    * @param images the array of images to check for matching dimensions.
    * @throws IllegalArgumentException if any image has a different width or height.
@@ -113,9 +110,9 @@ public class Combine implements MultipleImageOperation {
   /**
    * Creates a new RGB pixel from specified red, green, and blue values.
    *
-   * @param redValue   the red component value.
+   * @param redValue the red component value.
    * @param greenValue the green component value.
-   * @param blueValue  the blue component value.
+   * @param blueValue the blue component value.
    * @return a new RGBPixel with the specified color values.
    */
   private Pixel createRgbPixel(int redValue, int greenValue, int blueValue) {

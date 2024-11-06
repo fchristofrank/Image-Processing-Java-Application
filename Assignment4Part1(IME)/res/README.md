@@ -1,9 +1,9 @@
-ImageCitationAndPermission: 
-    
-#### Sample Image Path inside the Project : **Assignment4Part1(IME)/test/resources/manhattan-small.png**
+ImageCitationAndPermission:
+
+#### Sample Image Path inside the Project : **Assignment4Part1(IME)
+/test/resources/manhattan-small.png**
 
     All Image used within the project file are owned by Project owners and can be used for testing for project purposes.
-
 
 <h2>How to RUN Script:</h2>
 
@@ -66,13 +66,17 @@ ClassDiagram :
 
 ### Interfaces:
 
-1. **CommandExecutor**: Contains a method to start execution with a `run` method for listening to CLI commands.
+1. **CommandExecutor**: Contains a method to start execution with a `run` method for listening to
+   CLI commands.
     - **Class**:
-        - `ImageProcessorCLI`: Implements the `run` method to continuously listen to user commands or script files.
+        - `ImageProcessorCLI`: Implements the `run` method to continuously listen to user commands
+          or script files.
 
-2. **OperationCreator**: Contains methods to connect controllers to operations based on user commands.
+2. **OperationCreator**: Contains methods to connect controllers to operations based on user
+   commands.
     - **Class**:
-        - `ImageOperationFactory`: Creates operation objects to connect CLI inputs and arguments to the controller interface.
+        - `ImageOperationFactory`: Creates operation objects to connect CLI inputs and arguments to
+          the controller interface.
 
 ---
 
@@ -80,25 +84,36 @@ ClassDiagram :
 
 ### Interfaces:
 
-
 1. #### **CLIOperation**: Mandates the `execute` method, which calls the operation class.
     - **Abstract Class**:
-        - `AbstractOperation`: Manages the image cache per execution to store user images, supports adding and getting images, and validates command arguments.
+        - `AbstractOperation`: Manages the image cache per execution to store user images, supports
+          adding and getting images, and validates command arguments.
             - **Abstract Class**:
-                - `AdjustBrightness`: Conducts basic checks before handing over the image to operations.
-                    - `Brighten`: Overrides the `AdjustBrightness` execute method for brightness operations.
-                    - `Darken`: Overrides the `AdjustBrightness` execute method for darken operations.
-                - `Filter`: Handles calls to blur or sharpen methods by creating operations based on the passed command.
-                - `Flip`: Conducts sanity checks on arguments and the image involved in the operation.
-                    - `VerticalFlip`: Returns the vertical flip operation object to interact with the model layer.
+                - `AdjustBrightness`: Conducts basic checks before handing over the image to
+                  operations.
+                    - `Brighten`: Overrides the `AdjustBrightness` execute method for brightness
+                      operations.
+                    - `Darken`: Overrides the `AdjustBrightness` execute method for darken
+                      operations.
+                - `Filter`: Handles calls to blur or sharpen methods by creating operations based on
+                  the passed command.
+                - `Flip`: Conducts sanity checks on arguments and the image involved in the
+                  operation.
+                    - `VerticalFlip`: Returns the vertical flip operation object to interact with
+                      the model layer.
                     - `HorizontalFlip`: Returns the horizontal flip operation object.
-                - `Visualize`: Manages requests to visualization functions (RGB component, luma, intensity, and value).
+                - `Visualize`: Manages requests to visualization functions (RGB component, luma,
+                  intensity, and value).
             - **Classes**:
-                - `CombineRGB`: Combines three images into one RGB image and validates dimensions and values.
-                - `Load`: Loads a given image from the path and uses the reader based on the image format.
-                - `Save`: Saves the image to the given path by converting it to a buffered image before using the `ImageIO` JDK.
+                - `CombineRGB`: Combines three images into one RGB image and validates dimensions
+                  and values.
+                - `Load`: Loads a given image from the path and uses the reader based on the image
+                  format.
+                - `Save`: Saves the image to the given path by converting it to a buffered image
+                  before using the `ImageIO` JDK.
                 - `Sepia`: Handles sepia image operations by request and argument validation.
-                - `Compress`: Handles image compression requests by validating arguments and executing the appropriate operations.
+                - `Compress`: Handles image compression requests by validating arguments and
+                  executing the appropriate operations.
 
 ---
 
@@ -107,11 +122,13 @@ ClassDiagram :
 ### Interfaces:
 
 1. **ImageOperation**: Handles operations on a single image (e.g., Darken, Blur).
-2. **MultiImageOperation**: Handles operations involving multiple images (e.g., combining R, G, B images).
+2. **MultiImageOperation**: Handles operations involving multiple images (e.g., combining R, G, B
+   images).
 
 ### Abstract Classes:
 
-1. **AbstractVisualize**: Contains the generic `apply` operation for visualization and fetches the replacement value from each concrete class.
+1. **AbstractVisualize**: Contains the generic `apply` operation for visualization and fetches the
+   replacement value from each concrete class.
     - **Concrete Classes**:
         - `VisualizeRed`: Returns the red component of the image.
         - `VisualizeGreen`: Implements the method to return the green component of the image.
@@ -127,7 +144,8 @@ ClassDiagram :
     - **Concrete Classes**:
         - `Blur`: Returns the Gaussian kernel matrix on the image.
         - `Sharpen`: Returns the sharpening 5x5 matrix for each pixel.
-5. **Sepia**: Applies the sepia filter to the image by performing color transformations on individual pixels.
+5. **Sepia**: Applies the sepia filter to the image by performing color transformations on
+   individual pixels.
     - **Concrete Classes**:
         - `Sepia`: Returns the sepia filter applied image.
 
@@ -147,6 +165,7 @@ ClassDiagram :
 3. **Concrete Classes**:
     - `PPMImageReader`: Supplies the reader object specifically for PPM formats.
     - `ImageReaderFactory`: Supplies the respective reader objects.
-    - `StandardImageReader`: Represents a reader for images in JPG and PNG formats from a specified file name.
+    - `StandardImageReader`: Represents a reader for images in JPG and PNG formats from a specified
+      file name.
 
 

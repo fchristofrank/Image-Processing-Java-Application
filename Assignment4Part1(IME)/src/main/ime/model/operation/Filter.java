@@ -6,9 +6,6 @@ import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
 
-import static ime.constants.FilterConstants.PIXEL_LOWER_LIMIT;
-import static ime.constants.FilterConstants.PIXEL_UPPER_LIMIT;
-
 /**
  * The Filter class provides a framework for applying a filter to an image using a kernel. It
  * includes methods to apply a filter to each pixel in an image and adjust the pixel values based on
@@ -31,7 +28,7 @@ public abstract class Filter implements ImageOperation {
    * altered according to the filter's kernel.
    *
    * @param inputImage the image on which the filter is applied
-   * @param args       additional arguments, if any (not used in this operation)
+   * @param args additional arguments, if any (not used in this operation)
    * @return a new filtered image
    * @throws IllegalArgumentException if the input image or arguments are invalid
    */
@@ -56,8 +53,8 @@ public abstract class Filter implements ImageOperation {
    * out of bounds, it is skipped in the convolution process.
    *
    * @param image the input image
-   * @param x     the x-coordinate of the pixel
-   * @param y     the y-coordinate of the pixel
+   * @param x the x-coordinate of the pixel
+   * @param y the y-coordinate of the pixel
    * @return a new pixel with clamped RGB values based on the convolution results
    */
   protected Pixel applyFilterToPixel(Image image, int x, int y) {
@@ -89,15 +86,15 @@ public abstract class Filter implements ImageOperation {
    * Checks if a given pixel is out of the bounds of the image. If the pixel coordinates fall
    * outside the image dimensions, it is considered out of bounds.
    *
-   * @param image    the input image
+   * @param image the input image
    * @param currentX the x-coordinate of the pixel
    * @param currentY the y-coordinate of the pixel
    * @return true if the pixel is out of bounds, false otherwise
    */
   private boolean isOutOfBounds(Image image, int currentX, int currentY) {
     return currentX < 0
-            || currentX >= image.getHeight()
-            || currentY < 0
-            || currentY >= image.getWidth();
+        || currentX >= image.getHeight()
+        || currentY < 0
+        || currentY >= image.getWidth();
   }
 }

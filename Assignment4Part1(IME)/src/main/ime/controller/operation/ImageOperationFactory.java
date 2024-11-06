@@ -1,11 +1,5 @@
 package ime.controller.operation;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
@@ -35,6 +29,11 @@ import ime.model.operation.VisualizeLuma;
 import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 import ime.model.pixel.Pixel;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
@@ -43,33 +42,6 @@ import ime.model.pixel.Pixel;
 public class ImageOperationFactory implements OperationCreator {
 
   private final ImageRepo imageLibrary;
-
-  /**
-   * Contains command names for CLI operations as constants.
-   */
-  private static class Commands {
-    public static final String LOAD = "load";
-    public static final String SAVE = "save";
-    public static final String RGB_SPLIT = "rgb-split";
-    public static final String BRIGHTEN = "brighten";
-    public static final String DARKEN = "darken";
-    public static final String VERTICAL_FLIP = "vertical-flip";
-    public static final String HORIZONTAL_FLIP = "horizontal-flip";
-    public static final String SEPIA = "sepia";
-    public static final String RGB_COMBINE = "rgb-combine";
-    public static final String BLUR = "blur";
-    public static final String SHARPEN = "sharpen";
-    public static final String RED_COMPONENT = "red-component";
-    public static final String GREEN_COMPONENT = "green-component";
-    public static final String BLUE_COMPONENT = "blue-component";
-    public static final String LUMA_COMPONENT = "luma-component";
-    public static final String VALUE_COMPONENT = "value-component";
-    public static final String INTENSITY_COMPONENT = "intensity-component";
-    public static final String HISTOGRAM = "histogram";
-    public static final String COMPRESS = "compress";
-    public static final String COLOR_CORRECTION = "color-correct";
-    public static final String LEVELS_ADJUST = "levels-adjust";
-  }
 
   /**
    * Constructs a CommandFactory with the specified image library.
@@ -146,6 +118,33 @@ public class ImageOperationFactory implements OperationCreator {
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
+  }
+
+  /**
+   * Contains command names for CLI operations as constants.
+   */
+  private static class Commands {
+    public static final String LOAD = "load";
+    public static final String SAVE = "save";
+    public static final String RGB_SPLIT = "rgb-split";
+    public static final String BRIGHTEN = "brighten";
+    public static final String DARKEN = "darken";
+    public static final String VERTICAL_FLIP = "vertical-flip";
+    public static final String HORIZONTAL_FLIP = "horizontal-flip";
+    public static final String SEPIA = "sepia";
+    public static final String RGB_COMBINE = "rgb-combine";
+    public static final String BLUR = "blur";
+    public static final String SHARPEN = "sharpen";
+    public static final String RED_COMPONENT = "red-component";
+    public static final String GREEN_COMPONENT = "green-component";
+    public static final String BLUE_COMPONENT = "blue-component";
+    public static final String LUMA_COMPONENT = "luma-component";
+    public static final String VALUE_COMPONENT = "value-component";
+    public static final String INTENSITY_COMPONENT = "intensity-component";
+    public static final String HISTOGRAM = "histogram";
+    public static final String COMPRESS = "compress";
+    public static final String COLOR_CORRECTION = "color-correct";
+    public static final String LEVELS_ADJUST = "levels-adjust";
   }
 
 

@@ -1,14 +1,12 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
-import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 
 /**
- * This abstract class represents an operation to flip an image vertically.
- * It implements the ImageOperation interface, providing functionality to
- * flip an image vertically.
+ * This abstract class represents an operation to flip an image vertically. It implements the
+ * ImageOperation interface, providing functionality to flip an image vertically.
  */
 public class ApplyVerticalFlip extends ApplyFlip {
 
@@ -22,5 +20,4 @@ public class ApplyVerticalFlip extends ApplyFlip {
     }
     return new SimpleImage(height, width, inputImage.getType(), pixels);
   }
-
 }

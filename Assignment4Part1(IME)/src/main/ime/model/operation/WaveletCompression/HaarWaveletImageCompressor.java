@@ -1,23 +1,20 @@
 package ime.model.operation.WaveletCompression;
 
+import ime.model.image.Image;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ime.model.image.Image;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
-
 /**
  * Implements the Haar Wavelet transformation for compressing and transforming image data.
- * <p>
- * This class applies the Haar wavelet transformation to images to compress and
- * reconstruct image data. It is designed to preserve significant features of the
- * image while eliminating less important details, making it suitable for image
- * compression applications.
- * </p>
+ *
+ * <p>This class applies the Haar wavelet transformation to images to compress and reconstruct image
+ * data. It is designed to preserve significant features of the image while eliminating less
+ * important details, making it suitable for image compression applications.
  */
 public class HaarWaveletImageCompressor implements WaveletImageCompressor {
   private final double SQRT2 = Math.sqrt(2);
@@ -55,7 +52,9 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     // Set the reconstructed pixel values into the output image
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j] = PixelFactory.createPixel(image.getType(),
+        pixels[i][j] =
+            PixelFactory.createPixel(
+                image.getType(),
                 Math.round(tRed[i][j]),
                 Math.round(tGreen[i][j]),
                 Math.round(tBlue[i][j]));
@@ -66,13 +65,11 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
 
   /**
    * Applies the Haar wavelet transform and compresses the transformed data.
-   * <p>
-   * This method pads the input 2D array to the nearest power of two, applies the wavelet
-   * transform, and then compresses the transformed data based on the specified
-   * compression ratio.
-   * </p>
    *
-   * @param sequence         the 2D float array representing image data.
+   * <p>This method pads the input 2D array to the nearest power of two, applies the wavelet
+   * transform, and then compresses the transformed data based on the specified compression ratio.
+   *
+   * @param sequence the 2D float array representing image data.
    * @param compressionRatio the percentage of smallest coefficients to set to zero.
    * @return a 2D float array with wavelet-transformed and compressed data.
    */
@@ -87,8 +84,7 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     while (m > 1) {
       for (int i = 0; i < m; i++) {
         float[] rowTransformedRes = rowTransform(paddedSequence, i, m);
-        System.arraycopy(rowTransformedRes, 0, paddedSequence[i], 0,
-                rowTransformedRes.length);
+        System.arraycopy(rowTransformedRes, 0, paddedSequence[i], 0, rowTransformedRes.length);
       }
       for (int i = 0; i < m; i++) {
         float[] colTransformedRes = columnTransform(paddedSequence, i, m);
@@ -112,8 +108,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     while (m <= sequence.length) {
       for (int i = 0; i < m; i++) {
         float[] invertRowTransformedResult = invertRowTransform(sequence, i, m);
-        System.arraycopy(invertRowTransformedResult, 0, sequence[i], 0,
-                invertRowTransformedResult.length);
+        System.arraycopy(
+            invertRowTransformedResult, 0, sequence[i], 0, invertRowTransformedResult.length);
       }
       for (int i = 0; i < m; i++) {
         float[] invertColTransformedResult = invertColTransform(sequence, i, m);
@@ -126,12 +122,12 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
   }
 
   /**
-   * Performs a Haar wavelet transformation on a single row.
-   * Calculates and separates averages and differences for recursive reduction.
+   * Performs a Haar wavelet transformation on a single row. Calculates and separates averages and
+   * differences for recursive reduction.
    *
    * @param sequence the input 2D array
-   * @param row      the specific row in the array to transform
-   * @param length   the length of the row to be transformed
+   * @param row the specific row in the array to transform
+   * @param length the length of the row to be transformed
    * @return an array containing transformed row data with averages and differences
    */
   private float[] rowTransform(float[][] sequence, int row, int length) {
@@ -152,13 +148,12 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
 
   /**
    * Performs a Haar wavelet transformation on a single column.
-   * <p>
-   * Calculates averages and differences for recursive reduction on a column.
-   * </p>
+   *
+   * <p>Calculates averages and differences for recursive reduction on a column.
    *
    * @param sequence the input 2D array
-   * @param col      the specific column in the array to transform
-   * @param length   the length of the column to be transformed
+   * @param col the specific column in the array to transform
+   * @param length the length of the column to be transformed
    * @return an array containing transformed column data with averages and differences
    */
   private float[] columnTransform(float[][] sequence, int col, int length) {
@@ -181,8 +176,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
    * Inverts a Haar wavelet transformation for a row, restoring original values.
    *
    * @param transform the 2D transformed array
-   * @param row       the row to be inverted
-   * @param length    the length of the row
+   * @param row the row to be inverted
+   * @param length the length of the row
    * @return an array with the inverted row data
    */
   private float[] invertRowTransform(float[][] transform, int row, int length) {
@@ -201,8 +196,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
    * Inverts a Haar wavelet transformation for a column.
    *
    * @param transform the 2D transformed array
-   * @param col       the column to be inverted
-   * @param length    the length of the column
+   * @param col the column to be inverted
+   * @param length the length of the column
    * @return an array with the inverted column data
    */
   private float[] invertColTransform(float[][] transform, int col, int length) {
@@ -219,12 +214,11 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
 
   /**
    * Compresses the given sequence by setting the smallest coefficients to zero.
-   * <p>
-   * This method identifies the number of coefficients to be retained based on the
-   * compression ratio and sets the smallest coefficients to zero.
-   * </p>
    *
-   * @param sequence         the 2D array of transformed coefficients
+   * <p>This method identifies the number of coefficients to be retained based on the compression
+   * ratio and sets the smallest coefficients to zero.
+   *
+   * @param sequence the 2D array of transformed coefficients
    * @param compressionRatio the ratio indicating how much of the data should be retained
    */
   private void compressSequence(float[][] sequence, float compressionRatio) {

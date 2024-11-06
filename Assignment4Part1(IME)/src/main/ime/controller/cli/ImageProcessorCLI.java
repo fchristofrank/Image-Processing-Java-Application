@@ -1,5 +1,7 @@
 package ime.controller.cli;
 
+import ime.controller.operation.CLIOperation;
+import ime.controller.operation.CommandExecutor;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,24 +10,18 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import ime.controller.operation.CLIOperation;
-import ime.controller.operation.CommandExecutor;
-import ime.controller.operation.ImageOperationFactory;
-
 /**
  * The main command-line interface for the Image Processor application.
- * <p>
- * This class implements the {@link CommandExecutor} interface and provides
- * functionality to run the image processor, accept user input, execute
- * commands, and run script files.
- * </p>
+ *
+ * <p>This class implements the {@link CommandExecutor} interface and provides functionality to run
+ * the image processor, accept user input, execute commands, and run script files.
  */
 public class ImageProcessorCLI implements CommandExecutor {
   private static final String EXIT_COMMAND = "exit";
   private static final String RUN_COMMAND = "run";
   private static final String COMMENT_PREFIX = "#";
-  private static final String WELCOME_MESSAGE = "Welcome to the Image Processor. Type 'exit' " +
-          "to quit.";
+  private static final String WELCOME_MESSAGE =
+      "Welcome to the Image Processor. Type 'exit' " + "to quit.";
   private static final String GOODBYE_MESSAGE = "Goodbye - may the gradients be with you!";
   private static final String PROMPT = "> ";
   private static final String EMPTY_COMMAND_MESSAGE = "Please enter a command.";
@@ -36,12 +32,11 @@ public class ImageProcessorCLI implements CommandExecutor {
   private final OperationCreator imageOperationFactory;
 
   /**
-   * Constructs a new ImageProcessorCLI instance.
-   * Initializes the command factory with a new ImageLibrary and sets up
-   * the input scanner.
+   * Constructs a new ImageProcessorCLI instance. Initializes the command factory with a new
+   * ImageLibrary and sets up the input scanner.
    */
-  public ImageProcessorCLI(Readable readable, Appendable appendable,
-                           OperationCreator operationCreator) {
+  public ImageProcessorCLI(
+      Readable readable, Appendable appendable, OperationCreator operationCreator) {
     this.readable = readable;
     this.appendable = appendable;
     this.imageOperationFactory = operationCreator;
@@ -108,17 +103,16 @@ public class ImageProcessorCLI implements CommandExecutor {
     try {
       String fileContent = readFromFile(filename);
       Arrays.stream(fileContent.split("\n"))
-              .filter(line -> !line.startsWith(COMMENT_PREFIX))
-              .forEach(this::executeCommand);
+          .filter(line -> !line.startsWith(COMMENT_PREFIX))
+          .forEach(this::executeCommand);
     } catch (IOException e) {
       writeMessage("Error reading file: " + filename);
     }
   }
 
   /**
-   * Executes a single command.
-   * This method creates a corresponding operation for the specific command and
-   * passes the appropriate arguments.
+   * Executes a single command. This method creates a corresponding operation for the specific
+   * command and passes the appropriate arguments.
    *
    * @param command the command string to execute
    */
@@ -136,11 +130,9 @@ public class ImageProcessorCLI implements CommandExecutor {
 
   /**
    * Reads the contents of a file, ignoring comments and empty lines.
-   * <p>
-   * This method reads from a file specified by the given file path and returns
-   * the contents as a string. It ignores lines that are empty or start with '#'
-   * (considered as comments).
-   * </p>
+   *
+   * <p>This method reads from a file specified by the given file path and returns the contents as a
+   * string. It ignores lines that are empty or start with '#' (considered as comments).
    *
    * @param filePath the path to the file to be read.
    * @return a string containing the contents of the file, with comments and empty lines removed.
@@ -149,9 +141,9 @@ public class ImageProcessorCLI implements CommandExecutor {
   private String readFromFile(String filePath) throws IOException {
     try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
       return lines
-              .map(String::trim)
-              .filter(line -> !line.isEmpty() && !line.startsWith(COMMENT_PREFIX))
-              .collect(Collectors.joining("\n"));
+          .map(String::trim)
+          .filter(line -> !line.isEmpty() && !line.startsWith(COMMENT_PREFIX))
+          .collect(Collectors.joining("\n"));
     }
   }
 }

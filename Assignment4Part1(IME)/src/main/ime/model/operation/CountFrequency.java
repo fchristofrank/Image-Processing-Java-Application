@@ -4,9 +4,9 @@ import ime.model.image.Image;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CountFrequency implements CommonOperation{
+public class CountFrequency implements CommonOperation {
   @Override
-  public Map<String,Map<Integer,Integer>> calculateFrequencies(Image inputImage) {
+  public Map<String, Map<Integer, Integer>> calculateFrequencies(Image inputImage) {
 
     int imageHeight = inputImage.getHeight();
     int imageWidth = inputImage.getWidth();

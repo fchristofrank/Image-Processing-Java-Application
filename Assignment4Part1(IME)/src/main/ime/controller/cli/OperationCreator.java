@@ -3,9 +3,8 @@ package ime.controller.cli;
 import ime.controller.operation.CLIOperation;
 
 /**
- * This interface provides a method for creating {@link CLIOperation} instances based
- * on a given command name.
- * This interface follows the factory pattern, allowing the creation of different
+ * This interface provides a method for creating {@link CLIOperation} instances based on a given
+ * command name. This interface follows the factory pattern, allowing the creation of different
  * operations dynamically in a CLI application.
  */
 public interface OperationCreator {

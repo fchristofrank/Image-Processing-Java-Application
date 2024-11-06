@@ -4,7 +4,6 @@ import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
-import ime.model.pixel.RGBPixel;
 
 /**
  * Abstract class that defines the structure for visualizing operations on an image. This class
@@ -26,7 +25,7 @@ public abstract class AbstractVisualize implements ImageOperation {
    * ensuring that all three color channels in the output are the same, giving a grayscale effect.
    *
    * @param inputImage the image to which the visualization operation is applied.
-   * @param args       additional arguments for the operation.
+   * @param args additional arguments for the operation.
    * @return the output image, which is a grayscale version based on the extracted color component.
    * @throws IllegalArgumentException if the input image is null or contains invalid pixel data.
    */
@@ -34,17 +33,17 @@ public abstract class AbstractVisualize implements ImageOperation {
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
     processImage(inputImage, pixels, args);
-    return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(),
-            pixels);
+    return new SimpleImage(
+        inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(), pixels);
   }
 
   protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     for (int i = 0; i < inputImage.getHeight(); i++) {
       for (int j = 0; j < inputImage.getWidth(); j++) {
         int colorValue = getColorComponent(inputImage.getPixel(i, j));
-        pixels[i][j] = PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue,
-                colorValue);
-        System.out.println(i+","+j+" :: "+ pixels[i][j]);
+        pixels[i][j] =
+            PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue, colorValue);
+        System.out.println(i + "," + j + " :: " + pixels[i][j]);
       }
     }
   }

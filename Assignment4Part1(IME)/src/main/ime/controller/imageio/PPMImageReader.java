@@ -1,19 +1,16 @@
 package ime.controller.imageio;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
-
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
-/**
- * This class represents a reader for images in PPM format from a specified file name.
- */
+/** This class represents a reader for images in PPM format from a specified file name. */
 public class PPMImageReader implements ImageReader {
 
   @Override
@@ -55,4 +52,3 @@ public class PPMImageReader implements ImageReader {
     return new SimpleImage(height, width, ImageType.RGB, pixels);
   }
 }
-

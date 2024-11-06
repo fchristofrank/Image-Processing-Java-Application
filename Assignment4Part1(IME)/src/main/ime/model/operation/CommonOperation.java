@@ -5,6 +5,5 @@ import java.util.Map;
 
 public interface CommonOperation {
 
-
-  Map<String,Map<Integer,Integer>> calculateFrequencies(Image inputImage);
+  Map<String, Map<Integer, Integer>> calculateFrequencies(Image inputImage);
 }

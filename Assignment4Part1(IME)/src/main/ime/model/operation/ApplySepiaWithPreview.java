@@ -7,8 +7,7 @@ import ime.model.pixel.Pixel;
 public class ApplySepiaWithPreview extends ApplySepia {
 
   @Override
-  protected void processImage(Image inputImage, Pixel[][] pixels,
-                              String... args) {
+  protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
     if (args.length != 0) {
@@ -26,8 +25,8 @@ public class ApplySepiaWithPreview extends ApplySepia {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (i < splitHeight && j < splitWidth) {
-          pixels[i][j] = inputImage.getPixel(i, j)
-                  .scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION);
+          pixels[i][j] =
+              inputImage.getPixel(i, j).scaleComponents(FilterConstants.SEPIA_COLOR_TRANSFORMATION);
         } else {
           pixels[i][j] = inputImage.getPixel(i, j);
         }

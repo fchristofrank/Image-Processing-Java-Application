@@ -3,8 +3,8 @@ package ime.controller.imageio;
 import java.util.Objects;
 
 /**
- * The ReaderFactory class is responsible for creating appropriate Reader objects
- * based on the given image format.
+ * The ReaderFactory class is responsible for creating appropriate Reader objects based on the given
+ * image format.
  */
 public class ImageReaderFactory {
   /**

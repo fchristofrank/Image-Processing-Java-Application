@@ -1,20 +1,16 @@
 package ime.controller.imageio;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
-/**
- * This class represents a reader for images in JPG and PNG formats from a specified file name.
- */
+/** This class represents a reader for images in JPG and PNG formats from a specified file name. */
 public class StandardImageReader implements ImageReader {
   @Override
   public Image read(String filename, ImageType imageType) throws IOException {
@@ -33,7 +29,7 @@ public class StandardImageReader implements ImageReader {
           int r = (pixel >> 16) & 0xFF;
           int g = (pixel >> 8) & 0xFF;
           int b = pixel & 0xFF;
-          if(imageType.equals(ImageType.RGB)){
+          if (imageType.equals(ImageType.RGB)) {
             pixels[i][j] = new RGBPixel(r, g, b);
           }
         }

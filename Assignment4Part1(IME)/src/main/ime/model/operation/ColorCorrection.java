@@ -4,9 +4,6 @@ import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
-import ime.model.pixel.RGBPixel;
-
-import java.util.Arrays;
 import java.util.Map;
 
 public class ColorCorrection implements ImageOperation {
@@ -36,20 +33,26 @@ public class ColorCorrection implements ImageOperation {
 
     Map<String, Map<Integer, Integer>> frequency;
     int previewWidthPercentage = 100;
-    if (args.length == 3){
+    if (args.length == 3) {
       previewWidthPercentage = Integer.parseInt(args[2]);
     }
 
-
     frequency = countFrequencyOperation.calculateFrequencies(inputImage);
 
-    if (!frequency.containsKey("red") || frequency.get("red").isEmpty() ||
-        !frequency.containsKey("green") || frequency.get("green").isEmpty() ||
-        !frequency.containsKey("blue") || frequency.get("blue").isEmpty()) {
+    if (!frequency.containsKey("red")
+        || frequency.get("red").isEmpty()
+        || !frequency.containsKey("green")
+        || frequency.get("green").isEmpty()
+        || !frequency.containsKey("blue")
+        || frequency.get("blue").isEmpty()) {
       throw new IllegalStateException("Frequency maps could not be calculated.");
     }
 
-    return correctColor(inputImage, previewWidthPercentage, frequency.get("red"), frequency.get("green"),
+    return correctColor(
+        inputImage,
+        previewWidthPercentage,
+        frequency.get("red"),
+        frequency.get("green"),
         frequency.get("blue"));
   }
 
@@ -59,9 +62,9 @@ public class ColorCorrection implements ImageOperation {
    * individual distance from the average peak. The offset value is added to each pixel in the
    * pixel. The X represent the rows and Y represents the columns, which is slightly counter to
    * usual convention hence requires the attention.
-   *
    */
-  private Image correctColor(Image image,
+  private Image correctColor(
+      Image image,
       int previewWidthPercentage,
       Map<Integer, Integer> redFrequency,
       Map<Integer, Integer> greenFrequency,
@@ -86,7 +89,7 @@ public class ColorCorrection implements ImageOperation {
         int green = image.getPixel(x, y).getGreen();
         int blue = image.getPixel(x, y).getBlue();
 
-        if (y < (image.getWidth()*previewWidthPercentage)/100){
+        if (y < (image.getWidth() * previewWidthPercentage) / 100) {
           red += offsetRed;
           green += offsetGreen;
           blue += offsetBlue;
@@ -97,5 +100,4 @@ public class ColorCorrection implements ImageOperation {
     }
     return new SimpleImage(image.getHeight(), image.getWidth(), image.getType(), pixels);
   }
-
 }

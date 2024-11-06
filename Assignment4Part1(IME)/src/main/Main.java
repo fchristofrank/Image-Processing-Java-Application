@@ -1,17 +1,16 @@
+import ime.controller.cli.ImageProcessorCLI;
+import ime.controller.operation.ImageOperationFactory;
 import java.io.InputStreamReader;
 
-import ime.controller.operation.ImageOperationFactory;
-import ime.controller.cli.ImageProcessorCLI;
-
 /**
- * The Main class serves as the entry point for the image editor application.
- * It initializes and runs the command-line interface for image processing.
+ * The Main class serves as the entry point for the image editor application. It initializes and
+ * runs the command-line interface for image processing.
  */
 public class Main {
 
   /**
-   * The main method that starts the image editor application.
-   * It creates an instance of ImageProcessorCLI and calls its run method.
+   * The main method that starts the image editor application. It creates an instance of
+   * ImageProcessorCLI and calls its run method.
    *
    * @param args the command-line arguments; not used in this application.
    */

@@ -1,12 +1,10 @@
 package ime.model.operation;
 
 import ime.model.image.Image;
-import ime.model.image.SimpleImage;
 
 /**
- * This abstract class represents an operation to flip an image.
- * It implements the ImageOperation interface, providing functionality to
- * flip an image horizontally or vertically.
+ * This abstract class represents an operation to flip an image. It implements the ImageOperation
+ * interface, providing functionality to flip an image horizontally or vertically.
  */
 public abstract class ApplyFlip implements ImageOperation {
 
@@ -18,5 +16,4 @@ public abstract class ApplyFlip implements ImageOperation {
   }
 
   protected abstract Image flipImage(Image inputImage, int height, int width);
-
 }

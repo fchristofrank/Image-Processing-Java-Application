@@ -1,6 +1,5 @@
 package ime.model.operation;
 
-
 /**
  * This class represents the sharpen filter operation that enhances image details. It extends the
  * Filter class and provides the specific kernel used for sharpening. The sharpening process
