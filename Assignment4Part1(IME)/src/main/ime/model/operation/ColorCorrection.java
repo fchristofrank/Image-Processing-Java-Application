@@ -33,7 +33,6 @@ public class ColorCorrection implements ImageOperation {
 
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
-    System.out.println(Arrays.deepToString(args));
 
     Map<String, Map<Integer, Integer>> frequency;
     int previewWidthPercentage = 100;

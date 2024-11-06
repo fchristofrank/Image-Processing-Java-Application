@@ -33,7 +33,7 @@ public abstract class AbstractVisualize implements ImageOperation {
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
-    processImage(inputImage, pixels);
+    processImage(inputImage, pixels, args);
     return new SimpleImage(inputImage.getHeight(), inputImage.getWidth(), inputImage.getType(),
             pixels);
   }

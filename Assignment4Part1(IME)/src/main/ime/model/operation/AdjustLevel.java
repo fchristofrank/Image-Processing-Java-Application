@@ -61,7 +61,6 @@ public class AdjustLevel implements ImageOperation {
         int blueComponent = inputImage.getPixel(x, y).getBlue();
 
         if (y < (previewWidthPercentage*inputImage.getWidth())/100){
-          System.out.println("inside");
           redComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getRed());
           greenComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getGreen());
           blueComponent = evaluateQuadraticEquation(inputImage.getPixel(x, y).getBlue());
