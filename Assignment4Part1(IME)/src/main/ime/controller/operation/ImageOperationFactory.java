@@ -1,5 +1,11 @@
 package ime.controller.operation;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
@@ -29,11 +35,6 @@ import ime.model.operation.VisualizeLuma;
 import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 import ime.model.pixel.Pixel;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
@@ -43,7 +44,9 @@ public class ImageOperationFactory implements OperationCreator {
 
   private final ImageRepo imageLibrary;
 
-  /** Constructs a CommandFactory with the specified image library. */
+  /**
+   * Constructs a CommandFactory with the specified image library.
+   */
   public ImageOperationFactory() {
     this.imageLibrary = new ImageLibrary();
   }
@@ -118,7 +121,9 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
-  /** Contains command names for CLI operations as constants. */
+  /**
+   * Contains command names for CLI operations as constants.
+   */
   private static class Commands {
     public static final String LOAD = "load";
     public static final String SAVE = "save";
@@ -169,17 +174,17 @@ public class ImageOperationFactory implements OperationCreator {
       String[] parts = imagePath.split("\\.");
       String imageFormat = parts[parts.length - 1];
       ImageReader imageReader =
-          ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+              ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
       Image image;
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
       } catch (NullPointerException | IOException e) {
         LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
         throw new IllegalArgumentException(
-            "Error reading image file: "
-                + imagePath
-                + ". Please ensure the file exists and is a valid image format.",
-            e);
+                "Error reading image file: "
+                        + imagePath
+                        + ". Please ensure the file exists and is a valid image format.",
+                e);
       }
       addImage(imageName, image);
       System.out.println("Image loaded :: " + imageName);
@@ -270,8 +275,8 @@ public class ImageOperationFactory implements OperationCreator {
       addImage(greenOutputImageName, greenImage);
       addImage(blueOutputImageName, blueImage);
       System.out.println(
-          "The images have been separated into their red, blue, and green components "
-              + "and combined accordingly.");
+              "The images have been separated into their red, blue, and green components "
+                      + "and combined accordingly.");
     }
 
     @Override
@@ -319,8 +324,8 @@ public class ImageOperationFactory implements OperationCreator {
         Integer.parseInt(args[0]);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException(
-            String.format(
-                "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
+                String.format(
+                        "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
       }
     }
   }
@@ -423,8 +428,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(
-              new ime.model.operation.ColorCorrection(new CountFrequency()), args);
+              inputImage.applyOperation(
+                      new ime.model.operation.ColorCorrection(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
@@ -436,7 +441,7 @@ public class ImageOperationFactory implements OperationCreator {
    * operation can be implemented. It also is responsible in maintaining the output of the images
    * inside the library object to maintain the historic operations and objects/
    */
-  class Filter extends AbstractOperation {
+  class Filter extends OperationWithPreview {
 
     private final String command;
 
@@ -452,7 +457,7 @@ public class ImageOperationFactory implements OperationCreator {
      *
      * @param args the arguments for an operations.
      * @throws IllegalArgumentException if the user tries to operate on image that is not loaded
-     *     yet.
+     *                                  yet.
      */
     @Override
     public void execute(String[] args) throws IllegalArgumentException {
@@ -490,18 +495,18 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
-  class FilterWithPreview extends Filter {
-    public FilterWithPreview(ImageRepo library, String command) {
-      super(library, command);
-    }
+  /**
+   * This class represents an operation with preview.
+   */
+  abstract class OperationWithPreview extends AbstractOperation {
 
-    @Override
-    protected ImageOperation filterObjectFactory(String command) {
-      ImageOperation imageOperation = super.filterObjectFactory(command);
-      if (command.equals("sepia")) {
-        imageOperation = new ApplySepiaWithPreview();
-      }
-      return imageOperation;
+    /**
+     * Constructs an AbstractOperation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public OperationWithPreview(ImageRepo library) {
+      super(library);
     }
 
     @Override
@@ -516,7 +521,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
+                    "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -529,12 +534,30 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
+                    "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
         }
       }
+    }
+  }
+
+  /**
+   * This class represents filter operations with preview.
+   */
+  class FilterWithPreview extends Filter {
+    public FilterWithPreview(ImageRepo library, String command) {
+      super(library, command);
+    }
+
+    @Override
+    protected ImageOperation filterObjectFactory(String command) {
+      ImageOperation imageOperation = super.filterObjectFactory(command);
+      if (command.equals("sepia")) {
+        imageOperation = new ApplySepiaWithPreview();
+      }
+      return imageOperation;
     }
   }
 
@@ -563,7 +586,7 @@ public class ImageOperationFactory implements OperationCreator {
      *
      * @param args an array containing the output image name and three input image names.
      * @throws IllegalArgumentException if exactly three input images are not provided or any image
-     *     is missing.
+     *                                  is missing.
      */
     @Override
     public void execute(String[] args) throws IllegalArgumentException {
@@ -576,8 +599,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          redImage.applyOperation(
-              new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+              redImage.applyOperation(
+                      new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
       addImage(inputName, outputImage);
       System.out.println("Combine given images. New Image :: " + inputName);
     }
@@ -614,10 +637,10 @@ public class ImageOperationFactory implements OperationCreator {
       Image inputImage = getImage(inputImageName);
       Image outputImage = inputImage.applyOperation(new ApplyCompression(), args[0]);
       System.out.println(
-          "Applied compression to :: "
-              + inputImageName
-              + ". New image created :: "
-              + outputImageName);
+              "Applied compression to :: "
+                      + inputImageName
+                      + ". New image created :: "
+                      + outputImageName);
       addImage(outputImageName, outputImage);
     }
 
@@ -739,7 +762,7 @@ public class ImageOperationFactory implements OperationCreator {
    * The controller class for the visualize operation. This class is responsible to validate the
    * visualize arguments and then route to the intended operation.
    */
-  class Visualize extends AbstractOperation {
+  class Visualize extends OperationWithPreview {
 
     private final String command;
 
@@ -767,7 +790,7 @@ public class ImageOperationFactory implements OperationCreator {
       }
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage =
-          inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
+              inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
       System.out.println("Extracted given component. New Image :: " + outputName);
     }
@@ -792,44 +815,15 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
+  /**
+   * This class represents visualize operations with preview.
+   */
   class VisualizeWithPreview extends Visualize {
 
     public VisualizeWithPreview(ImageRepo library, String command) {
       super(library, command);
     }
 
-    @Override
-    protected void validateArgs(String[] args) throws IllegalArgumentException {
-      if (args.length < 2 || args.length > 4) {
-        throw new IllegalArgumentException("Invalid number of arguments");
-      }
-
-      if (args.length == 3) {
-        String splitPercentage = args[2];
-        try {
-          int percentage = Integer.parseInt(splitPercentage);
-          if (percentage < 0 || percentage > 100) {
-            throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
-          }
-        } catch (NumberFormatException e) {
-          throw new IllegalArgumentException("Percentage value for split line must be a number.");
-        }
-      }
-
-      if (args.length == 4) {
-        String splitPercentage = args[3];
-        try {
-          int percentage = Integer.parseInt(splitPercentage);
-          if (percentage < 0 || percentage > 100) {
-            throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
-          }
-        } catch (NumberFormatException e) {
-          throw new IllegalArgumentException("Percentage value for split line must be a number.");
-        }
-      }
-    }
   }
 
   class Histogram extends AbstractOperation {
@@ -853,7 +847,7 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
+              inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
     }

@@ -25,6 +25,26 @@ public abstract class AbstractPixel implements Pixel {
     this.blue = clamp(blue);
   }
 
+  /**
+   * This method creates an abstract pixel based on the clamp flag.
+   *
+   * @param red     the red value of the pixel.
+   * @param green   the green value of the pixel.
+   * @param blue    the blue value of the pixel.
+   * @param noClamp the no clamp flag.
+   */
+  public AbstractPixel(int red, int green, int blue, boolean noClamp) {
+    if (noClamp) {
+      this.red = red;
+      this.green = green;
+      this.blue = blue;
+    } else {
+      this.red = clamp(red);
+      this.green = clamp(green);
+      this.blue = clamp(blue);
+    }
+  }
+
   public int getRed() {
     return this.red;
   }
@@ -45,6 +65,6 @@ public abstract class AbstractPixel implements Pixel {
    */
   public int clamp(int value) {
     return Math.max(
-        FilterConstants.PIXEL_LOWER_LIMIT, Math.min(FilterConstants.PIXEL_UPPER_LIMIT, value));
+            FilterConstants.PIXEL_LOWER_LIMIT, Math.min(FilterConstants.PIXEL_UPPER_LIMIT, value));
   }
 }

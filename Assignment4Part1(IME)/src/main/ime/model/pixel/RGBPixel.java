@@ -12,12 +12,24 @@ public class RGBPixel extends AbstractPixel {
   /**
    * This method creates the RGB channel with the corresponding values to the components.
    *
-   * @param red the value of the red component.
+   * @param red   the value of the red component.
    * @param green the value of the green component.
-   * @param blue the value of the blue component.
+   * @param blue  the value of the blue component.
    */
   public RGBPixel(int red, int green, int blue) {
     super(red, green, blue);
+  }
+
+  /**
+   * This method creates the RGB pixel based on the no clamp flag.
+   *
+   * @param red     the value of the red component.
+   * @param green   the value of the green component.
+   * @param blue    the value of the blue component.
+   * @param noClamp the value of the no clamp flag.
+   */
+  private RGBPixel(int red, int green, int blue, boolean noClamp) {
+    super(red, green, blue, noClamp);
   }
 
   @Override
@@ -42,23 +54,24 @@ public class RGBPixel extends AbstractPixel {
 
   @Override
   public Pixel shiftComponents(int alpha) {
-    return new RGBPixel(this.getRed() + alpha, this.getGreen() + alpha, this.getBlue() + alpha);
+    return new RGBPixel(this.getRed() + alpha, this.getGreen() + alpha,
+            this.getBlue() + alpha, true);
   }
 
   @Override
   public Pixel scaleComponents(double[][] factors) {
     double red =
-        factors[0][0] * this.getRed()
-            + factors[0][1] * this.getGreen()
-            + factors[0][2] * this.getBlue();
+            factors[0][0] * this.getRed()
+                    + factors[0][1] * this.getGreen()
+                    + factors[0][2] * this.getBlue();
     double green =
-        factors[1][0] * this.getRed()
-            + factors[1][1] * this.getGreen()
-            + factors[1][2] * this.getBlue();
+            factors[1][0] * this.getRed()
+                    + factors[1][1] * this.getGreen()
+                    + factors[1][2] * this.getBlue();
     double blue =
-        factors[2][0] * this.getRed()
-            + factors[2][1] * this.getGreen()
-            + factors[2][2] * this.getBlue();
+            factors[2][0] * this.getRed()
+                    + factors[2][1] * this.getGreen()
+                    + factors[2][2] * this.getBlue();
     return new RGBPixel((int) Math.round(red), (int) Math.round(green), (int) Math.round(blue));
   }
 
@@ -72,15 +85,15 @@ public class RGBPixel extends AbstractPixel {
     }
     RGBPixel rgbPixel = (RGBPixel) obj;
     return Math.abs(this.getRed() - rgbPixel.getRed()) <= TOLERANCE
-        && Math.abs(this.getGreen() - rgbPixel.getGreen()) <= TOLERANCE
-        && Math.abs(this.getBlue() - rgbPixel.getBlue()) <= TOLERANCE;
+            && Math.abs(this.getGreen() - rgbPixel.getGreen()) <= TOLERANCE
+            && Math.abs(this.getBlue() - rgbPixel.getBlue()) <= TOLERANCE;
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        (getRed() / TOLERANCE) * TOLERANCE,
-        (getGreen() / TOLERANCE) * TOLERANCE,
-        (getBlue() / TOLERANCE) * TOLERANCE);
+            (getRed() / TOLERANCE) * TOLERANCE,
+            (getGreen() / TOLERANCE) * TOLERANCE,
+            (getBlue() / TOLERANCE) * TOLERANCE);
   }
 }
