@@ -103,6 +103,34 @@ public class ControllerTest {
   }
 
   @Test
+  public void testVerticalFlipCommandPreview() {
+    String input = "vertical-flip koala koala-vertical 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
+  public void testHorizontalFlipCommandPreview() {
+    String input = "horizontal-flip koala-vertical koala-vertical-horizontal 50\nexit\n";
+    Readable readableInput = new StringReader(input);
+    StringBuilder logger = new StringBuilder();
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    CommandExecutor commandExecutor = new ImageProcessorCLI(readableInput,
+            new PrintStream(outputStream),
+            new MockCommandFactory(new ImageLibrary(), logger));
+    commandExecutor.run();
+    String actualInput = logger.toString();
+    assertEquals(input, actualInput);
+  }
+
+  @Test
   public void testValueComponentCommand() {
     String input = "value-component koala koala-greyscale\nexit\n";
     Readable readableInput = new StringReader(input);
