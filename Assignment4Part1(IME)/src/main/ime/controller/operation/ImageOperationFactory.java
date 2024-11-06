@@ -406,7 +406,7 @@ public class ImageOperationFactory implements OperationCreator {
       if (args.length < 5) {
         throw new IllegalArgumentException("Invalid number of arguments");
       }
-      if (args.length == 6 && Integer.parseInt(args[5]) < 100 && 0 < Integer.parseInt(args[5])) {
+      if (args.length == 6 && (Integer.parseInt(args[5]) < 0 && Integer.parseInt(args[5]) > 100)) {
         throw new IllegalArgumentException("Preview Width should be between 0 to 100");
       }
     }
@@ -433,6 +433,14 @@ public class ImageOperationFactory implements OperationCreator {
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
+
+    @Override
+    protected void validateArgs(String[] args) throws IllegalArgumentException {
+      if (args.length == 4 && (Integer.parseInt(args[3]) < 0 && Integer.parseInt(args[3]) > 100)) {
+        throw new IllegalArgumentException("Preview Width should be between 0 to 100");
+      }
+    }
+
   }
 
   /**
