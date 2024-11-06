@@ -19,8 +19,8 @@ public abstract class FilterWithPreview extends Filter {
     }
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();
-    int splitWidth = inputImage.getWidth() * (widthSplitPercentage / 100);
-    int splitHeight = inputImage.getHeight() * (heightSplitPercentage / 100);
+    int splitWidth = (inputImage.getWidth() * widthSplitPercentage) / 100;
+    int splitHeight = (inputImage.getHeight() * heightSplitPercentage) / 100;
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         Pixel newPixel = inputImage.getPixel(i, j);
