@@ -440,7 +440,6 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Preview Width should be between 0 to 100");
       }
     }
-
   }
 
   /**
