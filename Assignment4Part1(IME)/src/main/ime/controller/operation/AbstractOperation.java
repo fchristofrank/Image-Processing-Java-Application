@@ -63,7 +63,7 @@ public abstract class AbstractOperation implements CLIOperation {
    * @throws IllegalArgumentException if the number of arguments is not exactly two
    */
   protected void validateArgs(String[] args) throws IllegalArgumentException {
-    if (args.length > 3 || args.length < 2) {
+    if (args.length > 7 || args.length < 2) {
       throw new IllegalArgumentException("Invalid number of arguments");
     }
   }

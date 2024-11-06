@@ -82,7 +82,7 @@ public abstract class Filter implements ImageOperation {
       }
     }
 
-    return createClampedPixel((int) redSum, (int) greenSum, (int) blueSum);
+    return new RGBPixel((int) redSum, (int) greenSum, (int) blueSum);
   }
 
   /**
@@ -99,32 +99,5 @@ public abstract class Filter implements ImageOperation {
             || currentX >= image.getHeight()
             || currentY < 0
             || currentY >= image.getWidth();
-  }
-
-  /**
-   * Creates a new pixel with clamped RGB values. Each RGB value is clamped between the pixel lower
-   * limit and upper limit to prevent overflow or underflow.
-   *
-   * @param red   the red value to be clamped
-   * @param green the green value to be clamped
-   * @param blue  the blue value to be clamped
-   * @return a new Pixel object with clamped RGB values
-   */
-  private Pixel createClampedPixel(int red, int green, int blue) {
-    int clampedRed = clamp(red);
-    int clampedGreen = clamp(green);
-    int clampedBlue = clamp(blue);
-    return new RGBPixel(clampedRed, clampedGreen, clampedBlue);
-  }
-
-  /**
-   * Clamps the given pixel value between the defined lower and upper limits. This ensures that the
-   * pixel value does not exceed the allowable RGB range.
-   *
-   * @param value the pixel value to be clamped
-   * @return the clamped pixel value
-   */
-  private int clamp(int value) {
-    return Math.max(PIXEL_LOWER_LIMIT, Math.min(PIXEL_UPPER_LIMIT, value));
   }
 }
