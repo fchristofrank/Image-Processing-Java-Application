@@ -1,6 +1,7 @@
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.operation.ImageOperationFactory;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 /**
  * The Main class serves as the entry point for the image editor application. It initializes and
@@ -17,6 +18,21 @@ public class Main {
   public static void main(String[] args) {
     Readable rd = new InputStreamReader(System.in);
     Appendable ap = System.out;
+
+    if (args.length == 1){
+      String scriptPath = args[0];
+      String command = "run "+scriptPath+"\nexit";
+      Readable readableInput = new StringReader(command);
+      new ImageProcessorCLI(readableInput, ap, new ImageOperationFactory()).run();
+      System.out.println("Script Completed.");
+      return;
+    }
+
+    if (args.length > 1){
+      System.out.println("Unsupported Operation :: Only accepts 1 script file as argument.");
+      return;
+    }
+
     new ImageProcessorCLI(rd, ap, new ImageOperationFactory()).run();
   }
 }
