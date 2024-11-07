@@ -404,8 +404,12 @@ public class ImageOperationFactory implements OperationCreator {
       if (args.length < 5) {
         throw new IllegalArgumentException("Invalid number of arguments");
       }
-      if (args.length == 6 && (Integer.parseInt(args[5]) < 0 && Integer.parseInt(args[5]) > 100)) {
+      if (args.length == 6 && (Integer.parseInt(args[5]) < 0 || Integer.parseInt(args[5]) > 100)) {
         throw new IllegalArgumentException("Preview Width should be between 0 to 100");
+      }
+      System.out.println(Arrays.deepToString(args));
+      if (Integer.parseInt(args[0]) > Integer.parseInt(args[1]) || Integer.parseInt(args[1]) > Integer.parseInt(args[2])){
+        throw new IllegalArgumentException("Values should be in ascending order");
       }
     }
   }
