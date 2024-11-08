@@ -19,16 +19,16 @@ public class Main {
     Readable rd = new InputStreamReader(System.in);
     Appendable ap = System.out;
 
-    if (args.length == 1){
+    if (args.length == 1) {
       String scriptPath = args[0];
-      String command = "run "+scriptPath+"\nexit";
+      String command = "run " + scriptPath + "\nexit";
       Readable readableInput = new StringReader(command);
       new ImageProcessorCLI(readableInput, ap, new ImageOperationFactory()).run();
       System.out.println("Script Completed.");
       return;
     }
 
-    if (args.length > 1){
+    if (args.length > 1) {
       System.out.println("Unsupported Operation :: Only accepts 1 script file as argument.");
       return;
     }

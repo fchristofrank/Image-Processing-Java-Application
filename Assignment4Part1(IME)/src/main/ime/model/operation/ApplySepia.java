@@ -16,6 +16,7 @@ public class ApplySepia implements ImageOperation {
           {0.349, 0.686, 0.168},
           {0.272, 0.534, 0.131}
   };
+
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     int height = inputImage.getHeight();

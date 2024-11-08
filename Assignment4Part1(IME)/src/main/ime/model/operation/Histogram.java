@@ -19,6 +19,7 @@ public class Histogram implements ImageOperation {
 
   private final CountFrequency countFrequencyOperation;
   private static final int PIXEL_UPPER_LIMIT = 255;
+
   public Histogram(CountFrequency countFrequencyOperation) {
     this.countFrequencyOperation = countFrequencyOperation;
   }
