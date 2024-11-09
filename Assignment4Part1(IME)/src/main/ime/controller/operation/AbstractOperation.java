@@ -3,7 +3,7 @@ package ime.controller.operation;
 import ime.model.image.Image;
 
 /** An abstract base class for CLI operations in an image processing application. */
-public abstract class AbstractOperation implements CLIOperation {
+public abstract class   AbstractOperation implements CLIOperation {
   /** The image library used for storing and retrieving images. */
   private final ImageRepo library;
 
