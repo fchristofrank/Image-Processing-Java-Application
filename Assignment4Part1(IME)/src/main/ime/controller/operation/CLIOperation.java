@@ -7,7 +7,7 @@ public interface CLIOperation {
    *
    * @param args the arguments for an operations.
    * @throws IllegalArgumentException if the operation cannot be performed due to invalid or
-   *     insufficient arguments.
+   *                                  insufficient arguments.
    */
-  void execute(String[] args) throws IllegalArgumentException;
+  void execute(String... args) throws IllegalArgumentException;
 }

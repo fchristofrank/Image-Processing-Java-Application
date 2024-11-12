@@ -40,7 +40,7 @@ import ime.model.pixel.Pixel;
  */
 public class ImageOperationFactory implements OperationCreator {
 
-  private final ImageRepo imageLibrary;
+  protected final ImageRepo imageLibrary;
 
   /**
    * Constructs a CommandFactory with the specified image library.
@@ -120,9 +120,31 @@ public class ImageOperationFactory implements OperationCreator {
   }
 
   /**
+   * This method converts image to buffered image representation.
+   *
+   * @param image the image which has to be converted to buffered image representation.
+   * @return the converted image.
+   */
+  protected BufferedImage convertToBufferedImage(Image image) {
+    int width = image.getWidth();
+    int height = image.getHeight();
+    int imageType = image.getType().getImageType();
+    BufferedImage bufferedImage = new BufferedImage(width, height, imageType);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Pixel pixel = image.getPixel(i, j);
+        if (pixel != null) {
+          bufferedImage.setRGB(j, i, pixel.getColorComponents());
+        }
+      }
+    }
+    return bufferedImage;
+  }
+
+  /**
    * Contains command names for CLI operations as constants.
    */
-  private static class Commands {
+  protected static class Commands {
 
     public static final String LOAD = "load";
     public static final String SAVE = "save";
@@ -166,7 +188,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String imagePath = args[0];
       imagePath = imagePath.replace("\"", "");
@@ -208,7 +230,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String imagePath = args[0];
       imagePath = imagePath.replace("\"", "");
@@ -225,28 +247,6 @@ public class ImageOperationFactory implements OperationCreator {
       }
       System.out.println("Saved :: " + imageName + " in " + imagePath);
     }
-
-    /**
-     * This method converts image to buffered image representation.
-     *
-     * @param image the image which has to be converted to buffered image representation.
-     * @return the converted image.
-     */
-    private BufferedImage convertToBufferedImage(Image image) {
-      int width = image.getWidth();
-      int height = image.getHeight();
-      int imageType = image.getType().getImageType();
-      BufferedImage bufferedImage = new BufferedImage(width, height, imageType);
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-          Pixel pixel = image.getPixel(i, j);
-          if (pixel != null) {
-            bufferedImage.setRGB(j, i, pixel.getColorComponents());
-          }
-        }
-      }
-      return bufferedImage;
-    }
   }
 
   /**
@@ -261,7 +261,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       String inputImageName = args[0];
       String redOutputImageName = args[1];
       String greenOutputImageName = args[2];
@@ -306,7 +306,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       int alpha = Integer.parseInt(args[0]);
       String inputName = args[1];
       String outputName = args[2];
@@ -351,7 +351,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       super.execute(args);
     }
@@ -374,7 +374,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       int darkenValue = Integer.parseInt(args[0]);
       args[0] = String.valueOf(-Math.abs(darkenValue));
@@ -394,7 +394,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[3];
       String outputName = args[4];
@@ -429,7 +429,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
@@ -477,7 +477,7 @@ public class ImageOperationFactory implements OperationCreator {
      *                                  yet.
      */
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
@@ -607,7 +607,7 @@ public class ImageOperationFactory implements OperationCreator {
      *                                  is missing.
      */
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       Image redImage = getImage(args[1]);
@@ -648,7 +648,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputImageName = args[1];
       String outputImageName = args[2];
@@ -687,7 +687,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
@@ -732,7 +732,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       super.execute(args);
     }
 
@@ -764,7 +764,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       super.execute(args);
     }
 
@@ -801,7 +801,7 @@ public class ImageOperationFactory implements OperationCreator {
      * @throws IllegalArgumentException the input image must be valid.
      */
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
@@ -859,7 +859,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];

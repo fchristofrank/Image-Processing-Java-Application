@@ -3005,7 +3005,7 @@ public class ImageOperationTest {
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
+    public void execute(String... args) throws IllegalArgumentException {
       logger.append(String.join(" ", args));
       logger.append("\n").append("exit").append("\n");
     }
