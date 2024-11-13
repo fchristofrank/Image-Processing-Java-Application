@@ -12,9 +12,14 @@ import java.util.Map;
  */
 public class ColorCorrection implements ImageOperation {
 
-  private final CountFrequency countFrequencyOperation;
+  private final CommonOperation countFrequencyOperation;
 
-  public ColorCorrection(CountFrequency countFrequency) {
+  /**
+   * The constructor method that helps to count the frequency of pixels
+   *
+   * @param countFrequency injected dependency object.
+   */
+  public ColorCorrection(CommonOperation countFrequency) {
     this.countFrequencyOperation = countFrequency;
   }
 
