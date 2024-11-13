@@ -10,4 +10,8 @@ public interface ImageEditorView {
   void setImage(BufferedImage image);
 
   void setHistogram(BufferedImage histogram);
+
+  void showErrorMessageDialog(String message, String title);
+
+  void cleanSlate();
 }

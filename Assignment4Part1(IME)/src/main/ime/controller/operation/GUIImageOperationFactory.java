@@ -1,7 +1,6 @@
 package ime.controller.operation;
 
 import java.awt.image.BufferedImage;
-import java.util.Stack;
 
 import ime.model.image.Image;
 import ime.view.ImageEditorView;
@@ -10,9 +9,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
   private final ImageEditorView imageEditorView;
   private final String IMAGE_NAME = "IMAGE";
-  private final String HISTOGRAM_NAME = "HISTOGRAM";
-  private final Stack<CLIOperation> undoStack = new Stack<>();
-  private final Stack<CLIOperation> redoStack = new Stack<>();
 
   public GUIImageOperationFactory(ImageEditorView imageEditorView) {
     super();
@@ -22,7 +18,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
   @Override
   public CLIOperation createOperation(String commandName) {
-
     switch (commandName) {
       case Commands.LOAD:
         return new Load(imageLibrary);
@@ -43,12 +38,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     }
   }
 
-  private void trackOperation(CLIOperation operation, String... args) {
-    undoStack.push(operation);
-    redoStack.clear(); // Clear redo stack on new operation
-  }
-
-
   class Load extends ImageOperationFactory.Load {
     /**
      * Constructs a Load operation controller with the specified image library.
@@ -66,7 +55,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       }
       super.execute(args[0], IMAGE_NAME);
       new Histogram(imageLibrary).execute();
-      trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
     }
   }
@@ -104,6 +92,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
+      String HISTOGRAM_NAME = "HISTOGRAM";
       super.execute(IMAGE_NAME, HISTOGRAM_NAME);
       setViewWithImageHistogram(getImage(HISTOGRAM_NAME));
     }
@@ -125,7 +114,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     public void execute(String... args) {
       super.execute(IMAGE_NAME, IMAGE_NAME);
       new Histogram(imageLibrary).execute();
-      trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
     }
 
@@ -145,7 +133,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       }
       super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
       new Histogram(imageLibrary).execute();
-      trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
     }
   }
@@ -165,7 +152,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     public void execute(String... args) {
       super.execute(IMAGE_NAME, IMAGE_NAME);
       new Histogram(imageLibrary).execute();
-      trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
     }
   }
@@ -180,7 +166,6 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     public void execute(String... args) {
       super.execute(IMAGE_NAME, IMAGE_NAME);
       new Histogram(imageLibrary).execute();
-      trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
     }
 
