@@ -32,6 +32,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnGreenComponent;
   private JButton btnBlueComponent;
   private JButton btnColorCorrection;
+  private JButton btnDownScale;
   private JLabel imageLabel;
   private JLabel histogramLabel;
   private JCheckBox previewMode;

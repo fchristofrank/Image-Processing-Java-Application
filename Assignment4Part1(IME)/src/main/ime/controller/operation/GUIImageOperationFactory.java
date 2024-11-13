@@ -52,6 +52,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new AdjustLevel(imageLibrary);
       case Commands.CLEAR_LIBRARY:
         return new ClearImageLibrary(imageLibrary);
+      case Commands.DOWNSCALE:
+        return new Downscale(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -313,6 +315,21 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     public void execute(String... args) throws IllegalArgumentException {
       removeImage(IMAGE_NAME);
     }
+  }
+
+  class Downscale extends ImageOperationFactory.DownScale {
+
+    public Downscale(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      super.execute(IMAGE_NAME, IMAGE_NAME,"200","200");
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(IMAGE_NAME));
+    }
+
   }
 
   private void setViewWithImage(Image image) {

@@ -233,5 +233,15 @@ public class GUIController implements Features {
     }
   }
 
-
+  //TODO: What is This?
+  //Can all method be consolidated to one?
+  @Override
+  public void downScale(String operation) {
+    CLIOperation imageOperation = imageOperationFactory.createOperation(operation);
+    try{
+      imageOperation.execute(operation);
+    }catch (IllegalArgumentException exception){
+      //delegate it to the UI
+    }
+  }
 }

@@ -1,5 +1,6 @@
 package ime.controller.operation;
 
+import ime.model.operation.Downscale;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
@@ -166,6 +167,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String COMPRESS = "compress";
     public static final String COLOR_CORRECTION = "color-correct";
     public static final String LEVELS_ADJUST = "levels-adjust";
+    public static final String DOWNSCALE = "downscale";
     public static final String CLEAR_LIBRARY = "clear-library";
   }
 
@@ -522,11 +524,11 @@ public class ImageOperationFactory implements OperationCreator {
     protected ImageOperation filterObjectFactory(String command) {
 
       switch (command) {
-        case "blur":
+        case Commands.BLUR:
           return new Blur();
-        case "sharpen":
+        case Commands.SHARPEN:
           return new Sharpen();
-        case "sepia":
+        case Commands.SEPIA:
           return new ApplySepia();
         default:
           throw new UnsupportedOperationException("Unknown command given.");
@@ -867,6 +869,49 @@ public class ImageOperationFactory implements OperationCreator {
       super(library, command);
     }
 
+  }
+
+  class DownScale extends AbstractOperation{
+    /**
+     *
+     * Downscales the given image with the averaging algorithm
+     */
+
+    public  DownScale(ImageRepo library){
+      super(library);
+    }
+
+
+    /**
+     * This method executes a specific operation with the given arguments.
+     *
+     * @param args the arguments for an operations.
+     * @throws IllegalArgumentException if the operation cannot be performed due to invalid or
+     *                                  insufficient arguments.
+     */
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      validateArgs(args);
+      String inputName = args[0];
+      String outputName = args[1];
+
+      Image inputImage = getImage(inputName);
+      if (inputImage == null) {
+        throw new IllegalArgumentException("Input image not found");
+      }
+      Image outputImage =
+          inputImage.applyOperation(new Downscale(), args);
+      addImage(outputName, outputImage);
+      System.out.println("Generated DownScaled Image. New Image :: " + outputName);
+    }
+
+    @Override
+    public void validateArgs(String[] args){
+      if (args.length != 4){
+        throw new IllegalArgumentException("Downscaled Height and Width are required.");
+      }
+    }
   }
 
   class Histogram extends AbstractOperation {
