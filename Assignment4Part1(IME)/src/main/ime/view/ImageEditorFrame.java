@@ -26,6 +26,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
   private JButton btnSepia;
   private JButton btnGreyscale;
   private JButton btnColorCorrection;
+  private JButton btnDownScale;
   private JLabel imageLabel;
   private JLabel histogramLabel;
 
@@ -142,6 +143,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     btnGreyscale.setActionCommand("luma-component");
     btnColorCorrection = createStyledButton("Color Correct", buttonSize);
     btnColorCorrection.setActionCommand("color-correct");
+    btnDownScale = createStyledButton("Downscale", buttonSize);
+    btnDownScale.setActionCommand("downscale");
 
     // Add buttons to panel with spacing
     leftPanel.add(btnHorizontalFlip);
@@ -157,6 +160,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     leftPanel.add(btnGreyscale);
     leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     leftPanel.add(btnColorCorrection);
+    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    leftPanel.add(btnDownScale);
 
     // Add glue to push buttons to top
     leftPanel.add(Box.createVerticalGlue());
@@ -289,6 +294,9 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     });
     btnGreyscale.addActionListener(e -> {
       features.applyGreyScale(e.getActionCommand());
+    });
+    btnDownScale.addActionListener(e -> {
+      features.downScale(e.getActionCommand());
     });
   }
 

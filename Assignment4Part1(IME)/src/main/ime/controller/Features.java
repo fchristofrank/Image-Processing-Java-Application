@@ -10,4 +10,6 @@ public interface Features {
   void applyGreyScale(String grayScaleType);
 
   void saveImage(String imagePath);
+
+  void downScale(String imagePath);
 }

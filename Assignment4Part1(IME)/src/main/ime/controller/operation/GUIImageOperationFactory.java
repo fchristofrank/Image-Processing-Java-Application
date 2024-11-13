@@ -38,6 +38,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new FilterWithPreview(imageLibrary, commandName);
       case Commands.LUMA_COMPONENT:
         return new VisualizeWithPreview(imageLibrary, commandName);
+      case Commands.DOWNSCALE:
+        return new Downscale(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -179,6 +181,23 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       super.execute(IMAGE_NAME, IMAGE_NAME);
+      new Histogram(imageLibrary).execute();
+      trackOperation(this, args);
+      setViewWithImage(getImage(IMAGE_NAME));
+    }
+
+  }
+
+
+  class Downscale extends ImageOperationFactory.DownScale {
+
+    public Downscale(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      super.execute(IMAGE_NAME, IMAGE_NAME,"200","200");
       new Histogram(imageLibrary).execute();
       trackOperation(this, args);
       setViewWithImage(getImage(IMAGE_NAME));
