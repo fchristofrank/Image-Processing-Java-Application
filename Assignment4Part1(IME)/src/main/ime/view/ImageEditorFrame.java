@@ -14,6 +14,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
   private JMenu menu;
   private JMenuItem loadMenuItem;
   private JMenuItem saveMenuItem;
+  private JMenuItem undoMenuItem;
+  private JMenuItem redoMenuItem;
   private JSlider splitSlider;
   private JSlider compressionSlider;
   private JLabel splitValueLabel;
@@ -77,6 +79,18 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit()
             .getMenuShortcutKeyMaskEx()));
     menu.add(saveMenuItem);
+
+    undoMenuItem = new JMenuItem("Undo");
+    undoMenuItem.setMnemonic(KeyEvent.VK_Z);
+    undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit()
+            .getMenuShortcutKeyMaskEx()));
+    menu.add(undoMenuItem);
+
+    redoMenuItem = new JMenuItem("Undo");
+    redoMenuItem.setMnemonic(KeyEvent.VK_Y);
+    redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit()
+            .getMenuShortcutKeyMaskEx()));
+    menu.add(redoMenuItem);
 
     this.setJMenuBar(menuBar);
   }
@@ -191,13 +205,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
     sliderPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
     setupSlider(splitValueLabel, sliderPanel, splitSlider);
+    splitSlider.setEnabled(false);
     splitPanel.add(sliderPanel);
     splitPanel.add(Box.createRigidArea(new Dimension(10, 0)));
     JPanel previewPanel = new JPanel();
     previewPanel.setLayout(new BoxLayout(previewPanel, BoxLayout.Y_AXIS));
     previewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
     previewPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    previewCheckBox = new JCheckBox("Apply");
+    previewCheckBox = new JCheckBox("Enable");
     previewPanel.add(previewCheckBox);
     splitPanel.add(previewPanel);
 
@@ -260,6 +275,10 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
         features.saveImage(savePath);
       }
     });
+    undoMenuItem.addActionListener(e -> features.undo());
+    redoMenuItem.addActionListener(e -> features.redo());
+
+
     btnHorizontalFlip.addActionListener(e -> {
       features.flipImage(e.getActionCommand());
     });
@@ -267,29 +286,36 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
       features.flipImage(e.getActionCommand());
     });
     btnBlur.addActionListener(e -> {
-      String splitWidth = "100";
-      if (previewCheckBox.isSelected()) {
-        splitWidth = String.valueOf(splitSlider.getValue());
-      }
+      String splitWidth = getSplitWidth();
       features.applyFilter(e.getActionCommand(), splitWidth);
     });
     btnSharpen.addActionListener(e -> {
-      String splitWidth = "100";
-      if (previewCheckBox.isSelected()) {
-        splitWidth = String.valueOf(splitSlider.getValue());
-      }
+      String splitWidth = getSplitWidth();
       features.applyFilter(e.getActionCommand(), splitWidth);
     });
     btnSepia.addActionListener(e -> {
-      String splitWidth = "100";
-      if (previewCheckBox.isSelected()) {
-        splitWidth = String.valueOf(splitSlider.getValue());
-      }
+      String splitWidth = getSplitWidth();
       features.applyFilter(e.getActionCommand(), splitWidth);
     });
     btnGreyscale.addActionListener(e -> {
       features.applyGreyScale(e.getActionCommand());
     });
+
+    previewCheckBox.addActionListener(e -> {
+      saveMenuItem.setEnabled(!previewCheckBox.isSelected());
+      splitSlider.setEnabled(previewCheckBox.isSelected());
+      btnHorizontalFlip.setEnabled(!previewCheckBox.isSelected());
+      btnVerticalFlip.setEnabled(!previewCheckBox.isSelected());
+
+    });
+  }
+
+  private String getSplitWidth() {
+    String splitWidth = "100";
+    if (previewCheckBox.isSelected()) {
+      splitWidth = String.valueOf(splitSlider.getValue());
+    }
+    return splitWidth;
   }
 
   @Override
@@ -306,6 +332,21 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     ImageIcon imageIcon = new ImageIcon(histogram);
     histogramLabel.setIcon(imageIcon);
     histogramLabel.setPreferredSize(new Dimension(histogram.getWidth(), histogram.getHeight()));
+    histogramLabel.revalidate();
+    histogramLabel.repaint();
+  }
+
+  @Override
+  public void showErrorMessageDialog(String message, String title) {
+    JOptionPane.showMessageDialog(this, title, message, JOptionPane.ERROR_MESSAGE);
+  }
+
+  @Override
+  public void cleanSlate() {
+    imageLabel.setIcon(null);
+    histogramLabel.setIcon(null);
+    imageLabel.revalidate();
+    imageLabel.repaint();
     histogramLabel.revalidate();
     histogramLabel.repaint();
   }

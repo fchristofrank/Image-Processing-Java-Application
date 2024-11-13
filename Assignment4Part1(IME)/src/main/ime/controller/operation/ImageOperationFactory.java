@@ -113,7 +113,6 @@ public class ImageOperationFactory implements OperationCreator {
         return new ColorCorrection(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);
-
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
@@ -195,18 +194,23 @@ public class ImageOperationFactory implements OperationCreator {
       String imageName = args[1];
       String[] parts = imagePath.split("\\.");
       String imageFormat = parts[parts.length - 1];
-      ImageReader imageReader =
-          ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+      ImageReader imageReader = null;
+      try {
+        imageReader =
+                ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid image format: " + imageFormat);
+      }
       Image image;
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
       } catch (NullPointerException | IOException e) {
         LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
         throw new IllegalArgumentException(
-            "Error reading image file: "
-                + imagePath
-                + ". Please ensure the file exists and is a valid image format.",
-            e);
+                "Error reading image file: "
+                        + imagePath
+                        + ". Please ensure the file exists and is a valid image format.",
+                e);
       }
       addImage(imageName, image);
       System.out.println("Image loaded :: " + imageName);
@@ -234,18 +238,19 @@ public class ImageOperationFactory implements OperationCreator {
       validateArgs(args);
       String imagePath = args[0];
       imagePath = imagePath.replace("\"", "");
-      String[] parts = imagePath.split("\\.");
-      ImageFormat imageFormat = ImageFormat.valueOf(parts[parts.length - 1].toUpperCase());
-      String imageName = args[1];
-      Image simpleImage = getImage(imageName);
-      BufferedImage bufferedImage = convertToBufferedImage(simpleImage);
       try {
+        String[] parts = imagePath.split("\\.");
+        ImageFormat imageFormat = ImageFormat.valueOf(parts[parts.length - 1].toUpperCase());
+        String imageName = args[1];
+        Image simpleImage = getImage(imageName);
+        BufferedImage bufferedImage = convertToBufferedImage(simpleImage);
+
         ImageWriter writer = ImageWriterFactory.createWriter(imageFormat);
         writer.writeImage(bufferedImage, imagePath);
+        System.out.println("Saved :: " + imageName + " in " + imagePath);
       } catch (IllegalArgumentException | IOException e) {
-        throw new IllegalArgumentException(e.getMessage());
+        throw new IllegalArgumentException("Unable to save the file: " + imagePath, e);
       }
-      System.out.println("Saved :: " + imageName + " in " + imagePath);
     }
   }
 
@@ -277,8 +282,8 @@ public class ImageOperationFactory implements OperationCreator {
       addImage(greenOutputImageName, greenImage);
       addImage(blueOutputImageName, blueImage);
       System.out.println(
-          "The images have been separated into their red, blue, and green components "
-              + "and combined accordingly.");
+              "The images have been separated into their red, blue, and green components "
+                      + "and combined accordingly.");
     }
 
     @Override
@@ -328,8 +333,8 @@ public class ImageOperationFactory implements OperationCreator {
         Integer.parseInt(args[0]);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException(
-            String.format(
-                "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
+                String.format(
+                        "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
       }
     }
   }
@@ -416,7 +421,7 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Preview Width should be between 0 to 100");
       }
       if (Integer.parseInt(args[0]) > Integer.parseInt(args[1])
-          || Integer.parseInt(args[1]) > Integer.parseInt(args[2])) {
+              || Integer.parseInt(args[1]) > Integer.parseInt(args[2])) {
         throw new IllegalArgumentException("Values should be in ascending order");
       }
     }
@@ -438,8 +443,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(
-              new ime.model.operation.ColorCorrection(new CountFrequency()), args);
+              inputImage.applyOperation(
+                      new ime.model.operation.ColorCorrection(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
@@ -538,7 +543,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
+                    "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -551,7 +556,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
+                    "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -617,8 +622,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          redImage.applyOperation(
-              new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+              redImage.applyOperation(
+                      new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
       addImage(inputName, outputImage);
       System.out.println("Combine given images. New Image :: " + inputName);
     }
@@ -655,10 +660,10 @@ public class ImageOperationFactory implements OperationCreator {
       Image inputImage = getImage(inputImageName);
       Image outputImage = inputImage.applyOperation(new ApplyCompression(), args[0]);
       System.out.println(
-          "Applied compression to :: "
-              + inputImageName
-              + ". New image created :: "
-              + outputImageName);
+              "Applied compression to :: "
+                      + inputImageName
+                      + ". New image created :: "
+                      + outputImageName);
       addImage(outputImageName, outputImage);
     }
 
@@ -811,7 +816,7 @@ public class ImageOperationFactory implements OperationCreator {
       }
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage =
-          inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
+              inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
       System.out.println("Extracted given component. New Image :: " + outputName);
     }
@@ -868,7 +873,7 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
+              inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
     }
