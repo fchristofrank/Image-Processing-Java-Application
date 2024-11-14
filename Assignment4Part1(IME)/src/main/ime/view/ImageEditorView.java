@@ -14,4 +14,6 @@ public interface ImageEditorView {
   void showErrorMessageDialog(String message, String title);
 
   void cleanSlate();
+
+  void enableAllButtons();
 }
