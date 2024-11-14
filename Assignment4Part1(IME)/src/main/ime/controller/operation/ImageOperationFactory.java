@@ -25,7 +25,9 @@ import ime.model.operation.ApplyVerticalFlip;
 import ime.model.operation.Blur;
 import ime.model.operation.Combine;
 import ime.model.operation.CountFrequency;
+import ime.model.operation.Downscale;
 import ime.model.operation.ImageOperation;
+import ime.model.operation.MaskOperation;
 import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
@@ -35,6 +37,7 @@ import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 import ime.model.pixel.Pixel;
 
+
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
  * operations to corresponding operation specified in the command.
@@ -43,9 +46,7 @@ public class ImageOperationFactory implements OperationCreator {
 
   protected final ImageRepo imageLibrary;
 
-  /**
-   * Constructs a CommandFactory with the specified image library.
-   */
+  /** Constructs a CommandFactory with the specified image library. */
   public ImageOperationFactory() {
     this.imageLibrary = new ImageLibrary();
   }
@@ -84,9 +85,9 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.RGB_SPLIT:
         return new RGBSplit(imageLibrary);
       case Commands.BRIGHTEN:
-        return new Brighten(imageLibrary);
+        return new BrightenWithMask(imageLibrary);
       case Commands.DARKEN:
-        return new Darken(imageLibrary);
+        return new DarkenWithMask(imageLibrary);
       case Commands.VERTICAL_FLIP:
         return new VerticalFlip(imageLibrary);
       case Commands.HORIZONTAL_FLIP:
@@ -97,7 +98,7 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.BLUR:
       case Commands.SHARPEN:
       case Commands.SEPIA:
-        return new FilterWithPreview(imageLibrary, commandName);
+        return new FilterWithMask(imageLibrary, commandName);
       // visualize commands;
       case Commands.RED_COMPONENT:
       case Commands.GREEN_COMPONENT:
@@ -105,7 +106,7 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.LUMA_COMPONENT:
       case Commands.VALUE_COMPONENT:
       case Commands.INTENSITY_COMPONENT:
-        return new VisualizeWithPreview(imageLibrary, commandName);
+        return new VisualizeWithMask(imageLibrary, commandName);
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
       case Commands.HISTOGRAM:
@@ -114,6 +115,9 @@ public class ImageOperationFactory implements OperationCreator {
         return new ColorCorrection(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);
+      case Commands.DOWNSCALE:
+        return new DownScale(imageLibrary);
+
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
@@ -141,9 +145,7 @@ public class ImageOperationFactory implements OperationCreator {
     return bufferedImage;
   }
 
-  /**
-   * Contains command names for CLI operations as constants.
-   */
+  /** Contains command names for CLI operations as constants. */
   protected static class Commands {
 
     public static final String LOAD = "load";
@@ -299,8 +301,7 @@ public class ImageOperationFactory implements OperationCreator {
 
   /**
    * Abstract controller class for adjusting image brightness operations. This class is responsible
-   * for validating the input arguments and routing them to the appropriate operation for
-   * execution.
+   * for validating the input arguments and routing them to the appropriate operation for execution.
    */
   abstract class AdjustBrightness extends AbstractOperation {
 
@@ -498,7 +499,7 @@ public class ImageOperationFactory implements OperationCreator {
      *
      * @param args the arguments for an operations.
      * @throws IllegalArgumentException if the user tries to operate on image that is not loaded
-     *                                  yet.
+     *     yet.
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
@@ -536,9 +537,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
-  /**
-   * This class represents an operation with preview.
-   */
+  /** This class represents an operation with preview. */
   abstract class OperationWithPreview extends AbstractOperation {
 
     /**
@@ -584,9 +583,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
-  /**
-   * This class represents filter operations with preview.
-   */
+  /** This class represents filter operations with preview. */
   class FilterWithPreview extends Filter {
 
     public FilterWithPreview(ImageRepo library, String command) {
@@ -628,7 +625,7 @@ public class ImageOperationFactory implements OperationCreator {
      *
      * @param args an array containing the output image name and three input image names.
      * @throws IllegalArgumentException if exactly three input images are not provided or any image
-     *                                  is missing.
+     *     is missing.
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
@@ -696,8 +693,7 @@ public class ImageOperationFactory implements OperationCreator {
 
   /**
    * Abstract controller class for performing image flipping operations. This class is responsible
-   * for validating the input arguments and routing them to the appropriate operation for
-   * execution.
+   * for validating the input arguments and routing them to the appropriate operation for execution.
    */
   abstract class Flip extends AbstractOperation {
 
@@ -860,34 +856,26 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
-  /**
-   * This class represents visualize operations with preview.
-   */
+  /** This class represents visualize operations with preview. */
   class VisualizeWithPreview extends Visualize {
 
     public VisualizeWithPreview(ImageRepo library, String command) {
       super(library, command);
     }
-
   }
 
-  class DownScale extends AbstractOperation{
-    /**
-     *
-     * Downscales the given image with the averaging algorithm
-     */
-
-    public  DownScale(ImageRepo library){
+  class DownScale extends AbstractOperation {
+    /** Downscales the given image with the averaging algorithm */
+    public DownScale(ImageRepo library) {
       super(library);
     }
-
 
     /**
      * This method executes a specific operation with the given arguments.
      *
      * @param args the arguments for an operations.
      * @throws IllegalArgumentException if the operation cannot be performed due to invalid or
-     *                                  insufficient arguments.
+     *     insufficient arguments.
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
@@ -900,15 +888,14 @@ public class ImageOperationFactory implements OperationCreator {
       if (inputImage == null) {
         throw new IllegalArgumentException("Input image not found");
       }
-      Image outputImage =
-          inputImage.applyOperation(new Downscale(), args);
+      Image outputImage = inputImage.applyOperation(new Downscale(), args[1], args[2]);
       addImage(outputName, outputImage);
       System.out.println("Generated DownScaled Image. New Image :: " + outputName);
     }
 
     @Override
-    public void validateArgs(String[] args){
-      if (args.length != 4){
+    public void validateArgs(String[] args) {
+      if (args.length != 4) {
         throw new IllegalArgumentException("Downscaled Height and Width are required.");
       }
     }
@@ -938,6 +925,156 @@ public class ImageOperationFactory implements OperationCreator {
               inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
+    }
+  }
+
+  public class FilterWithMask extends FilterWithPreview {
+
+    public FilterWithMask(ImageRepo library, String command) {
+      super(library, command);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      Image inputImage = getImage(args[0]);
+      String maskImageName = args[1];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
+
+        String inputImageName = args[0];
+        String outputImageName = args[2];
+
+        super.execute(inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+  }
+
+  public class VisualizeWithMask extends VisualizeWithPreview {
+
+    public VisualizeWithMask(ImageRepo library, String command) {
+      super(library, command);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      Image inputImage = getImage(args[0]);
+      String maskImageName = args[1];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
+
+        String inputImageName = args[0];
+        String outputImageName = args[2];
+
+        super.execute(inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+  }
+
+  public class BrightenWithMask extends AdjustBrightness {
+
+    public BrightenWithMask(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      int brightnessFactor = Integer.parseInt(args[0]);
+      Image inputImage = getImage(args[1]);
+      String maskImageName = args[2];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
+
+        String inputImageName = args[1];
+        String outputImageName = args[3];
+        super.execute(String.valueOf(brightnessFactor),inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+    @Override
+    protected Image getImage(String imageName) {
+      return imageLibrary.getImage(imageName);
+    }
+
+  }
+
+  public class DarkenWithMask extends AdjustBrightness {
+
+    public DarkenWithMask(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      int brightnessFactor = Integer.parseInt(args[0]);
+      Image inputImage = getImage(args[1]);
+      String maskImageName = args[2];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
+
+        String inputImageName = args[1];
+        String outputImageName = args[3];
+        super.execute(String.valueOf(-Math.abs(brightnessFactor)),inputImageName, outputImageName);
+
+        Image outputImage =
+                inputImage.applyOperation(
+                        new MaskOperation(),
+                        Arrays.asList(
+                                inputImage,
+                                imageLibrary.getImage(maskImageName),
+                                imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+
+    @Override
+    protected Image getImage(String imageName) {
+      return imageLibrary.getImage(imageName);
     }
   }
 }
