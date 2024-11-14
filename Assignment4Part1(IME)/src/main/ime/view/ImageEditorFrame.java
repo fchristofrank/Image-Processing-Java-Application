@@ -30,6 +30,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
   private JButton btnColorCorrection;
   private JLabel imageLabel;
   private JLabel histogramLabel;
+  private JCheckBox previewMode;
 
   public ImageEditorFrame(String caption) {
     super(caption);
@@ -86,7 +87,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
             .getMenuShortcutKeyMaskEx()));
     menu.add(undoMenuItem);
 
-    redoMenuItem = new JMenuItem("Undo");
+    redoMenuItem = new JMenuItem("Redo");
     redoMenuItem.setMnemonic(KeyEvent.VK_Y);
     redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit()
             .getMenuShortcutKeyMaskEx()));
@@ -199,23 +200,39 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     splitValueLabel = new JLabel("Value: 100%");
     splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
     JPanel splitPanel = new JPanel();
-    splitPanel.setLayout(new BoxLayout(splitPanel, BoxLayout.X_AXIS));
+    splitPanel.setLayout(new BoxLayout(splitPanel, BoxLayout.Y_AXIS));
     splitPanel.setBorder(BorderFactory.createTitledBorder("Preview"));
+    JPanel previewModePanel = new JPanel();
+    previewModePanel.setLayout(new BoxLayout(previewModePanel, BoxLayout.Y_AXIS));
+    previewModePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    previewMode = new JCheckBox("Enter Preview Mode");
+    previewModePanel.add(previewMode);
+    splitPanel.add(previewModePanel);
+    splitPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+
+    JPanel previewSettings = new JPanel();
+    previewSettings.setLayout(new BoxLayout(previewSettings, BoxLayout.X_AXIS));
+
     JPanel sliderPanel = new JPanel();
     sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
     sliderPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
     setupSlider(splitValueLabel, sliderPanel, splitSlider);
     splitSlider.setEnabled(false);
-    splitPanel.add(sliderPanel);
-    splitPanel.add(Box.createRigidArea(new Dimension(10, 0)));
-    JPanel previewPanel = new JPanel();
-    previewPanel.setLayout(new BoxLayout(previewPanel, BoxLayout.Y_AXIS));
-    previewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    previewPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    previewCheckBox = new JCheckBox("Enable");
-    previewPanel.add(previewCheckBox);
-    splitPanel.add(previewPanel);
+    previewSettings.add(sliderPanel);
+    previewSettings.add(Box.createRigidArea(new Dimension(10, 0)));
 
+    JPanel previewTogglePanel = new JPanel();
+    previewTogglePanel.setLayout(new BoxLayout(previewTogglePanel, BoxLayout.Y_AXIS));
+    previewTogglePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    previewTogglePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    previewCheckBox = new JCheckBox("Enable");
+    previewTogglePanel.add(previewCheckBox);
+    previewCheckBox.setEnabled(false);
+    previewCheckBox.setSelected(true);
+    previewSettings.add(previewTogglePanel);
+
+    splitPanel.add(previewSettings);
     rightPanel.add(splitPanel);
     rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
@@ -282,37 +299,87 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     btnHorizontalFlip.addActionListener(e -> {
       features.flipImage(e.getActionCommand());
     });
+
     btnVerticalFlip.addActionListener(e -> {
       features.flipImage(e.getActionCommand());
     });
+
     btnBlur.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyFilter(e.getActionCommand(), splitWidth);
+      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
+      btnSharpen.setEnabled(!previewMode.isSelected());
+      btnSepia.setEnabled(!previewMode.isSelected());
+      btnGreyscale.setEnabled(!previewMode.isSelected());
+      btnColorCorrection.setEnabled(!previewMode.isSelected());
     });
+
     btnSharpen.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyFilter(e.getActionCommand(), splitWidth);
+      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
+      btnBlur.setEnabled(!previewMode.isSelected());
+      btnSepia.setEnabled(!previewMode.isSelected());
+      btnGreyscale.setEnabled(!previewMode.isSelected());
+      btnColorCorrection.setEnabled(!previewMode.isSelected());
     });
+
     btnSepia.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyFilter(e.getActionCommand(), splitWidth);
+      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
+      btnSharpen.setEnabled(!previewMode.isSelected());
+      btnBlur.setEnabled(!previewMode.isSelected());
+      btnGreyscale.setEnabled(!previewMode.isSelected());
+      btnColorCorrection.setEnabled(!previewMode.isSelected());
     });
+
     btnGreyscale.addActionListener(e -> {
-      features.applyGreyScale(e.getActionCommand());
+      String splitWidth = getSplitWidth();
+      features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth);
+      btnSharpen.setEnabled(!previewMode.isSelected());
+      btnBlur.setEnabled(!previewMode.isSelected());
+      btnSepia.setEnabled(!previewMode.isSelected());
+      btnColorCorrection.setEnabled(!previewMode.isSelected());
+    });
+
+    btnColorCorrection.addActionListener(e -> {
+      String splitWidth = getSplitWidth();
+      features.applyColorCorrect(previewMode.isSelected(), splitWidth);
+      btnSharpen.setEnabled(!previewMode.isSelected());
+      btnBlur.setEnabled(!previewMode.isSelected());
+      btnSepia.setEnabled(!previewMode.isSelected());
+      btnGreyscale.setEnabled(!previewMode.isSelected());
+    });
+
+    previewMode.addActionListener(e -> {
+      saveMenuItem.setEnabled(!previewMode.isSelected());
+      undoMenuItem.setEnabled(!previewMode.isSelected());
+      redoMenuItem.setEnabled(!previewMode.isSelected());
+      splitSlider.setEnabled(previewMode.isSelected());
+      previewCheckBox.setEnabled(previewMode.isSelected());
+      btnHorizontalFlip.setEnabled(!previewMode.isSelected());
+      btnVerticalFlip.setEnabled(!previewMode.isSelected());
+      compressionSlider.setEnabled(!previewMode.isSelected());
+      if(!previewMode.isSelected()) {
+        features.exitPreviewMode(previewCheckBox.isSelected());
+        enableAllButtons();
+        previewCheckBox.setSelected(true);
+      }
     });
 
     previewCheckBox.addActionListener(e -> {
-      saveMenuItem.setEnabled(!previewCheckBox.isSelected());
-      splitSlider.setEnabled(previewCheckBox.isSelected());
-      btnHorizontalFlip.setEnabled(!previewCheckBox.isSelected());
-      btnVerticalFlip.setEnabled(!previewCheckBox.isSelected());
-
+      features.togglePreview(getSplitWidth());
     });
+
+    splitSlider.addChangeListener(e -> {
+      if(previewCheckBox.isSelected()) {
+        features.togglePreview(getSplitWidth());
+      }
+    });
+
   }
 
   private String getSplitWidth() {
     String splitWidth = "100";
-    if (previewCheckBox.isSelected()) {
+    if (previewMode.isSelected() && previewCheckBox.isSelected()) {
       splitWidth = String.valueOf(splitSlider.getValue());
     }
     return splitWidth;
@@ -349,5 +416,15 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     imageLabel.repaint();
     histogramLabel.revalidate();
     histogramLabel.repaint();
+  }
+
+  @Override
+  public void enableAllButtons() {
+    btnBlur.setEnabled(true);
+    btnSharpen.setEnabled(true);
+    btnSepia.setEnabled(true);
+    btnSepia.setEnabled(true);
+    btnGreyscale.setEnabled(true);
+    btnColorCorrection.setEnabled(true);
   }
 }

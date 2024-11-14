@@ -33,6 +33,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new FilterWithPreview(imageLibrary, commandName);
       case Commands.LUMA_COMPONENT:
         return new VisualizeWithPreview(imageLibrary, commandName);
+      case Commands.COLOR_CORRECTION:
+        return new ColorCorrection(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -164,11 +166,33 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
-      super.execute(IMAGE_NAME, IMAGE_NAME);
+      String splitWidth = "100";
+      if(args.length == 1){
+        splitWidth = args[0];
+      }
+      super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(IMAGE_NAME));
     }
 
+  }
+
+  class ColorCorrection extends ImageOperationFactory.ColorCorrection{
+
+    public ColorCorrection(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      String splitWidth = "100";
+      if(args.length == 1){
+        splitWidth = args[0];
+      }
+      super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(IMAGE_NAME));
+    }
   }
 
   private void setViewWithImage(Image image) {

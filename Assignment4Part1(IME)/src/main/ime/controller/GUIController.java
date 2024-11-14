@@ -1,7 +1,5 @@
 package ime.controller;
 
-
-import java.awt.image.BufferedImage;
 import java.util.Stack;
 
 import ime.controller.cli.OperationCreator;
@@ -14,6 +12,7 @@ public class GUIController implements Features {
   private final String ERROR_MESSAGE_TITLE = "ERROR";
   private final Stack<OperationCommand> undoStack = new Stack<>();
   private final Stack<OperationCommand> redoStack = new Stack<>();
+  private OperationCommand lastPreviewEnabledOperation;
 
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
     this.imageEditorView = imageEditorView;
@@ -46,24 +45,48 @@ public class GUIController implements Features {
   }
 
   @Override
-  public void applyFilter(String filterType, String splitWidth) {
+  public void applyFilter(boolean isPreview, String filterType, String splitWidth) {
     CLIOperation imageOperation = imageOperationFactory.createOperation(filterType);
     try {
       imageOperation.execute(splitWidth);
-      undoStack.push(new OperationCommand(imageOperation, splitWidth));
-      redoStack.clear();
+      if (!isPreview) {
+        undoStack.push(new OperationCommand(imageOperation, splitWidth));
+        redoStack.clear();
+      } else {
+        lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
+      }
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
   }
 
   @Override
-  public void applyGreyScale(String grayScaleType) {
+  public void applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth) {
     CLIOperation imageOperation = imageOperationFactory.createOperation(grayScaleType);
     try {
-      imageOperation.execute();
-      undoStack.push(new OperationCommand(imageOperation));
-      redoStack.clear();
+      imageOperation.execute(splitWidth);
+      if (!isPreview) {
+        undoStack.push(new OperationCommand(imageOperation, splitWidth));
+        redoStack.clear();
+      } else {
+        lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
+      }
+    } catch (IllegalArgumentException exception) {
+      imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+    }
+  }
+
+  @Override
+  public void applyColorCorrect(boolean isPreview, String splitWidth) {
+    CLIOperation imageOperation = imageOperationFactory.createOperation("color-correct");
+    try {
+      imageOperation.execute(splitWidth);
+      if (!isPreview) {
+        undoStack.push(new OperationCommand(imageOperation, splitWidth));
+        redoStack.clear();
+      } else {
+        lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
+      }
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
@@ -85,7 +108,7 @@ public class GUIController implements Features {
   public void undo() {
     if (!undoStack.isEmpty()) {
       OperationCommand lastOperation = undoStack.pop();
-      if(undoStack.isEmpty()) {
+      if (undoStack.isEmpty()) {
         imageEditorView.cleanSlate();
       }
       for (OperationCommand redoOperation : undoStack) {
@@ -104,6 +127,34 @@ public class GUIController implements Features {
     }
   }
 
+  @Override
+  public void togglePreview(String splitWidth) {
+    if (lastPreviewEnabledOperation != null) {
+      for (OperationCommand redoOperation : undoStack) {
+        if (redoOperation != null) {
+          redoOperation.execute();
+        }
+      }
+      String[] args = lastPreviewEnabledOperation.getArgs();
+      args[args.length - 1] = splitWidth;
+      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation(), args);
+      lastPreviewEnabledOperation.execute();
+    }
+  }
+
+  @Override
+  public void exitPreviewMode(boolean isEnabled) {
+    if (!isEnabled) {
+      undoStack.push(lastPreviewEnabledOperation);
+      redoStack.clear();
+    } else {
+      for (OperationCommand redoOperation : undoStack) {
+        redoOperation.execute();
+      }
+    }
+    lastPreviewEnabledOperation = null;
+  }
+
   class OperationCommand {
     private final CLIOperation operation;
     private final String[] args;
@@ -117,6 +168,13 @@ public class GUIController implements Features {
       this.operation.execute(args);
     }
 
+    public CLIOperation getOperation() {
+      return operation;
+    }
+
+    public String[] getArgs() {
+      return args;
+    }
   }
 
 
