@@ -1,5 +1,7 @@
 package ime.model.operation;
 
+import java.sql.SQLOutput;
+
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
@@ -19,37 +21,57 @@ public class Downscale implements ImageOperation {
     int actualWidth = inputImage.getWidth();
     int actualHeight = inputImage.getHeight();
 
-    int scaledWidth = Integer.parseInt(args[2]);
-    int scaledHeight = Integer.parseInt(args[3]);
+    // TODO: Changeit
+    /*int scaledWidth = Integer.parseInt(args[0]);
+    int scaledHeight = Integer.parseInt(args[1]);*/
+
+    int scaledHeight = actualHeight - 50;
+    int scaledWidth = actualWidth - 50;
+
+    System.out.println(scaledHeight);
+    System.out.println(scaledWidth);
+
+    if (scaledHeight <= 0
+        || scaledWidth <= 0
+        || scaledHeight >= actualHeight
+        || scaledWidth >= actualWidth) {
+      throw new IllegalArgumentException("Not allowed values for scaled width or height");
+    }
 
     Pixel[][] pixels = new Pixel[scaledHeight][scaledWidth];
-    for (int x = 0; x < actualWidth; x++) {
-      for (int y = 0; y < actualHeight; y++) {
+    for (int x = 0; x < scaledWidth; x++) {
+      for (int y = 0; y < scaledHeight; y++) {
 
-        int lowerXCoordinate = (int) Math.floor(((double) x / actualWidth) * scaledWidth);
-        int higherXCoordinate = (int) Math.ceil(((double) x / actualWidth) * scaledWidth);
-        int lowerYCoordinate = (int) Math.floor(((double) y / actualHeight) * scaledHeight);
-        int higherYCoordinate = (int) Math.ceil(((double) x / actualHeight) * scaledHeight);
+        int lowerXCoordinate = (int) (Math.floor(((double) x / scaledWidth) * actualWidth));
+        int higherXCoordinate = (int) Math.ceil(((double) x / scaledWidth) * actualWidth);
+        int lowerYCoordinate = (int) Math.floor(((double) y / scaledHeight) * actualHeight);
+        int higherYCoordinate = (int) Math.ceil(((double) y / scaledHeight) * actualHeight);
 
-        pixels[y][x] = computeAverage(x, y, lowerXCoordinate, higherXCoordinate, lowerYCoordinate,
-            higherYCoordinate, inputImage);
+        System.out.printf("%d %d\n", x, y);
 
+        pixels[y][x] =
+            computeAverage(
+                x,
+                y,
+                lowerXCoordinate,
+                higherXCoordinate,
+                lowerYCoordinate,
+                higherYCoordinate,
+                inputImage);
       }
     }
     return new SimpleImage(scaledHeight, scaledWidth, inputImage.getType(), pixels);
   }
 
-  private Pixel computeAverage(int x, int y, int xLow, int xHigh, int yLow, int yHigh,
-      Image image) {
+  private Pixel computeAverage(
+      int x, int y, int xLow, int xHigh, int yLow, int yHigh, Image image) {
 
-    Pixel computedCaPixel = image.getPixel(xLow, yLow);
-    Pixel computedCbPixel = image.getPixel(xLow, yLow);
-    Pixel computedCcPixel = image.getPixel(xHigh, yHigh);
-    Pixel computedCdPixel = image.getPixel(xLow, yHigh);
-
+    Pixel computedCaPixel = image.getPixel(yLow, xLow);
+    Pixel computedCbPixel = image.getPixel(yLow, xHigh);
+    Pixel computedCcPixel = image.getPixel(yHigh, xLow);
+    Pixel computedCdPixel = image.getPixel(yHigh, xHigh);
     Pixel computedMValue = computeMValue(computedCbPixel, computedCaPixel, x, xLow, xHigh);
     Pixel computedNValue = computeNValue(computedCdPixel, computedCcPixel, x, xLow, xHigh);
-
     return computeCpValue(computedMValue, computedNValue, y, yLow, yHigh);
   }
 
@@ -77,6 +99,7 @@ public class Downscale implements ImageOperation {
     int green = n.getGreen() * (y - yLow) + m.getGreen() * (yHigh - y);
     int blue = n.getBlue() * (y - yLow) + m.getBlue() * (yHigh - y);
 
+    System.out.printf("%d %d %d\n", red, green, blue);
     return PixelFactory.createPixel(ImageType.RGB, red, green, blue);
   }
 }
