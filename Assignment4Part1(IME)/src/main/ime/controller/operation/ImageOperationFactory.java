@@ -917,6 +917,12 @@ public class ImageOperationFactory implements OperationCreator {
       // Check if MaskImage is Present?!
       if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
 
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+        }
+
         String inputImageName = args[0];
         String outputImageName = args[2];
 
@@ -951,6 +957,12 @@ public class ImageOperationFactory implements OperationCreator {
 
       // Check if MaskImage is Present?!
       if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
+
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+        }
 
         String inputImageName = args[0];
         String outputImageName = args[2];
@@ -988,9 +1000,15 @@ public class ImageOperationFactory implements OperationCreator {
       // Check if MaskImage is Present?!
       if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
 
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+        }
+
         String inputImageName = args[1];
         String outputImageName = args[3];
-        super.execute(String.valueOf(brightnessFactor),inputImageName, outputImageName);
+        super.execute(String.valueOf(brightnessFactor), inputImageName, outputImageName);
 
         Image outputImage =
             inputImage.applyOperation(
@@ -1005,11 +1023,11 @@ public class ImageOperationFactory implements OperationCreator {
         super.execute(args);
       }
     }
+
     @Override
     protected Image getImage(String imageName) {
       return imageLibrary.getImage(imageName);
     }
-
   }
 
   public class DarkenWithMask extends AdjustBrightness {
@@ -1020,29 +1038,43 @@ public class ImageOperationFactory implements OperationCreator {
 
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-
       int brightnessFactor = Integer.parseInt(args[0]);
       Image inputImage = getImage(args[1]);
       String maskImageName = args[2];
 
-      // Check if MaskImage is Present?!
-      if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
-
-        String inputImageName = args[1];
-        String outputImageName = args[3];
-        super.execute(String.valueOf(-Math.abs(brightnessFactor)),inputImageName, outputImageName);
-
-        Image outputImage =
-                inputImage.applyOperation(
-                        new MaskOperation(),
-                        Arrays.asList(
-                                inputImage,
-                                imageLibrary.getImage(maskImageName),
-                                imageLibrary.getImage(outputImageName)));
-
-        addImage(outputImageName, outputImage);
+      if (isMaskImagePresent(args, maskImageName)) {
+        applyMaskOperation(args, brightnessFactor, inputImage, maskImageName);
       } else {
         super.execute(args);
+      }
+    }
+
+    private boolean isMaskImagePresent(String[] args, String maskImageName) {
+      return args.length > 3 && imageLibrary.getImage(maskImageName) != null;
+    }
+
+    private void applyMaskOperation(
+        String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
+      String inputImageName = args[1];
+      String outputImageName = args[3];
+
+      Image maskImage = getImage(maskImageName);
+      validateDimensions(inputImage, maskImage);
+
+      super.execute(String.valueOf(-Math.abs(brightnessFactor)), inputImageName, outputImageName);
+
+      Image outputImage =
+          inputImage.applyOperation(
+              new MaskOperation(),
+              Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
+
+      addImage(outputImageName, outputImage);
+    }
+
+    private void validateDimensions(Image inputImage, Image maskImage) {
+      if (inputImage.getHeight() != maskImage.getHeight()
+          || inputImage.getWidth() != maskImage.getWidth()) {
+        throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
       }
     }
 
