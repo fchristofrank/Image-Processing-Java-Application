@@ -97,7 +97,7 @@ public class GUIController implements Features {
     CLIOperation imageOperation = imageOperationFactory.createOperation("compress");
     try {
       imageOperation.execute(compressionRatio);
-      undoStack.push(new OperationCommand(imageOperation));
+      undoStack.push(new OperationCommand(imageOperation, compressionRatio));
       redoStack.clear();
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
