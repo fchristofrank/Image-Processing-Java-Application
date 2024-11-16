@@ -2,6 +2,8 @@ package ime.view;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ import ime.controller.Features;
 /**
  * The main frame of the image editor application.  Handles the graphical user interface (GUI) elements and interacts with the controller (Features) to perform image editing operations.
  */
-public class ImageEditorFrame extends JFrame implements ImageEditorView {
+public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowListener {
 
   private JMenuItem loadMenuItem;
   private JMenuItem saveMenuItem;
@@ -42,6 +44,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
   private JTextField middleLevel;
   private JTextField whiteLevel;
   private JButton btnAdjustLevels;
+  private Features features;
 
   /**
    * Constructs the ImageEditorFrame.
@@ -52,7 +55,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     super(caption);
     setPreferredSize(new Dimension(1000, 750));
     setLocation(200, 200);
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    addWindowListener(this);
     setLayout(new BorderLayout(10, 10));
 
     // Setting up the menu bar
@@ -520,6 +524,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
    */
   @Override
   public void addFeatures(Features features) {
+    this.features = features;
     setupFileMenuItems(features);
     setupEditMenuItems(features);
     setupImageOperationButtons(features);
@@ -695,7 +700,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     int result = fileChooser.showOpenDialog(this);
     if (result == JFileChooser.APPROVE_OPTION) {
       String imagePath = fileChooser.getSelectedFile().getAbsolutePath();
-      features.loadImage(imagePath);
+      features.loadImage(imagePath, false);
     }
   }
 
@@ -811,6 +816,16 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
   }
 
+  @Override
+  public void showWarningMessageBeforeLoading(String imagePath) {
+    int result = JOptionPane.showConfirmDialog(this,
+            "Do you want to load an image without saving the current image",
+            "Save Changes?", JOptionPane.YES_NO_CANCEL_OPTION);
+    if (result == JOptionPane.YES_OPTION) {
+      features.loadImage(imagePath, true);
+    }
+  }
+
   /**
    * Clears the image and histogram displays.
    */
@@ -822,5 +837,47 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     imageLabel.repaint();
     histogramLabel.revalidate();
     histogramLabel.repaint();
+  }
+
+  @Override
+  public void windowOpened(WindowEvent e) {
+
+  }
+
+  @Override
+  public void windowClosing(WindowEvent e) {
+    if (!features.isLoadedAndSaved()) {
+      int result = JOptionPane.showConfirmDialog(this,
+              "The current image has not been saved. Are you sure you want to close?",
+              "Unsaved Changes", JOptionPane.YES_NO_OPTION);
+      if (result == JOptionPane.YES_OPTION) {
+        System.exit(0);
+      }
+    }
+  }
+
+  @Override
+  public void windowClosed(WindowEvent e) {
+
+  }
+
+  @Override
+  public void windowIconified(WindowEvent e) {
+
+  }
+
+  @Override
+  public void windowDeiconified(WindowEvent e) {
+
+  }
+
+  @Override
+  public void windowActivated(WindowEvent e) {
+
+  }
+
+  @Override
+  public void windowDeactivated(WindowEvent e) {
+
   }
 }

@@ -13,6 +13,8 @@ public interface ImageEditorView {
 
   void showErrorMessageDialog(String message, String title);
 
+  void showWarningMessageBeforeLoading(String imagePath);
+
   void cleanSlate();
 
 }
