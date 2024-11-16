@@ -92,57 +92,7 @@ public class Downscale implements ImageOperation {
     int green = n.getGreen() * (y - yLow) + m.getGreen() * (yHigh - y);
     int blue = n.getBlue() * (y - yLow) + m.getBlue() * (yHigh - y);
 
-    System.out.printf("%d %d %d\n", red, green, blue);
+    System.out.printf("%d %d %d%n", red, green, blue);
     return PixelFactory.createPixel(ImageType.RGB, red, green, blue);
   }
 }
-
-/*public class Downscale implements ImageOperation {
-
-  @Override
-  public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
-    int actualWidth = inputImage.getWidth();
-    int actualHeight = inputImage.getHeight();
-    int scaledWidth = Integer.parseInt(args[0]);
-    int scaledHeight = Integer.parseInt(args[1]);
-
-    Pixel[][] pixels = new Pixel[scaledHeight][scaledWidth];
-
-    for (int x = 0; x < actualWidth; x++) {
-      for (int y = 0; y < actualHeight; y++) {
-        int lowerX = (int) Math.floor((double) x / actualWidth * scaledWidth);
-        int higherX = (int) Math.ceil((double) x / actualWidth * scaledWidth);
-        int lowerY = (int) Math.floor((double) y / actualHeight * scaledHeight);
-        int higherY = (int) Math.ceil((double) y / actualHeight * scaledHeight);
-
-        pixels[y][x] = computeInterpolatedPixel(x, y, lowerX, higherX, lowerY, higherY, inputImage);
-      }
-    }
-    return new SimpleImage(scaledHeight, scaledWidth, inputImage.getType(), pixels);
-  }
-
-  private Pixel computeInterpolatedPixel(int x, int y, int xLow, int xHigh, int yLow, int yHigh,
-      Image image) {
-    Pixel ca = image.getPixel(xLow, yLow);
-    Pixel cb = image.getPixel(xHigh, yLow);
-    Pixel cc = image.getPixel(xLow, yHigh);
-    Pixel cd = image.getPixel(xHigh, yHigh);
-
-    Pixel m = interpolate(ca, cb, x, xLow, xHigh);
-    Pixel n = interpolate(cc, cd, x, xLow, xHigh);
-    return interpolate(m, n, y, yLow, yHigh);
-  }
-
-  private Pixel interpolate(Pixel p1, Pixel p2, int pos, int low, int high) {
-    int weight1 = high - pos;
-    int weight2 = pos - low;
-
-    int red = (p1.getRed() * weight1 + p2.getRed() * weight2) / (high - low);
-    int green = (p1.getGreen() * weight1 + p2.getGreen() * weight2) / (high - low);
-    int blue = (p1.getBlue() * weight1 + p2.getBlue() * weight2) / (high - low);
-
-    return PixelFactory.createPixel(ImageType.RGB, red, green, blue);
-  }
-}
-
- */
