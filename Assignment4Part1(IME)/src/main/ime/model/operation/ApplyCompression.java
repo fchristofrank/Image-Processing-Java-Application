@@ -11,11 +11,16 @@ public class ApplyCompression implements ImageOperation {
 
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
-    float compressionRatio = Float.parseFloat(args[0]);
-    if(compressionRatio < 0 || compressionRatio > 100) {
-      throw new IllegalArgumentException("Compression ratio must be between 0 and 100");
-    }
-    WaveletImageCompressor haarWaveletImageCompressor = new HaarWaveletImageCompressor();
-    return haarWaveletImageCompressor.applyWaveletCompression(inputImage, compressionRatio);
+      float compressionRatio = 0;
+      try {
+        compressionRatio = Float.parseFloat(args[0]);
+      }catch (NumberFormatException e){
+        throw new IllegalArgumentException("Compression ratio must be a number.");
+      }
+      if (compressionRatio < 0 || compressionRatio > 100) {
+        throw new IllegalArgumentException("Compression ratio must be between 0 and 100");
+      }
+      WaveletImageCompressor haarWaveletImageCompressor = new HaarWaveletImageCompressor();
+      return haarWaveletImageCompressor.applyWaveletCompression(inputImage, compressionRatio);
   }
 }

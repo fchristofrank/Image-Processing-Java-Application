@@ -32,9 +32,16 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       case Commands.SEPIA:
         return new FilterWithPreview(imageLibrary, commandName);
       case Commands.LUMA_COMPONENT:
+      case Commands.RED_COMPONENT:
+      case Commands.GREEN_COMPONENT:
+      case Commands.BLUE_COMPONENT:
         return new VisualizeWithPreview(imageLibrary, commandName);
       case Commands.COLOR_CORRECTION:
         return new ColorCorrection(imageLibrary);
+      case Commands.COMPRESS:
+        return new Compress(imageLibrary);
+      case Commands.LEVELS_ADJUST:
+        return new AdjustLevel(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -74,7 +81,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
-      if(args.length == 0) {
+      if (args.length == 0) {
         throw new IllegalArgumentException("You must specify the file path.");
       }
       super.execute(args[0], IMAGE_NAME);
@@ -130,7 +137,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       String splitWidth = "100";
-      if(args.length == 1){
+      if (args.length == 1) {
         splitWidth = args[0];
       }
       super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
@@ -167,7 +174,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       String splitWidth = "100";
-      if(args.length == 1){
+      if (args.length == 1) {
         splitWidth = args[0];
       }
       super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
@@ -177,7 +184,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
   }
 
-  class ColorCorrection extends ImageOperationFactory.ColorCorrection{
+  class ColorCorrection extends ImageOperationFactory.ColorCorrection {
 
     public ColorCorrection(ImageRepo library) {
       super(library);
@@ -186,10 +193,58 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       String splitWidth = "100";
-      if(args.length == 1){
+      if (args.length == 1) {
         splitWidth = args[0];
       }
       super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(IMAGE_NAME));
+    }
+  }
+
+  class Compress extends ImageOperationFactory.Compress {
+
+    /**
+     * Constructs an AbstractOperation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public Compress(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      if (args.length == 0) {
+        throw new IllegalArgumentException("You must specify the compression ratio.");
+      }
+      super.execute(args[0], IMAGE_NAME, IMAGE_NAME);
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(IMAGE_NAME));
+    }
+  }
+
+  class AdjustLevel extends ImageOperationFactory.AdjustLevel {
+
+    /**
+     * Constructs an AbstractOperation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public AdjustLevel(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      String splitWidth = "100";
+      if (args.length < 3) {
+        throw new IllegalArgumentException("You must specify all the values of levels to adjust.");
+      }
+      if (args.length == 4) {
+        splitWidth = args[3];
+      }
+      super.execute(args[0], args[1], args[2], IMAGE_NAME, IMAGE_NAME, splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(IMAGE_NAME));
     }
