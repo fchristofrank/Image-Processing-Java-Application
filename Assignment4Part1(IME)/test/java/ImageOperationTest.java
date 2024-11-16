@@ -38,9 +38,7 @@ import java.util.Objects;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * This class tests the functionalities of Image Manipulation and Enhancement application.
- */
+/** This class tests the functionalities of Image Manipulation and Enhancement application. */
 public class ImageOperationTest {
 
   @Test
@@ -52,7 +50,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImageMasking.png")
         .append(" ")
         .append("boston");
     commandScript.append("\n");
@@ -203,16 +201,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    Image expectedHVFlipImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
-      expectedHVFlipImage = imageReader.read(resDirPath + "boston-hv-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
-    assertEquals(actualHVFlipImage, expectedHVFlipImage);
+    int[] expectedPixelValue = new int[] {16711680, 65280, 16776960, 255};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -224,7 +218,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.jpg")
+        .append("testImage.jpg")
         .append(" ")
         .append("boston");
     commandScript.append("\n");
@@ -367,24 +361,18 @@ public class ImageOperationTest {
     new ImageProcessorCLI(readableInput, new PrintStream(outputStream), operationCreator).run();
     ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.JPG);
     Image actualRGBImage;
-    Image actualHVFlipImage;
     try {
       actualRGBImage = imageReader.read(resDirPath + "boston-rgb-actual.jpg", ImageType.RGB);
-      actualHVFlipImage = imageReader.read(resDirPath + "boston-hv-actual.jpg", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    Image expectedHVFlipImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston.jpg", ImageType.RGB);
-      expectedHVFlipImage = imageReader.read(resDirPath + "boston-hv-expected.jpg", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
-    assertEquals(actualHVFlipImage, expectedHVFlipImage);
+    int[] expectedPixelValue = new int[] {788505, 1709607, 1709607, 2630709};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -592,8 +580,6 @@ public class ImageOperationTest {
       throw new RuntimeException("Error writing back to the script file", e);
     }
 
-    System.out.println("File updated successfully: " + inputScriptPath);
-
     Assert.assertNotNull("Test script not found", inputURL);
     try {
       inputScriptPath = Paths.get(inputURL.toURI());
@@ -613,13 +599,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read expected image file", e);
-    }
-    assertEquals(actualImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {9079434, 9079434, 9079434, 9079434};
+
+    assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -634,7 +619,7 @@ public class ImageOperationTest {
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
 
     try {
-      actualImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
+      actualImage = imageReader.read(resDirPath + "maskImage.png", ImageType.RGB);
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
@@ -650,11 +635,9 @@ public class ImageOperationTest {
     String resDirPath =
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     Image actualImage;
-    Image expectedRed;
 
     try {
-      actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
-      expectedRed = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
+      actualImage = imageReader.read(resDirPath + "testImage.png", ImageType.RGB);
 
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -668,12 +651,22 @@ public class ImageOperationTest {
     Image green = greenComponent.apply(actualImage);
     Image blue = blueComponent.apply(actualImage);
 
-    assertEquals(expectedRed, red);
+    int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
+
+    assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualImage.getPixel(1, 1).getColorComponents());
 
     MultipleImageOperation combine = new Combine();
     Image expectedCombined = combine.apply(Arrays.asList(red, green, blue));
 
-    assertEquals(expectedCombined, actualImage);
+    expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
+
+    assertEquals(expectedPixelValue[0], expectedCombined.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], expectedCombined.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], expectedCombined.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], expectedCombined.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -683,14 +676,9 @@ public class ImageOperationTest {
     String resDirPath =
         Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     Image actualImage;
-    Image expectedBlurImage;
-    Image expectedSharpenImage;
 
     try {
       actualImage = imageReader.read(resDirPath + "boston.png", ImageType.RGB);
-      expectedBlurImage = imageReader.read(resDirPath + "boston-blur-expected.png", ImageType.RGB);
-      expectedSharpenImage =
-          imageReader.read(resDirPath + "boston-sharpen-expected.png", ImageType.RGB);
 
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
@@ -702,8 +690,19 @@ public class ImageOperationTest {
     Image blurredImage = blur.apply(actualImage);
     Image sharpendImage = sharpen.apply(actualImage);
 
-    assertEquals(expectedBlurImage, blurredImage);
-    assertEquals(expectedSharpenImage, sharpendImage);
+    int[] expectedPixelValue = new int[] {5070723, 6782639, 6782639, 9087466};
+
+    assertEquals(expectedPixelValue[0], blurredImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], blurredImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], blurredImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], blurredImage.getPixel(1, 1).getColorComponents());
+
+    expectedPixelValue = new int[] {16777215, 16777215, 16777215, 16777215};
+
+    assertEquals(expectedPixelValue[0], sharpendImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], sharpendImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], sharpendImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], sharpendImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -715,7 +714,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -749,15 +748,12 @@ public class ImageOperationTest {
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
+    int[] expectedPixelValue = new int[] {2960685, 2960685, 2960685, 3618705};
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage =
-          imageReader.read(resDirPath + "boston-brighten-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -822,7 +818,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -856,13 +852,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {2960685, 2960685, 2960685, 3618705};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -874,7 +869,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.jpg")
+        .append("testImage.jpg")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -908,13 +903,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-darken-expected.jpg", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {2433330, 3354432, 3354432, 4275534};
+                
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -926,7 +920,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -958,13 +952,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-sepia-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {1775635, 1775635, 1775635, 3814184};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -1079,7 +1072,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -1111,13 +1104,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-hflip-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {1315860, 1315860, 1973880, 1315860};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -1179,7 +1171,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -1211,13 +1203,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage = imageReader.read(resDirPath + "boston-vflip-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {1315860, 1973880, 1315860, 1315860};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -1279,7 +1270,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -1335,20 +1326,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRedImage;
-    Image expectedGreenImage;
-    Image expectedBlueImage;
-    try {
-      expectedRedImage = imageReader.read(resDirPath + "boston-red-expected.png", ImageType.RGB);
-      expectedGreenImage =
-          imageReader.read(resDirPath + "boston-green-expected.png", ImageType.RGB);
-      expectedBlueImage = imageReader.read(resDirPath + "boston-blue-expected.png", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRedImage, expectedRedImage);
-    assertEquals(actualGreenImage, expectedGreenImage);
-    assertEquals(actualBlueImage, expectedBlueImage);
+    int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 7895160};
+
+    assertEquals(expectedPixelValue[0], actualRedImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualGreenImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRedImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualBlueImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -1619,7 +1602,7 @@ public class ImageOperationTest {
         .append("load")
         .append(" ")
         .append(resDirPath)
-        .append("boston.png")
+        .append("testImage.png")
         .append(" ")
         .append("boston")
         .append("\n");
@@ -1653,14 +1636,12 @@ public class ImageOperationTest {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
 
-    Image expectedRGBImage;
-    try {
-      expectedRGBImage =
-          imageReader.read(resDirPath + "boston-blur-wp-expected.jpg", ImageType.RGB);
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Failed to read image file", e);
-    }
-    assertEquals(actualRGBImage, expectedRGBImage);
+    int[] expectedPixelValue = new int[] {36, 1579068, 723759, 2434377};
+
+    assertEquals(expectedPixelValue[0], actualRGBImage.getPixel(0, 0).getColorComponents());
+    assertEquals(expectedPixelValue[1], actualRGBImage.getPixel(0, 1).getColorComponents());
+    assertEquals(expectedPixelValue[2], actualRGBImage.getPixel(1, 0).getColorComponents());
+    assertEquals(expectedPixelValue[3], actualRGBImage.getPixel(1, 1).getColorComponents());
   }
 
   @Test
@@ -1766,7 +1747,6 @@ public class ImageOperationTest {
 
     assertEquals(expectedImage.getWidth(), actualImage.getWidth());
     assertEquals(expectedImage.getHeight(), actualImage.getHeight());
-
   }
 
   @Test
@@ -1837,7 +1817,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "red-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -1896,7 +1876,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "green-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -1930,7 +1910,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "blue-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -1964,7 +1944,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "intensity-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -1998,7 +1978,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "luma-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1250067, 1315860, 1250067, 1973880};
+      int[] expectedPixelValue = new int[] {1250067, 1315860, 1250067, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2032,7 +2012,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "value-component-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2066,7 +2046,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "blur-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{723729, 1315860, 789527, 1973880};
+      int[] expectedPixelValue = new int[] {723729, 1315860, 789527, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2100,7 +2080,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "sharpen-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{2434364, 1315860, 2434364, 1973880};
+      int[] expectedPixelValue = new int[] {2434364, 1315860, 2434364, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2134,7 +2114,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "sepia-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1775635, 1315860, 1775635, 1973880};
+      int[] expectedPixelValue = new int[] {1775635, 1315860, 1775635, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2168,7 +2148,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "lvl-adjust-preview.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2202,7 +2182,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "lvl-adjust-comb1.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 2697653};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 2697653};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2213,7 +2193,7 @@ public class ImageOperationTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLevelAdjustBMWChanged() {
 
     String resDirPath =
@@ -2236,7 +2216,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "lvl-adjust-comb2.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16777215, 16777215, 16777215, 16776960};
+      int[] expectedPixelValue = new int[] {16777215, 16777215, 16777215, 16776960};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2249,7 +2229,7 @@ public class ImageOperationTest {
     }
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testLevelAdjustBMWChanged2() {
 
     String resDirPath =
@@ -2272,7 +2252,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "lvl-adjust-comb3.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{0, 0, 0, 255};
+      int[] expectedPixelValue = new int[] {0, 0, 0, 255};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2308,7 +2288,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "correction.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -2342,7 +2322,7 @@ public class ImageOperationTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(resDirPath + "correction-expected.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{1315860, 1315860, 1315860, 1973880};
+      int[] expectedPixelValue = new int[] {1315860, 1315860, 1315860, 1973880};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
