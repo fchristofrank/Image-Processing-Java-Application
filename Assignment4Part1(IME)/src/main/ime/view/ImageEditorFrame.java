@@ -37,11 +37,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
   private JPanel compressionPanel;
   private JButton btnCompress;
   private JLabel compressionLabel;
+  private JPanel levelsAdjustmentPanel;
   private JTextField blackLevel;
   private JTextField middleLevel;
   private JTextField whiteLevel;
   private JButton btnAdjustLevels;
-
 
   /**
    * Constructs the ImageEditorFrame.
@@ -409,18 +409,18 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
    * @return The levels adjustment panel.
    */
   private JPanel createLevelsAdjustmentPanel() {
-    JPanel panel = new JPanel();
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-    panel.setBorder(BorderFactory.createTitledBorder("Levels Adjustment"));
+    levelsAdjustmentPanel = new JPanel();
+    levelsAdjustmentPanel.setLayout(new BoxLayout(levelsAdjustmentPanel, BoxLayout.Y_AXIS));
+    levelsAdjustmentPanel.setBorder(BorderFactory.createTitledBorder("Levels Adjustment"));
 
-    panel.add(createLevelsInputContainer());
-    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    levelsAdjustmentPanel.add(createLevelsInputContainer());
+    levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     btnAdjustLevels = createStyledButton("Adjust Levels",
             new Dimension(200, 30));
-    panel.add(btnAdjustLevels);
-    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    levelsAdjustmentPanel.add(btnAdjustLevels);
+    levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-    return panel;
+    return levelsAdjustmentPanel;
   }
 
   /**
@@ -630,7 +630,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
             btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
     for (JButton button : filterButtons) {
-      button.setEnabled(!(button != activeButton && previewMode.isSelected()));
+      if (!(button != activeButton && previewMode.isSelected())) {
+        button.setEnabled(true);
+      } else {
+        button.setEnabled(false);
+        if (button == btnAdjustLevels) {
+          enableLevelsAdjustmentFeatures(false);
+        }
+      }
     }
   }
 
@@ -656,6 +663,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
    */
   private void handlePreviewModeChange(Features features) {
     boolean isPreviewMode = previewMode.isSelected();
+    loadMenuItem.setEnabled(!isPreviewMode);
     saveMenuItem.setEnabled(!isPreviewMode);
     undoMenuItem.setEnabled(!isPreviewMode);
     redoMenuItem.setEnabled(!isPreviewMode);
@@ -741,6 +749,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     for (JButton button : buttons) {
       button.setEnabled(true);
     }
+    enableLevelsAdjustmentFeatures(true);
+  }
+
+  private void enableLevelsAdjustmentFeatures(boolean enable) {
+    levelsAdjustmentPanel.setEnabled(enable);
+    blackLevel.setEnabled(enable);
+    middleLevel.setEnabled(enable);
+    whiteLevel.setEnabled(enable);
   }
 
   /**
