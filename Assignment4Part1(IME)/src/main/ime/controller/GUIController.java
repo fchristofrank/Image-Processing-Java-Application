@@ -93,6 +93,35 @@ public class GUIController implements Features {
   }
 
   @Override
+  public void applyCompress(String compressionRatio) {
+    CLIOperation imageOperation = imageOperationFactory.createOperation("compress");
+    try {
+      imageOperation.execute(compressionRatio);
+      undoStack.push(new OperationCommand(imageOperation));
+      redoStack.clear();
+    } catch (IllegalArgumentException exception) {
+      imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+    }
+  }
+
+  @Override
+  public void adjustLevels(boolean isPreview, String... args) {
+    CLIOperation imageOperation = imageOperationFactory
+            .createOperation("levels-adjust");
+    try {
+      imageOperation.execute(args);
+      if (!isPreview) {
+        undoStack.push(new OperationCommand(imageOperation, args));
+        redoStack.clear();
+      } else {
+        lastPreviewEnabledOperation = new OperationCommand(imageOperation, args);
+      }
+    } catch (IllegalArgumentException exception) {
+      imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+    }
+  }
+
+  @Override
   public void saveImage(String imagePath) {
     CLIOperation imageOperation = imageOperationFactory.createOperation("save");
     try {

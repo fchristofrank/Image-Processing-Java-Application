@@ -9,29 +9,45 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ime.controller.Features;
 
+/**
+ * The main frame of the image editor application.  Handles the graphical user interface (GUI) elements and interacts with the controller (Features) to perform image editing operations.
+ */
 public class ImageEditorFrame extends JFrame implements ImageEditorView {
-  private JMenuBar menuBar;
-  private JMenu menu;
+
   private JMenuItem loadMenuItem;
   private JMenuItem saveMenuItem;
   private JMenuItem undoMenuItem;
   private JMenuItem redoMenuItem;
   private JSlider splitSlider;
-  private JSlider compressionSlider;
-  private JLabel splitValueLabel;
   private JCheckBox previewCheckBox;
-  private JLabel compressionValueLabel;
   private JButton btnHorizontalFlip;
   private JButton btnVerticalFlip;
   private JButton btnBlur;
   private JButton btnSharpen;
   private JButton btnSepia;
   private JButton btnGreyscale;
+  private JButton btnRedComponent;
+  private JButton btnGreenComponent;
+  private JButton btnBlueComponent;
   private JButton btnColorCorrection;
   private JLabel imageLabel;
   private JLabel histogramLabel;
   private JCheckBox previewMode;
+  private JTextField compressionText;
+  private JPanel compressionPanel;
+  private JButton btnCompress;
+  private JLabel compressionLabel;
+  private JTextField blackLevel;
+  private JTextField middleLevel;
+  private JTextField whiteLevel;
+  private JButton btnAdjustLevels;
 
+
+  /**
+   * Constructs the ImageEditorFrame.
+   *
+   * @param caption The title of the frame.
+   */
   public ImageEditorFrame(String caption) {
     super(caption);
     setPreferredSize(new Dimension(1000, 750));
@@ -63,122 +79,166 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     setVisible(true);
   }
 
+  /**
+   * Sets up the menu bar with File menu items (Load, Save, Undo, Redo).
+   */
   private void setupMenuBar() {
-    menuBar = new JMenuBar();
-    menu = new JMenu("File");
+    JMenuBar menuBar = new JMenuBar();
+    JMenu menu = new JMenu("File");
     menu.setMnemonic(KeyEvent.VK_A);
     menuBar.add(menu);
 
     loadMenuItem = new JMenuItem("Load");
     loadMenuItem.setMnemonic(KeyEvent.VK_L);
-    loadMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, Toolkit.getDefaultToolkit()
-            .getMenuShortcutKeyMaskEx()));
+    loadMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(loadMenuItem);
 
     saveMenuItem = new JMenuItem("Save");
     saveMenuItem.setMnemonic(KeyEvent.VK_S);
-    saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit()
-            .getMenuShortcutKeyMaskEx()));
+    saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(saveMenuItem);
 
     undoMenuItem = new JMenuItem("Undo");
     undoMenuItem.setMnemonic(KeyEvent.VK_Z);
-    undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit()
-            .getMenuShortcutKeyMaskEx()));
+    undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(undoMenuItem);
 
     redoMenuItem = new JMenuItem("Redo");
     redoMenuItem.setMnemonic(KeyEvent.VK_Y);
-    redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit()
-            .getMenuShortcutKeyMaskEx()));
+    redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(redoMenuItem);
 
     this.setJMenuBar(menuBar);
   }
 
+  /**
+   * Creates the central panel containing the image display (with scrolling) and the histogram display (with scrolling).
+   *
+   * @return The center panel.
+   */
   private JPanel createCenterPanel() {
-    // Center panel containing image display with scrolling and histogram
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-    centerPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+    centerPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     centerPanel.setPreferredSize(new Dimension(200, 100));
 
-    // Wrapper panel with GridBagLayout to center the imageLabel
     imageLabel = new JLabel();
     JScrollPane imageScrollPane = wrapLabelInsideScrollPane(imageLabel, 0, 250);
 
-    // Wrapper panel with GridBagLayout to center the histogramLabel
     histogramLabel = new JLabel();
     JScrollPane histogramScrollPane = wrapLabelInsideScrollPane(histogramLabel, 0, 100);
 
-    // Add both imageScrollPane and histogramScrollPane to the center panel
-    centerPanel.add(imageScrollPane, BorderLayout.NORTH);
-    centerPanel.add(histogramScrollPane, BorderLayout.SOUTH);
+    centerPanel.add(imageScrollPane);
+    centerPanel.add(histogramScrollPane);
 
     return centerPanel;
   }
 
+  /**
+   * Wraps a JLabel inside a JScrollPane for scrolling functionality.
+   *
+   * @param label  The JLabel to wrap.
+   * @param width  The preferred width.
+   * @param height The preferred height.
+   * @return The JScrollPane containing the JLabel.
+   */
   private JScrollPane wrapLabelInsideScrollPane(JLabel label, int width, int height) {
-    JPanel imageWrapperPanel = new JPanel(new GridBagLayout());
-    imageWrapperPanel.add(label); // Add imageLabel to the center of this panel
+    JPanel wrapperPanel = new JPanel(new GridBagLayout());
+    wrapperPanel.add(label);
 
-    // Wrap imageWrapperPanel in JScrollPane to allow scrolling
-    JScrollPane scrollPane = new JScrollPane(imageWrapperPanel);
+    JScrollPane scrollPane = new JScrollPane(wrapperPanel);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setPreferredSize(new Dimension(width, height));
     return scrollPane;
   }
 
+  /**
+   * Creates the left panel containing the image operation buttons.
+   *
+   * @return The left panel.
+   */
   private JPanel createLeftPanel() {
     JPanel leftPanel = new JPanel();
     leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-    leftPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-    leftPanel.setPreferredSize(new Dimension(150, 0));
+    leftPanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+    leftPanel.setPreferredSize(new Dimension(180, 0));
 
-    // Create buttons with fixed size
-    Dimension buttonSize = new Dimension(130, 30);
+    Dimension buttonSize = new Dimension(150, 30);
+    String[][] buttonInfo = {
+            {"Horizontal Flip", "horizontal-flip"},
+            {"Vertical Flip", "vertical-flip"},
+            {"Blur", "blur"},
+            {"Sharpen", "sharpen"},
+            {"Sepia", "sepia"},
+            {"Greyscale", "luma-component"},
+            {"Red Component", "red-component"},
+            {"Green Component", "green-component"},
+            {"Blue Component", "blue-component"},
+            {"Color Correct", "color-correct"}
+    };
 
-    btnHorizontalFlip = createStyledButton("Horizontal Flip", buttonSize);
-    btnHorizontalFlip.setActionCommand("horizontal-flip");
-    btnVerticalFlip = createStyledButton("Vertical Flip", buttonSize);
-    btnVerticalFlip.setActionCommand("vertical-flip");
-    btnBlur = createStyledButton("Blur", buttonSize);
-    btnBlur.setActionCommand("blur");
-    btnSharpen = createStyledButton("Sharpen", buttonSize);
-    btnSharpen.setActionCommand("sharpen");
-    btnSepia = createStyledButton("Sepia", buttonSize);
-    btnSepia.setActionCommand("sepia");
-    btnGreyscale = createStyledButton("Greyscale", buttonSize);
-    btnGreyscale.setActionCommand("luma-component");
-    btnColorCorrection = createStyledButton("Color Correct", buttonSize);
-    btnColorCorrection.setActionCommand("color-correct");
-
-    // Add buttons to panel with spacing
-    leftPanel.add(btnHorizontalFlip);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnVerticalFlip);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnBlur);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnSharpen);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnSepia);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnGreyscale);
-    leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    leftPanel.add(btnColorCorrection);
-
-    // Add glue to push buttons to top
+    for (String[] info : buttonInfo) {
+      JButton button = createStyledButton(info[0], buttonSize);
+      button.setActionCommand(info[1]);
+      leftPanel.add(button);
+      leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+      assignButtonToField(button, info[0]);
+    }
+    leftPanel.remove(leftPanel.getComponentCount() - 1);
     leftPanel.add(Box.createVerticalGlue());
 
     return leftPanel;
   }
 
+  /**
+   * Assigns a button to its corresponding class field.
+   *
+   * @param button     The button.
+   * @param buttonName The name of the button.
+   */
+  private void assignButtonToField(JButton button, String buttonName) {
+    switch (buttonName) {
+      case "Horizontal Flip":
+        btnHorizontalFlip = button;
+        break;
+      case "Vertical Flip":
+        btnVerticalFlip = button;
+        break;
+      case "Blur":
+        btnBlur = button;
+        break;
+      case "Sharpen":
+        btnSharpen = button;
+        break;
+      case "Sepia":
+        btnSepia = button;
+        break;
+      case "Greyscale":
+        btnGreyscale = button;
+        break;
+      case "Red Component":
+        btnRedComponent = button;
+        break;
+      case "Green Component":
+        btnGreenComponent = button;
+        break;
+      case "Blue Component":
+        btnBlueComponent = button;
+        break;
+      case "Color Correct":
+        btnColorCorrection = button;
+        break;
+    }
+  }
+
+  /**
+   * Creates a styled button with specified text and size.
+   *
+   * @param text The text of the button.
+   * @param size The size of the button.
+   * @return The styled button.
+   */
   private JButton createStyledButton(String text, Dimension size) {
     JButton button = new JButton(text);
     button.setMaximumSize(size);
@@ -188,68 +248,262 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     return button;
   }
 
+  /**
+   * Creates the right panel containing preview, compression, and levels adjustment controls.
+   *
+   * @return The right panel.
+   */
   private JPanel createRightPanel() {
-    JPanel rightPanel = new JPanel();
-    rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-    rightPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-    rightPanel.setPreferredSize(new Dimension(200, 0));
+    JPanel rightPanel = createBasePanel();
 
-    // Split Percentage Slider
-    splitValueLabel = new JLabel("Value: 100%");
-    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
-    JPanel splitPanel = new JPanel();
-    splitPanel.setLayout(new BoxLayout(splitPanel, BoxLayout.Y_AXIS));
-    splitPanel.setBorder(BorderFactory.createTitledBorder("Preview"));
-    JPanel previewModePanel = new JPanel();
-    previewModePanel.setLayout(new BoxLayout(previewModePanel, BoxLayout.Y_AXIS));
-    previewModePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    previewMode = new JCheckBox("Enter Preview Mode");
-    previewModePanel.add(previewMode);
-    splitPanel.add(previewModePanel);
-    splitPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-
-    JPanel previewSettings = new JPanel();
-    previewSettings.setLayout(new BoxLayout(previewSettings, BoxLayout.X_AXIS));
-
-    JPanel sliderPanel = new JPanel();
-    sliderPanel.setLayout(new BoxLayout(sliderPanel, BoxLayout.Y_AXIS));
-    sliderPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    setupSlider(splitValueLabel, sliderPanel, splitSlider);
-    splitSlider.setEnabled(false);
-    previewSettings.add(sliderPanel);
-    previewSettings.add(Box.createRigidArea(new Dimension(10, 0)));
-
-    JPanel previewTogglePanel = new JPanel();
-    previewTogglePanel.setLayout(new BoxLayout(previewTogglePanel, BoxLayout.Y_AXIS));
-    previewTogglePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-    previewTogglePanel.add(Box.createRigidArea(new Dimension(0, 10)));
-    previewCheckBox = new JCheckBox("Enable");
-    previewTogglePanel.add(previewCheckBox);
-    previewCheckBox.setEnabled(false);
-    previewCheckBox.setSelected(true);
-    previewSettings.add(previewTogglePanel);
-
-    splitPanel.add(previewSettings);
-    rightPanel.add(splitPanel);
+    rightPanel.add(createPreviewPanel());
     rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-    // Compression Slider
-    compressionValueLabel = new JLabel("Value: 0%");
-    compressionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 0);
-    JPanel compressionPanel = new JPanel();
-    compressionPanel.setLayout(new BoxLayout(compressionPanel, BoxLayout.Y_AXIS));
-    compressionPanel.setBorder(BorderFactory.createTitledBorder("Compression"));
+    rightPanel.add(createCompressionPanel());
+    rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-    setupSlider(compressionValueLabel, compressionPanel, compressionSlider);
-
-    rightPanel.add(compressionPanel);
+    rightPanel.add(createLevelsAdjustmentPanel());
 
     return rightPanel;
   }
 
+  /**
+   * Creates a base panel with a border and BoxLayout.
+   *
+   * @return The base panel.
+   */
+  private JPanel createBasePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+    panel.setPreferredSize(new Dimension(200, 0));
+    return panel;
+  }
+
+  /**
+   * Creates the preview panel with preview mode and settings.
+   *
+   * @return The preview panel.
+   */
+  private JPanel createPreviewPanel() {
+    JPanel splitPanel = new JPanel();
+    splitPanel.setLayout(new BoxLayout(splitPanel, BoxLayout.Y_AXIS));
+    splitPanel.setBorder(BorderFactory.createTitledBorder("Preview"));
+
+    splitPanel.add(createPreviewModePanel());
+    splitPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    splitPanel.add(createPreviewSettingsPanel());
+
+    return splitPanel;
+  }
+
+  /**
+   * Creates the preview mode panel with a checkbox.
+   *
+   * @return The preview mode panel.
+   */
+  private JPanel createPreviewModePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    previewMode = new JCheckBox("Enter Preview Mode");
+    panel.add(previewMode);
+    return panel;
+  }
+
+  /**
+   * Creates the preview settings panel with slider and toggle.
+   *
+   * @return The preview settings panel.
+   */
+  private JPanel createPreviewSettingsPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+    panel.add(createSliderPanel());
+    panel.add(Box.createRigidArea(new Dimension(10, 0)));
+    panel.add(createPreviewTogglePanel());
+
+    return panel;
+  }
+
+  /**
+   * Creates the slider panel with slider and label.
+   *
+   * @return The slider panel.
+   */
+  private JPanel createSliderPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    JLabel splitValueLabel = new JLabel("Value: 100%");
+    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+    splitSlider.setEnabled(false);
+
+    setupSlider(splitValueLabel, panel, splitSlider);
+
+    return panel;
+  }
+
+  /**
+   * Creates the preview toggle panel with a checkbox.
+   *
+   * @return The preview toggle panel.
+   */
+  private JPanel createPreviewTogglePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    previewCheckBox = new JCheckBox("Enable");
+    previewCheckBox.setEnabled(false);
+    previewCheckBox.setSelected(true);
+    panel.add(previewCheckBox);
+
+    return panel;
+  }
+
+  /**
+   * Creates the compression panel with input field and button.
+   *
+   * @return The compression panel.
+   */
+  private JPanel createCompressionPanel() {
+    compressionPanel = new JPanel();
+    compressionPanel.setLayout(new BoxLayout(compressionPanel, BoxLayout.Y_AXIS));
+    compressionPanel.setBorder(BorderFactory.createTitledBorder("Compression"));
+
+    compressionPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    compressionPanel.add(createCompressionInputPanel());
+    compressionPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    btnCompress = createStyledButton("Compress", new Dimension(200, 30));
+    compressionPanel.add(btnCompress);
+
+    return compressionPanel;
+  }
+
+  /**
+   * Creates the compression input panel with label and text field.
+   *
+   * @return The compression input panel.
+   */
+  private JPanel createCompressionInputPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+    compressionLabel = new JLabel("Compression%:");
+    compressionText = createFixedSizeTextField("", 3, new Dimension(30, 20));
+
+    panel.add(compressionLabel);
+    panel.add(Box.createRigidArea(new Dimension(10, 0)));
+    panel.add(compressionText);
+
+    return panel;
+  }
+
+  /**
+   * Creates the levels adjustment panel with input containers and button.
+   *
+   * @return The levels adjustment panel.
+   */
+  private JPanel createLevelsAdjustmentPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setBorder(BorderFactory.createTitledBorder("Levels Adjustment"));
+
+    panel.add(createLevelsInputContainer());
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    btnAdjustLevels = createStyledButton("Adjust Levels",
+            new Dimension(200, 30));
+    panel.add(btnAdjustLevels);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    return panel;
+  }
+
+  /**
+   * Creates the levels input container with labels and text fields.
+   *
+   * @return The levels input container.
+   */
+  private JPanel createLevelsInputContainer() {
+    JPanel container = new JPanel();
+    container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+    container.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    container.add(createLevelsLabelPanel());
+    container.add(Box.createRigidArea(new Dimension(5, 0)));
+    container.add(createLevelsValuePanel());
+
+    return container;
+  }
+
+  /**
+   * Creates the levels label panel with labels for black, middle, and white levels.
+   *
+   * @return The levels label panel.
+   */
+  private JPanel createLevelsLabelPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    panel.add(new JLabel("Black:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    panel.add(new JLabel("Middle:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    panel.add(new JLabel("White:"));
+
+    return panel;
+  }
+
+  /**
+   * Creates the levels value panel with text fields for black, middle, and white levels.
+   *
+   * @return The levels value panel.
+   */
+  private JPanel createLevelsValuePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    blackLevel = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(blackLevel);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    middleLevel = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(middleLevel);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    whiteLevel = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(whiteLevel);
+
+    return panel;
+  }
+
+  /**
+   * Creates a text field with fixed size.
+   *
+   * @param text    The initial text.
+   * @param columns The number of columns.
+   * @param size    The size of the text field.
+   * @return The fixed-size text field.
+   */
+  private JTextField createFixedSizeTextField(String text, int columns, Dimension size) {
+    JTextField textField = new JTextField(text, columns);
+    textField.setPreferredSize(size);
+    textField.setMinimumSize(size);
+    textField.setMaximumSize(size);
+    return textField;
+  }
+
+  /**
+   * Sets up the slider with listener for value updates.
+   *
+   * @param label  The label to display the slider value.
+   * @param panel  The panel to add the slider to.
+   * @param slider The slider.
+   */
   private void setupSlider(JLabel label, JPanel panel, JSlider slider) {
     label.setAlignmentX(Component.CENTER_ALIGNMENT);
     panel.add(label);
@@ -259,124 +513,241 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     panel.add(slider);
   }
 
+  /**
+   * Adds features to the frame, connecting GUI elements to the controller.
+   *
+   * @param features The Features object (controller).
+   */
   @Override
   public void addFeatures(Features features) {
-    loadMenuItem.addActionListener(e -> {
-      JFileChooser loadFileChooser = new JFileChooser();
-      loadFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      FileNameExtensionFilter filter = new FileNameExtensionFilter(
-              "Image files", "jpg", "ppm", "png"
-      );
-      loadFileChooser.setFileFilter(filter);
-      int result = loadFileChooser.showOpenDialog(this);
-      if (result == JFileChooser.APPROVE_OPTION) {
-        String imagePath = loadFileChooser.getSelectedFile().getAbsolutePath();
-        features.loadImage(imagePath);
-      }
-    });
-    saveMenuItem.addActionListener(e -> {
-      JFileChooser saveFileChooser = new JFileChooser();
-      saveFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-      FileNameExtensionFilter filter = new FileNameExtensionFilter(
-              "Image files", "jpg", "ppm", "png"
-      );
-      saveFileChooser.setFileFilter(filter);
-      int result = saveFileChooser.showSaveDialog(this);
-      if (result == JFileChooser.APPROVE_OPTION) {
-        String savePath = saveFileChooser.getSelectedFile().getAbsolutePath();
-        if (!savePath.toLowerCase().endsWith(".jpg") &&
-                !savePath.toLowerCase().endsWith(".ppm") &&
-                !savePath.toLowerCase().endsWith(".png")) {
-          savePath += ".png";
-        }
-        features.saveImage(savePath);
-      }
-    });
+    setupFileMenuItems(features);
+    setupEditMenuItems(features);
+    setupImageOperationButtons(features);
+    setupFilterButtons(features);
+    setupPreviewControls(features);
+  }
+
+  /**
+   * Sets up the File menu items (Load and Save) with action listeners.
+   *
+   * @param features The Features object.
+   */
+  private void setupFileMenuItems(Features features) {
+    loadMenuItem.addActionListener(e -> handleLoadImage(features));
+    saveMenuItem.addActionListener(e -> handleSaveImage(features));
+  }
+
+  /**
+   * Sets up the Edit menu items (Undo and Redo) with action listeners.
+   *
+   * @param features The Features object.
+   */
+  private void setupEditMenuItems(Features features) {
     undoMenuItem.addActionListener(e -> features.undo());
     redoMenuItem.addActionListener(e -> features.redo());
+  }
 
+  /**
+   * Sets up the image operation buttons (Horizontal Flip and Vertical Flip) with action listeners.
+   *
+   * @param features The Features object.
+   */
+  private void setupImageOperationButtons(Features features) {
+    btnHorizontalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
+    btnVerticalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
+  }
 
-    btnHorizontalFlip.addActionListener(e -> {
-      features.flipImage(e.getActionCommand());
-    });
+  /**
+   * Sets up the filter buttons with action listeners.
+   *
+   * @param features The Features object.
+   */
+  private void setupFilterButtons(Features features) {
+    setupFilterButton(btnBlur, features);
+    setupFilterButton(btnSharpen, features);
+    setupFilterButton(btnSepia, features);
+    setupGreyscaleButton(btnGreyscale, features);
+    setupFilterButton(btnRedComponent, features);
+    setupFilterButton(btnGreenComponent, features);
+    setupFilterButton(btnBlueComponent, features);
+    setupColorCorrectButton(btnColorCorrection, features);
+    setupCompressButton(btnCompress, features);
+    setupAdjustLevelsButton(btnAdjustLevels, features);
+  }
 
-    btnVerticalFlip.addActionListener(e -> {
-      features.flipImage(e.getActionCommand());
-    });
-
-    btnBlur.addActionListener(e -> {
+  /**
+   * Sets up a single filter button with an action listener.
+   *
+   * @param button   The filter button.
+   * @param features The Features object.
+   */
+  private void setupFilterButton(JButton button, Features features) {
+    button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      btnSharpen.setEnabled(!previewMode.isSelected());
-      btnSepia.setEnabled(!previewMode.isSelected());
-      btnGreyscale.setEnabled(!previewMode.isSelected());
-      btnColorCorrection.setEnabled(!previewMode.isSelected());
+      toggleFilterButtons(button);
     });
+  }
 
-    btnSharpen.addActionListener(e -> {
-      String splitWidth = getSplitWidth();
-      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      btnBlur.setEnabled(!previewMode.isSelected());
-      btnSepia.setEnabled(!previewMode.isSelected());
-      btnGreyscale.setEnabled(!previewMode.isSelected());
-      btnColorCorrection.setEnabled(!previewMode.isSelected());
-    });
-
-    btnSepia.addActionListener(e -> {
-      String splitWidth = getSplitWidth();
-      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      btnSharpen.setEnabled(!previewMode.isSelected());
-      btnBlur.setEnabled(!previewMode.isSelected());
-      btnGreyscale.setEnabled(!previewMode.isSelected());
-      btnColorCorrection.setEnabled(!previewMode.isSelected());
-    });
-
-    btnGreyscale.addActionListener(e -> {
+  private void setupGreyscaleButton(JButton button, Features features) {
+    button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      btnSharpen.setEnabled(!previewMode.isSelected());
-      btnBlur.setEnabled(!previewMode.isSelected());
-      btnSepia.setEnabled(!previewMode.isSelected());
-      btnColorCorrection.setEnabled(!previewMode.isSelected());
+      toggleFilterButtons(button);
     });
+  }
 
-    btnColorCorrection.addActionListener(e -> {
+  private void setupColorCorrectButton(JButton button, Features features) {
+    button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyColorCorrect(previewMode.isSelected(), splitWidth);
-      btnSharpen.setEnabled(!previewMode.isSelected());
-      btnBlur.setEnabled(!previewMode.isSelected());
-      btnSepia.setEnabled(!previewMode.isSelected());
-      btnGreyscale.setEnabled(!previewMode.isSelected());
+      toggleFilterButtons(button);
     });
+  }
 
-    previewMode.addActionListener(e -> {
-      saveMenuItem.setEnabled(!previewMode.isSelected());
-      undoMenuItem.setEnabled(!previewMode.isSelected());
-      redoMenuItem.setEnabled(!previewMode.isSelected());
-      splitSlider.setEnabled(previewMode.isSelected());
-      previewCheckBox.setEnabled(previewMode.isSelected());
-      btnHorizontalFlip.setEnabled(!previewMode.isSelected());
-      btnVerticalFlip.setEnabled(!previewMode.isSelected());
-      compressionSlider.setEnabled(!previewMode.isSelected());
-      if(!previewMode.isSelected()) {
-        features.exitPreviewMode(previewCheckBox.isSelected());
-        enableAllButtons();
-        previewCheckBox.setSelected(true);
-      }
+  private void setupCompressButton(JButton button, Features features) {
+    button.addActionListener(e -> {
+      features.applyCompress(compressionText.getText());
+      toggleFilterButtons(button);
     });
+  }
 
-    previewCheckBox.addActionListener(e -> {
-      features.togglePreview(getSplitWidth());
+  private void setupAdjustLevelsButton(JButton button, Features features) {
+    button.addActionListener(e -> {
+      String splitWidth = getSplitWidth();
+      features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
+              whiteLevel.getText(), splitWidth);
+      toggleFilterButtons(button);
     });
+  }
 
+  /**
+   * Toggles the enabled state of filter buttons to prevent multiple simultaneous filter applications in preview mode.
+   *
+   * @param activeButton The currently active button.
+   */
+  private void toggleFilterButtons(JButton activeButton) {
+    JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+    for (JButton button : filterButtons) {
+      button.setEnabled(!(button != activeButton && previewMode.isSelected()));
+    }
+  }
+
+  /**
+   * Sets up the preview controls (checkbox and slider) with action listeners.
+   *
+   * @param features The Features object.
+   */
+  private void setupPreviewControls(Features features) {
+    previewMode.addActionListener(e -> handlePreviewModeChange(features));
+    previewCheckBox.addActionListener(e -> features.togglePreview(getSplitWidth()));
     splitSlider.addChangeListener(e -> {
-      if(previewCheckBox.isSelected()) {
+      if (previewCheckBox.isSelected()) {
         features.togglePreview(getSplitWidth());
       }
     });
-
   }
 
+  /**
+   * Handles changes in preview mode.
+   *
+   * @param features The Features object.
+   */
+  private void handlePreviewModeChange(Features features) {
+    boolean isPreviewMode = previewMode.isSelected();
+    saveMenuItem.setEnabled(!isPreviewMode);
+    undoMenuItem.setEnabled(!isPreviewMode);
+    redoMenuItem.setEnabled(!isPreviewMode);
+    splitSlider.setEnabled(isPreviewMode);
+    previewCheckBox.setEnabled(isPreviewMode);
+    previewMode.setSelected(isPreviewMode);
+    btnHorizontalFlip.setEnabled(!isPreviewMode);
+    btnVerticalFlip.setEnabled(!isPreviewMode);
+    compressionPanel.setEnabled(!isPreviewMode);
+    compressionLabel.setEnabled(!isPreviewMode);
+    compressionText.setEnabled(!isPreviewMode);
+    btnCompress.setEnabled(!isPreviewMode);
+
+    if (!isPreviewMode) {
+      features.exitPreviewMode(previewCheckBox.isSelected());
+      enableAllButtons();
+      splitSlider.setValue(100);
+      previewCheckBox.setSelected(true);
+    }
+  }
+
+  /**
+   * Handles loading an image from a file.
+   *
+   * @param features The Features object.
+   */
+  private void handleLoadImage(Features features) {
+    JFileChooser fileChooser = createImageFileChooser();
+    int result = fileChooser.showOpenDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+      String imagePath = fileChooser.getSelectedFile().getAbsolutePath();
+      features.loadImage(imagePath);
+    }
+  }
+
+  /**
+   * Handles saving an image to a file.
+   *
+   * @param features The Features object.
+   */
+  private void handleSaveImage(Features features) {
+    JFileChooser fileChooser = createImageFileChooser();
+    int result = fileChooser.showSaveDialog(this);
+    if (result == JFileChooser.APPROVE_OPTION) {
+      String savePath = fileChooser.getSelectedFile().getAbsolutePath();
+      savePath = ensureCorrectFileExtension(savePath);
+      features.saveImage(savePath);
+    }
+  }
+
+  /**
+   * Creates a file chooser for image files.
+   *
+   * @return The image file chooser.
+   */
+  private JFileChooser createImageFileChooser() {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpg", "ppm", "png");
+    fileChooser.setFileFilter(filter);
+    return fileChooser;
+  }
+
+  /**
+   * Ensures that the file path has a correct image extension.
+   *
+   * @param path The file path.
+   * @return The file path with a correct extension.
+   */
+  private String ensureCorrectFileExtension(String path) {
+    if (!path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".ppm") && !path.toLowerCase().endsWith(".png")) {
+      return path + ".png";
+    }
+    return path;
+  }
+
+  /**
+   * Enables all filter buttons.
+   */
+  private void enableAllButtons() {
+    JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+    for (JButton button : buttons) {
+      button.setEnabled(true);
+    }
+  }
+
+  /**
+   * Gets the split width from the slider, handling preview mode.
+   *
+   * @return The split width as a string.
+   */
   private String getSplitWidth() {
     String splitWidth = "100";
     if (previewMode.isSelected() && previewCheckBox.isSelected()) {
@@ -385,6 +756,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     return splitWidth;
   }
 
+  /**
+   * Sets the image in the image label.
+   *
+   * @param image The image to set.
+   */
   @Override
   public void setImage(BufferedImage image) {
     ImageIcon imageIcon = new ImageIcon(image);
@@ -394,6 +770,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     imageLabel.repaint();
   }
 
+  /**
+   * Sets the histogram in the histogram label.
+   *
+   * @param histogram The histogram image to set.
+   */
   @Override
   public void setHistogram(BufferedImage histogram) {
     ImageIcon imageIcon = new ImageIcon(histogram);
@@ -403,11 +784,20 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     histogramLabel.repaint();
   }
 
+  /**
+   * Shows an error message dialog.
+   *
+   * @param message The error message.
+   * @param title   The title of the dialog.
+   */
   @Override
   public void showErrorMessageDialog(String message, String title) {
-    JOptionPane.showMessageDialog(this, title, message, JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
   }
 
+  /**
+   * Clears the image and histogram displays.
+   */
   @Override
   public void cleanSlate() {
     imageLabel.setIcon(null);
@@ -416,15 +806,5 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView {
     imageLabel.repaint();
     histogramLabel.revalidate();
     histogramLabel.repaint();
-  }
-
-  @Override
-  public void enableAllButtons() {
-    btnBlur.setEnabled(true);
-    btnSharpen.setEnabled(true);
-    btnSepia.setEnabled(true);
-    btnSepia.setEnabled(true);
-    btnGreyscale.setEnabled(true);
-    btnColorCorrection.setEnabled(true);
   }
 }

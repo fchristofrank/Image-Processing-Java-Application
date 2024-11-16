@@ -417,12 +417,28 @@ public class ImageOperationFactory implements OperationCreator {
       if (args.length < 5) {
         throw new IllegalArgumentException("Invalid number of arguments");
       }
-      if (args.length == 6 && (Integer.parseInt(args[5]) < 0 || Integer.parseInt(args[5]) > 100)) {
-        throw new IllegalArgumentException("Preview Width should be between 0 to 100");
+      try {
+        int arg0 = Integer.parseInt(args[0]);
+        int arg1 = Integer.parseInt(args[1]);
+        int arg2 = Integer.parseInt(args[2]);
+
+        if (arg0 > arg1 || arg1 > arg2) {
+          throw new IllegalArgumentException("Values should be in ascending order");
+        }
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Black, middle, and white values should be " +
+                "valid integers");
       }
-      if (Integer.parseInt(args[0]) > Integer.parseInt(args[1])
-              || Integer.parseInt(args[1]) > Integer.parseInt(args[2])) {
-        throw new IllegalArgumentException("Values should be in ascending order");
+
+      if (args.length == 6) {
+        try {
+          int previewWidth = Integer.parseInt(args[5]);
+          if (previewWidth < 0 || previewWidth > 100) {
+            throw new IllegalArgumentException("Preview Width should be between 0 to 100");
+          }
+        } catch (NumberFormatException e) {
+          throw new IllegalArgumentException("Preview Width should be a valid integer");
+        }
       }
     }
   }

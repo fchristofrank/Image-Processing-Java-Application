@@ -11,6 +11,10 @@ public interface Features {
 
   void applyColorCorrect(boolean isPreview, String splitWidth);
 
+  void applyCompress(String compressionRatio);
+
+  void adjustLevels(boolean isPreview, String... args);
+
   void saveImage(String imagePath);
 
   void undo();
@@ -20,4 +24,5 @@ public interface Features {
   void togglePreview(String splitWidth);
 
   void exitPreviewMode(boolean isEnabled);
+
 }

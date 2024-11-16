@@ -15,5 +15,4 @@ public interface ImageEditorView {
 
   void cleanSlate();
 
-  void enableAllButtons();
 }
