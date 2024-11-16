@@ -51,6 +51,17 @@ public abstract class   AbstractOperation implements CLIOperation {
   }
 
   /**
+   * Removes an image to the image library.
+   * @param imageName the name of the image which has to be removed.
+   */
+  protected void removeImage(String imageName) {
+    if (this.library == null) {
+      throw new IllegalArgumentException("Image library is not initialized.");
+    }
+    this.library.removeImage(imageName);
+  }
+
+  /**
    * Validates the number of arguments provided to the operation. This is a basic validation and
    * each operation will override this if necessary.
    *

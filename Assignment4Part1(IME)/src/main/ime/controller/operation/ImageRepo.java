@@ -24,4 +24,10 @@ public interface ImageRepo {
    * @return The image object with the corresponding name, or null if not found.
    */
   Image getImage(String imageName);
+
+  /**
+   * Removes the image with the specified image name from the library.
+   * @param imageName the name of the image.
+   */
+  void removeImage(String imageName);
 }

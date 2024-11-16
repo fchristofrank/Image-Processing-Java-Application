@@ -50,6 +50,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new Compress(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);
+      case Commands.CLEAR_LIBRARY:
+        return new ClearImageLibrary(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -293,6 +295,23 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       super.execute(args[0], args[1], args[2], IMAGE_NAME, IMAGE_NAME, splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(IMAGE_NAME));
+    }
+  }
+
+  class ClearImageLibrary extends AbstractOperation{
+
+    /**
+     * Constructs an AbstractOperation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public ClearImageLibrary(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+      removeImage(IMAGE_NAME);
     }
   }
 
