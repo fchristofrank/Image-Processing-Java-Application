@@ -24,4 +24,9 @@ public class ImageLibrary implements ImageRepo {
   public Image getImage(String imageName) {
     return images.get(imageName);
   }
+
+  @Override
+  public void removeImage(String imageName) {
+    images.remove(imageName);
+  }
 }

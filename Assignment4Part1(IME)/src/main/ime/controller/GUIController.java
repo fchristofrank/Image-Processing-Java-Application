@@ -28,8 +28,9 @@ public class GUIController implements Features {
   public void loadImage(String imagePath, boolean userDecision) {
     CLIOperation imageOperation = imageOperationFactory.createOperation("load");
     try {
-      if(isLoaded && !isSaved && !userDecision) {
+      if (isLoaded && !isSaved && !userDecision) {
         imageEditorView.showWarningMessageBeforeLoading(imagePath);
+        return;
       }
       imageOperation.execute(imagePath);
       undoStack.push(new OperationCommand(imageOperation, imagePath));
@@ -141,7 +142,6 @@ public class GUIController implements Features {
     CLIOperation imageOperation = imageOperationFactory.createOperation("save");
     try {
       imageOperation.execute(imagePath);
-      undoStack.push(new OperationCommand(imageOperation, imagePath));
       redoStack.clear();
       isSaved = true;
     } catch (IllegalArgumentException exception) {
@@ -152,9 +152,14 @@ public class GUIController implements Features {
   @Override
   public void undo() {
     if (!undoStack.isEmpty()) {
+      isSaved = false;
       OperationCommand lastOperation = undoStack.pop();
       if (undoStack.isEmpty()) {
         imageEditorView.cleanSlate();
+        CLIOperation op = imageOperationFactory.createOperation("clear-library");
+        op.execute();
+        isLoaded = false;
+        isSaved = false;
       }
       for (OperationCommand redoOperation : undoStack) {
         redoOperation.execute();
@@ -165,6 +170,7 @@ public class GUIController implements Features {
 
   @Override
   public void redo() {
+    isSaved = false;
     if (!redoStack.isEmpty()) {
       OperationCommand redoOperation = redoStack.pop();
       redoOperation.execute();
@@ -202,7 +208,7 @@ public class GUIController implements Features {
 
   @Override
   public boolean isLoadedAndSaved() {
-    return isLoaded&&isSaved;
+    return isLoaded && isSaved;
   }
 
   class OperationCommand {

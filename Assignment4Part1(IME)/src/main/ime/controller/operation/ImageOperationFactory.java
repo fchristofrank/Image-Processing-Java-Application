@@ -166,6 +166,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String COMPRESS = "compress";
     public static final String COLOR_CORRECTION = "color-correct";
     public static final String LEVELS_ADJUST = "levels-adjust";
+    public static final String CLEAR_LIBRARY = "clear-library";
   }
 
   /**
