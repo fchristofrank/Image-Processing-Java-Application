@@ -13,20 +13,29 @@ public class GUIController implements Features {
   private final Stack<OperationCommand> undoStack = new Stack<>();
   private final Stack<OperationCommand> redoStack = new Stack<>();
   private OperationCommand lastPreviewEnabledOperation;
+  private boolean isLoaded;
+  private boolean isSaved;
 
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
     this.imageEditorView = imageEditorView;
     imageEditorView.addFeatures(this);
     this.imageOperationFactory = imageOperationFactory;
+    isLoaded = false;
+    isSaved = false;
   }
 
   @Override
-  public void loadImage(String imagePath) {
+  public void loadImage(String imagePath, boolean userDecision) {
     CLIOperation imageOperation = imageOperationFactory.createOperation("load");
     try {
+      if(isLoaded && !isSaved && !userDecision) {
+        imageEditorView.showWarningMessageBeforeLoading(imagePath);
+      }
       imageOperation.execute(imagePath);
       undoStack.push(new OperationCommand(imageOperation, imagePath));
       redoStack.clear();
+      isLoaded = true;
+      isSaved = false;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
@@ -39,6 +48,7 @@ public class GUIController implements Features {
       imageOperation.execute();
       undoStack.push(new OperationCommand(imageOperation));
       redoStack.clear();
+      isSaved = false;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
@@ -52,6 +62,7 @@ public class GUIController implements Features {
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
         redoStack.clear();
+        isSaved = false;
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
@@ -68,6 +79,7 @@ public class GUIController implements Features {
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
         redoStack.clear();
+        isSaved = false;
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
@@ -84,6 +96,7 @@ public class GUIController implements Features {
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
         redoStack.clear();
+        isSaved = false;
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
@@ -99,6 +112,7 @@ public class GUIController implements Features {
       imageOperation.execute(compressionRatio);
       undoStack.push(new OperationCommand(imageOperation, compressionRatio));
       redoStack.clear();
+      isSaved = false;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
@@ -113,6 +127,7 @@ public class GUIController implements Features {
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, args));
         redoStack.clear();
+        isSaved = false;
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, args);
       }
@@ -128,6 +143,7 @@ public class GUIController implements Features {
       imageOperation.execute(imagePath);
       undoStack.push(new OperationCommand(imageOperation, imagePath));
       redoStack.clear();
+      isSaved = true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
     }
@@ -182,6 +198,11 @@ public class GUIController implements Features {
       }
     }
     lastPreviewEnabledOperation = null;
+  }
+
+  @Override
+  public boolean isLoadedAndSaved() {
+    return isLoaded&&isSaved;
   }
 
   class OperationCommand {
