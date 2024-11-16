@@ -1,7 +1,5 @@
 package ime.model.operation;
 
-import java.sql.SQLOutput;
-
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
@@ -21,12 +19,8 @@ public class Downscale implements ImageOperation {
     int actualWidth = inputImage.getWidth();
     int actualHeight = inputImage.getHeight();
 
-    // TODO: Changeit
-    /*int scaledWidth = Integer.parseInt(args[0]);
-    int scaledHeight = Integer.parseInt(args[1]);*/
-
-    int scaledHeight = actualHeight - 50;
-    int scaledWidth = actualWidth - 50;
+    int scaledWidth = Integer.parseInt(args[0]);
+    int scaledHeight = Integer.parseInt(args[1]);
 
     System.out.println(scaledHeight);
     System.out.println(scaledWidth);
@@ -47,7 +41,6 @@ public class Downscale implements ImageOperation {
         int lowerYCoordinate = (int) Math.floor(((double) y / scaledHeight) * actualHeight);
         int higherYCoordinate = (int) Math.ceil(((double) y / scaledHeight) * actualHeight);
 
-        System.out.printf("%d %d\n", x, y);
 
         pixels[y][x] =
             computeAverage(
