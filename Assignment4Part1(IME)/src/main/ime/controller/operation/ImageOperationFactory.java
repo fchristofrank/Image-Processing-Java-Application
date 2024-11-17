@@ -883,12 +883,14 @@ public class ImageOperationFactory implements OperationCreator {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
+      String width = args[2];
+      String height = args[3];
 
       Image inputImage = getImage(inputName);
       if (inputImage == null) {
         throw new IllegalArgumentException("Input image not found");
       }
-      Image outputImage = inputImage.applyOperation(new Downscale(), args[1], args[2]);
+      Image outputImage = inputImage.applyOperation(new Downscale(), width, height);
       addImage(outputName, outputImage);
       System.out.println("Generated DownScaled Image. New Image :: " + outputName);
     }

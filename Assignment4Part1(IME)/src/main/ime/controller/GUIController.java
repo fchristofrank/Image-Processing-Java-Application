@@ -211,6 +211,19 @@ public class GUIController implements Features {
     return isLoaded && isSaved;
   }
 
+  @Override
+  public void downScale(String width, String height) {
+    CLIOperation imageOperation = imageOperationFactory.createOperation("downscale");
+    try {
+      imageOperation.execute(width,height);
+      undoStack.push(new OperationCommand(imageOperation));
+      redoStack.clear();
+      isSaved = false;
+    } catch (IllegalArgumentException exception) {
+      imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+    }
+  }
+
   class OperationCommand {
     private final CLIOperation operation;
     private final String[] args;
@@ -230,18 +243,6 @@ public class GUIController implements Features {
 
     public String[] getArgs() {
       return args;
-    }
-  }
-
-  //TODO: What is This?
-  //Can all method be consolidated to one?
-  @Override
-  public void downScale(String operation) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation(operation);
-    try{
-      imageOperation.execute(operation);
-    }catch (IllegalArgumentException exception){
-      //delegate it to the UI
     }
   }
 }

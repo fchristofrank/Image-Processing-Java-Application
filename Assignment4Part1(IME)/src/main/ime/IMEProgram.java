@@ -1,6 +1,7 @@
 package ime;
 
 import ime.controller.GUIController;
+import ime.controller.operation.GUIImageOperationFactory;
 import ime.view.ImageEditorFrame;
 import ime.view.ImageEditorView;
 

@@ -101,6 +101,5 @@ public interface Features {
    */
   boolean isLoadedAndSaved();
 
-
-  void downScale(String imagePath);
+  void downScale(String width, String height);
 }

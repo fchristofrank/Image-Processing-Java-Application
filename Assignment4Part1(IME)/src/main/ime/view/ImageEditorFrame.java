@@ -32,7 +32,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnGreenComponent;
   private JButton btnBlueComponent;
   private JButton btnColorCorrection;
-  private JButton btnDownScale;
+  private JButton btnDownscale;
   private JLabel imageLabel;
   private JLabel histogramLabel;
   private JCheckBox previewMode;
@@ -41,9 +41,12 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnCompress;
   private JLabel compressionLabel;
   private JPanel levelsAdjustmentPanel;
+  private JPanel downscalePanel;
   private JTextField blackLevel;
   private JTextField middleLevel;
   private JTextField whiteLevel;
+  private JTextField downscaleWidth;
+  private JTextField downscaleHeight;
   private JButton btnAdjustLevels;
   private Features features;
 
@@ -268,6 +271,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
     rightPanel.add(createLevelsAdjustmentPanel());
+    rightPanel.add(createDownscalePanel());
 
     return rightPanel;
   }
@@ -428,6 +432,21 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     return levelsAdjustmentPanel;
   }
 
+  private JPanel createDownscalePanel() {
+    downscalePanel = new JPanel();
+    downscalePanel.setLayout(new BoxLayout(downscalePanel, BoxLayout.Y_AXIS));
+    downscalePanel.setBorder(BorderFactory.createTitledBorder("Downscale"));
+
+    downscalePanel.add(createDownscaleInputContainer());
+    downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    btnDownscale = createStyledButton("Downscale",
+            new Dimension(200, 30));
+    downscalePanel.add(btnDownscale);
+    downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    return downscalePanel;
+  }
+
   /**
    * Creates the levels input container with labels and text fields.
    *
@@ -441,6 +460,18 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     container.add(createLevelsLabelPanel());
     container.add(Box.createRigidArea(new Dimension(5, 0)));
     container.add(createLevelsValuePanel());
+
+    return container;
+  }
+
+  private JPanel createDownscaleInputContainer() {
+    JPanel container = new JPanel();
+    container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+    container.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    container.add(createDownscaleLabelPanel());
+    container.add(Box.createRigidArea(new Dimension(5, 0)));
+    container.add(createDownscaleValuePanel());
 
     return container;
   }
@@ -464,6 +495,20 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     return panel;
   }
 
+  private JPanel createDownscaleLabelPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    panel.add(new JLabel("Width:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    panel.add(new JLabel("Height:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    return panel;
+  }
+
+
   /**
    * Creates the levels value panel with text fields for black, middle, and white levels.
    *
@@ -482,6 +527,26 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
     whiteLevel = createFixedSizeTextField("", 3, new Dimension(30, 20));
     panel.add(whiteLevel);
+
+    return panel;
+  }
+
+  /**
+   * Creates the downscale value panel with text fields for width and height.
+   *
+   * @return The levels value panel.
+   */
+  private JPanel createDownscaleValuePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    downscaleWidth = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(downscaleWidth);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    downscaleHeight = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(downscaleHeight);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
     return panel;
   }
@@ -579,6 +644,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     setupColorCorrectButton(btnColorCorrection, features);
     setupCompressButton(btnCompress, features);
     setupAdjustLevelsButton(btnAdjustLevels, features);
+    setupDownscaleButton(btnDownscale, features);
   }
 
   /**
@@ -627,6 +693,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     });
   }
 
+  private void setupDownscaleButton(JButton button, Features features) {
+    button.addActionListener(e -> {
+      System.out.println("Me");
+      features.downScale(downscaleWidth.getText(),downscaleHeight.getText());
+      toggleFilterButtons(button);
+    });
+  }
+
   /**
    * Toggles the enabled state of filter buttons to prevent multiple simultaneous filter applications in preview mode.
    *
@@ -634,7 +708,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void toggleFilterButtons(JButton activeButton) {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels,btnDownscale};
     for (JButton button : filterButtons) {
       if (!(button != activeButton && previewMode.isSelected())) {
         button.setEnabled(true);

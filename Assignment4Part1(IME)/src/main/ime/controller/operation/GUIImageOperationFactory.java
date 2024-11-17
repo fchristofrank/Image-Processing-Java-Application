@@ -319,17 +319,21 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
   class Downscale extends ImageOperationFactory.DownScale {
 
+    /**
+     * Constructs a Downscale operation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
     public Downscale(ImageRepo library) {
       super(library);
     }
 
     @Override
     public void execute(String... args) {
-      super.execute(IMAGE_NAME, IMAGE_NAME,"200","200");
+      super.execute(IMAGE_NAME, IMAGE_NAME,args[0],args[1]);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(IMAGE_NAME));
     }
-
   }
 
   private void setViewWithImage(Image image) {
