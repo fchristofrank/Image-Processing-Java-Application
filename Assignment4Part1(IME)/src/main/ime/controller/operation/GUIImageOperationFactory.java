@@ -11,7 +11,7 @@ import ime.view.ImageEditorView;
 public class GUIImageOperationFactory extends ImageOperationFactory {
 
   private final ImageEditorView imageEditorView;
-  private final String IMAGE_NAME = "IMAGE";
+  private final String imageName;
 
   /**
    * Constructs a GUIImageOperationFactory.
@@ -21,6 +21,18 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   public GUIImageOperationFactory(ImageEditorView imageEditorView) {
     super();
     this.imageEditorView = imageEditorView;
+    this.imageName = generateInstanceName();
+  }
+
+  /**
+   * Generates a unique name based on instance context.
+   *
+   * @return A unique string identifier for the image
+   */
+  private String generateInstanceName() {
+    return this.getClass().getSimpleName() +
+            "_" +
+            Integer.toHexString(System.identityHashCode(this));
   }
 
 
@@ -75,9 +87,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 0) {
         throw new IllegalArgumentException("You must choose an image.");
       }
-      super.execute(args[0], IMAGE_NAME);
+      super.execute(args[0], imageName);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
@@ -99,7 +111,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 0) {
         throw new IllegalArgumentException("You must specify the file path.");
       }
-      super.execute(args[0], IMAGE_NAME);
+      super.execute(args[0], imageName);
     }
   }
 
@@ -119,7 +131,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       String HISTOGRAM_NAME = "HISTOGRAM";
-      super.execute(IMAGE_NAME, HISTOGRAM_NAME);
+      super.execute(imageName, HISTOGRAM_NAME);
       setViewWithImageHistogram(getImage(HISTOGRAM_NAME));
     }
 
@@ -140,9 +152,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
-      super.execute(IMAGE_NAME, IMAGE_NAME);
+      super.execute(imageName, imageName);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
 
   }
@@ -167,9 +179,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 1) {
         splitWidth = args[0];
       }
-      super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
+      super.execute(imageName, imageName, splitWidth);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
@@ -188,9 +200,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
-      super.execute(IMAGE_NAME, IMAGE_NAME);
+      super.execute(imageName, imageName);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
@@ -214,9 +226,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 1) {
         splitWidth = args[0];
       }
-      super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
+      super.execute(imageName, imageName, splitWidth);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
 
   }
@@ -240,9 +252,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 1) {
         splitWidth = args[0];
       }
-      super.execute(IMAGE_NAME, IMAGE_NAME, splitWidth);
+      super.execute(imageName, imageName, splitWidth);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
@@ -264,9 +276,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 0) {
         throw new IllegalArgumentException("You must specify the compression ratio.");
       }
-      super.execute(args[0], IMAGE_NAME, IMAGE_NAME);
+      super.execute(args[0], imageName, imageName);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
@@ -292,13 +304,13 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 4) {
         splitWidth = args[3];
       }
-      super.execute(args[0], args[1], args[2], IMAGE_NAME, IMAGE_NAME, splitWidth);
+      super.execute(args[0], args[1], args[2], imageName, imageName, splitWidth);
       new Histogram(imageLibrary).execute();
-      setViewWithImage(getImage(IMAGE_NAME));
+      setViewWithImage(getImage(imageName));
     }
   }
 
-  class ClearImageLibrary extends AbstractOperation{
+  class ClearImageLibrary extends AbstractOperation {
 
     /**
      * Constructs an AbstractOperation with the specified image library.
@@ -311,7 +323,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-      removeImage(IMAGE_NAME);
+      removeImage(imageName);
     }
   }
 
