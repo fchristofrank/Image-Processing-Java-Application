@@ -15,6 +15,7 @@ public class GUIController implements Features {
   private OperationCommand lastPreviewEnabledOperation;
   private boolean isLoaded;
   private boolean isSaved;
+  private boolean isApplied;
 
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
     this.imageEditorView = imageEditorView;
@@ -188,22 +189,32 @@ public class GUIController implements Features {
       }
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = splitWidth;
-      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation(), args);
+      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
+              , args);
       lastPreviewEnabledOperation.execute();
     }
   }
 
   @Override
-  public void exitPreviewMode(boolean isEnabled) {
-    if (!isEnabled) {
-      undoStack.push(lastPreviewEnabledOperation);
-      redoStack.clear();
-    } else {
-      for (OperationCommand redoOperation : undoStack) {
-        redoOperation.execute();
-      }
+  public void exitPreviewMode() {
+    for (OperationCommand redoOperation : undoStack) {
+      redoOperation.execute();
     }
     lastPreviewEnabledOperation = null;
+  }
+
+  @Override
+  public void applyPreviewChanges() {
+    if (lastPreviewEnabledOperation != null) {
+      String[] args = lastPreviewEnabledOperation.getArgs();
+      args[args.length - 1] = "100";
+      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
+              , args);
+      undoStack.push(lastPreviewEnabledOperation);
+      redoStack.clear();
+      lastPreviewEnabledOperation = null;
+      isApplied = true;
+    }
   }
 
   @Override
