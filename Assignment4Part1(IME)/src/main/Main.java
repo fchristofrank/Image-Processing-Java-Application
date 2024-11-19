@@ -1,7 +1,12 @@
-import ime.controller.cli.ImageProcessorCLI;
-import ime.controller.operation.ImageOperationFactory;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+
+import ime.controller.GUIController;
+import ime.controller.cli.ImageProcessorCLI;
+import ime.controller.operation.GUIImageOperationFactory;
+import ime.controller.operation.ImageOperationFactory;
+import ime.view.ImageEditorFrame;
+import ime.view.ImageEditorView;
 
 /**
  * The Main class serves as the entry point for the image editor application. It initializes and
@@ -10,29 +15,73 @@ import java.io.StringReader;
 public class Main {
 
   /**
-   * The main method that starts the image editor application. It creates an instance of
-   * ImageProcessorCLI and calls its run method.
-   *
-   * @param args the command-line arguments; not used in this application.
+   * Entry point for the Image Editor application.
+   * Supports both GUI and CLI modes and provides the ability to execute scripts.
    */
   public static void main(String[] args) {
     Readable rd = new InputStreamReader(System.in);
     Appendable ap = System.out;
 
-    if (args.length == 1) {
-      String scriptPath = args[0];
-      String command = "run " + scriptPath + "\nexit";
-      Readable readableInput = new StringReader(command);
-      new ImageProcessorCLI(readableInput, ap, new ImageOperationFactory()).run();
-      System.out.println("Script Completed.");
-      return;
-    }
-
     if (args.length > 1) {
-      System.out.println("Unsupported Operation :: Only accepts 1 script file as argument.");
+      System.out.println("Unsupported Operation: Only accepts zero or one argument");
       return;
     }
 
+    if (args.length == 1) {
+      handleSingleArgument(args[0], rd, ap);
+    } else {
+      launchGUI();
+    }
+  }
+
+  /**
+   * Handles the case where a single command-line argument is provided.
+   *
+   * @param arg the command-line argument
+   * @param rd  the input source for reading commands
+   * @param ap  the output destination for writing responses
+   */
+  private static void handleSingleArgument(String arg, Readable rd, Appendable ap) {
+    if (arg.equals("-text")) {
+      launchTextMode(rd, ap);
+    } else {
+      executeScript(arg, ap);
+    }
+  }
+
+  /**
+   * Launches the text-based interface of the application.
+   *
+   * @param rd the input source for reading commands
+   * @param ap the output destination for writing responses
+   */
+  private static void launchTextMode(Readable rd, Appendable ap) {
     new ImageProcessorCLI(rd, ap, new ImageOperationFactory()).run();
+  }
+
+  /**
+   * Executes a script provided via a file path.
+   * The script is read and executed line by line.
+   *
+   * @param scriptPath the file path of the script to execute
+   * @param ap         the output destination for writing responses
+   */
+  private static void executeScript(String scriptPath, Appendable ap) {
+    String command = "run " + scriptPath + "\nexit";
+    Readable readableInput = new StringReader(command);
+    new ImageProcessorCLI(readableInput, ap, new ImageOperationFactory()).run();
+    System.out.println("Script Completed.");
+  }
+
+  /**
+   * Launches the GUI version of the application.
+   * This provides a graphical user interface for editing images.
+   */
+  private static void launchGUI() {
+    ImageEditorView imageEditorView = new ImageEditorFrame("Image Editor");
+    GUIController guiController = new GUIController(
+            imageEditorView,
+            new GUIImageOperationFactory(imageEditorView)
+    );
   }
 }
