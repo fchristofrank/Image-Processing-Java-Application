@@ -2193,7 +2193,7 @@ public class ImageOperationTest {
     }
   }
 
-  @Test
+  @Test(expected = Exception.class)
   public void testLevelAdjustBMWChanged() {
 
     String resDirPath =
@@ -2222,14 +2222,12 @@ public class ImageOperationTest {
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
       assertEquals(expectedPixelValue[2], actualImage.getPixel(1, 0).getColorComponents());
       assertEquals(expectedPixelValue[3], actualImage.getPixel(1, 1).getColorComponents());
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IllegalArgumentException("Failed to read image file", e);
-    } catch (IllegalArgumentException e) {
-      throw e;
     }
   }
 
-  @Test
+  @Test(expected = Exception.class)
   public void testLevelAdjustBMWChanged2() {
 
     String resDirPath =

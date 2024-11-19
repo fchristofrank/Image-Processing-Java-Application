@@ -346,8 +346,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    JLabel splitValueLabel = new JLabel("Value: 100%");
-    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+    JLabel splitValueLabel = new JLabel("Value: 50%");
+    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     splitSlider.setEnabled(false);
 
     setupSlider(splitValueLabel, panel, splitSlider);
@@ -657,7 +657,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
@@ -665,7 +665,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
@@ -673,14 +673,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
       features.applyColorCorrect(previewMode.isSelected(), splitWidth);
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
   private void setupCompressButton(JButton button, Features features) {
     button.addActionListener(e -> {
       features.applyCompress(compressionText.getText());
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
@@ -689,28 +689,25 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       String splitWidth = getSplitWidth();
       features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
               whiteLevel.getText(), splitWidth);
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
   private void setupDownscaleButton(JButton button, Features features) {
     button.addActionListener(e -> {
-      System.out.println("Me");
       features.downScale(downscaleWidth.getText(),downscaleHeight.getText());
-      toggleFilterButtons(button);
+      toggleFilterButtons();
     });
   }
 
   /**
    * Toggles the enabled state of filter buttons to prevent multiple simultaneous filter applications in preview mode.
-   *
-   * @param activeButton The currently active button.
    */
-  private void toggleFilterButtons(JButton activeButton) {
+  private void toggleFilterButtons() {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels,btnDownscale};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
     for (JButton button : filterButtons) {
-      if (!(button != activeButton && previewMode.isSelected())) {
+      if (!(previewMode.isSelected())) {
         button.setEnabled(true);
       } else {
         button.setEnabled(false);
@@ -756,11 +753,12 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     compressionLabel.setEnabled(!isPreviewMode);
     compressionText.setEnabled(!isPreviewMode);
     btnCompress.setEnabled(!isPreviewMode);
+    btnDownscale.setEnabled(!isPreviewMode);
 
     if (!isPreviewMode) {
       features.exitPreviewMode(previewCheckBox.isSelected());
       enableAllButtons();
-      splitSlider.setValue(100);
+      splitSlider.setValue(50);
       previewCheckBox.setSelected(true);
     }
   }
@@ -830,6 +828,15 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       button.setEnabled(true);
     }
     enableLevelsAdjustmentFeatures(true);
+  }
+
+  private void disableAllButtons() {
+    JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
+        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+    for (JButton button : buttons) {
+      button.setEnabled(false);
+    }
+    enableLevelsAdjustmentFeatures(false);
   }
 
   private void enableLevelsAdjustmentFeatures(boolean enable) {

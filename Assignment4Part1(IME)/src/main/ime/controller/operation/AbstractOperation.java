@@ -30,7 +30,7 @@ public abstract class   AbstractOperation implements CLIOperation {
 
     Image image = this.library.getImage(imageName);
     if (image == null) {
-      throw new IllegalArgumentException("Image not found in the library: " + imageName);
+      throw new IllegalArgumentException("Image not found in the library");
     }
 
     return image;
