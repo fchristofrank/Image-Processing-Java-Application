@@ -2,9 +2,13 @@ package ime.controller.operation;
 
 import ime.model.image.Image;
 
-/** An abstract base class for CLI operations in an image processing application. */
-public abstract class   AbstractOperation implements CLIOperation {
-  /** The image library used for storing and retrieving images. */
+/**
+ * An abstract base class for CLI operations in an image processing application.
+ */
+public abstract class AbstractOperation implements CLIOperation {
+  /**
+   * The image library used for storing and retrieving images.
+   */
   private final ImageRepo library;
 
   /**
@@ -30,7 +34,8 @@ public abstract class   AbstractOperation implements CLIOperation {
 
     Image image = this.library.getImage(imageName);
     if (image == null) {
-      throw new IllegalArgumentException("Image not found in the library: " + imageName);
+      throw new IllegalArgumentException("Image not found in library: " +
+              "Please load the image before accessing");
     }
 
     return image;
@@ -40,7 +45,7 @@ public abstract class   AbstractOperation implements CLIOperation {
    * Adds an image to the image library.
    *
    * @param imageName the name to associate with the image
-   * @param image the Image object to be added
+   * @param image     the Image object to be added
    */
   protected void addImage(String imageName, Image image) {
     if (this.library == null) {
@@ -52,6 +57,7 @@ public abstract class   AbstractOperation implements CLIOperation {
 
   /**
    * Removes an image to the image library.
+   *
    * @param imageName the name of the image which has to be removed.
    */
   protected void removeImage(String imageName) {

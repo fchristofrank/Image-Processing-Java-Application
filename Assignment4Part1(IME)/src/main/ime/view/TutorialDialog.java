@@ -1,45 +1,75 @@
 // TutorialDialog.java
 package ime.view;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 public class TutorialDialog extends JDialog {
   private int currentStep = 0;
   private final String[] tutorialSteps = {
-          "<html><b>Welcome to the Image Editor!</b><br><br>" +
-                  "This tutorial will guide you through the basic features of the application.<br>" +
-                  "Click 'Next' to continue or 'Skip' to exit the tutorial.</html>",
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Welcome to the Image Editor!</h2>" +
+                  "<p>This tutorial will guide you through the basic features of the application.</p>" +
+                  "<p style='font-style: italic;'>Click 'Next' to continue or 'Skip' to exit the tutorial.</p>" +
+                  "</div></html>",
 
-          "<html><b>Loading and Saving Images</b><br><br>" +
-                  "• Use File → Load to open an image<br>" +
-                  "• Use File → Save to save your edited image<br>" +
-                  "• Supported formats: JPG, PNG, PPM</html>",
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Loading and Saving Images</h2>" +
+                  "<ul style='list-style-type: circle; padding-left: 20px;'>" +
+                  "<li>Use <b>File → Load</b> to open an image</li>" +
+                  "<li>Use <b>File → Save</b> to save your edited image</li>" +
+                  "<li>Supported formats: JPG, PNG, PPM</li>" +
+                  "</ul>" +
+                  "</div></html>",
 
-          "<html><b>Basic Image Operations</b><br><br>" +
-                  "• Use the buttons on the left panel for basic operations:<br>" +
-                  "• Flip images horizontally or vertically<br>" +
-                  "• Apply filters like Blur, Sharpen<br>" +
-                  "• Convert to Sepia or Greyscale<br>" +
-                  "• Extract color components (Red, Green, Blue)</html>",
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Basic Image Operations</h2>" +
+                  "<p>Use the buttons on the left panel for basic operations:</p>" +
+                  "<ul style='list-style-type: circle; padding-left: 20px;'>" +
+                  "<li>Flip images horizontally or vertically</li>" +
+                  "<li>Apply filters like Blur, Sharpen</li>" +
+                  "<li>Convert to Sepia or Greyscale</li>" +
+                  "<li>Extract color components (Red, Green, Blue)</li>" +
+                  "<li><b>Color Correction:</b> Adjust brightness, contrast, and saturation</li>" +
+                  "</ul>" +
+                  "</div></html>",
 
-          "<html><b>Preview Mode</b><br><br>" +
-                  "• Enable Preview Mode to see changes before applying<br>" +
-                  "• Use the slider to adjust the split view<br>" +
-                  "• Toggle the preview on/off<br>" +
-                  "• Click 'Apply' to make changes permanent</html>",
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Histogram</h2>" +
+                  "<ul style='list-style-type: circle; padding-left: 20px;'>" +
+                  "<li>The histogram is always visible</li>" +
+                  "<li>It updates dynamically with every operation</li>" +
+                  "<li>Observe real-time changes in color distribution</li>" +
+                  "</ul>" +
+                  "</div></html>",
 
-          "<html><b>Advanced Features</b><br><br>" +
-                  "• Compress images by specifying compression percentage<br>" +
-                  "• Adjust levels using Black, Middle, and White points<br>" +
-                  "• View histogram for color distribution<br>" +
-                  "• Undo/Redo changes using Edit menu or shortcuts</html>",
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Preview Mode</h2>" +
+                  "<ul style='list-style-type: circle; padding-left: 20px;'>" +
+                  "<li>Enable Preview Mode to see changes before applying</li>" +
+                  "<li style='color: #ff4500;'><b>Important:</b> After entering Preview Mode, you must apply an operation to see the preview</li>" +
+                  "<li>Use the slider to adjust the width of the split view</li>" +
+                  "<li>Toggle the preview on/off using the enable check box</li>" +
+                  "<li>Click 'Apply' to make changes permanent</li>" +
+                  "</ul>" +
+                  "</div></html>",
 
-          "<html><b>Ready to Start!</b><br><br>" +
-                  "You're now ready to use the Image Editor.<br><br>" +
-                  "Click 'Finish' to start editing!</html>"
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Advanced Features</h2>" +
+                  "<ul style='list-style-type: circle; padding-left: 20px;'>" +
+                  "<li>Compress images by specifying compression percentage</li>" +
+                  "<li>Adjust levels using Black, Middle, and White points</li>" +
+                  "<li><b>Downscale:</b> Reduce image size while preserving quality</li>" +
+                  "</ul>" +
+                  "</div></html>",
+
+          "<html><div style='font-family: Arial, sans-serif; padding: 10px; background-color: #f0f8ff; border-radius: 10px;'>" +
+                  "<h2 style='color: #4169e1; margin-top: 0;'>Ready to Start!</h2>" +
+                  "<p>You're now ready to use the Image Editor.</p>" +
+                  "<p style='font-weight: bold;'>Click 'Finish' to start editing!</p>" +
+                  "<p style='font-style: italic; color: #228b22;'>Happy Editing!</p>" +
+                  "</div></html>"
   };
 
   public TutorialDialog(JFrame parent) {
