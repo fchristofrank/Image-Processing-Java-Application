@@ -82,6 +82,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     add(mainContent);
     pack();
     setVisible(true);
+
+    SwingUtilities.invokeLater(() -> {
+      TutorialDialog tutorial = new TutorialDialog(this);
+      tutorial.setVisible(true);
+    });
   }
 
   /**
@@ -565,7 +570,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     btnHorizontalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
     btnVerticalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
     btnApplyPreview.addActionListener(e ->
-    { features.applyPreviewChanges();
+    {
+      features.applyPreviewChanges();
       previewMode.setSelected(false);
       handlePreviewModeChange(features);
 
