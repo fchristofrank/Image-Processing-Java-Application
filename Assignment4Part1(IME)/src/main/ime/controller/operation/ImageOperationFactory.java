@@ -917,15 +917,13 @@ public class ImageOperationFactory implements OperationCreator {
     @Override
     public void validateArgs(String[] args) {
 
-      if (args.length < 3){
+      if (args.length < 4){
         throw new IllegalArgumentException("Downscaled Height and Width are required.");
       }
 
       if (!isNumeric(args[2]) && !isNumeric(args[3])){
         throw new IllegalArgumentException("Cannot downsize to non-numeric value.");
       }
-
-      System.out.println(Arrays.deepToString(args));
     }
 
     /**
