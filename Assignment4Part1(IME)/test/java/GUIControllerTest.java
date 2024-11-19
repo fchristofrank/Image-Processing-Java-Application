@@ -126,6 +126,13 @@ public class GUIControllerTest {
     assertEquals(expectedString, log.toString());
   }
 
+  @Test
+  public void loadInvalidArgumentsTest() {
+    StringBuilder log = new StringBuilder();
+    Features guiController = new GUIController(new ImageEditorFrameMock(log),
+            new GUIImageOperationFactoryMock(log));
+  }
+
   class ImageEditorFrameMock implements ImageEditorView {
     private final StringBuilder log;
 
