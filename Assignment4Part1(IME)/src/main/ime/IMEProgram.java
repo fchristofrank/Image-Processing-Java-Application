@@ -1,9 +1,9 @@
 package ime;
 
-import ime.controller.GUIController;
+import ime.controller.gui.GUIController;
 import ime.controller.operation.GUIImageOperationFactory;
-import ime.view.ImageEditorFrame;
-import ime.view.ImageEditorView;
+import ime.view.gui.ImageEditorFrame;
+import ime.view.gui.ImageEditorView;
 
 public class IMEProgram {
 

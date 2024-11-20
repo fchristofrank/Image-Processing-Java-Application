@@ -1,6 +1,7 @@
-package ime.view;
+package ime.view.gui;
 
-import ime.controller.Features;
+import ime.controller.gui.Features;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

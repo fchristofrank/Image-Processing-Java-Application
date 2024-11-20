@@ -1,9 +1,9 @@
-import ime.controller.GUIController;
+import ime.controller.gui.GUIController;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.operation.GUIImageOperationFactory;
 import ime.controller.operation.ImageOperationFactory;
-import ime.view.ImageEditorFrame;
-import ime.view.ImageEditorView;
+import ime.view.gui.ImageEditorFrame;
+import ime.view.gui.ImageEditorView;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 

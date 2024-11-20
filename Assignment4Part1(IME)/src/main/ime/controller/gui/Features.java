@@ -1,4 +1,4 @@
-package ime.controller;
+package ime.controller.gui;
 
 /**
  * The Features interface defines the contract for image manipulation operations. It provides
@@ -14,7 +14,7 @@ public interface Features {
    * @param userDecision a boolean indicating user's decision (purpose not specified)
    * @return true if the operation is applied successfully.
    */
-  boolean loadImage(String imagePath, boolean userDecision);
+  void loadImage(String imagePath, boolean userDecision);
 
   /**
    * Flips the loaded image based on the specified flip type.
@@ -22,7 +22,7 @@ public interface Features {
    * @param flipType the type of flip operation to perform
    * @return true if the operation is applied successfully.
    */
-  boolean flipImage(String flipType);
+  void flipImage(String flipType);
 
   /**
    * Applies a filter to the loaded image.
@@ -76,7 +76,7 @@ public interface Features {
    * @param imagePath the path where the image should be saved
    * @return true if the operation is applied successfully.
    */
-  boolean saveImage(String imagePath);
+  void saveImage(String imagePath);
 
   /**
    * Undoes the last operation performed on the image.

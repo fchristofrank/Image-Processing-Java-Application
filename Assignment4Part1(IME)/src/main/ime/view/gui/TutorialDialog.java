@@ -1,5 +1,5 @@
 // TutorialDialog.java
-package ime.view;
+package ime.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
