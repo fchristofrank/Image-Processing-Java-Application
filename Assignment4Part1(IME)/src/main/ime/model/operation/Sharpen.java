@@ -14,12 +14,12 @@ public class Sharpen extends FilterWithPreview {
    * @return a 2D float array representing the sharpen kernel.
    */
   protected float[][] getKernel() {
-    return new float[][] {
-      {-1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f},
-      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
-      {-1f / 8f, 1f / 4f, 1, 1f / 4f, -1f / 8f},
-      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
-      {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+    return new float[][]{
+        {-1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f, -1f / 8f},
+        {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+        {-1f / 8f, 1f / 4f, 1, 1f / 4f, -1f / 8f},
+        {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
+        {-1f / 8f, 1f / 4f, 1f / 4f, 1f / 4f, -1f / 8f},
     };
   }
 }

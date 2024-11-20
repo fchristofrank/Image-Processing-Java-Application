@@ -1,9 +1,9 @@
 package ime.controller;
 
 /**
- * The Features interface defines the contract for image manipulation operations.
- * It provides methods for loading, modifying, and saving images, as well as
- * managing undo/redo functionality and preview modes.
+ * The Features interface defines the contract for image manipulation operations. It provides
+ * methods for loading, modifying, and saving images, as well as managing undo/redo functionality
+ * and preview modes.
  */
 public interface Features {
 

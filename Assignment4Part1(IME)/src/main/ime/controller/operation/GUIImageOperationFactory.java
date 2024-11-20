@@ -1,9 +1,8 @@
 package ime.controller.operation;
 
-import java.awt.image.BufferedImage;
-
 import ime.model.image.Image;
 import ime.view.ImageEditorView;
+import java.awt.image.BufferedImage;
 
 /**
  * A factory class that creates GUI-specific image operation controllers.  This factory extends the

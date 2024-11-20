@@ -5,16 +5,24 @@ package ime.controller.imageio;
  * provides a type-safe way to handle different image formats.
  */
 public enum ImageFormat {
-  /** Represents the PPM (Portable Pixmap) image format. */
+  /**
+   * Represents the PPM (Portable Pixmap) image format.
+   */
   PPM("ppm"),
 
-  /** Represents the PNG (Portable Network Graphics) image format. */
+  /**
+   * Represents the PNG (Portable Network Graphics) image format.
+   */
   PNG("png"),
 
-  /** Represents the JPG (Joint Photographic Experts Group) image format. */
+  /**
+   * Represents the JPG (Joint Photographic Experts Group) image format.
+   */
   JPG("jpg");
 
-  /** The string representation of the image format. */
+  /**
+   * The string representation of the image format.
+   */
   private final String imageFormat;
 
   /**

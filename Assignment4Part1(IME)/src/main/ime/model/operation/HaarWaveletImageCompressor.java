@@ -1,25 +1,24 @@
 package ime.model.operation;
 
+import ime.model.image.Image;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ime.model.image.Image;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
-
 /**
  * Implements the Haar Wavelet transformation for compressing and transforming image data.
  * <p>
- * This class applies the Haar wavelet transformation to images to compress and
- * reconstruct image data. It is designed to preserve significant features of the
- * image while eliminating less important details, making it suitable for image
- * compression applications.
+ * This class applies the Haar wavelet transformation to images to compress and reconstruct image
+ * data. It is designed to preserve significant features of the image while eliminating less
+ * important details, making it suitable for image compression applications.
  * </p>
  */
 public class HaarWaveletImageCompressor implements WaveletImageCompressor {
+
   private final double SQRT2 = Math.sqrt(2);
 
   @Override
@@ -56,9 +55,9 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         pixels[i][j] = PixelFactory.createPixel(image.getType(),
-                Math.round(tRed[i][j]),
-                Math.round(tGreen[i][j]),
-                Math.round(tBlue[i][j]));
+            Math.round(tRed[i][j]),
+            Math.round(tGreen[i][j]),
+            Math.round(tBlue[i][j]));
       }
     }
     return new SimpleImage(height, width, image.getType(), pixels);
@@ -67,9 +66,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
   /**
    * Applies the Haar wavelet transform and compresses the transformed data.
    * <p>
-   * This method pads the input 2D array to the nearest power of two, applies the wavelet
-   * transform, and then compresses the transformed data based on the specified
-   * compression ratio.
+   * This method pads the input 2D array to the nearest power of two, applies the wavelet transform,
+   * and then compresses the transformed data based on the specified compression ratio.
    * </p>
    *
    * @param sequence         the 2D float array representing image data.
@@ -88,7 +86,7 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
       for (int i = 0; i < m; i++) {
         float[] rowTransformedRes = rowTransform(paddedSequence, i, m);
         System.arraycopy(rowTransformedRes, 0, paddedSequence[i], 0,
-                rowTransformedRes.length);
+            rowTransformedRes.length);
       }
       for (int i = 0; i < m; i++) {
         float[] colTransformedRes = columnTransform(paddedSequence, i, m);
@@ -113,7 +111,7 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
       for (int i = 0; i < m; i++) {
         float[] invertRowTransformedResult = invertRowTransform(sequence, i, m);
         System.arraycopy(invertRowTransformedResult, 0, sequence[i], 0,
-                invertRowTransformedResult.length);
+            invertRowTransformedResult.length);
       }
       for (int i = 0; i < m; i++) {
         float[] invertColTransformedResult = invertColTransform(sequence, i, m);
@@ -126,8 +124,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
   }
 
   /**
-   * Performs a Haar wavelet transformation on a single row.
-   * Calculates and separates averages and differences for recursive reduction.
+   * Performs a Haar wavelet transformation on a single row. Calculates and separates averages and
+   * differences for recursive reduction.
    *
    * @param sequence the input 2D array
    * @param row      the specific row in the array to transform
@@ -220,8 +218,8 @@ public class HaarWaveletImageCompressor implements WaveletImageCompressor {
   /**
    * Compresses the given sequence by setting the smallest coefficients to zero.
    * <p>
-   * This method identifies the number of coefficients to be retained based on the
-   * compression ratio and sets the smallest coefficients to zero.
+   * This method identifies the number of coefficients to be retained based on the compression ratio
+   * and sets the smallest coefficients to zero.
    * </p>
    *
    * @param sequence         the 2D array of transformed coefficients

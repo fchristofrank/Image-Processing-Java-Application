@@ -1,12 +1,12 @@
 package ime.controller;
 
-import java.util.Stack;
-
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
 import ime.view.ImageEditorView;
+import java.util.Stack;
 
 public class GUIController implements Features {
+
   private final OperationCreator imageOperationFactory;
   private final ImageEditorView imageEditorView;
   private final String ERROR_MESSAGE_TITLE = "ERROR";
@@ -141,7 +141,7 @@ public class GUIController implements Features {
   public boolean adjustLevels(boolean isPreview, String... args) {
     try {
       CLIOperation imageOperation = imageOperationFactory
-              .createOperation("levels-adjust");
+          .createOperation("levels-adjust");
       imageOperation.execute(args);
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, args));
@@ -212,7 +212,7 @@ public class GUIController implements Features {
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = splitWidth;
       lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
-              , args);
+          , args);
       lastPreviewEnabledOperation.execute();
     }
   }
@@ -231,7 +231,7 @@ public class GUIController implements Features {
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = "100";
       lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
-              , args);
+          , args);
       undoStack.push(lastPreviewEnabledOperation);
       redoStack.clear();
       lastPreviewEnabledOperation = null;
@@ -248,8 +248,8 @@ public class GUIController implements Features {
   public boolean downScale(String width, String height) {
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("downscale");
-      imageOperation.execute(width,height);
-      undoStack.push(new OperationCommand(imageOperation,width,height));
+      imageOperation.execute(width, height);
+      undoStack.push(new OperationCommand(imageOperation, width, height));
       redoStack.clear();
       isSaved = false;
       return true;
@@ -260,6 +260,7 @@ public class GUIController implements Features {
   }
 
   class OperationCommand {
+
     private final CLIOperation operation;
     private final String[] args;
 

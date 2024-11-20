@@ -6,6 +6,7 @@ import ime.model.image.Image;
  * An abstract base class for CLI operations in an image processing application.
  */
 public abstract class AbstractOperation implements CLIOperation {
+
   /**
    * The image library used for storing and retrieving images.
    */
@@ -35,7 +36,7 @@ public abstract class AbstractOperation implements CLIOperation {
     Image image = this.library.getImage(imageName);
     if (image == null) {
       throw new IllegalArgumentException("Image not found in library: " +
-              "Please load the image before accessing");
+          "Please load the image before accessing");
     }
 
     return image;

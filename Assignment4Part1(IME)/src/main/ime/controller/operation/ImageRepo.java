@@ -13,7 +13,7 @@ public interface ImageRepo {
    * Adds a new image or updates an existing one in the repository.
    *
    * @param imageName The name of the image.
-   * @param image The image to be stored.
+   * @param image     The image to be stored.
    */
   void addImage(String imageName, Image image);
 
@@ -27,6 +27,7 @@ public interface ImageRepo {
 
   /**
    * Removes the image with the specified image name from the library.
+   *
    * @param imageName the name of the image.
    */
   void removeImage(String imageName);

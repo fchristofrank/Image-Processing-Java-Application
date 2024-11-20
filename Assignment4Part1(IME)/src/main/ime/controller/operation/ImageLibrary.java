@@ -11,6 +11,7 @@ import java.util.Map;
  * before they are saved to the file system.
  */
 public class ImageLibrary implements ImageRepo {
+
   private final Map<String, Image> images;
 
   public ImageLibrary() {

@@ -21,21 +21,21 @@ save boston-hflip.png boston-hflip
 blur boston boston-blur
 
 # Apply a stronger blur with preview width 50 to 'boston' and save it as 'boston-blur-50'
-blur boston boston-blur-50 50
+blur boston boston-blur-50 split 50
 save boston-blur-mid-preview.png boston-blur-50
 
 # Sharpen the image 'boston' and save it as 'boston-sharp'
 sharpen boston boston-sharp
 
 # Apply sharpening with preview width 40 to 'boston' and save it as 'boston-sharp-40'
-sharpen boston boston-sharp-40 40
+sharpen boston boston-sharp-40 split 40
 save boston-sharp-preview-40.png boston-sharp-40
 
 # Apply a sepia tone to 'boston' and save it as 'boston-sep'
 sepia boston boston-sep
 
 # Apply sepia with preview width 50 to 'boston' and save it as 'boston-sep-50'
-sepia boston boston-sep-50 50
+sepia boston boston-sep-50 split 50
 save boston-sepia-mid-preview.png boston-sep-50
 
 # Split the RGB channels of 'boston' into separate images 'boston-r', 'boston-g', and 'boston-b'
@@ -89,7 +89,7 @@ color-correct boston boston-color-correction
 save boston-color-correct.png boston-color-correction
 
 # Apply color correction with intensity 50 to 'boston' and save as 'boston-color-correction-50'
-color-correct boston boston-color-correction-50 50
+color-correct boston boston-color-correction-50 split 50
 save boston-color-correct-50.png boston-color-correction-50
 
 # Adjust the levels with min 50, mid 100, max 150 with preview width 50 on 'boston' and save it as 'boston-ld'
@@ -97,5 +97,5 @@ levels-adjust 50 100 150 boston boston-ld
 save boston-ld.png boston-ld
 
 # Apply level adjustments with min 50, mid 100, max 150 to 'boston' and save it as 'boston-ld-50'
-levels-adjust 50 100 150 boston boston-ld-50 50
+levels-adjust 50 100 150 boston boston-ld-50 split 50
 save boston-ld-preview.png boston-ld-50

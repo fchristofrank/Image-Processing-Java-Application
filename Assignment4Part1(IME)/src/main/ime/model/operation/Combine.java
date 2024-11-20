@@ -20,7 +20,7 @@ public class Combine implements MultipleImageOperation {
    * images do not match, an IllegalArgumentException is thrown.
    *
    * @param images a list of three images to extract red, green and blue channel in order.
-   * @param args additional arguments, if any.
+   * @param args   additional arguments, if any.
    * @return a new RGB image created from the three input images.
    * @throws IllegalArgumentException if the images have different dimensions.
    */
@@ -110,9 +110,9 @@ public class Combine implements MultipleImageOperation {
   /**
    * Creates a new RGB pixel from specified red, green, and blue values.
    *
-   * @param redValue the red component value.
+   * @param redValue   the red component value.
    * @param greenValue the green component value.
-   * @param blueValue the blue component value.
+   * @param blueValue  the blue component value.
    * @return a new RGBPixel with the specified color values.
    */
   private Pixel createRgbPixel(int redValue, int greenValue, int blueValue) {

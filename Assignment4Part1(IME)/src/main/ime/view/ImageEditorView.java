@@ -1,10 +1,10 @@
 package ime.view;
 
+import ime.controller.Features;
 import java.awt.image.BufferedImage;
 
-import ime.controller.Features;
-
 public interface ImageEditorView {
+
   void addFeatures(Features features);
 
   void setImage(BufferedImage image);

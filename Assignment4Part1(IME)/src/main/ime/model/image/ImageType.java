@@ -1,8 +1,12 @@
 package ime.model.image;
 
-/** Represents the different types of images supported by the image processing application. */
+/**
+ * Represents the different types of images supported by the image processing application.
+ */
 public enum ImageType {
-  /** Represents an RGB image type. This type of image has three channels: Red, Green, and Blue. */
+  /**
+   * Represents an RGB image type. This type of image has three channels: Red, Green, and Blue.
+   */
   RGB(1),
   /**
    * Represents an ARGB image type. This type of image has four channels: Alpha (transparency), Red,

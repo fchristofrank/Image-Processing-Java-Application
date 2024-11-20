@@ -25,7 +25,7 @@ public abstract class AbstractVisualize implements ImageOperation {
    * ensuring that all three color channels in the output are the same, giving a grayscale effect.
    *
    * @param inputImage the image to which the visualization operation is applied.
-   * @param args additional arguments for the operation.
+   * @param args       additional arguments for the operation.
    * @return the output image, which is a grayscale version based on the extracted color component.
    * @throws IllegalArgumentException if the input image is null or contains invalid pixel data.
    */

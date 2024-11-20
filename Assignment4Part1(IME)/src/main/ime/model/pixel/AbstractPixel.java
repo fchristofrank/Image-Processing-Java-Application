@@ -7,11 +7,12 @@ package ime.model.pixel;
  * RGBPixel, RGBAPixel etc.,) that define how color pixels are represented and accessed.
  */
 public abstract class AbstractPixel implements Pixel {
+
+  private static final int PIXEL_LOWER_LIMIT = 0;
+  private static final int PIXEL_UPPER_LIMIT = 255;
   private final int red;
   private final int green;
   private final int blue;
-  private static final int PIXEL_LOWER_LIMIT = 0;
-  private static final int PIXEL_UPPER_LIMIT = 255;
 
   /**
    * a public constructor to generate a pixel with red, green, blue values.
@@ -46,6 +47,6 @@ public abstract class AbstractPixel implements Pixel {
    */
   public int clamp(int value) {
     return Math.max(
-            PIXEL_LOWER_LIMIT, Math.min(PIXEL_UPPER_LIMIT, value));
+        PIXEL_LOWER_LIMIT, Math.min(PIXEL_UPPER_LIMIT, value));
   }
 }
