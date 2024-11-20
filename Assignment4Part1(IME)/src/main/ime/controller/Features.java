@@ -89,10 +89,10 @@ public interface Features {
 
   /**
    * Exits the preview mode.
-   *
-   * @param isEnabled boolean indicating whether to enable or disable preview mode
    */
-  void exitPreviewMode(boolean isEnabled);
+  void exitPreviewMode();
+
+  void applyPreviewChanges();
 
   /**
    * Checks if an image is both loaded and saved.

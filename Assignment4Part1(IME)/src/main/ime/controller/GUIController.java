@@ -15,6 +15,7 @@ public class GUIController implements Features {
   private OperationCommand lastPreviewEnabledOperation;
   private boolean isLoaded;
   private boolean isSaved;
+  private boolean isApplied;
 
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
     this.imageEditorView = imageEditorView;
@@ -26,8 +27,9 @@ public class GUIController implements Features {
 
   @Override
   public void loadImage(String imagePath, boolean userDecision) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation("load");
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("load");
       if (isLoaded && !isSaved && !userDecision) {
         imageEditorView.showWarningMessageBeforeLoading(imagePath);
         return;
@@ -44,8 +46,8 @@ public class GUIController implements Features {
 
   @Override
   public void flipImage(String flipType) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation(flipType);
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation(flipType);
       imageOperation.execute();
       undoStack.push(new OperationCommand(imageOperation));
       redoStack.clear();
@@ -57,8 +59,9 @@ public class GUIController implements Features {
 
   @Override
   public void applyFilter(boolean isPreview, String filterType, String splitWidth) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation(filterType);
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation(filterType);
       imageOperation.execute(splitWidth);
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
@@ -74,8 +77,9 @@ public class GUIController implements Features {
 
   @Override
   public void applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation(grayScaleType);
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation(grayScaleType);
       imageOperation.execute(splitWidth);
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
@@ -91,8 +95,9 @@ public class GUIController implements Features {
 
   @Override
   public void applyColorCorrect(boolean isPreview, String splitWidth) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation("color-correct");
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("color-correct");
       imageOperation.execute(splitWidth);
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, splitWidth));
@@ -108,8 +113,9 @@ public class GUIController implements Features {
 
   @Override
   public void applyCompress(String compressionRatio) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation("compress");
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("compress");
       imageOperation.execute(compressionRatio);
       undoStack.push(new OperationCommand(imageOperation, compressionRatio));
       redoStack.clear();
@@ -121,9 +127,10 @@ public class GUIController implements Features {
 
   @Override
   public void adjustLevels(boolean isPreview, String... args) {
-    CLIOperation imageOperation = imageOperationFactory
-            .createOperation("levels-adjust");
+
     try {
+      CLIOperation imageOperation = imageOperationFactory
+              .createOperation("levels-adjust");
       imageOperation.execute(args);
       if (!isPreview) {
         undoStack.push(new OperationCommand(imageOperation, args));
@@ -139,8 +146,9 @@ public class GUIController implements Features {
 
   @Override
   public void saveImage(String imagePath) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation("save");
+
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("save");
       imageOperation.execute(imagePath);
       redoStack.clear();
       isSaved = true;
@@ -188,22 +196,32 @@ public class GUIController implements Features {
       }
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = splitWidth;
-      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation(), args);
+      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
+              , args);
       lastPreviewEnabledOperation.execute();
     }
   }
 
   @Override
-  public void exitPreviewMode(boolean isEnabled) {
-    if (!isEnabled) {
-      undoStack.push(lastPreviewEnabledOperation);
-      redoStack.clear();
-    } else {
-      for (OperationCommand redoOperation : undoStack) {
-        redoOperation.execute();
-      }
+  public void exitPreviewMode() {
+    for (OperationCommand redoOperation : undoStack) {
+      redoOperation.execute();
     }
     lastPreviewEnabledOperation = null;
+  }
+
+  @Override
+  public void applyPreviewChanges() {
+    if (lastPreviewEnabledOperation != null) {
+      String[] args = lastPreviewEnabledOperation.getArgs();
+      args[args.length - 1] = "100";
+      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
+              , args);
+      undoStack.push(lastPreviewEnabledOperation);
+      redoStack.clear();
+      lastPreviewEnabledOperation = null;
+      isApplied = true;
+    }
   }
 
   @Override

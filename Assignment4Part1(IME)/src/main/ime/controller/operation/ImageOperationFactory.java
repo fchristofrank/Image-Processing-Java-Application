@@ -1,5 +1,11 @@
 package ime.controller.operation;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
@@ -29,12 +35,6 @@ import ime.model.operation.VisualizeLuma;
 import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 import ime.model.pixel.Pixel;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
@@ -569,7 +569,7 @@ public class ImageOperationFactory implements OperationCreator {
 
     @Override
     protected void validateArgs(String[] args) throws IllegalArgumentException {
-      if (args.length < 2 || args.length > 4) {
+      if (args.length != 2 && args.length != 4) {
         throw new IllegalArgumentException("Invalid number of arguments");
       }
 
@@ -587,12 +587,16 @@ public class ImageOperationFactory implements OperationCreator {
       }
 
       if (args.length == 4) {
+        String splitCommand = args[2];
+        if(!splitCommand.equals("split")) {
+          throw new IllegalArgumentException("Invalid split command: " + splitCommand);
+        }
         String splitPercentage = args[3];
         try {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
+                    "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");

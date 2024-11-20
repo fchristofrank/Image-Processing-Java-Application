@@ -49,6 +49,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JTextField downscaleHeight;
   private JButton btnAdjustLevels;
   private Features features;
+  private JButton btnApplyPreview;
 
   /**
    * Constructs the ImageEditorFrame.
@@ -85,6 +86,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     add(mainContent);
     pack();
     setVisible(true);
+
+    SwingUtilities.invokeLater(() -> {
+      TutorialDialog tutorial = new TutorialDialog(this);
+      tutorial.setVisible(true);
+    });
   }
 
   /**
@@ -302,7 +308,10 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     splitPanel.add(createPreviewModePanel());
     splitPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     splitPanel.add(createPreviewSettingsPanel());
-
+    splitPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    btnApplyPreview = createStyledButton("Apply", new Dimension(180, 30));
+    btnApplyPreview.setEnabled(previewMode.isSelected());
+    splitPanel.add(btnApplyPreview);
     return splitPanel;
   }
 
@@ -626,6 +635,13 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private void setupImageOperationButtons(Features features) {
     btnHorizontalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
     btnVerticalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
+    btnApplyPreview.addActionListener(e ->
+    {
+      features.applyPreviewChanges();
+      previewMode.setSelected(false);
+      handlePreviewModeChange(features);
+
+    });
   }
 
   /**
@@ -754,9 +770,10 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     compressionText.setEnabled(!isPreviewMode);
     btnCompress.setEnabled(!isPreviewMode);
     btnDownscale.setEnabled(!isPreviewMode);
+    btnApplyPreview.setEnabled(isPreviewMode);
 
     if (!isPreviewMode) {
-      features.exitPreviewMode(previewCheckBox.isSelected());
+      features.exitPreviewMode();
       enableAllButtons();
       splitSlider.setValue(50);
       previewCheckBox.setSelected(true);
@@ -812,7 +829,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    * @return The file path with a correct extension.
    */
   private String ensureCorrectFileExtension(String path) {
-    if (!path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".ppm") && !path.toLowerCase().endsWith(".png")) {
+    if (!path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".ppm")
+            && !path.toLowerCase().endsWith(".png")) {
       return path + ".png";
     }
     return path;

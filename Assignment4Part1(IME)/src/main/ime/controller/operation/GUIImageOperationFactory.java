@@ -203,7 +203,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 1) {
         splitWidth = args[0];
       }
-      super.execute(imageName, imageName, splitWidth);
+      super.execute(imageName, imageName, "split", splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(imageName));
     }
@@ -254,7 +254,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
       if (args.length == 1) {
         splitWidth = args[0];
       }
-      super.execute(imageName, imageName, splitWidth);
+      super.execute(imageName, imageName, "split", splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(imageName));
     }

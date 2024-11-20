@@ -979,7 +979,7 @@ public class ImageOperationTest {
         .append("boston")
         .append(" ")
         .append("boston-sepia")
-        .append(" ")
+        .append(" ").append("split").append(" ")
         .append("50")
         .append("\n");
     commandScript
@@ -1612,7 +1612,7 @@ public class ImageOperationTest {
         .append("boston")
         .append(" ")
         .append("boston-blur")
-        .append(" ")
+        .append(" ").append("split").append(" ")
         .append("70")
         .append("\n");
     commandScript
@@ -1663,7 +1663,7 @@ public class ImageOperationTest {
         .append("boston")
         .append(" ")
         .append("boston-sharpen")
-        .append(" ")
+        .append(" ").append("split").append(" ")
         .append("70")
         .append("\n");
     commandScript
@@ -1803,7 +1803,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("red-component test result 50")
+        .append("red-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -1862,7 +1862,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("green-component test result 50")
+        .append("green-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -1896,7 +1896,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("blue-component test result 50")
+        .append("blue-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -1930,7 +1930,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("intensity-component test result 50")
+        .append("intensity-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -1964,7 +1964,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("luma-component test result 50")
+        .append("luma-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -1998,7 +1998,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("value-component test result 50")
+        .append("value-component test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -2032,7 +2032,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("blur test result 50")
+        .append("blur test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -2066,7 +2066,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("sharpen test result 50")
+        .append("sharpen test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)
@@ -2100,7 +2100,7 @@ public class ImageOperationTest {
     commandScript.append("load ").append(resDirPath).append("testImage.png ").append("test");
     commandScript
         .append("\n")
-        .append("sepia test result 50")
+        .append("sepia test result split 50")
         .append("\n")
         .append("save ")
         .append(resDirPath)

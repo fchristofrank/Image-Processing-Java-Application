@@ -2,17 +2,20 @@ import org.junit.Test;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
+import java.util.Objects;
 
 import ime.controller.Features;
 import ime.controller.GUIController;
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
+import ime.controller.operation.GUIImageOperationFactory;
+import ime.view.ImageEditorFrame;
 import ime.view.ImageEditorView;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * This class tests the functionalities of the GUI controller.
+ * This class tests the functionalities of the GUI controller and GUI Image Operation Factory.
  */
 public class GUIControllerTest {
 
@@ -111,12 +114,24 @@ public class GUIControllerTest {
     StringBuilder log = new StringBuilder();
     Features guiController = new GUIController(new ImageEditorFrameMock(log),
             new GUIImageOperationFactoryMock(log));
-    guiController.applyGreyScale(false,"luma", "100");
+    guiController.applyGreyScale(false, "luma", "100");
     assertEquals(expectedString, log.toString());
   }
 
   @Test
-  public void adjustLevelsTest(){
+  public void invalidGreyScaleImageTest() {
+    String expectedString = "luma is not a valid operation.";
+    StringBuilder log = new StringBuilder();
+
+    ImageEditorView imageEditorViewMock = new ImageEditorFrameMock(log);
+    Features guiController = new GUIController(imageEditorViewMock,
+            new GUIImageOperationFactory(imageEditorViewMock));
+    guiController.applyGreyScale(false, "luma", "100");
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void adjustLevelsTest() {
     String expectedString = "Operation with name 'levels-adjust' has been created\n" +
             "Operation has been executed with the following args: [20, 40, 60]\n";
     StringBuilder log = new StringBuilder();
@@ -128,9 +143,74 @@ public class GUIControllerTest {
 
   @Test
   public void loadInvalidArgumentsTest() {
+    String expectedString = "Invalid image format: /invalid";
     StringBuilder log = new StringBuilder();
     Features guiController = new GUIController(new ImageEditorFrameMock(log),
-            new GUIImageOperationFactoryMock(log));
+            new GUIImageOperationFactory(new ImageEditorFrameMock(log)));
+    guiController.loadImage("/invalid", false);
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void saveInvalidArgumentsTest() {
+    String expectedString = "Unable to save the file: /invalid";
+    StringBuilder log = new StringBuilder();
+    Features guiController = new GUIController(new ImageEditorFrameMock(log),
+            new GUIImageOperationFactory(new ImageEditorFrameMock(log)));
+    guiController.saveImage("/invalid");
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void filterInvalidArgumentsTest() {
+    String expectedString = "Image not found in library: Please load the image before accessing";
+    StringBuilder log = new StringBuilder();
+    Features guiController = new GUIController(new ImageEditorFrameMock(log),
+            new GUIImageOperationFactory(new ImageEditorFrameMock(log)));
+    guiController.applyFilter(false, "horizontal-flip", "100");
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void compressInvalidArgumentsTest() {
+    String expectedString = "Compression ratio must be between 0 and 100";
+    StringBuilder log = new StringBuilder();
+    ImageEditorView imageEditorViewMock = new ImageEditorFrameMock(log);
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    Features guiController = new GUIController(imageEditorViewMock,
+            new GUIImageOperationFactory(imageEditorViewMock));
+    guiController.loadImage(resDirPath + "testImage.png", false);
+    guiController.applyCompress("-20");
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void filterWithPreviewInvalidArgumentsTest() {
+    String expectedString = "Percentage value for split line must be between 0 and 100.";
+    StringBuilder log = new StringBuilder();
+    ImageEditorView imageEditorViewMock = new ImageEditorFrameMock(log);
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    Features guiController = new GUIController(imageEditorViewMock,
+            new GUIImageOperationFactory(imageEditorViewMock));
+    guiController.loadImage(resDirPath + "testImage.png", false);
+    guiController.applyFilter(true, "sepia", "150");
+    assertEquals(expectedString, log.toString());
+  }
+
+  @Test
+  public void visualizeWithPreviewInvalidArgumentsTest() {
+    String expectedString = "Percentage value for split line must be between 0 and 100.";
+    StringBuilder log = new StringBuilder();
+    String resDirPath =
+            Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
+    ImageEditorView imageEditorViewMock = new ImageEditorFrameMock(log);
+    Features guiController = new GUIController(imageEditorViewMock,
+            new GUIImageOperationFactory(imageEditorViewMock));
+    guiController.loadImage(resDirPath + "testImage.png", false);
+    guiController.applyGreyScale(true, "luma-component", "150");
+    assertEquals(expectedString, log.toString());
   }
 
   class ImageEditorFrameMock implements ImageEditorView {
@@ -157,7 +237,7 @@ public class GUIControllerTest {
 
     @Override
     public void showErrorMessageDialog(String message, String title) {
-
+      log.append(message);
     }
 
     @Override
