@@ -1,5 +1,6 @@
 package ime.controller.gui;
 
+import java.io.IOException;
 import java.util.Stack;
 
 import ime.controller.cli.OperationCreator;
