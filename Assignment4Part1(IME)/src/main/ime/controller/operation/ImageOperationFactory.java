@@ -946,7 +946,7 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Downscaled Height and Width are required.");
       }
 
-      if (!isNumeric(args[2]) && !isNumeric(args[3])) {
+      if (!isNumeric(args[2]) || !isNumeric(args[3])) {
         throw new IllegalArgumentException("Cannot downsize to non-numeric value.");
       }
     }
