@@ -493,7 +493,7 @@ public class ImageOperationFactory implements OperationCreator {
     @Override
     protected void validateArgs(String[] args) throws IllegalArgumentException {
 
-      if (args.length > 4){
+      if (args.length > 4) {
         throw new IllegalArgumentException("Not Supported number of arguements");
       }
 
@@ -1023,7 +1023,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image outputImage =
             inputImage.applyOperation(
-                new MaskOperation(),
+                new MaskOperation(new VisualizeLuma()),
                 Arrays.asList(
                     inputImage,
                     imageLibrary.getImage(maskImageName),
@@ -1064,7 +1064,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image outputImage =
             inputImage.applyOperation(
-                new MaskOperation(),
+                new MaskOperation(new VisualizeLuma()),
                 Arrays.asList(
                     inputImage,
                     imageLibrary.getImage(maskImageName),
@@ -1105,7 +1105,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image outputImage =
             inputImage.applyOperation(
-                new MaskOperation(),
+                new MaskOperation(new VisualizeLuma()),
                 Arrays.asList(
                     inputImage,
                     imageLibrary.getImage(maskImageName),
@@ -1146,8 +1146,8 @@ public class ImageOperationFactory implements OperationCreator {
       return args.length > 3 && imageLibrary.getImage(maskImageName) != null;
     }
 
-    private void applyMaskOperation(
-        String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
+    private void applyMaskOperation(String[] args, int brightnessFactor, Image inputImage,
+        String maskImageName) {
       String inputImageName = args[1];
       String outputImageName = args[3];
 
@@ -1158,7 +1158,7 @@ public class ImageOperationFactory implements OperationCreator {
 
       Image outputImage =
           inputImage.applyOperation(
-              new MaskOperation(),
+              new MaskOperation(new VisualizeLuma()),
               Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
 
       addImage(outputImageName, outputImage);

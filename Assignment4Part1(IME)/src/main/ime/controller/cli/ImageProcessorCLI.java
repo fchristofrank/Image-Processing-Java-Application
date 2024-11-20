@@ -64,6 +64,8 @@ public class ImageProcessorCLI implements CommandExecutor {
         }
       }
       writeMessage(GOODBYE_MESSAGE + System.lineSeparator());
+    } catch (Exception exception) {
+      writeMessage("Operation Failed to apply. Check the arguments." + System.lineSeparator());
     }
   }
 
@@ -133,8 +135,7 @@ public class ImageProcessorCLI implements CommandExecutor {
    * Reads the contents of a file, ignoring comments and empty lines.
    *
    * <p>This method reads from a file specified by the given file path and returns the contents as
-   * a
-   * string. It ignores lines that are empty or start with '#' (considered as comments).
+   * a string. It ignores lines that are empty or start with '#' (considered as comments).
    *
    * @param filePath the path to the file to be read.
    * @return a string containing the contents of the file, with comments and empty lines removed.

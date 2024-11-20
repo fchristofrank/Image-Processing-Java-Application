@@ -38,7 +38,6 @@ public abstract class AbstractOperation implements CLIOperation {
       throw new IllegalArgumentException("Image not found in library: " +
           "Please load the image before accessing");
     }
-
     return image;
   }
 

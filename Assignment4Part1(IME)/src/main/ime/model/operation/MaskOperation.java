@@ -14,6 +14,19 @@ import java.util.List;
  */
 public class MaskOperation implements MultipleImageOperation {
 
+  //Mask operation has-a greyscale operation.
+  private final ImageOperation greyscale;
+
+  /**
+   * MaskOperation that initializes the greyscale dependency to convert mask Image to Black and
+   * white.
+   *
+   * @param greyscale operation object that converts to black and white.
+   */
+  public MaskOperation(ImageOperation greyscale) {
+    this.greyscale = greyscale;
+  }
+
   /**
    * Applies the mask operation to the provided images. It uses the mask image to determine which
    * pixels from the input image should be retained and which should be replaced by the output
@@ -34,6 +47,9 @@ public class MaskOperation implements MultipleImageOperation {
     Image inputImage = images.get(0);
     Image maskImage = images.get(1);
     Image outputImage = images.get(2);
+
+    //Convert maskImage into greyscale
+    maskImage = greyscale.apply(maskImage);
 
     int height = inputImage.getHeight();
     int width = inputImage.getWidth();

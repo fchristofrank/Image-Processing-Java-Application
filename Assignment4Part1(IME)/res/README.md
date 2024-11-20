@@ -4,7 +4,7 @@ ImageCitationAndPermission:
 
 /test/resources/manhattan-small.png**
 
-    All Image used within the project file are owned by Project owners and can be used for testing for project purposes.
+    All Image used within the project file are owned by Project owners and can be used for testing for project purposes. (Self Taken or Self Made Images)
 
 <h2>How to RUN Script:</h2>
 
@@ -274,5 +274,23 @@ The following actions are **disabled** in preview mode:
   - Vertical Flip
   - Compress
   - Downscale
+
+
+Assignment 6 Submission:
+
+Design of Downscale:
+
+The addition of Downscale feature was isolated changes and did not require any change to existing
+design.
+
++ We created the model class (Downscale.java) where the logic was implemented.
++ A new controller (Downscale) was added as inner class in the controllers containing the argument
+  validation and delegation to the model.
++ As our controller follows the Command Design patter, the new Command object creation is listed in
+  the switch case to create the command object based on the user request string.
+
+New file added (Model) : ime/model/operation/Downscale.java
+Inner class added (Controller) : ime/controller/operation/ImageOperationFactory.java
+
 
 
