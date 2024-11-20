@@ -195,7 +195,6 @@ public class DownscaleTest {
       int[] expectedPixelValue = new int[]{1315860};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
-
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
