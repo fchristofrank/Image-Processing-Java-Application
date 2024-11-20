@@ -12,15 +12,17 @@ public interface Features {
    *
    * @param imagePath    the path to the image file
    * @param userDecision a boolean indicating user's decision (purpose not specified)
+   * @return true if the operation is applied successfully.
    */
-  void loadImage(String imagePath, boolean userDecision);
+  boolean loadImage(String imagePath, boolean userDecision);
 
   /**
    * Flips the loaded image based on the specified flip type.
    *
    * @param flipType the type of flip operation to perform
+   * @return true if the operation is applied successfully.
    */
-  void flipImage(String flipType);
+  boolean flipImage(String flipType);
 
   /**
    * Applies a filter to the loaded image.
@@ -28,8 +30,9 @@ public interface Features {
    * @param isPreview  boolean indicating whether this is a preview operation
    * @param filterType the type of filter to apply
    * @param splitWidth the width at which to split the preview (if applicable)
+   * @return true if the operation is applied successfully.
    */
-  void applyFilter(boolean isPreview, String filterType, String splitWidth);
+  boolean applyFilter(boolean isPreview, String filterType, String splitWidth);
 
   /**
    * Applies a grayscale effect to the loaded image.
@@ -37,38 +40,43 @@ public interface Features {
    * @param isPreview     boolean indicating whether this is a preview operation
    * @param grayScaleType the type of grayscale effect to apply
    * @param splitWidth    the width at which to split the preview (if applicable)
+   * @return true if the operation is applied successfully.
    */
-  void applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth);
+  boolean applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth);
 
   /**
    * Applies color correction to the loaded image.
    *
    * @param isPreview  boolean indicating whether this is a preview operation
    * @param splitWidth the width at which to split the preview (if applicable)
+   * @return true if the operation is applied successfully.
    */
-  void applyColorCorrect(boolean isPreview, String splitWidth);
+  boolean applyColorCorrect(boolean isPreview, String splitWidth);
 
   /**
    * Compresses the loaded image.
    *
    * @param compressionRatio the ratio at which to compress the image
+   * @return true if the operation is applied successfully.
    */
-  void applyCompress(String compressionRatio);
+  boolean applyCompress(String compressionRatio);
 
   /**
    * Adjusts the levels of the loaded image.
    *
    * @param isPreview boolean indicating whether this is a preview operation
    * @param args      variable number of arguments for level adjustment
+   * @return true if the operation is applied successfully.
    */
-  void adjustLevels(boolean isPreview, String... args);
+  boolean adjustLevels(boolean isPreview, String... args);
 
   /**
    * Saves the current image to the specified path.
    *
    * @param imagePath the path where the image should be saved
+   * @return true if the operation is applied successfully.
    */
-  void saveImage(String imagePath);
+  boolean saveImage(String imagePath);
 
   /**
    * Undoes the last operation performed on the image.
@@ -101,5 +109,5 @@ public interface Features {
    */
   boolean isLoadedAndSaved();
 
-  void downScale(String width, String height);
+  boolean downScale(String width, String height);
 }

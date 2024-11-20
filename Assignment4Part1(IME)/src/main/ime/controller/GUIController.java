@@ -26,39 +26,43 @@ public class GUIController implements Features {
   }
 
   @Override
-  public void loadImage(String imagePath, boolean userDecision) {
+  public boolean loadImage(String imagePath, boolean userDecision) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("load");
       if (isLoaded && !isSaved && !userDecision) {
         imageEditorView.showWarningMessageBeforeLoading(imagePath);
-        return;
+        return false;
       }
       imageOperation.execute(imagePath);
       undoStack.push(new OperationCommand(imageOperation, imagePath));
       redoStack.clear();
       isLoaded = true;
       isSaved = false;
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void flipImage(String flipType) {
+  public boolean flipImage(String flipType) {
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation(flipType);
       imageOperation.execute();
       undoStack.push(new OperationCommand(imageOperation));
       redoStack.clear();
       isSaved = false;
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void applyFilter(boolean isPreview, String filterType, String splitWidth) {
+  public boolean applyFilter(boolean isPreview, String filterType, String splitWidth) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation(filterType);
@@ -70,13 +74,15 @@ public class GUIController implements Features {
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth) {
+  public boolean applyGreyScale(boolean isPreview, String grayScaleType, String splitWidth) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation(grayScaleType);
@@ -88,13 +94,15 @@ public class GUIController implements Features {
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void applyColorCorrect(boolean isPreview, String splitWidth) {
+  public boolean applyColorCorrect(boolean isPreview, String splitWidth) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("color-correct");
@@ -106,13 +114,15 @@ public class GUIController implements Features {
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void applyCompress(String compressionRatio) {
+  public boolean applyCompress(String compressionRatio) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("compress");
@@ -120,14 +130,15 @@ public class GUIController implements Features {
       undoStack.push(new OperationCommand(imageOperation, compressionRatio));
       redoStack.clear();
       isSaved = false;
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void adjustLevels(boolean isPreview, String... args) {
-
+  public boolean adjustLevels(boolean isPreview, String... args) {
     try {
       CLIOperation imageOperation = imageOperationFactory
               .createOperation("levels-adjust");
@@ -139,21 +150,25 @@ public class GUIController implements Features {
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, args);
       }
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
   @Override
-  public void saveImage(String imagePath) {
+  public boolean saveImage(String imagePath) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("save");
       imageOperation.execute(imagePath);
       redoStack.clear();
       isSaved = true;
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 
@@ -230,15 +245,17 @@ public class GUIController implements Features {
   }
 
   @Override
-  public void downScale(String width, String height) {
-    CLIOperation imageOperation = imageOperationFactory.createOperation("downscale");
+  public boolean downScale(String width, String height) {
     try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("downscale");
       imageOperation.execute(width,height);
-      undoStack.push(new OperationCommand(imageOperation));
+      undoStack.push(new OperationCommand(imageOperation,width,height));
       redoStack.clear();
       isSaved = false;
+      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
     }
   }
 

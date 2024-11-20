@@ -672,47 +672,54 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private void setupFilterButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons();
+      if(features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupGreyscaleButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons();
+      if(features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupColorCorrectButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyColorCorrect(previewMode.isSelected(), splitWidth);
-      toggleFilterButtons();
+      if(features.applyColorCorrect(previewMode.isSelected(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupCompressButton(JButton button, Features features) {
     button.addActionListener(e -> {
-      features.applyCompress(compressionText.getText());
+      if(features.applyCompress(compressionText.getText())){
       toggleFilterButtons();
+      }
     });
   }
 
   private void setupAdjustLevelsButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
-              whiteLevel.getText(), splitWidth);
-      toggleFilterButtons();
+
+      if (features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
+          whiteLevel.getText(), splitWidth)){
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupDownscaleButton(JButton button, Features features) {
     button.addActionListener(e -> {
-      features.downScale(downscaleWidth.getText(),downscaleHeight.getText());
-      toggleFilterButtons();
+      if(features.downScale(downscaleWidth.getText(),downscaleHeight.getText())) {
+        toggleFilterButtons();
+      }
     });
   }
 
@@ -725,6 +732,9 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     for (JButton button : filterButtons) {
       if (!(previewMode.isSelected())) {
         button.setEnabled(true);
+        if (button == btnAdjustLevels) {
+          enableLevelsAdjustmentFeatures(true);
+        }
       } else {
         button.setEnabled(false);
         if (button == btnAdjustLevels) {
