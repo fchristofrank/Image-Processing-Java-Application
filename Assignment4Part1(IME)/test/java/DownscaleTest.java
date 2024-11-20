@@ -116,7 +116,7 @@ public class DownscaleTest {
 
   @Test
   public void testDownscaleIllegalArguments() {
-    // Helper method to test invalid arguments
+    // Helper method to test the invalid arguments
     class Helper {
 
       void runTest(String imageName, String width, String height) {
