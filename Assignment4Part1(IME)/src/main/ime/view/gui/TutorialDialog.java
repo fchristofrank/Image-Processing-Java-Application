@@ -1,8 +1,15 @@
 package ime.view.gui;
 
-import java.awt.*;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This class represents a dialog that displays a tutorial for the Image Editor application.
