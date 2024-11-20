@@ -1,0 +1,35 @@
+#Make sure you are in the current directory (Inside the res/MaskImage/) as the images are referred from the current directory.
+
+
+load boston-original.png testImage
+#converted to black and white during runtime if b & w image is not given.
+load boston-mask.png maskImage
+
+blur testImage maskImage blurWithMask
+sharpen testImage maskImage sharpenWithMask
+sepia testImage maskImage sepiaWithMask
+
+red-component testImage maskImage redWithMask
+green-component testImage maskImage greenWithMask
+blue-component testImage maskImage blueWithMask
+value-component testImage maskImage valueWithMask
+luma-component testImage maskImage lumaWithMask
+intensity-component testImage maskImage intensityWithMask
+
+brighten 50 testImage maskImage brightenWithMask
+darken 50 testImage maskImage darkenWithMask
+
+save blurWithMask.jpg blurWithMask
+save sharpenWithMask.png sharpenWithMask
+save sepiaWithMask.ppm sepiaWithMask
+
+save redWithMask.jpg redWithMask
+save greenWithMask.png greenWithMask
+save blueWithMask.ppm	blueWithMask
+
+save valueWithMask.jpg valueWithMask
+save lumaWithMask.png lumaWithMask
+save intensityWithMask.ppm intensityWithMask
+
+save brightenWithMask.jpg brightenWithMask
+save darkentWithMask.png darkenWithMask

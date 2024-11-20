@@ -43,7 +43,6 @@ public abstract class AbstractVisualize implements ImageOperation {
         int colorValue = getColorComponent(inputImage.getPixel(i, j));
         pixels[i][j] =
             PixelFactory.createPixel(inputImage.getType(), colorValue, colorValue, colorValue);
-        System.out.println(i + "," + j + " :: " + pixels[i][j]);
       }
     }
   }
