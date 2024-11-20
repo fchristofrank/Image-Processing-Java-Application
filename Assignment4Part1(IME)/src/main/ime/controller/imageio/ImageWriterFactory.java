@@ -3,9 +3,9 @@ package ime.controller.imageio;
 import java.util.Objects;
 
 /**
- * A factory class for creating instances of {@link ImageWriter} based on the specified {@link
- * ImageFormat}. This class is responsible for determining the appropriate writer implementation for
- * various image formats.
+ * A factory class for creating instances of {@link ImageWriter} based on the specified
+ * {@link ImageFormat}. This class is responsible for determining the appropriate writer
+ * implementation for various image formats.
  */
 public class ImageWriterFactory {
 

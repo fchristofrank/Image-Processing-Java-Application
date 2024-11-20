@@ -10,6 +10,7 @@ import ime.model.pixel.Pixel;
  * an input image based on a specified alpha value.
  */
 public class ApplyBrightness implements ImageOperation {
+
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     int height = inputImage.getHeight();

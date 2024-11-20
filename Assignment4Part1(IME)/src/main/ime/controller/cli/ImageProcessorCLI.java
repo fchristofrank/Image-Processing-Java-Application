@@ -17,6 +17,7 @@ import java.util.stream.Stream;
  * the image processor, accept user input, execute commands, and run script files.
  */
 public class ImageProcessorCLI implements CommandExecutor {
+
   private static final String EXIT_COMMAND = "exit";
   private static final String RUN_COMMAND = "run";
   private static final String COMMENT_PREFIX = "#";
@@ -131,7 +132,8 @@ public class ImageProcessorCLI implements CommandExecutor {
   /**
    * Reads the contents of a file, ignoring comments and empty lines.
    *
-   * <p>This method reads from a file specified by the given file path and returns the contents as a
+   * <p>This method reads from a file specified by the given file path and returns the contents as
+   * a
    * string. It ignores lines that are empty or start with '#' (considered as comments).
    *
    * @param filePath the path to the file to be read.

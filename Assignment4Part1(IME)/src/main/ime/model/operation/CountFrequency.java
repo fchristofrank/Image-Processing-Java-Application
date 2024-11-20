@@ -9,6 +9,7 @@ import java.util.Map;
  * returns it in a map object for each channel.
  */
 public class CountFrequency implements CommonOperation {
+
   @Override
   public Map<String, Map<Integer, Integer>> calculateFrequencies(Image inputImage) {
 

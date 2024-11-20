@@ -13,12 +13,13 @@ import javax.imageio.ImageIO;
  * image will be written (e.g., JPG, PNG).
  */
 public abstract class AbstractWriter implements ImageWriter {
+
   private static final Logger LOGGER = Logger.getLogger(AbstractWriter.class.getName());
 
   /**
    * Writes a BufferedImage to a specified file in the given format.
    *
-   * @param image the BufferedImage to be written to file.
+   * @param image          the BufferedImage to be written to file.
    * @param outputFilename the path and name of the output file where the image will be saved.
    */
   public void writeImage(BufferedImage image, String outputFilename) throws IOException {

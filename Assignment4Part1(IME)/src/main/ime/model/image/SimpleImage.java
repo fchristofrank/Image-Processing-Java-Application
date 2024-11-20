@@ -13,6 +13,7 @@ import java.util.Objects;
  * properties such as height, width, and type.
  */
 public class SimpleImage implements Image {
+
   private final int height;
   private final int width;
   private final ImageType imageType;
@@ -22,10 +23,10 @@ public class SimpleImage implements Image {
    * Public method to create a new image with all the collection of pixels. Once image is created
    * then pixels cannot be modified.
    *
-   * @param height height of the image.
-   * @param width width of the image.
+   * @param height    height of the image.
+   * @param width     width of the image.
    * @param imageType the type of image.
-   * @param pixels final pixel arrays to create the image.
+   * @param pixels    final pixel arrays to create the image.
    */
   public SimpleImage(int height, int width, ImageType imageType, Pixel[][] pixels) {
     this.height = height;

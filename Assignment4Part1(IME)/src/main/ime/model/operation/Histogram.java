@@ -17,8 +17,8 @@ import java.util.Map;
  */
 public class Histogram implements ImageOperation {
 
-  private final CommonOperation countFrequencyOperation;
   private static final int PIXEL_UPPER_LIMIT = 255;
+  private final CommonOperation countFrequencyOperation;
 
   /**
    * Injects the dependencies in the constructor to be able to use the count frequency.
@@ -121,13 +121,13 @@ public class Histogram implements ImageOperation {
     int currentFrequency =
         pixels.length
             - (int)
-                ((double) frequencyMap.getOrDefault(pixelValue, 0) / maxFrequency * pixels.length);
+            ((double) frequencyMap.getOrDefault(pixelValue, 0) / maxFrequency * pixels.length);
     int nextFrequency =
         pixels.length
             - (int)
-                ((double) frequencyMap.getOrDefault(pixelValue + 1, 0)
-                    / maxFrequency
-                    * pixels.length);
+            ((double) frequencyMap.getOrDefault(pixelValue + 1, 0)
+                / maxFrequency
+                * pixels.length);
 
     if (pixelValue < PIXEL_UPPER_LIMIT
         && currentFrequency >= 0

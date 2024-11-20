@@ -10,6 +10,7 @@ import ime.model.pixel.PixelFactory;
  * width only.
  */
 public abstract class AbstractVisualizeWithPreview extends AbstractVisualize {
+
   @Override
   protected void processImage(Image inputImage, Pixel[][] pixels, String... args) {
 

@@ -11,10 +11,11 @@ import ime.model.pixel.Pixel;
  * sepia filter to an image.
  */
 public class ApplySepia implements ImageOperation {
+
   protected static final double[][] SEPIA_COLOR_TRANSFORMATION = {
-          {0.393, 0.769, 0.189},
-          {0.349, 0.686, 0.168},
-          {0.272, 0.534, 0.131}
+      {0.393, 0.769, 0.189},
+      {0.349, 0.686, 0.168},
+      {0.272, 0.534, 0.131}
   };
 
   @Override

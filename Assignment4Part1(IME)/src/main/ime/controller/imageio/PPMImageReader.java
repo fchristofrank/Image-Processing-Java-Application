@@ -1,5 +1,10 @@
 package ime.controller.imageio;
 
+import ime.model.image.Image;
+import ime.model.image.ImageType;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -9,19 +14,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import ime.model.image.Image;
-import ime.model.image.ImageType;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
-
 /**
- * A reader for PPM (Portable Pixmap) image files. This class supports both the
- * P3 (ASCII-based) and P6 (binary) formats of PPM files.
+ * A reader for PPM (Portable Pixmap) image files. This class supports both the P3 (ASCII-based) and
+ * P6 (binary) formats of PPM files.
  * <p>
- * The PPM file format is a simple image file format for storing pixel data.
- * P3 files store the data in human-readable ASCII text, while P6 files store
- * the data in a more compact binary representation.
+ * The PPM file format is a simple image file format for storing pixel data. P3 files store the data
+ * in human-readable ASCII text, while P6 files store the data in a more compact binary
+ * representation.
  * </p>
  */
 public class PPMImageReader implements ImageReader {
@@ -125,7 +124,8 @@ public class PPMImageReader implements ImageReader {
    */
   private Image readP6(String filename, ImageType imageType) throws IOException {
     DataInputStream dis = new DataInputStream(new FileInputStream(filename));
-    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
+    BufferedReader reader = new BufferedReader(
+        new InputStreamReader(new FileInputStream(filename)));
 
     // Read header
     String magicNumber = readMagicNumber(reader);

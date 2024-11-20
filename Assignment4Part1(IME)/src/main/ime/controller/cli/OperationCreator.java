@@ -8,6 +8,7 @@ import ime.controller.operation.CLIOperation;
  * operations dynamically in a CLI application.
  */
 public interface OperationCreator {
+
   /**
    * Creates and returns a CLIOperation based on the given command name.
    *

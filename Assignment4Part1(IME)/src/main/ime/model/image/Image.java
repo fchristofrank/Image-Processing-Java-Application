@@ -29,7 +29,7 @@ public interface Image {
   /**
    * Retrieves the pixel at the specified row and column.
    *
-   * @param row the row index of the pixel (0-based).
+   * @param row    the row index of the pixel (0-based).
    * @param column the column index of the pixel (0-based).
    * @return the Pixel object at the specified location.
    * @throws IllegalArgumentException if the specified row or column index is out of bounds.
@@ -47,10 +47,10 @@ public interface Image {
    * Applies a single image operation to this image.
    *
    * @param operation the ImageOperation to be applied.
-   * @param args optional arguments for the operation.
+   * @param args      optional arguments for the operation.
    * @return a new Image instance that results from applying the operation.
    * @throws IllegalArgumentException if the operation cannot be applied or if the arguments are
-   *     invalid.
+   *                                  invalid.
    */
   Image applyOperation(ImageOperation operation, String... args) throws IllegalArgumentException;
 
@@ -58,11 +58,11 @@ public interface Image {
    * Applies a multiple image operation to this image using a list of images.
    *
    * @param operation the MultipleImageOperation to be applied.
-   * @param images a list of Image instances to be used in the operation.
-   * @param args optional arguments for the operation.
+   * @param images    a list of Image instances to be used in the operation.
+   * @param args      optional arguments for the operation.
    * @return a new Image instance that results from applying the operation.
    * @throws IllegalArgumentException if the operation cannot be applied or if the arguments are
-   *     invalid.
+   *                                  invalid.
    */
   Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args)
       throws IllegalArgumentException;

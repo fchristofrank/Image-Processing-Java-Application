@@ -7,6 +7,7 @@ import java.util.Objects;
  * image format.
  */
 public class ImageReaderFactory {
+
   /**
    * Creates and returns a Reader object appropriate for the specified image format.
    *

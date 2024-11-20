@@ -10,8 +10,11 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/** This class represents a reader for images in JPG and PNG formats from a specified file name. */
+/**
+ * This class represents a reader for images in JPG and PNG formats from a specified file name.
+ */
 public class StandardImageReader implements ImageReader {
+
   @Override
   public Image read(String filename, ImageType imageType) throws IOException {
     try {

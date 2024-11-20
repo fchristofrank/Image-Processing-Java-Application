@@ -21,9 +21,11 @@ public class Downscale implements ImageOperation {
     int scaledWidth = Integer.parseInt(args[0]);
     int scaledHeight = Integer.parseInt(args[1]);
 
-    if (scaledWidth <= 0 || scaledHeight <= 0 || scaledWidth > actualWidth || scaledHeight > actualHeight) {
+    if (scaledWidth <= 0 || scaledHeight <= 0 || scaledWidth > actualWidth
+        || scaledHeight > actualHeight) {
       throw new IllegalArgumentException(
-          "Invalid dimensions for downscaling. Provided dimensions: " + scaledWidth + "x" + scaledHeight +
+          "Invalid dimensions for downscaling. Provided dimensions: " + scaledWidth + "x"
+              + scaledHeight +
               ", Original dimensions: " + actualWidth + "x" + actualHeight);
     }
 
@@ -40,7 +42,8 @@ public class Downscale implements ImageOperation {
         int lowerY = (int) Math.floor(originalY);
         int upperY = adjustCoordinate(lowerY, (int) Math.ceil(originalY), actualHeight);
 
-        pixels[y][x] = computeAverage(originalX, originalY, lowerX, upperX, lowerY, upperY, inputImage);
+        pixels[y][x] = computeAverage(originalX, originalY, lowerX, upperX, lowerY, upperY,
+            inputImage);
       }
     }
 

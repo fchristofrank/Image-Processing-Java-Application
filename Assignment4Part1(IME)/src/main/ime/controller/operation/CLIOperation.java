@@ -1,7 +1,10 @@
 package ime.controller.operation;
 
-/** This interface represents basic CLI operations in an image processing application. */
+/**
+ * This interface represents basic CLI operations in an image processing application.
+ */
 public interface CLIOperation {
+
   /**
    * This method executes a specific operation with the given arguments.
    *

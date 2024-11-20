@@ -8,7 +8,8 @@ import java.util.Map;
 
 /**
  * This class color corrects the image by calculating the average of the peaks generated in the
- * histogram and accordingly offsetting the values of each pixel to coincide the peaks of the image.
+ * histogram and accordingly offsetting the values of each pixel to coincide the peaks of the
+ * image.
  */
 public class ColorCorrection implements ImageOperation {
 
@@ -42,8 +43,8 @@ public class ColorCorrection implements ImageOperation {
 
     Map<String, Map<Integer, Integer>> frequency;
     int previewWidthPercentage = 100;
-    if (args.length == 3) {
-      previewWidthPercentage = Integer.parseInt(args[2]);
+    if (args.length == 4) {
+      previewWidthPercentage = Integer.parseInt(args[3]);
     }
 
     frequency = countFrequencyOperation.calculateFrequencies(inputImage);

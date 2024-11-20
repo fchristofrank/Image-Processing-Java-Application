@@ -109,13 +109,14 @@ public class DownscaleTest {
 
     ImageOperationFactory factory = new ImageOperationFactory();
     CLIOperation operation = factory.createOperation("downscale");
-    operation.execute("ImageName","150");
+    operation.execute("ImageName", "150");
   }
 
   @Test
   public void testDownscaleIllegalArguments() {
     // Helper method to test invalid arguments
     class Helper {
+
       void runTest(String imageName, String width, String height) {
         try {
           executeDownscaleOperation(imageName, width, height);
@@ -152,7 +153,7 @@ public class DownscaleTest {
   }
 
   @Test
-  public void testDownscaleOperation(){
+  public void testDownscaleOperation() {
     String path = Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     String commandScript = "load "
         + path
@@ -214,7 +215,7 @@ public class DownscaleTest {
       // 3. PPM Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PPM);
       actualImage = imageReader.read(path + "outputPPM.ppm", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16711680,0};
+      int[] expectedPixelValue = new int[]{16711680, 0};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -226,7 +227,7 @@ public class DownscaleTest {
       // 4. Different Aspect Ratio
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "outputPPM.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16711680,0,0,0};
+      int[] expectedPixelValue = new int[]{16711680, 0, 0, 0};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -238,7 +239,7 @@ public class DownscaleTest {
       // 4. Same Dimension
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PPM);
       actualImage = imageReader.read(path + "outputSameDimension.ppm", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16711680,0,0,0};
+      int[] expectedPixelValue = new int[]{16711680, 0, 0, 0};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -562,7 +563,6 @@ public class DownscaleTest {
       actualImage = imageReader.read(path + "redMask.png", ImageType.RGB);
       int[] expectedPixelValue = new int[]{16777215, 0, 16777215, 0};
 
-
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
       assertEquals(expectedPixelValue[2], actualImage.getPixel(1, 0).getColorComponents());
@@ -575,7 +575,7 @@ public class DownscaleTest {
       // 4. Green Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "greenMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{0,16777215,16777215,0};
+      int[] expectedPixelValue = new int[]{0, 16777215, 16777215, 0};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -589,7 +589,7 @@ public class DownscaleTest {
       // 5. Blue Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "blueMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{0,0,0,16777215};
+      int[] expectedPixelValue = new int[]{0, 0, 0, 16777215};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -603,7 +603,7 @@ public class DownscaleTest {
       // 6. Luma Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "lumaMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{3552822,11974326,15527148,1184274};
+      int[] expectedPixelValue = new int[]{3552822, 11974326, 15527148, 1184274};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -617,7 +617,7 @@ public class DownscaleTest {
       // 7. Value Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "valueMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16777215,16777215,16777215,16777215};
+      int[] expectedPixelValue = new int[]{16777215, 16777215, 16777215, 16777215};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -631,7 +631,7 @@ public class DownscaleTest {
       // 8. Intensity Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "intensityMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{5592405,5592405,11184810,5592405};
+      int[] expectedPixelValue = new int[]{5592405, 5592405, 11184810, 5592405};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -645,7 +645,7 @@ public class DownscaleTest {
       // 9. Blur Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "blurMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{6242063,3100447,6246175,3096383};
+      int[] expectedPixelValue = new int[]{6242063, 3100447, 6246175, 3096383};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -659,7 +659,7 @@ public class DownscaleTest {
       // 10. Sharpen Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "sharpened.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16744255,8388415,16777023,8355839};
+      int[] expectedPixelValue = new int[]{16744255, 8388415, 16777023, 8355839};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -673,7 +673,7 @@ public class DownscaleTest {
       // 11. Sepia Component Test
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "sepiaMask.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{6576453,12889992,16777166,3156769};
+      int[] expectedPixelValue = new int[]{6576453, 12889992, 16777166, 3156769};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -685,7 +685,7 @@ public class DownscaleTest {
   }
 
   @Test
-  public void testOriginalImageIsConserved(){
+  public void testOriginalImageIsConserved() {
 
     String path = Objects.requireNonNull(getClass().getClassLoader().getResource("")).getPath();
     String commandScript = "load "
@@ -706,7 +706,7 @@ public class DownscaleTest {
     try {
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "applyAllFilter.png", ImageType.RGB);
-      int[] expectedPixelValue = new int[]{16711680,65280,16776960,255};
+      int[] expectedPixelValue = new int[]{16711680, 65280, 16776960, 255};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
       assertEquals(expectedPixelValue[1], actualImage.getPixel(0, 1).getColorComponents());
@@ -718,10 +718,10 @@ public class DownscaleTest {
   }
 
   private void printPixels(Image actualImage) {
-    System.out.printf("{%d,%d,%d,%d}",actualImage.getPixel(0, 0).getColorComponents()
-        ,actualImage.getPixel(0, 1).getColorComponents()
-        ,actualImage.getPixel(1, 0).getColorComponents()
-        ,actualImage.getPixel(1, 1).getColorComponents());
+    System.out.printf("{%d,%d,%d,%d}", actualImage.getPixel(0, 0).getColorComponents()
+        , actualImage.getPixel(0, 1).getColorComponents()
+        , actualImage.getPixel(1, 0).getColorComponents()
+        , actualImage.getPixel(1, 1).getColorComponents());
   }
 }
 

@@ -1,12 +1,11 @@
-import java.io.InputStreamReader;
-import java.io.StringReader;
-
 import ime.controller.GUIController;
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.operation.GUIImageOperationFactory;
 import ime.controller.operation.ImageOperationFactory;
 import ime.view.ImageEditorFrame;
 import ime.view.ImageEditorView;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 
 /**
  * The Main class serves as the entry point for the image editor application. It initializes and
@@ -15,8 +14,8 @@ import ime.view.ImageEditorView;
 public class Main {
 
   /**
-   * Entry point for the Image Editor application.
-   * Supports both GUI and CLI modes and provides the ability to execute scripts.
+   * Entry point for the Image Editor application. Supports both GUI and CLI modes and provides the
+   * ability to execute scripts.
    */
   public static void main(String[] args) {
     Readable rd = new InputStreamReader(System.in);
@@ -60,8 +59,7 @@ public class Main {
   }
 
   /**
-   * Executes a script provided via a file path.
-   * The script is read and executed line by line.
+   * Executes a script provided via a file path. The script is read and executed line by line.
    *
    * @param scriptPath the file path of the script to execute
    * @param ap         the output destination for writing responses
@@ -74,14 +72,14 @@ public class Main {
   }
 
   /**
-   * Launches the GUI version of the application.
-   * This provides a graphical user interface for editing images.
+   * Launches the GUI version of the application. This provides a graphical user interface for
+   * editing images.
    */
   private static void launchGUI() {
     ImageEditorView imageEditorView = new ImageEditorFrame("Image Editor");
     GUIController guiController = new GUIController(
-            imageEditorView,
-            new GUIImageOperationFactory(imageEditorView)
+        imageEditorView,
+        new GUIImageOperationFactory(imageEditorView)
     );
   }
 }

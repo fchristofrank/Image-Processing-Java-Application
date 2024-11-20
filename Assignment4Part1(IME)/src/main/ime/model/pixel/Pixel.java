@@ -7,6 +7,7 @@ package ime.model.pixel;
  * perform calculations related to color representation.
  */
 public interface Pixel {
+
   /**
    * This method gets the value of the red component.
    *

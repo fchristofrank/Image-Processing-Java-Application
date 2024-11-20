@@ -20,10 +20,10 @@ public class Blur extends FilterWithPreview {
    * @return a 2D array representing the Gaussian blur kernel used for this filter.
    */
   protected float[][] getKernel() {
-    return new float[][] {
-      {1f / 16f, 1f / 8f, 1f / 16f},
-      {1f / 8f, 1f / 4f, 1f / 8f},
-      {1f / 16f, 1f / 8f, 1f / 16f}
+    return new float[][]{
+        {1f / 16f, 1f / 8f, 1f / 16f},
+        {1f / 8f, 1f / 4f, 1f / 8f},
+        {1f / 16f, 1f / 8f, 1f / 16f}
     };
   }
 }

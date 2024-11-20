@@ -10,11 +10,12 @@ import java.io.IOException;
  * converting them into the application's internal Image representation.
  */
 public interface ImageReader {
+
   /**
    * This method reads an image of various formats from a given file path and returns a
    * corresponding image object.
    *
-   * @param filename the filename of the image.
+   * @param filename  the filename of the image.
    * @param imageType the type of the image.
    * @return the corresponding image object.
    * @throws IOException when the file name is invalid.
