@@ -30,7 +30,7 @@ public class GUIController implements Features {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("load");
-      if (isLoaded && !isSaved && !userDecision) {
+      if (isLoadedAndNotSaved() && !userDecision) {
         imageEditorView.showWarningMessageBeforeLoading(imagePath);
         return false;
       }
@@ -240,8 +240,8 @@ public class GUIController implements Features {
   }
 
   @Override
-  public boolean isLoadedAndSaved() {
-    return isLoaded && isSaved;
+  public boolean isLoadedAndNotSaved() {
+    return isLoaded && !isSaved;
   }
 
   @Override

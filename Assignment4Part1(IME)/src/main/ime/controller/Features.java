@@ -103,11 +103,11 @@ public interface Features {
   void applyPreviewChanges();
 
   /**
-   * Checks if an image is both loaded and saved.
+   * Checks if an image is loaded and not saved.
    *
    * @return true if an image is loaded and saved, false otherwise
    */
-  boolean isLoadedAndSaved();
+  boolean isLoadedAndNotSaved();
 
   boolean downScale(String width, String height);
 }
