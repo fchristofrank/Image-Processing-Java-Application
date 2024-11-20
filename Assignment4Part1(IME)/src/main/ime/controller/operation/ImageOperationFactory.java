@@ -217,8 +217,6 @@ public class ImageOperationFactory implements OperationCreator {
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
       } catch (NullPointerException | IOException e) {
-        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
-            imagePath), e);
         throw new IllegalArgumentException(
             "Error reading image file: "
                 + imagePath
