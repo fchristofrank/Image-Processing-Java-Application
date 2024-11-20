@@ -14,11 +14,8 @@ public abstract class FilterWithPreview extends Filter {
     int widthSplitPercentage = 100;
     int heightSplitPercentage = 100;
     if (args.length != 0) {
-      if (args[0] != null && !args[0].isEmpty()) {
-        widthSplitPercentage = Integer.parseInt(args[0]);
-      }
-      if (args.length > 1 && args[1] != null && !args[1].isEmpty()) {
-        heightSplitPercentage = Integer.parseInt(args[1]);
+      if (args[1] != null && !args[1].isEmpty()) {
+        widthSplitPercentage = Integer.parseInt(args[1]);
       }
     }
     int height = inputImage.getHeight();

@@ -204,29 +204,23 @@ public class ImageOperationFactory implements OperationCreator {
       ImageReader imageReader = null;
       try {
         imageReader =
-            ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+                ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Invalid image format: " + imageFormat);
       }
       Image image;
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
-      } catch (NullPointerException e) {
+      } catch (NullPointerException | IOException e) {
         LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
-            imagePath), e);
+                imagePath), e);
         throw new IllegalArgumentException(
-            "Error reading image file: "
-                + imagePath
-                + ". Please ensure the file exists and is a valid image format.",
-            e);
-      } catch (IOException e) {
-        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
-            imagePath), e);
-        throw new IllegalArgumentException(
-            "Error reading image file: "
-                + imagePath
-                + ". Please ensure the file exists and is a valid image format.",
-            e);
+                "Error reading image file: "
+                        + imagePath
+                        + ". Please ensure the file exists and is a valid image format.",
+                e);
+      } catch (Exception e) {
+        throw new IllegalArgumentException("There is an internal error");
       }
       addImage(imageName, image);
       System.out.println("Image loaded :: " + imageName);
@@ -266,6 +260,8 @@ public class ImageOperationFactory implements OperationCreator {
         System.out.println("Saved :: " + imageName + " in " + imagePath);
       } catch (IllegalArgumentException | IOException e) {
         throw new IllegalArgumentException("Unable to save the file: " + imagePath, e);
+      } catch (Exception e) {
+        throw new IllegalArgumentException("There is an internal error");
       }
     }
   }
@@ -298,8 +294,8 @@ public class ImageOperationFactory implements OperationCreator {
       addImage(greenOutputImageName, greenImage);
       addImage(blueOutputImageName, blueImage);
       System.out.println(
-          "The images have been separated into their red, blue, and green components "
-              + "and combined accordingly.");
+              "The images have been separated into their red, blue, and green components "
+                      + "and combined accordingly.");
     }
 
     @Override
@@ -349,8 +345,8 @@ public class ImageOperationFactory implements OperationCreator {
         Integer.parseInt(args[0]);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException(
-            String.format(
-                "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
+                String.format(
+                        "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
       }
     }
   }
@@ -447,7 +443,7 @@ public class ImageOperationFactory implements OperationCreator {
         }
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Black, middle, and white values should be " +
-            "valid integers");
+                "valid integers");
       }
 
       if (args.length == 6) {
@@ -479,8 +475,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(
-              new ime.model.operation.ColorCorrection(new CountFrequency()), args);
+              inputImage.applyOperation(
+                      new ime.model.operation.ColorCorrection(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
@@ -573,22 +569,9 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Invalid number of arguments");
       }
 
-      if (args.length == 3) {
-        String splitPercentage = args[2];
-        try {
-          int percentage = Integer.parseInt(splitPercentage);
-          if (percentage < 0 || percentage > 100) {
-            throw new IllegalArgumentException(
-                "Percentage value for split line must be between " + "0 and 100.");
-          }
-        } catch (NumberFormatException e) {
-          throw new IllegalArgumentException("Percentage value for split line must be a number.");
-        }
-      }
-
       if (args.length == 4) {
         String splitCommand = args[2];
-        if(!splitCommand.equals("split")) {
+        if (!splitCommand.equals("split")) {
           throw new IllegalArgumentException("Invalid split command: " + splitCommand);
         }
         String splitPercentage = args[3];
@@ -662,8 +645,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          redImage.applyOperation(
-              new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+              redImage.applyOperation(
+                      new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
       addImage(inputName, outputImage);
       System.out.println("Combine given images. New Image :: " + inputName);
     }
@@ -700,10 +683,10 @@ public class ImageOperationFactory implements OperationCreator {
       Image inputImage = getImage(inputImageName);
       Image outputImage = inputImage.applyOperation(new ApplyCompression(), args[0]);
       System.out.println(
-          "Applied compression to :: "
-              + inputImageName
-              + ". New image created :: "
-              + outputImageName);
+              "Applied compression to :: "
+                      + inputImageName
+                      + ". New image created :: "
+                      + outputImageName);
       addImage(outputImageName, outputImage);
     }
 
@@ -856,7 +839,7 @@ public class ImageOperationFactory implements OperationCreator {
       }
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage =
-          inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
+              inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
       System.out.println("Extracted given component. New Image :: " + outputName);
     }
@@ -975,7 +958,7 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-          inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
+              inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
     }
@@ -998,7 +981,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
-            || inputImage.getWidth() != maskImage.getWidth()) {
+                || inputImage.getWidth() != maskImage.getWidth()) {
           throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
@@ -1008,12 +991,12 @@ public class ImageOperationFactory implements OperationCreator {
         super.execute(inputImageName, outputImageName);
 
         Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+                inputImage.applyOperation(
+                        new MaskOperation(),
+                        Arrays.asList(
+                                inputImage,
+                                imageLibrary.getImage(maskImageName),
+                                imageLibrary.getImage(outputImageName)));
 
         addImage(outputImageName, outputImage);
       } else {
@@ -1039,7 +1022,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
-            || inputImage.getWidth() != maskImage.getWidth()) {
+                || inputImage.getWidth() != maskImage.getWidth()) {
           throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
@@ -1049,12 +1032,12 @@ public class ImageOperationFactory implements OperationCreator {
         super.execute(inputImageName, outputImageName);
 
         Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+                inputImage.applyOperation(
+                        new MaskOperation(),
+                        Arrays.asList(
+                                inputImage,
+                                imageLibrary.getImage(maskImageName),
+                                imageLibrary.getImage(outputImageName)));
 
         addImage(outputImageName, outputImage);
       } else {
@@ -1081,7 +1064,7 @@ public class ImageOperationFactory implements OperationCreator {
 
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
-            || inputImage.getWidth() != maskImage.getWidth()) {
+                || inputImage.getWidth() != maskImage.getWidth()) {
           throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
@@ -1090,12 +1073,12 @@ public class ImageOperationFactory implements OperationCreator {
         super.execute(String.valueOf(brightnessFactor), inputImageName, outputImageName);
 
         Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+                inputImage.applyOperation(
+                        new MaskOperation(),
+                        Arrays.asList(
+                                inputImage,
+                                imageLibrary.getImage(maskImageName),
+                                imageLibrary.getImage(outputImageName)));
 
         addImage(outputImageName, outputImage);
       } else {
@@ -1133,7 +1116,7 @@ public class ImageOperationFactory implements OperationCreator {
     }
 
     private void applyMaskOperation(
-        String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
+            String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
       String inputImageName = args[1];
       String outputImageName = args[3];
 
@@ -1143,16 +1126,16 @@ public class ImageOperationFactory implements OperationCreator {
       super.execute(String.valueOf(-Math.abs(brightnessFactor)), inputImageName, outputImageName);
 
       Image outputImage =
-          inputImage.applyOperation(
-              new MaskOperation(),
-              Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
+              inputImage.applyOperation(
+                      new MaskOperation(),
+                      Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
 
       addImage(outputImageName, outputImage);
     }
 
     private void validateDimensions(Image inputImage, Image maskImage) {
       if (inputImage.getHeight() != maskImage.getHeight()
-          || inputImage.getWidth() != maskImage.getWidth()) {
+              || inputImage.getWidth() != maskImage.getWidth()) {
         throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
       }
     }
