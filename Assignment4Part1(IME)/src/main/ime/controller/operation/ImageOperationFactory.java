@@ -1,12 +1,5 @@
 package ime.controller.operation;
 
-import ime.model.operation.Downscale;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
@@ -36,6 +29,11 @@ import ime.model.operation.VisualizeLuma;
 import ime.model.operation.VisualizeRed;
 import ime.model.operation.VisualizeValue;
 import ime.model.pixel.Pixel;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -96,12 +94,12 @@ public class ImageOperationFactory implements OperationCreator {
         return new HorizontalFlip(imageLibrary);
       case Commands.RGB_COMBINE:
         return new CombineRGB(imageLibrary);
-      // filter commands;
+      // Filter commands
       case Commands.BLUR:
       case Commands.SHARPEN:
       case Commands.SEPIA:
         return new FilterWithMask(imageLibrary, commandName);
-      // visualize commands;
+      // Visualize commands
       case Commands.RED_COMPONENT:
       case Commands.GREEN_COMPONENT:
       case Commands.BLUE_COMPONENT:
@@ -213,8 +211,17 @@ public class ImageOperationFactory implements OperationCreator {
       Image image;
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
-      } catch (NullPointerException | IOException e) {
-        LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
+      } catch (NullPointerException e) {
+        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
+            imagePath), e);
+        throw new IllegalArgumentException(
+            "Error reading image file: "
+                + imagePath
+                + ". Please ensure the file exists and is a valid image format.",
+            e);
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
+            imagePath), e);
         throw new IllegalArgumentException(
             "Error reading image file: "
                 + imagePath
@@ -852,17 +859,17 @@ public class ImageOperationFactory implements OperationCreator {
 
     private AbstractVisualize visualizeObjectFactory(String command) {
       switch (command) {
-        case "red-component":
+        case Commands.RED_COMPONENT:
           return new VisualizeRed();
-        case "green-component":
+        case Commands.GREEN_COMPONENT:
           return new VisualizeGreen();
-        case "blue-component":
+        case Commands.BLUE_COMPONENT:
           return new VisualizeBlue();
-        case "value-component":
+        case Commands.VALUE_COMPONENT:
           return new VisualizeValue();
-        case "luma-component":
+        case Commands.LUMA_COMPONENT:
           return new VisualizeLuma();
-        case "intensity-component":
+        case Commands.INTENSITY_COMPONENT:
           return new VisualizeIntensity();
         default:
           throw new IllegalArgumentException("Unknown component: " + command);
@@ -917,17 +924,18 @@ public class ImageOperationFactory implements OperationCreator {
     @Override
     public void validateArgs(String[] args) {
 
-      if (args.length < 4){
+      if (args.length < 4) {
         throw new IllegalArgumentException("Downscaled Height and Width are required.");
       }
 
-      if (!isNumeric(args[2]) && !isNumeric(args[3])){
+      if (!isNumeric(args[2]) && !isNumeric(args[3])) {
         throw new IllegalArgumentException("Cannot downsize to non-numeric value.");
       }
     }
 
     /**
      * Helper method to check if a string represents a numeric value.
+     *
      * @param str the string to check
      * @return true if the string is numeric, false otherwise
      */
@@ -987,7 +995,7 @@ public class ImageOperationFactory implements OperationCreator {
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
             || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
         String inputImageName = args[0];
@@ -1028,7 +1036,7 @@ public class ImageOperationFactory implements OperationCreator {
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
             || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
         String inputImageName = args[0];
@@ -1070,7 +1078,7 @@ public class ImageOperationFactory implements OperationCreator {
         Image maskImage = getImage(maskImageName);
         if (inputImage.getHeight() != maskImage.getHeight()
             || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operaton.");
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
         }
 
         String inputImageName = args[1];

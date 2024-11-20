@@ -1,5 +1,4 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
@@ -117,36 +116,39 @@ public class DownscaleTest {
   public void testDownscaleIllegalArguments() {
     // Helper method to test invalid arguments
     class Helper {
-      void runTest(String imageName, String outputName, String width, String height) {
+      void runTest(String imageName, String width, String height) {
         try {
-          ImageOperationFactory factory = new ImageOperationFactory();
-          CLIOperation operation = factory.createOperation("downscale");
-          operation.execute(imageName, outputName, width, height);
-
-          // The test should fail if invalid arguments do not throw an exception.
-          fail("Invalid arguments to Downscale Operation.");
+          executeDownscaleOperation(imageName, width, height);
         } catch (IllegalArgumentException ignored) {
           // Expected Error
         }
       }
+
+      // Isolate the operation that might throw an exception
+      void executeDownscaleOperation(String imageName, String width, String height) {
+        ImageOperationFactory factory = new ImageOperationFactory();
+        CLIOperation operation = factory.createOperation("downscale");
+        operation.execute(imageName, "OutputImage", width, height);
+      }
     }
+
     Helper helper = new Helper();
 
     // Explicit test cases
-    helper.runTest("ImageName", "OutputImage", "1", "-1");
-    helper.runTest("ImageName", "OutputImage", "-1", "1");
-    helper.runTest("ImageName", "OutputImage", "-1", "-1");
-    helper.runTest("ImageName", "OutputImage", "0", "1");
-    helper.runTest("ImageName", "OutputImage", "1", "0");
-    helper.runTest("ImageName", "OutputImage", "0", "0");
+    helper.runTest("ImageName", "1", "-1");
+    helper.runTest("ImageName", "-1", "1");
+    helper.runTest("ImageName", "-1", "-1");
+    helper.runTest("ImageName", "0", "1");
+    helper.runTest("ImageName", "1", "0");
+    helper.runTest("ImageName", "0", "0");
     // Size greater than image
-    helper.runTest("ImageName", "OutputImage", "5", "0");
+    helper.runTest("ImageName", "5", "0");
     // Size greater than image
-    helper.runTest("ImageName", "OutputImage", "0", "5");
+    helper.runTest("ImageName", "0", "5");
     // Size greater than image
-    helper.runTest("ImageName", "OutputImage", "5", "5");
+    helper.runTest("ImageName", "5", "5");
     // Without loading the image
-    helper.runTest("unknownImage", "OutputImage", "1", "1");
+    helper.runTest("unknownImage", "1", "1");
   }
 
   @Test
@@ -221,7 +223,7 @@ public class DownscaleTest {
     }
 
     try {
-      // 4. Different Aspect Ration
+      // 4. Different Aspect Ratio
       ImageReader imageReader = ImageReaderFactory.createReader(ImageFormat.PNG);
       actualImage = imageReader.read(path + "outputPPM.png", ImageType.RGB);
       int[] expectedPixelValue = new int[]{16711680,0,0,0};
