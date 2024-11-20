@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.openmbean.InvalidKeyException;
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
@@ -477,6 +478,7 @@ public class ImageOperationFactory implements OperationCreator {
       validateArgs(args);
       String inputName = args[0];
       String outputName = args[1];
+
       Image inputImage = getImage(inputName);
       if (inputImage == null) {
         throw new IllegalArgumentException("Input image not found");
@@ -490,6 +492,10 @@ public class ImageOperationFactory implements OperationCreator {
 
     @Override
     protected void validateArgs(String[] args) throws IllegalArgumentException {
+
+      if (args.length > 4){
+        throw new IllegalArgumentException("Not Supported number of arguements");
+      }
 
       if (args.length == 4) {
         String splitCommand = args[2];
