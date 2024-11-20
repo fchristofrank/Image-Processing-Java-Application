@@ -287,18 +287,10 @@ public class GUIController implements Features {
       this.operation.execute(args);
     }
 
-    /**
-     * This method returns the CLI operation.
-     * @return the CLI operation.
-     */
     public CLIOperation getOperation() {
       return operation;
     }
 
-    /**
-     * This method returns the arguments.
-     * @return the operation arguments.
-     */
     public String[] getArgs() {
       return args;
     }

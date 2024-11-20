@@ -12,7 +12,6 @@ public interface Features {
    *
    * @param imagePath    the path to the image file
    * @param userDecision a boolean indicating user's decision (purpose not specified)
-   * @return true if the operation is applied successfully.
    */
   void loadImage(String imagePath, boolean userDecision);
 
@@ -20,7 +19,6 @@ public interface Features {
    * Flips the loaded image based on the specified flip type.
    *
    * @param flipType the type of flip operation to perform
-   * @return true if the operation is applied successfully.
    */
   void flipImage(String flipType);
 
@@ -74,7 +72,6 @@ public interface Features {
    * Saves the current image to the specified path.
    *
    * @param imagePath the path where the image should be saved
-   * @return true if the operation is applied successfully.
    */
   void saveImage(String imagePath);
 
@@ -100,6 +97,9 @@ public interface Features {
    */
   void exitPreviewMode();
 
+  /**
+   * Applies the preview changes.
+   */
   void applyPreviewChanges();
 
   /**
@@ -109,5 +109,11 @@ public interface Features {
    */
   boolean isLoadedAndNotSaved();
 
+  /**
+   * Downscales the image with the provided dimensions.
+   * @param width the width of the new image
+   * @param height the height of the new image
+   * @return true if the operation is successful.
+   */
   boolean downScale(String width, String height);
 }
