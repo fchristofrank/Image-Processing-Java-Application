@@ -319,17 +319,17 @@ public class GUIControllerTest {
 
     @Override
     public void addFeatures(Features features) {
-
+      //Implementation is not required.
     }
 
     @Override
     public void setImage(BufferedImage image) {
-
+      //Implementation is not required.
     }
 
     @Override
     public void setHistogram(BufferedImage histogram) {
-
+      //Implementation is not required.
     }
 
     @Override
@@ -339,12 +339,12 @@ public class GUIControllerTest {
 
     @Override
     public void showWarningMessageBeforeLoading(String imagePath) {
-
+      //Implementation is not required.
     }
 
     @Override
     public void cleanSlate() {
-
+      //Implementation is not required.
     }
   }
 

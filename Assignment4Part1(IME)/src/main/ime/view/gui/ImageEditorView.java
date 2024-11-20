@@ -1,7 +1,8 @@
 package ime.view.gui;
 
-import ime.controller.gui.Features;
 import java.awt.image.BufferedImage;
+
+import ime.controller.gui.Features;
 
 /**
  * This interface represents the view component of an image editor application. It provides

@@ -1,10 +1,11 @@
 package ime.model.operation;
 
+import java.util.Map;
+
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
-import java.util.Map;
 
 /**
  * This class color corrects the image by calculating the average of the peaks generated in the

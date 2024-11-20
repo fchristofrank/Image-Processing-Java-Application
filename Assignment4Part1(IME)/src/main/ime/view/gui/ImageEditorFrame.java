@@ -1,7 +1,5 @@
 package ime.view.gui;
 
-import ime.controller.gui.Features;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +10,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -33,12 +34,14 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import ime.controller.gui.Features;
+
 /**
  * The main frame of the image editor application.  Handles the graphical user interface (GUI)
  * elements and interacts with the controller (Features) to perform image editing operations.
  */
 public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowListener {
-
+  private final Logger logger = Logger.getLogger(this.getClass().getName());
   private JMenuItem loadMenuItem;
   private JMenuItem saveMenuItem;
   private JMenuItem undoMenuItem;
@@ -64,7 +67,6 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnCompress;
   private JLabel compressionLabel;
   private JPanel levelsAdjustmentPanel;
-  private JPanel downscalePanel;
   private JTextField blackLevel;
   private JTextField middleLevel;
   private JTextField whiteLevel;
@@ -128,25 +130,25 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     loadMenuItem = new JMenuItem("Load");
     loadMenuItem.setMnemonic(KeyEvent.VK_L);
     loadMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(loadMenuItem);
 
     saveMenuItem = new JMenuItem("Save");
     saveMenuItem.setMnemonic(KeyEvent.VK_S);
     saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(saveMenuItem);
 
     undoMenuItem = new JMenuItem("Undo");
     undoMenuItem.setMnemonic(KeyEvent.VK_Z);
     undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(undoMenuItem);
 
     redoMenuItem = new JMenuItem("Redo");
     redoMenuItem.setMnemonic(KeyEvent.VK_Y);
     redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,
-        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(redoMenuItem);
 
     this.setJMenuBar(menuBar);
@@ -162,8 +164,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
     centerPanel.setBorder(
-        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+            BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     centerPanel.setPreferredSize(new Dimension(200, 100));
 
     imageLabel = new JLabel();
@@ -206,22 +208,22 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel leftPanel = new JPanel();
     leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
     leftPanel.setBorder(
-        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+            BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
+                    BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     leftPanel.setPreferredSize(new Dimension(180, 0));
 
     Dimension buttonSize = new Dimension(150, 30);
     String[][] buttonInfo = {
-        {"Horizontal Flip", "horizontal-flip"},
-        {"Vertical Flip", "vertical-flip"},
-        {"Blur", "blur"},
-        {"Sharpen", "sharpen"},
-        {"Sepia", "sepia"},
-        {"Greyscale", "luma-component"},
-        {"Red Component", "red-component"},
-        {"Green Component", "green-component"},
-        {"Blue Component", "blue-component"},
-        {"Color Correct", "color-correct"}
+            {"Horizontal Flip", "horizontal-flip"},
+            {"Vertical Flip", "vertical-flip"},
+            {"Blur", "blur"},
+            {"Sharpen", "sharpen"},
+            {"Sepia", "sepia"},
+            {"Greyscale", "luma-component"},
+            {"Red Component", "red-component"},
+            {"Green Component", "green-component"},
+            {"Blue Component", "blue-component"},
+            {"Color Correct", "color-correct"}
     };
 
     for (String[] info : buttonInfo) {
@@ -275,6 +277,9 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       case "Color Correct":
         btnColorCorrection = button;
         break;
+      default:
+        //No need of assigning the button with unknown functionality.
+        break;
     }
   }
 
@@ -323,7 +328,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-        BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     panel.setPreferredSize(new Dimension(200, 0));
     return panel;
   }
@@ -445,7 +450,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
     compressionLabel = new JLabel("Compression%:");
-    compressionText = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    compressionText = createFixedSizeTextField("", 3,
+            new Dimension(30, 20));
 
     panel.add(compressionLabel);
     panel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -467,7 +473,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     levelsAdjustmentPanel.add(createLevelsInputContainer());
     levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     btnAdjustLevels = createStyledButton("Adjust Levels",
-        new Dimension(200, 30));
+            new Dimension(200, 30));
     levelsAdjustmentPanel.add(btnAdjustLevels);
     levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -475,14 +481,14 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   }
 
   private JPanel createDownscalePanel() {
-    downscalePanel = new JPanel();
+    JPanel downscalePanel = new JPanel();
     downscalePanel.setLayout(new BoxLayout(downscalePanel, BoxLayout.Y_AXIS));
     downscalePanel.setBorder(BorderFactory.createTitledBorder("Downscale"));
 
     downscalePanel.add(createDownscaleInputContainer());
     downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
     btnDownscale = createStyledButton("Downscale",
-        new Dimension(200, 30));
+            new Dimension(200, 30));
     downscalePanel.add(btnDownscale);
     downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -583,10 +589,12 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    downscaleWidth = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    downscaleWidth = createFixedSizeTextField("", 3,
+            new Dimension(30, 20));
     panel.add(downscaleWidth);
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
-    downscaleHeight = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    downscaleHeight = createFixedSizeTextField("", 3,
+            new Dimension(30, 20));
     panel.add(downscaleHeight);
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -668,8 +676,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private void setupImageOperationButtons(Features features) {
     btnHorizontalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
     btnVerticalFlip.addActionListener(e -> features.flipImage(e.getActionCommand()));
-    btnApplyPreview.addActionListener(e ->
-    {
+    btnApplyPreview.addActionListener(e -> {
       features.applyPreviewChanges();
       previewMode.setSelected(false);
       handlePreviewModeChange(features);
@@ -742,8 +749,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       String splitWidth = getSplitWidth();
 
       if (features.adjustLevels(previewMode.isSelected(), blackLevel.getText(),
-          middleLevel.getText(),
-          whiteLevel.getText(), splitWidth)) {
+              middleLevel.getText(),
+              whiteLevel.getText(), splitWidth)) {
         toggleFilterButtons();
       }
     });
@@ -763,7 +770,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void toggleFilterButtons() {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
     for (JButton button : filterButtons) {
       if (!(previewMode.isSelected())) {
         button.setEnabled(true);
@@ -862,8 +869,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JFileChooser createImageFileChooser() {
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files", "jpg", "ppm",
-        "png");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files",
+            "jpg", "ppm", "png");
     fileChooser.setFileFilter(filter);
     return fileChooser;
   }
@@ -876,7 +883,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private String ensureCorrectFileExtension(String path) {
     if (!path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".ppm")
-        && !path.toLowerCase().endsWith(".png")) {
+            && !path.toLowerCase().endsWith(".png")) {
       return path + ".png";
     }
     return path;
@@ -887,7 +894,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void enableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
     for (JButton button : buttons) {
       button.setEnabled(true);
     }
@@ -896,7 +903,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
   private void disableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
     for (JButton button : buttons) {
       button.setEnabled(false);
     }
@@ -965,8 +972,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   @Override
   public void showWarningMessageBeforeLoading(String imagePath) {
     int result = JOptionPane.showConfirmDialog(this,
-        "Do you want to load an image without saving the current image",
-        "Save Changes?", JOptionPane.YES_NO_CANCEL_OPTION);
+            "Do you want to load an image without saving the current image",
+            "Save Changes?", JOptionPane.YES_NO_CANCEL_OPTION);
     if (result == JOptionPane.YES_OPTION) {
       features.loadImage(imagePath, true);
     }
@@ -987,45 +994,45 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
   @Override
   public void windowOpened(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application window has been opened");
   }
 
   @Override
   public void windowClosing(WindowEvent e) {
     if (features.isLoadedAndNotSaved()) {
       int result = JOptionPane.showConfirmDialog(this,
-          "The current image has not been saved. Are you sure you want to close?",
-          "Unsaved Changes", JOptionPane.YES_NO_OPTION);
+              "The current image has not been saved. Are you sure you want to close?",
+              "Unsaved Changes", JOptionPane.YES_NO_OPTION);
       if (result == JOptionPane.YES_OPTION) {
         System.exit(0);
       }
-    }else{
+    } else {
       System.exit(0);
     }
   }
 
   @Override
   public void windowClosed(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application has been closed");
   }
 
   @Override
   public void windowIconified(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application window has been iconified");
   }
 
   @Override
   public void windowDeiconified(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application window has been deiconified");
   }
 
   @Override
   public void windowActivated(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application window has been activated");
   }
 
   @Override
   public void windowDeactivated(WindowEvent e) {
-
+    logger.log(Level.INFO, "IME application window has been deactivated");
   }
 }

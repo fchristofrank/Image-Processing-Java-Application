@@ -1,7 +1,8 @@
 package ime.model.operation;
 
-import ime.model.image.Image;
 import java.util.Map;
+
+import ime.model.image.Image;
 
 /**
  * This is a class that offers operations certain common operations. The calculateFrequencies are

@@ -1,4 +1,10 @@
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.StringReader;
+import java.util.Objects;
 
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
@@ -9,12 +15,8 @@ import ime.controller.operation.CLIOperation;
 import ime.controller.operation.ImageOperationFactory;
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.util.Objects;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class DownscaleTest {
 

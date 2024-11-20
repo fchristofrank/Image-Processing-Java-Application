@@ -23,8 +23,8 @@ public interface WaveletImageCompressor {
    *                         to apply. A higher value indicates more compression, potentially
    *                         sacrificing image quality.
    * @return a new {@link Image} object representing the compressed version of the input image. The
-   * returned image may exhibit reduced detail compared to the original, depending on the
-   * compression ratio.
+   *         returned image may exhibit reduced detail compared to the original, depending on the
+   *         compression ratio.
    */
   Image applyWaveletCompression(Image image, float compressionRatio);
 }

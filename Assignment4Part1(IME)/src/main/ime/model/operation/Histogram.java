@@ -1,14 +1,15 @@
 package ime.model.operation;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.PixelFactory;
 import ime.model.pixel.RGBPixel;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This class contains the operation to generate the histogram of the given image but calculating

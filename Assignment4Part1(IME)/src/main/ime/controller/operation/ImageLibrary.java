@@ -1,8 +1,9 @@
 package ime.controller.operation;
 
-import ime.model.image.Image;
 import java.util.HashMap;
 import java.util.Map;
+
+import ime.model.image.Image;
 
 /**
  * The ImageLibrary class serves as a central repository for managing images during the editing

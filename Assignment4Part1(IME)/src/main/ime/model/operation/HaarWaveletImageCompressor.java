@@ -1,13 +1,14 @@
 package ime.model.operation;
 
-import ime.model.image.Image;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import ime.model.image.Image;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 
 /**
  * Implements the Haar Wavelet transformation for compressing and transforming image data.

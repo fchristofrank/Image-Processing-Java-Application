@@ -1,8 +1,9 @@
 package ime.controller.imageio;
 
+import java.io.IOException;
+
 import ime.model.image.Image;
 import ime.model.image.ImageType;
-import java.io.IOException;
 
 /**
  * This interface serves as a reader that reads images in various formats from a given file path.

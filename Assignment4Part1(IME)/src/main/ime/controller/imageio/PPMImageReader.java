@@ -1,10 +1,5 @@
 package ime.controller.imageio;
 
-import ime.model.image.Image;
-import ime.model.image.ImageType;
-import ime.model.image.SimpleImage;
-import ime.model.pixel.Pixel;
-import ime.model.pixel.PixelFactory;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -13,6 +8,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+
+import ime.model.image.Image;
+import ime.model.image.ImageType;
+import ime.model.image.SimpleImage;
+import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 
 /**
  * A reader for PPM (Portable Pixmap) image files. This class supports both the P3 (ASCII-based) and

@@ -1,5 +1,19 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.StringReader;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import ime.controller.cli.ImageProcessorCLI;
 import ime.controller.cli.OperationCreator;
@@ -22,21 +36,9 @@ import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
 import ime.model.operation.VisualizeRed;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import org.junit.Assert;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class tests the functionalities of Image Manipulation and Enhancement application.

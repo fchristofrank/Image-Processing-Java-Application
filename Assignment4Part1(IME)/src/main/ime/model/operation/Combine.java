@@ -1,10 +1,11 @@
 package ime.model.operation;
 
+import java.util.List;
+
 import ime.model.image.Image;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
 import ime.model.pixel.RGBPixel;
-import java.util.List;
 
 /**
  * The Combine class merges three images by combining their red, green, and blue channels into a

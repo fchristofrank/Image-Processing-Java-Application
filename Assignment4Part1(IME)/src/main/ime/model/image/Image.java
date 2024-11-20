@@ -1,9 +1,10 @@
 package ime.model.image;
 
+import java.util.List;
+
 import ime.model.operation.ImageOperation;
 import ime.model.operation.MultipleImageOperation;
 import ime.model.pixel.Pixel;
-import java.util.List;
 
 /**
  * Represents an image with pixel manipulation capabilities. This interface defines the fundamental

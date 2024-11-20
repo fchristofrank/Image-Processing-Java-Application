@@ -1,7 +1,5 @@
 package ime.controller.cli;
 
-import ime.controller.operation.CLIOperation;
-import ime.controller.operation.CommandExecutor;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +7,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import ime.controller.operation.CLIOperation;
+import ime.controller.operation.CommandExecutor;
 
 /**
  * The main command-line interface for the Image Processor application.
