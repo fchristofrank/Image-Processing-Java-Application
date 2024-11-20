@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.openmbean.InvalidKeyException;
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI

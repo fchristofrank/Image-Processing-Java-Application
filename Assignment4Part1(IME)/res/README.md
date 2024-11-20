@@ -72,13 +72,22 @@ ClassDiagram :
     - **Class**:
         - `ImageProcessorCLI`: Implements the `run` method to continuously listen to user commands
           or script files.
-
-2. **OperationCreator**: Contains methods to connect controllers to operations based on user
+2. **ImageEditorView**: This interface represents the view component of an image editor application. It provides
+methods to interact with the graphical user interface (GUI), enabling the display of images,
+histograms, error messages, and other view-related functionalities. The view is also responsible
+for registering the features that enable user interaction.   
+    - **Class**:
+        - `ImageEditorFrame` : Serves as the concrete implementation of the ImageEditorView 
+        interface, providing a graphical user interface (GUI) for the image editor application. 
+        This class manages the display of images, histograms, and messages, and handles user interactions by integrating features defined in the controller.
+3. **OperationCreator**: Contains methods to connect controllers to operations based on user
    commands.
     - **Class**:
         - `ImageOperationFactory`: Creates operation objects to connect CLI inputs and arguments to
           the controller interface.
-
+        - `GUIImageOperationFactory`: Creates operation objects to connect GUI inputs to the 
+          controller interface. This class extends the ImageOperationFactory.java and overrides the
+          functionalities to support GUI as a view.
 ---
 
 ## Controller:
@@ -115,6 +124,10 @@ ClassDiagram :
                 - `Sepia`: Handles sepia image operations by request and argument validation.
                 - `Compress`: Handles image compression requests by validating arguments and
                   executing the appropriate operations.
+2. ### **Features** : The Features interface defines the contract for image manipulation operations.
+    - **Concrete Class**
+       - `GUI Controller` : Manages interactions between the GUI and the image editor's
+            operations.
 
 ---
 
@@ -181,7 +194,7 @@ ClassDiagram :
     - `StandardImageReader`: Represents a reader for images in JPG and PNG formats from a specified
       file name.
 
-### CHANGES:
+### CHANGES(Assignment - 5):
 
 1. New operations added: Compress, Histogram, Color Correction, Levels Adjustment.**(No design
    changes required.)**
@@ -206,6 +219,62 @@ ClassDiagram :
     - imageio package from ime to controller.(ime ----> ime.controller).
     - Moved ImageLibrary.java to the package Repository and moved repository to
       ime.controller.operation package.
+
+## CHANGES(Assignment - 6)
+1. No significant design changes were required to accommodate the new requirements, as our design 
+   adheres to the principle of open/closed—open to extension but closed to modification. 
+   We extended the existing classes to seamlessly support the new operations.
+2. To incorporate a graphical user interface (GUI), a new controller and a corresponding view were 
+   introduced, resulting in the creation of additional objects.
+3. A past mistake in the implementation of the split command from a previous assignment was 
+   corrected to ensure proper functionality.
+
+
+# How to Use the Image Editor Application
+## Launch the Application
+- Open the `IME.jar` file to start the Image Editor application.
+
+## Load an Image
+- To begin editing, load an image of your choice.
+    - Use **File → Load** from the menu.
+    - Or press **Ctrl + L** as a shortcut.
+
+## Explore the Interface
+- **Basic Operations**: Located on the left panel.
+- **Advanced Operations**: Available on the right panel.
+
+## Perform Operations
+- After loading an image, you can apply various operations.
+- Once you're done editing, save the image using:
+    - **File → Save** from the menu.
+    - Or press **Ctrl + S** as a shortcut.
+
+## Preview Mode
+- **What It Does**: Preview mode lets you preview changes before applying them.
+- **How to Enter**: Access preview mode using the settings in the right panel.
+- **Usage**:
+    - Apply an operation.
+    - Adjust the split width.
+    - Toggle the preview to visualize the changes.
+
+## Exiting Preview Mode
+- To exit **without saving** changes:
+    - Uncheck the **Enter Preview Mode** checkbox.
+- To exit **with changes applied**:
+    - Click **Apply**.
+
+## Limitations in Preview Mode
+The following actions are **disabled** in preview mode:
+- **Undo**
+- **Redo**
+- **Load**
+- **Save**
+- **Some operations which don't support preview**
+  - Horizontal Flip
+  - Vertical Flip
+  - Compress
+  - Downscale
+
 
 Assignment 6 Submission:
 

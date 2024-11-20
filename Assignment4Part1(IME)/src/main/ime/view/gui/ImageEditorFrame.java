@@ -1,6 +1,7 @@
-package ime.view;
+package ime.view.gui;
 
-import ime.controller.Features;
+import ime.controller.gui.Features;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -991,13 +992,15 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
   @Override
   public void windowClosing(WindowEvent e) {
-    if (!features.isLoadedAndSaved()) {
+    if (features.isLoadedAndNotSaved()) {
       int result = JOptionPane.showConfirmDialog(this,
           "The current image has not been saved. Are you sure you want to close?",
           "Unsaved Changes", JOptionPane.YES_NO_OPTION);
       if (result == JOptionPane.YES_OPTION) {
         System.exit(0);
       }
+    }else{
+      System.exit(0);
     }
   }
 

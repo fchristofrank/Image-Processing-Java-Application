@@ -248,3 +248,58 @@ levels-adjust 50 100 150 boston boston-ld-50 50
 - For operations that generate new images (like rgb-split), remember to save each new image
   separately.
 - The order of commands matters. Ensure that source images exist before using them in operations.
+
+
+# How to Use the Image Editor Application
+## Launch the Application
+- Open the `IME.jar` file to start the Image Editor application.
+
+## Load an Image
+- To begin editing, load an image of your choice.
+  - Use **File → Load** from the menu.
+  - Or press **Ctrl + L** as a shortcut.
+
+## Explore the Interface
+- **Basic Operations**: Located on the left panel.
+- **Advanced Operations**: Available on the right panel.
+
+## Perform Operations
+- After loading an image, you can apply various operations.
+- Once you're done editing, save the image using:
+  - **File → Save** from the menu.
+  - Or press **Ctrl + S** as a shortcut.
+
+## Preview Mode
+- **What It Does**: Preview mode lets you preview changes before applying them.
+- **IMPORTANT**: Enter preview mode and only then apply operation see the preview.
+- **How to Enter**: Access preview mode using the settings in the right panel.
+    ![PreviewMode](PreviewMode.png)
+- **Usage**:
+  - Apply an operation.
+    - Applying a specific operation temporarily disables all other controls, including the recently 
+    - applied operation button, to prevent duplicate actions while in preview mode.
+      ![PreviewOperation](PreviewOperation.png)
+  - Adjust the split width.
+  - Toggle the preview to visualize the changes.
+
+## Exiting Preview Mode
+- To exit **without saving** changes:
+  - Uncheck the **Enter Preview Mode** checkbox.
+- To exit **with changes applied**:
+  - Click **Apply**.
+
+## Limitations in Preview Mode
+The following actions are **disabled** in preview mode:
+- **Undo**
+- **Redo**
+- **Load**
+- **Save**
+- **Some operations which don't support preview**
+  - Horizontal Flip
+  - Vertical Flip
+  - Compress
+  - Downscale
+
+## In App tutorial
+You can find a detailed tutorial while launching the application which you can skip or go through it.
+![Tutorial](InAppTutorial.png)

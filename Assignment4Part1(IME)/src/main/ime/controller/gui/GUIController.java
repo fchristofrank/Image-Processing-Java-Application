@@ -1,8 +1,8 @@
-package ime.controller;
+package ime.controller.gui;
 
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
-import ime.view.ImageEditorView;
+import ime.view.gui.ImageEditorView;
 import java.util.Stack;
 
 public class GUIController implements Features {
@@ -26,38 +26,34 @@ public class GUIController implements Features {
   }
 
   @Override
-  public boolean loadImage(String imagePath, boolean userDecision) {
+  public void loadImage(String imagePath, boolean userDecision) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("load");
-      if (isLoaded && !isSaved && !userDecision) {
+      if (isLoadedAndNotSaved() && !userDecision) {
         imageEditorView.showWarningMessageBeforeLoading(imagePath);
-        return false;
+        return;
       }
       imageOperation.execute(imagePath);
       undoStack.push(new OperationCommand(imageOperation, imagePath));
       redoStack.clear();
       isLoaded = true;
       isSaved = false;
-      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
-      return false;
     }
   }
 
   @Override
-  public boolean flipImage(String flipType) {
+  public void flipImage(String flipType) {
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation(flipType);
       imageOperation.execute();
       undoStack.push(new OperationCommand(imageOperation));
       redoStack.clear();
       isSaved = false;
-      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
-      return false;
     }
   }
 
@@ -158,17 +154,15 @@ public class GUIController implements Features {
   }
 
   @Override
-  public boolean saveImage(String imagePath) {
+  public void saveImage(String imagePath) {
 
     try {
       CLIOperation imageOperation = imageOperationFactory.createOperation("save");
       imageOperation.execute(imagePath);
       redoStack.clear();
       isSaved = true;
-      return true;
     } catch (IllegalArgumentException exception) {
       imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
-      return false;
     }
   }
 
@@ -240,8 +234,8 @@ public class GUIController implements Features {
   }
 
   @Override
-  public boolean isLoadedAndSaved() {
-    return isLoaded && isSaved;
+  public boolean isLoadedAndNotSaved() {
+    return isLoaded && !isSaved;
   }
 
   @Override

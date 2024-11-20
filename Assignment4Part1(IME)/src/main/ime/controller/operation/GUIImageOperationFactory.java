@@ -1,7 +1,7 @@
 package ime.controller.operation;
 
 import ime.model.image.Image;
-import ime.view.ImageEditorView;
+import ime.view.gui.ImageEditorView;
 import java.awt.image.BufferedImage;
 
 /**
