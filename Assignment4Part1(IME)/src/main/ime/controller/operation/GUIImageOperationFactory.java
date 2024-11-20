@@ -6,7 +6,10 @@ import ime.model.image.Image;
 import ime.view.ImageEditorView;
 
 /**
- * A factory class that creates GUI-specific image operation controllers.  This factory extends the base `ImageOperationFactory` and adds GUI-specific functionality for updating the view after each operation.  It handles loading images, saving images, applying various image filters and adjustments, and displaying the resulting images and histograms in the GUI.
+ * A factory class that creates GUI-specific image operation controllers.  This factory extends the
+ * base `ImageOperationFactory` and adds GUI-specific functionality for updating the view after each
+ * operation.  It handles loading images, saving images, applying various image filters and
+ * adjustments, and displaying the resulting images and histograms in the GUI.
  */
 public class GUIImageOperationFactory extends ImageOperationFactory {
 
@@ -31,8 +34,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
    */
   private String generateInstanceName() {
     return this.getClass().getSimpleName() +
-            "_" +
-            Integer.toHexString(System.identityHashCode(this));
+        "_" +
+        Integer.toHexString(System.identityHashCode(this));
   }
 
 
@@ -64,15 +67,29 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new AdjustLevel(imageLibrary);
       case Commands.CLEAR_LIBRARY:
         return new ClearImageLibrary(imageLibrary);
+      case Commands.DOWNSCALE:
+        return new Downscale(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
   }
 
+  private void setViewWithImage(Image image) {
+    BufferedImage bufferedImage = convertToBufferedImage(image);
+    this.imageEditorView.setImage(bufferedImage);
+  }
+
+  private void setViewWithImageHistogram(Image image) {
+    BufferedImage bufferedImage = convertToBufferedImage(image);
+    this.imageEditorView.setHistogram(bufferedImage);
+  }
+
   /**
-   * An inner class representing the Load operation.  Extends the base Load operation and adds functionality to update the view with the loaded image and its histogram.
+   * An inner class representing the Load operation.  Extends the base Load operation and adds
+   * functionality to update the view with the loaded image and its histogram.
    */
   class Load extends ImageOperationFactory.Load {
+
     /**
      * Constructs a Load operation controller.
      *
@@ -97,6 +114,7 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
    * An inner class representing the Save operation. Extends the base Save operation.
    */
   class Save extends ImageOperationFactory.Save {
+
     /**
      * Constructs a Save operation controller.
      *
@@ -116,9 +134,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Histogram operation. Extends the base Histogram operation and adds functionality to update the view with the histogram.
+   * An inner class representing the Histogram operation. Extends the base Histogram operation and
+   * adds functionality to update the view with the histogram.
    */
   class Histogram extends ImageOperationFactory.Histogram {
+
     /**
      * Constructs a Histogram operation controller.
      *
@@ -138,9 +158,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Horizontal Flip operation. Extends the base HorizontalFlip operation and adds functionality to update the view with the flipped image and its histogram.
+   * An inner class representing the Horizontal Flip operation. Extends the base HorizontalFlip
+   * operation and adds functionality to update the view with the flipped image and its histogram.
    */
   class HorizontalFlip extends ImageOperationFactory.HorizontalFlip {
+
     /**
      * Constructs a HorizontalFlip operation controller.
      *
@@ -160,9 +182,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing filter operations with preview. Extends the base FilterWithPreview operation and adds functionality to update the view.
+   * An inner class representing filter operations with preview. Extends the base FilterWithPreview
+   * operation and adds functionality to update the view.
    */
   class FilterWithPreview extends ImageOperationFactory.FilterWithPreview {
+
     /**
      * Constructs a FilterWithPreview operation controller.
      *
@@ -186,9 +210,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Vertical Flip operation. Extends the base VerticalFlip operation and adds functionality to update the view with the flipped image and its histogram.
+   * An inner class representing the Vertical Flip operation. Extends the base VerticalFlip
+   * operation and adds functionality to update the view with the flipped image and its histogram.
    */
   class VerticalFlip extends ImageOperationFactory.VerticalFlip {
+
     /**
      * Constructs a VerticalFlip operation controller.
      *
@@ -207,9 +233,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing visualization operations with preview. Extends the base VisualizeWithPreview operation and adds functionality to update the view.
+   * An inner class representing visualization operations with preview. Extends the base
+   * VisualizeWithPreview operation and adds functionality to update the view.
    */
   class VisualizeWithPreview extends ImageOperationFactory.VisualizeWithPreview {
+
     /**
      * Constructs a VisualizeWithPreview operation controller.
      *
@@ -234,9 +262,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Color Correction operation. Extends the base ColorCorrection operation and adds functionality to update the view.
+   * An inner class representing the Color Correction operation. Extends the base ColorCorrection
+   * operation and adds functionality to update the view.
    */
   class ColorCorrection extends ImageOperationFactory.ColorCorrection {
+
     /**
      * Constructs a ColorCorrection operation controller.
      *
@@ -259,9 +289,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Compress operation. Extends the base Compress operation and adds functionality to update the view with the compressed image and its histogram.
+   * An inner class representing the Compress operation. Extends the base Compress operation and
+   * adds functionality to update the view with the compressed image and its histogram.
    */
   class Compress extends ImageOperationFactory.Compress {
+
     /**
      * Constructs a Compress operation controller.
      *
@@ -283,9 +315,11 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
   }
 
   /**
-   * An inner class representing the Adjust Level operation. Extends the base AdjustLevel operation and adds functionality to update the view with the adjusted image and its histogram.
+   * An inner class representing the Adjust Level operation. Extends the base AdjustLevel operation
+   * and adds functionality to update the view with the adjusted image and its histogram.
    */
   class AdjustLevel extends ImageOperationFactory.AdjustLevel {
+
     /**
      * Constructs an AdjustLevel operation controller.
      *
@@ -327,14 +361,23 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     }
   }
 
-  private void setViewWithImage(Image image) {
-    BufferedImage bufferedImage = convertToBufferedImage(image);
-    this.imageEditorView.setImage(bufferedImage);
-  }
+  class Downscale extends ImageOperationFactory.DownScale {
 
-  private void setViewWithImageHistogram(Image image) {
-    BufferedImage bufferedImage = convertToBufferedImage(image);
-    this.imageEditorView.setHistogram(bufferedImage);
+    /**
+     * Constructs a Downscale operation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public Downscale(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      super.execute(imageName, imageName, args[0], args[1]);
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(imageName));
+    }
   }
 
 }

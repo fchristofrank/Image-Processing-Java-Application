@@ -24,7 +24,9 @@ import ime.model.operation.ApplyVerticalFlip;
 import ime.model.operation.Blur;
 import ime.model.operation.Combine;
 import ime.model.operation.CountFrequency;
+import ime.model.operation.Downscale;
 import ime.model.operation.ImageOperation;
+import ime.model.operation.MaskOperation;
 import ime.model.operation.Sharpen;
 import ime.model.operation.VisualizeBlue;
 import ime.model.operation.VisualizeGreen;
@@ -83,28 +85,28 @@ public class ImageOperationFactory implements OperationCreator {
       case Commands.RGB_SPLIT:
         return new RGBSplit(imageLibrary);
       case Commands.BRIGHTEN:
-        return new Brighten(imageLibrary);
+        return new BrightenWithMask(imageLibrary);
       case Commands.DARKEN:
-        return new Darken(imageLibrary);
+        return new DarkenWithMask(imageLibrary);
       case Commands.VERTICAL_FLIP:
         return new VerticalFlip(imageLibrary);
       case Commands.HORIZONTAL_FLIP:
         return new HorizontalFlip(imageLibrary);
       case Commands.RGB_COMBINE:
         return new CombineRGB(imageLibrary);
-      // filter commands;
+      // Filter commands
       case Commands.BLUR:
       case Commands.SHARPEN:
       case Commands.SEPIA:
-        return new FilterWithPreview(imageLibrary, commandName);
-      // visualize commands;
+        return new FilterWithMask(imageLibrary, commandName);
+      // Visualize commands
       case Commands.RED_COMPONENT:
       case Commands.GREEN_COMPONENT:
       case Commands.BLUE_COMPONENT:
       case Commands.LUMA_COMPONENT:
       case Commands.VALUE_COMPONENT:
       case Commands.INTENSITY_COMPONENT:
-        return new VisualizeWithPreview(imageLibrary, commandName);
+        return new VisualizeWithMask(imageLibrary, commandName);
       case Commands.COMPRESS:
         return new Compress(imageLibrary);
       case Commands.HISTOGRAM:
@@ -113,6 +115,9 @@ public class ImageOperationFactory implements OperationCreator {
         return new ColorCorrection(imageLibrary);
       case Commands.LEVELS_ADJUST:
         return new AdjustLevel(imageLibrary);
+      case Commands.DOWNSCALE:
+        return new DownScale(imageLibrary);
+
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
@@ -166,6 +171,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String COMPRESS = "compress";
     public static final String COLOR_CORRECTION = "color-correct";
     public static final String LEVELS_ADJUST = "levels-adjust";
+    public static final String DOWNSCALE = "downscale";
     public static final String CLEAR_LIBRARY = "clear-library";
   }
 
@@ -198,20 +204,29 @@ public class ImageOperationFactory implements OperationCreator {
       ImageReader imageReader = null;
       try {
         imageReader =
-                ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
+            ImageReaderFactory.createReader(ImageFormat.valueOf(imageFormat.toUpperCase()));
       } catch (IllegalArgumentException e) {
         throw new IllegalArgumentException("Invalid image format: " + imageFormat);
       }
       Image image;
       try {
         image = imageReader.read(imagePath, ImageType.RGB);
-      } catch (NullPointerException | IOException e) {
-        LOGGER.log(Level.SEVERE, "Error reading image file: " + imagePath, e);
+      } catch (NullPointerException e) {
+        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
+            imagePath), e);
         throw new IllegalArgumentException(
-                "Error reading image file: "
-                        + imagePath
-                        + ". Please ensure the file exists and is a valid image format.",
-                e);
+            "Error reading image file: "
+                + imagePath
+                + ". Please ensure the file exists and is a valid image format.",
+            e);
+      } catch (IOException e) {
+        LOGGER.log(Level.SEVERE, String.format("Error reading image file: %s",
+            imagePath), e);
+        throw new IllegalArgumentException(
+            "Error reading image file: "
+                + imagePath
+                + ". Please ensure the file exists and is a valid image format.",
+            e);
       }
       addImage(imageName, image);
       System.out.println("Image loaded :: " + imageName);
@@ -283,8 +298,8 @@ public class ImageOperationFactory implements OperationCreator {
       addImage(greenOutputImageName, greenImage);
       addImage(blueOutputImageName, blueImage);
       System.out.println(
-              "The images have been separated into their red, blue, and green components "
-                      + "and combined accordingly.");
+          "The images have been separated into their red, blue, and green components "
+              + "and combined accordingly.");
     }
 
     @Override
@@ -334,8 +349,8 @@ public class ImageOperationFactory implements OperationCreator {
         Integer.parseInt(args[0]);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException(
-                String.format(
-                        "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
+            String.format(
+                "Invalid brightness adjustment value '%s'." + " It must be an integer.", args[0]));
       }
     }
   }
@@ -426,9 +441,13 @@ public class ImageOperationFactory implements OperationCreator {
         if (arg0 > arg1 || arg1 > arg2) {
           throw new IllegalArgumentException("Values should be in ascending order");
         }
+
+        if (arg0 < 0 || arg0 > 255 || arg1 > 255 || arg2 > 255) {
+          throw new IllegalArgumentException("Values should be between 0 to 255 only.");
+        }
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Black, middle, and white values should be " +
-                "valid integers");
+            "valid integers");
       }
 
       if (args.length == 6) {
@@ -460,8 +479,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-              inputImage.applyOperation(
-                      new ime.model.operation.ColorCorrection(new CountFrequency()), args);
+          inputImage.applyOperation(
+              new ime.model.operation.ColorCorrection(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
@@ -522,11 +541,11 @@ public class ImageOperationFactory implements OperationCreator {
     protected ImageOperation filterObjectFactory(String command) {
 
       switch (command) {
-        case "blur":
+        case Commands.BLUR:
           return new Blur();
-        case "sharpen":
+        case Commands.SHARPEN:
           return new Sharpen();
-        case "sepia":
+        case Commands.SEPIA:
           return new ApplySepia();
         default:
           throw new UnsupportedOperationException("Unknown command given.");
@@ -552,6 +571,19 @@ public class ImageOperationFactory implements OperationCreator {
     protected void validateArgs(String[] args) throws IllegalArgumentException {
       if (args.length != 2 && args.length != 4) {
         throw new IllegalArgumentException("Invalid number of arguments");
+      }
+
+      if (args.length == 3) {
+        String splitPercentage = args[2];
+        try {
+          int percentage = Integer.parseInt(splitPercentage);
+          if (percentage < 0 || percentage > 100) {
+            throw new IllegalArgumentException(
+                "Percentage value for split line must be between " + "0 and 100.");
+          }
+        } catch (NumberFormatException e) {
+          throw new IllegalArgumentException("Percentage value for split line must be a number.");
+        }
       }
 
       if (args.length == 4) {
@@ -630,8 +662,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-              redImage.applyOperation(
-                      new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+          redImage.applyOperation(
+              new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
       addImage(inputName, outputImage);
       System.out.println("Combine given images. New Image :: " + inputName);
     }
@@ -668,10 +700,10 @@ public class ImageOperationFactory implements OperationCreator {
       Image inputImage = getImage(inputImageName);
       Image outputImage = inputImage.applyOperation(new ApplyCompression(), args[0]);
       System.out.println(
-              "Applied compression to :: "
-                      + inputImageName
-                      + ". New image created :: "
-                      + outputImageName);
+          "Applied compression to :: "
+              + inputImageName
+              + ". New image created :: "
+              + outputImageName);
       addImage(outputImageName, outputImage);
     }
 
@@ -824,24 +856,24 @@ public class ImageOperationFactory implements OperationCreator {
       }
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage =
-              inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
+          inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
       System.out.println("Extracted given component. New Image :: " + outputName);
     }
 
     private AbstractVisualize visualizeObjectFactory(String command) {
       switch (command) {
-        case "red-component":
+        case Commands.RED_COMPONENT:
           return new VisualizeRed();
-        case "green-component":
+        case Commands.GREEN_COMPONENT:
           return new VisualizeGreen();
-        case "blue-component":
+        case Commands.BLUE_COMPONENT:
           return new VisualizeBlue();
-        case "value-component":
+        case Commands.VALUE_COMPONENT:
           return new VisualizeValue();
-        case "luma-component":
+        case Commands.LUMA_COMPONENT:
           return new VisualizeLuma();
-        case "intensity-component":
+        case Commands.INTENSITY_COMPONENT:
           return new VisualizeIntensity();
         default:
           throw new IllegalArgumentException("Unknown component: " + command);
@@ -857,7 +889,69 @@ public class ImageOperationFactory implements OperationCreator {
     public VisualizeWithPreview(ImageRepo library, String command) {
       super(library, command);
     }
+  }
 
+  class DownScale extends AbstractOperation {
+
+    /**
+     * Downscales the given image with the averaging algorithm
+     */
+    public DownScale(ImageRepo library) {
+      super(library);
+    }
+
+    /**
+     * This method executes a specific operation with the given arguments.
+     *
+     * @param args the arguments for an operations.
+     * @throws IllegalArgumentException if the operation cannot be performed due to invalid or
+     *                                  insufficient arguments.
+     */
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      validateArgs(args);
+      String inputName = args[0];
+      String outputName = args[1];
+      String width = args[2];
+      String height = args[3];
+
+      Image inputImage = getImage(inputName);
+      if (inputImage == null) {
+        throw new IllegalArgumentException("Input image not found");
+      }
+      Image outputImage = inputImage.applyOperation(new Downscale(), width, height);
+      addImage(outputName, outputImage);
+      System.out.println("Generated DownScaled Image. New Image :: " + outputName);
+    }
+
+    @Override
+    public void validateArgs(String[] args) {
+
+      if (args.length < 4) {
+        throw new IllegalArgumentException("Downscaled Height and Width are required.");
+      }
+
+      if (!isNumeric(args[2]) && !isNumeric(args[3])) {
+        throw new IllegalArgumentException("Cannot downsize to non-numeric value.");
+      }
+    }
+
+    /**
+     * Helper method to check if a string represents a numeric value.
+     *
+     * @param str the string to check
+     * @return true if the string is numeric, false otherwise
+     */
+    private boolean isNumeric(String str) {
+      try {
+        Integer.parseInt(str);
+        return true;
+      } catch (Exception e) {
+        System.out.println(str);
+        return false;
+      }
+    }
   }
 
   class Histogram extends AbstractOperation {
@@ -881,9 +975,191 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-              inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
+          inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
+    }
+  }
+
+  public class FilterWithMask extends FilterWithPreview {
+
+    public FilterWithMask(ImageRepo library, String command) {
+      super(library, command);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      Image inputImage = getImage(args[0]);
+      String maskImageName = args[1];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
+
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
+        }
+
+        String inputImageName = args[0];
+        String outputImageName = args[2];
+
+        super.execute(inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+  }
+
+  public class VisualizeWithMask extends VisualizeWithPreview {
+
+    public VisualizeWithMask(ImageRepo library, String command) {
+      super(library, command);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      Image inputImage = getImage(args[0]);
+      String maskImageName = args[1];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
+
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
+        }
+
+        String inputImageName = args[0];
+        String outputImageName = args[2];
+
+        super.execute(inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+  }
+
+  public class BrightenWithMask extends AdjustBrightness {
+
+    public BrightenWithMask(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+
+      int brightnessFactor = Integer.parseInt(args[0]);
+      Image inputImage = getImage(args[1]);
+      String maskImageName = args[2];
+
+      // Check if MaskImage is Present?!
+      if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
+
+        Image maskImage = getImage(maskImageName);
+        if (inputImage.getHeight() != maskImage.getHeight()
+            || inputImage.getWidth() != maskImage.getWidth()) {
+          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
+        }
+
+        String inputImageName = args[1];
+        String outputImageName = args[3];
+        super.execute(String.valueOf(brightnessFactor), inputImageName, outputImageName);
+
+        Image outputImage =
+            inputImage.applyOperation(
+                new MaskOperation(),
+                Arrays.asList(
+                    inputImage,
+                    imageLibrary.getImage(maskImageName),
+                    imageLibrary.getImage(outputImageName)));
+
+        addImage(outputImageName, outputImage);
+      } else {
+        super.execute(args);
+      }
+    }
+
+    @Override
+    protected Image getImage(String imageName) {
+      return imageLibrary.getImage(imageName);
+    }
+  }
+
+  public class DarkenWithMask extends AdjustBrightness {
+
+    public DarkenWithMask(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+      int brightnessFactor = Integer.parseInt(args[0]);
+      Image inputImage = getImage(args[1]);
+      String maskImageName = args[2];
+
+      if (isMaskImagePresent(args, maskImageName)) {
+        applyMaskOperation(args, brightnessFactor, inputImage, maskImageName);
+      } else {
+        super.execute(args);
+      }
+    }
+
+    private boolean isMaskImagePresent(String[] args, String maskImageName) {
+      return args.length > 3 && imageLibrary.getImage(maskImageName) != null;
+    }
+
+    private void applyMaskOperation(
+        String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
+      String inputImageName = args[1];
+      String outputImageName = args[3];
+
+      Image maskImage = getImage(maskImageName);
+      validateDimensions(inputImage, maskImage);
+
+      super.execute(String.valueOf(-Math.abs(brightnessFactor)), inputImageName, outputImageName);
+
+      Image outputImage =
+          inputImage.applyOperation(
+              new MaskOperation(),
+              Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
+
+      addImage(outputImageName, outputImage);
+    }
+
+    private void validateDimensions(Image inputImage, Image maskImage) {
+      if (inputImage.getHeight() != maskImage.getHeight()
+          || inputImage.getWidth() != maskImage.getWidth()) {
+        throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
+      }
+    }
+
+    @Override
+    protected Image getImage(String imageName) {
+      return imageLibrary.getImage(imageName);
     }
   }
 }

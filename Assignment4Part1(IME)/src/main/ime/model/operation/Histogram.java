@@ -17,10 +17,15 @@ import java.util.Map;
  */
 public class Histogram implements ImageOperation {
 
-  private final CountFrequency countFrequencyOperation;
+  private final CommonOperation countFrequencyOperation;
   private static final int PIXEL_UPPER_LIMIT = 255;
 
-  public Histogram(CountFrequency countFrequencyOperation) {
+  /**
+   * Injects the dependencies in the constructor to be able to use the count frequency.
+   *
+   * @param countFrequencyOperation the object containing the count method.
+   */
+  public Histogram(CommonOperation countFrequencyOperation) {
     this.countFrequencyOperation = countFrequencyOperation;
   }
 

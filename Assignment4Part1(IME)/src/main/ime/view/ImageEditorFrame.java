@@ -32,6 +32,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnGreenComponent;
   private JButton btnBlueComponent;
   private JButton btnColorCorrection;
+  private JButton btnDownscale;
   private JLabel imageLabel;
   private JLabel histogramLabel;
   private JCheckBox previewMode;
@@ -40,9 +41,12 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnCompress;
   private JLabel compressionLabel;
   private JPanel levelsAdjustmentPanel;
+  private JPanel downscalePanel;
   private JTextField blackLevel;
   private JTextField middleLevel;
   private JTextField whiteLevel;
+  private JTextField downscaleWidth;
+  private JTextField downscaleHeight;
   private JButton btnAdjustLevels;
   private Features features;
   private JButton btnApplyPreview;
@@ -273,6 +277,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     rightPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
     rightPanel.add(createLevelsAdjustmentPanel());
+    rightPanel.add(createDownscalePanel());
 
     return rightPanel;
   }
@@ -350,8 +355,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    JLabel splitValueLabel = new JLabel("Value: 100%");
-    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+    JLabel splitValueLabel = new JLabel("Value: 50%");
+    splitSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     splitSlider.setEnabled(false);
 
     setupSlider(splitValueLabel, panel, splitSlider);
@@ -436,6 +441,21 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     return levelsAdjustmentPanel;
   }
 
+  private JPanel createDownscalePanel() {
+    downscalePanel = new JPanel();
+    downscalePanel.setLayout(new BoxLayout(downscalePanel, BoxLayout.Y_AXIS));
+    downscalePanel.setBorder(BorderFactory.createTitledBorder("Downscale"));
+
+    downscalePanel.add(createDownscaleInputContainer());
+    downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+    btnDownscale = createStyledButton("Downscale",
+            new Dimension(200, 30));
+    downscalePanel.add(btnDownscale);
+    downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    return downscalePanel;
+  }
+
   /**
    * Creates the levels input container with labels and text fields.
    *
@@ -449,6 +469,18 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     container.add(createLevelsLabelPanel());
     container.add(Box.createRigidArea(new Dimension(5, 0)));
     container.add(createLevelsValuePanel());
+
+    return container;
+  }
+
+  private JPanel createDownscaleInputContainer() {
+    JPanel container = new JPanel();
+    container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+    container.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    container.add(createDownscaleLabelPanel());
+    container.add(Box.createRigidArea(new Dimension(5, 0)));
+    container.add(createDownscaleValuePanel());
 
     return container;
   }
@@ -472,6 +504,20 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     return panel;
   }
 
+  private JPanel createDownscaleLabelPanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    panel.add(new JLabel("Width:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    panel.add(new JLabel("Height:"));
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+    return panel;
+  }
+
+
   /**
    * Creates the levels value panel with text fields for black, middle, and white levels.
    *
@@ -490,6 +536,26 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
     whiteLevel = createFixedSizeTextField("", 3, new Dimension(30, 20));
     panel.add(whiteLevel);
+
+    return panel;
+  }
+
+  /**
+   * Creates the downscale value panel with text fields for width and height.
+   *
+   * @return The levels value panel.
+   */
+  private JPanel createDownscaleValuePanel() {
+    JPanel panel = new JPanel();
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    downscaleWidth = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(downscaleWidth);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
+    downscaleHeight = createFixedSizeTextField("", 3, new Dimension(30, 20));
+    panel.add(downscaleHeight);
+    panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
     return panel;
   }
@@ -594,6 +660,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     setupColorCorrectButton(btnColorCorrection, features);
     setupCompressButton(btnCompress, features);
     setupAdjustLevelsButton(btnAdjustLevels, features);
+    setupDownscaleButton(btnDownscale, features);
   }
 
   /**
@@ -605,54 +672,69 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private void setupFilterButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons(button);
+      if(features.applyFilter(previewMode.isSelected(), e.getActionCommand(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupGreyscaleButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth);
-      toggleFilterButtons(button);
+      if(features.applyGreyScale(previewMode.isSelected(), e.getActionCommand(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupColorCorrectButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.applyColorCorrect(previewMode.isSelected(), splitWidth);
-      toggleFilterButtons(button);
+      if(features.applyColorCorrect(previewMode.isSelected(), splitWidth)) {
+        toggleFilterButtons();
+      }
     });
   }
 
   private void setupCompressButton(JButton button, Features features) {
     button.addActionListener(e -> {
-      features.applyCompress(compressionText.getText());
-      toggleFilterButtons(button);
+      if(features.applyCompress(compressionText.getText())){
+      toggleFilterButtons();
+      }
     });
   }
 
   private void setupAdjustLevelsButton(JButton button, Features features) {
     button.addActionListener(e -> {
       String splitWidth = getSplitWidth();
-      features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
-              whiteLevel.getText(), splitWidth);
-      toggleFilterButtons(button);
+
+      if (features.adjustLevels(previewMode.isSelected(), blackLevel.getText(), middleLevel.getText(),
+          whiteLevel.getText(), splitWidth)){
+        toggleFilterButtons();
+      }
+    });
+  }
+
+  private void setupDownscaleButton(JButton button, Features features) {
+    button.addActionListener(e -> {
+      if(features.downScale(downscaleWidth.getText(),downscaleHeight.getText())) {
+        toggleFilterButtons();
+      }
     });
   }
 
   /**
    * Toggles the enabled state of filter buttons to prevent multiple simultaneous filter applications in preview mode.
-   *
-   * @param activeButton The currently active button.
    */
-  private void toggleFilterButtons(JButton activeButton) {
+  private void toggleFilterButtons() {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
     for (JButton button : filterButtons) {
-      if (!(button != activeButton && previewMode.isSelected())) {
+      if (!(previewMode.isSelected())) {
         button.setEnabled(true);
+        if (button == btnAdjustLevels) {
+          enableLevelsAdjustmentFeatures(true);
+        }
       } else {
         button.setEnabled(false);
         if (button == btnAdjustLevels) {
@@ -697,12 +779,13 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     compressionLabel.setEnabled(!isPreviewMode);
     compressionText.setEnabled(!isPreviewMode);
     btnCompress.setEnabled(!isPreviewMode);
+    btnDownscale.setEnabled(!isPreviewMode);
     btnApplyPreview.setEnabled(isPreviewMode);
 
     if (!isPreviewMode) {
       features.exitPreviewMode();
       enableAllButtons();
-      splitSlider.setValue(100);
+      splitSlider.setValue(50);
       previewCheckBox.setSelected(true);
     }
   }
@@ -773,6 +856,15 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       button.setEnabled(true);
     }
     enableLevelsAdjustmentFeatures(true);
+  }
+
+  private void disableAllButtons() {
+    JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
+        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+    for (JButton button : buttons) {
+      button.setEnabled(false);
+    }
+    enableLevelsAdjustmentFeatures(false);
   }
 
   private void enableLevelsAdjustmentFeatures(boolean enable) {
