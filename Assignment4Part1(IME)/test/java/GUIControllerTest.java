@@ -9,7 +9,6 @@ import ime.controller.GUIController;
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
 import ime.controller.operation.GUIImageOperationFactory;
-import ime.view.ImageEditorFrame;
 import ime.view.ImageEditorView;
 
 import static org.junit.Assert.assertEquals;
