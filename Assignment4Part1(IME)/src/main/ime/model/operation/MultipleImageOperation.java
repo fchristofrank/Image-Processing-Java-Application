@@ -1,7 +1,8 @@
 package ime.model.operation;
 
-import ime.model.image.Image;
 import java.util.List;
+
+import ime.model.image.Image;
 
 /**
  * This interface defines the contract for operations that involve multiple images. Implementing

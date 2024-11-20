@@ -1,10 +1,11 @@
 package ime.model.operation;
 
+import java.util.List;
+
 import ime.model.image.Image;
 import ime.model.image.ImageType;
 import ime.model.image.SimpleImage;
 import ime.model.pixel.Pixel;
-import java.util.List;
 
 /**
  * This class represents an operation that applies a mask to an image. It takes an input image, a

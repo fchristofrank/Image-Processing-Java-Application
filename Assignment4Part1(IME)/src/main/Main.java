@@ -1,11 +1,12 @@
-import ime.controller.gui.GUIController;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+
 import ime.controller.cli.ImageProcessorCLI;
+import ime.controller.gui.GUIController;
 import ime.controller.operation.GUIImageOperationFactory;
 import ime.controller.operation.ImageOperationFactory;
 import ime.view.gui.ImageEditorFrame;
 import ime.view.gui.ImageEditorView;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 
 /**
  * The Main class serves as the entry point for the image editor application. It initializes and

@@ -1,8 +1,9 @@
 package ime.model.operation;
 
-import ime.model.image.Image;
 import java.util.HashMap;
 import java.util.Map;
+
+import ime.model.image.Image;
 
 /**
  * Accepts an image and from the entire range of 0 to 255 counts the frequency of the pixels and

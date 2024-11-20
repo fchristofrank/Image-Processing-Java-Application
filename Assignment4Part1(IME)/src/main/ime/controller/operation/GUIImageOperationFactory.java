@@ -1,8 +1,9 @@
 package ime.controller.operation;
 
+import java.awt.image.BufferedImage;
+
 import ime.model.image.Image;
 import ime.view.gui.ImageEditorView;
-import java.awt.image.BufferedImage;
 
 /**
  * A factory class that creates GUI-specific image operation controllers.  This factory extends the
@@ -149,9 +150,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
 
     @Override
     public void execute(String... args) {
-      String HISTOGRAM_NAME = "HISTOGRAM";
-      super.execute(imageName, HISTOGRAM_NAME);
-      setViewWithImageHistogram(getImage(HISTOGRAM_NAME));
+      String histogram = "HISTOGRAM";
+      super.execute(imageName, histogram);
+      setViewWithImageHistogram(getImage(histogram));
     }
 
   }

@@ -1,7 +1,8 @@
 package ime.model.pixel;
 
-import ime.model.image.ImageType;
 import java.util.Objects;
+
+import ime.model.image.ImageType;
 
 /**
  * The PixelFactory class is responsible for creating Pixel objects with specified component

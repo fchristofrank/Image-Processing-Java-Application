@@ -1,11 +1,12 @@
 package ime.model.image;
 
-import ime.model.operation.ImageOperation;
-import ime.model.operation.MultipleImageOperation;
-import ime.model.pixel.Pixel;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import ime.model.operation.ImageOperation;
+import ime.model.operation.MultipleImageOperation;
+import ime.model.pixel.Pixel;
 
 /**
  * This class represents a Simple Image compose of pixels. It implements the Image interface,

@@ -1,10 +1,15 @@
 package ime.controller.gui;
 
+import java.util.Stack;
+
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
 import ime.view.gui.ImageEditorView;
-import java.util.Stack;
 
+/**
+ * The GUIController class implements the Features interface and manages the graphical
+ * user interface operations for an image editor application.
+ */
 public class GUIController implements Features {
 
   private final OperationCreator imageOperationFactory;
@@ -15,8 +20,13 @@ public class GUIController implements Features {
   private OperationCommand lastPreviewEnabledOperation;
   private boolean isLoaded;
   private boolean isSaved;
-  private boolean isApplied;
 
+  /**
+   * Constructs a new GUIController.
+   *
+   * @param imageEditorView The view component of the image editor.
+   * @param imageOperationFactory The factory for creating image operations.
+   */
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
     this.imageEditorView = imageEditorView;
     imageEditorView.addFeatures(this);
@@ -229,7 +239,6 @@ public class GUIController implements Features {
       undoStack.push(lastPreviewEnabledOperation);
       redoStack.clear();
       lastPreviewEnabledOperation = null;
-      isApplied = true;
     }
   }
 
@@ -253,24 +262,43 @@ public class GUIController implements Features {
     }
   }
 
+  /**
+   * Inner class representing an operation command.
+   */
   class OperationCommand {
 
     private final CLIOperation operation;
     private final String[] args;
 
+    /**
+     * Creates an operation command.
+     * @param operation the operation
+     * @param args the corresponding arguments for the operation.
+     */
     public OperationCommand(CLIOperation operation, String... args) {
       this.operation = operation;
       this.args = args;
     }
 
+    /**
+     * This method executes the operation with the corresponding arguments.
+     */
     public void execute() {
       this.operation.execute(args);
     }
 
+    /**
+     * This method returns the CLI operation.
+     * @return the CLI operation.
+     */
     public CLIOperation getOperation() {
       return operation;
     }
 
+    /**
+     * This method returns the arguments.
+     * @return the operation arguments.
+     */
     public String[] getArgs() {
       return args;
     }
