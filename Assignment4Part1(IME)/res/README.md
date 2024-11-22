@@ -26,12 +26,17 @@ Currently, we support CLI commands and Script file
     rgb-combine image-name red-image green-image blue-image  
     blur image-name dest-image-name  
     sharpen image-name dest-image-name  
-    sepia image-name dest-image-name  
+    sepia image-name dest-image-name 
+    Masking Operations :
+    blur image-name mask-name output-name
+    sharpen image-name mask-name output-name
 
 To Run a script file use the below command:
 <p><h3> run Path-to-script-file</h3>
 
-Sample Script File (Requires Replacing Image path and destination as per your machine):
+Sample Script File (Requires Replacing Image path and destination as per your machine) For the
+assignment 6, the script file is in this location (Assignment4Part1(IME)
+/res/MaskImage/mask-script.txt):
 
     load <inputFilePath> test
     red-component test redImage
@@ -72,22 +77,25 @@ ClassDiagram :
     - **Class**:
         - `ImageProcessorCLI`: Implements the `run` method to continuously listen to user commands
           or script files.
-2. **ImageEditorView**: This interface represents the view component of an image editor application. It provides
-methods to interact with the graphical user interface (GUI), enabling the display of images,
-histograms, error messages, and other view-related functionalities. The view is also responsible
-for registering the features that enable user interaction.   
+2. **ImageEditorView**: This interface represents the view component of an image editor application.
+   It provides
+   methods to interact with the graphical user interface (GUI), enabling the display of images,
+   histograms, error messages, and other view-related functionalities. The view is also responsible
+   for registering the features that enable user interaction.
     - **Class**:
-        - `ImageEditorFrame` : Serves as the concrete implementation of the ImageEditorView 
-        interface, providing a graphical user interface (GUI) for the image editor application. 
-        This class manages the display of images, histograms, and messages, and handles user interactions by integrating features defined in the controller.
+        - `ImageEditorFrame` : Serves as the concrete implementation of the ImageEditorView
+          interface, providing a graphical user interface (GUI) for the image editor application.
+          This class manages the display of images, histograms, and messages, and handles user
+          interactions by integrating features defined in the controller.
 3. **OperationCreator**: Contains methods to connect controllers to operations based on user
    commands.
     - **Class**:
         - `ImageOperationFactory`: Creates operation objects to connect CLI inputs and arguments to
           the controller interface.
-        - `GUIImageOperationFactory`: Creates operation objects to connect GUI inputs to the 
+        - `GUIImageOperationFactory`: Creates operation objects to connect GUI inputs to the
           controller interface. This class extends the ImageOperationFactory.java and overrides the
           functionalities to support GUI as a view.
+
 ---
 
 ## Controller:
@@ -126,8 +134,8 @@ for registering the features that enable user interaction.
                   executing the appropriate operations.
 2. ### **Features** : The Features interface defines the contract for image manipulation operations.
     - **Concrete Class**
-       - `GUI Controller` : Manages interactions between the GUI and the image editor's
-            operations.
+        - `GUI Controller` : Manages interactions between the GUI and the image editor's
+          operations.
 
 ---
 
@@ -221,35 +229,72 @@ for registering the features that enable user interaction.
       ime.controller.operation package.
 
 ## CHANGES(Assignment - 6)
-1. No significant design changes were required to accommodate the new requirements, as our design 
-   adheres to the principle of open/closed—open to extension but closed to modification. 
+
+1. No significant design changes were required to accommodate the new requirements, as our design
+   adheres to the principle of open/closed—open to extension but closed to modification.
    We extended the existing classes to seamlessly support the new operations.
-2. To incorporate a graphical user interface (GUI), a new controller and a corresponding view were 
+2. To incorporate a graphical user interface (GUI), a new controller and a corresponding view were
    introduced, resulting in the creation of additional objects.
-3. A past mistake in the implementation of the split command from a previous assignment was 
+3. A previous assignment mistake in the syntax of the split command from a previous assignment was
    corrected to ensure proper functionality.
 
+## DESIGN OF DOWNSCALE FEATURE
+
+- No changes to existing file was made.
+- Downscale.java was added as a separate model file which contains the logic to downscale.
+- Since it is an ImageOperation, it implements the ImageOperation Interface which requires to
+  override the apply method.
+- A new Controller class was also added to validate the args and delegate to model. The controller
+  is added as inner class extending the AbstractOperation class which has methods to save, retrieve
+  images in the current session.
+- The control object is created based on the GUI command string passed by the view object.
+- The control object was onboarded in the switch case.
+
+- No existing file changed, new Classes were created here :
+- New file added (Model) : ime/model/operation/Downscale.java
+- Inner class added (Controller) : ime/controller/operation/ImageOperationFactory.java
+
+## DESIGN OF MASKING FEATURE
+
+- The addition of Masking feature required the core logic to be added in the model file (
+  MaskOperation.java) implementing the ImageOperation.java interface.
+- In controller, we created the new classes
+- FilterWithMask extending the existing FilterWithPreview.
+- VisualizeWithMask extending the existing VisualizeWithPreview.
+- BrightenWithMask extending the existing AdjustBrightness.
+- DarkenWithMask extending the existing AdjustBrightness.
+- The new controller classes override the validateArgs() method with the checks required for
+  masking operation and CLI commands.
+- The new controller classes perform the operation with respect to the mask and then returns the
+  masked Image.
+- The new Controller will save the image by reusing methods of the parent classes.
 
 # How to Use the Image Editor Application
+
 ## Launch the Application
+
 - Open the `IME.jar` file to start the Image Editor application.
 
 ## Load an Image
+
 - To begin editing, load an image of your choice.
     - Use **File → Load** from the menu.
     - Or press **Ctrl + L** as a shortcut.
 
 ## Explore the Interface
+
 - **Basic Operations**: Located on the left panel.
 - **Advanced Operations**: Available on the right panel.
 
 ## Perform Operations
+
 - After loading an image, you can apply various operations.
 - Once you're done editing, save the image using:
     - **File → Save** from the menu.
     - Or press **Ctrl + S** as a shortcut.
 
 ## Preview Mode
+
 - **What It Does**: Preview mode lets you preview changes before applying them.
 - **How to Enter**: Access preview mode using the settings in the right panel.
 - **Usage**:
@@ -258,39 +303,24 @@ for registering the features that enable user interaction.
     - Toggle the preview to visualize the changes.
 
 ## Exiting Preview Mode
+
 - To exit **without saving** changes:
     - Uncheck the **Enter Preview Mode** checkbox.
 - To exit **with changes applied**:
     - Click **Apply**.
 
 ## Limitations in Preview Mode
+
 The following actions are **disabled** in preview mode:
+
 - **Undo**
 - **Redo**
 - **Load**
 - **Save**
 - **Some operations which don't support preview**
-  - Horizontal Flip
-  - Vertical Flip
-  - Compress
-  - Downscale
-
-
-Assignment 6 Submission:
-
-Design of Downscale:
-
-The addition of Downscale feature was isolated changes and did not require any change to existing
-design.
-
-+ We created the model class (Downscale.java) where the logic was implemented.
-+ A new controller (Downscale) was added as inner class in the controllers containing the argument
-  validation and delegation to the model.
-+ As our controller follows the Command Design patter, the new Command object creation is listed in
-  the switch case to create the command object based on the user request string.
-
-New file added (Model) : ime/model/operation/Downscale.java
-Inner class added (Controller) : ime/controller/operation/ImageOperationFactory.java
-
+    - Horizontal Flip
+    - Vertical Flip
+    - Compress
+    - Downscale
 
 

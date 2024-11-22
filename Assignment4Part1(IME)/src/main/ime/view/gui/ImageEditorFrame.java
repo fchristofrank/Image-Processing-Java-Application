@@ -41,6 +41,7 @@ import ime.controller.gui.Features;
  * elements and interacts with the controller (Features) to perform image editing operations.
  */
 public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowListener {
+
   private final Logger logger = Logger.getLogger(this.getClass().getName());
   private JMenuItem loadMenuItem;
   private JMenuItem saveMenuItem;
@@ -130,25 +131,25 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     loadMenuItem = new JMenuItem("Load");
     loadMenuItem.setMnemonic(KeyEvent.VK_L);
     loadMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L,
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(loadMenuItem);
 
     saveMenuItem = new JMenuItem("Save");
     saveMenuItem.setMnemonic(KeyEvent.VK_S);
     saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(saveMenuItem);
 
     undoMenuItem = new JMenuItem("Undo");
     undoMenuItem.setMnemonic(KeyEvent.VK_Z);
     undoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(undoMenuItem);
 
     redoMenuItem = new JMenuItem("Redo");
     redoMenuItem.setMnemonic(KeyEvent.VK_Y);
     redoMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,
-            Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
+        Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx()));
     menu.add(redoMenuItem);
 
     this.setJMenuBar(menuBar);
@@ -164,8 +165,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel centerPanel = new JPanel();
     centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
     centerPanel.setBorder(
-            BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-                    BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     centerPanel.setPreferredSize(new Dimension(200, 100));
 
     imageLabel = new JLabel();
@@ -208,22 +209,22 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel leftPanel = new JPanel();
     leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
     leftPanel.setBorder(
-            BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-                    BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     leftPanel.setPreferredSize(new Dimension(180, 0));
 
     Dimension buttonSize = new Dimension(150, 30);
     String[][] buttonInfo = {
-            {"Horizontal Flip", "horizontal-flip"},
-            {"Vertical Flip", "vertical-flip"},
-            {"Blur", "blur"},
-            {"Sharpen", "sharpen"},
-            {"Sepia", "sepia"},
-            {"Greyscale", "luma-component"},
-            {"Red Component", "red-component"},
-            {"Green Component", "green-component"},
-            {"Blue Component", "blue-component"},
-            {"Color Correct", "color-correct"}
+        {"Horizontal Flip", "horizontal-flip"},
+        {"Vertical Flip", "vertical-flip"},
+        {"Blur", "blur"},
+        {"Sharpen", "sharpen"},
+        {"Sepia", "sepia"},
+        {"Greyscale", "luma-component"},
+        {"Red Component", "red-component"},
+        {"Green Component", "green-component"},
+        {"Blue Component", "blue-component"},
+        {"Color Correct", "color-correct"}
     };
 
     for (String[] info : buttonInfo) {
@@ -328,7 +329,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JPanel panel = new JPanel();
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
     panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.GRAY),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        BorderFactory.createEmptyBorder(10, 10, 10, 10)));
     panel.setPreferredSize(new Dimension(200, 0));
     return panel;
   }
@@ -451,7 +452,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
     compressionLabel = new JLabel("Compression%:");
     compressionText = createFixedSizeTextField("", 3,
-            new Dimension(30, 20));
+        new Dimension(30, 20));
 
     panel.add(compressionLabel);
     panel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -473,7 +474,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     levelsAdjustmentPanel.add(createLevelsInputContainer());
     levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
     btnAdjustLevels = createStyledButton("Adjust Levels",
-            new Dimension(200, 30));
+        new Dimension(200, 30));
     levelsAdjustmentPanel.add(btnAdjustLevels);
     levelsAdjustmentPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -488,7 +489,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     downscalePanel.add(createDownscaleInputContainer());
     downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
     btnDownscale = createStyledButton("Downscale",
-            new Dimension(200, 30));
+        new Dimension(200, 30));
     downscalePanel.add(btnDownscale);
     downscalePanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -590,11 +591,11 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     downscaleWidth = createFixedSizeTextField("", 3,
-            new Dimension(30, 20));
+        new Dimension(30, 20));
     panel.add(downscaleWidth);
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
     downscaleHeight = createFixedSizeTextField("", 3,
-            new Dimension(30, 20));
+        new Dimension(30, 20));
     panel.add(downscaleHeight);
     panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -749,8 +750,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       String splitWidth = getSplitWidth();
 
       if (features.adjustLevels(previewMode.isSelected(), blackLevel.getText(),
-              middleLevel.getText(),
-              whiteLevel.getText(), splitWidth)) {
+          middleLevel.getText(),
+          whiteLevel.getText(), splitWidth)) {
         toggleFilterButtons();
       }
     });
@@ -770,7 +771,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void toggleFilterButtons() {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
+        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
     for (JButton button : filterButtons) {
       if (!(previewMode.isSelected())) {
         button.setEnabled(true);
@@ -870,7 +871,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files",
-            "jpg", "ppm", "png");
+        "jpg", "ppm", "png");
     fileChooser.setFileFilter(filter);
     return fileChooser;
   }
@@ -883,7 +884,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private String ensureCorrectFileExtension(String path) {
     if (!path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".ppm")
-            && !path.toLowerCase().endsWith(".png")) {
+        && !path.toLowerCase().endsWith(".png")) {
       return path + ".png";
     }
     return path;
@@ -894,7 +895,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void enableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
     for (JButton button : buttons) {
       button.setEnabled(true);
     }
@@ -903,7 +904,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
   private void disableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+        btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
     for (JButton button : buttons) {
       button.setEnabled(false);
     }
@@ -972,8 +973,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   @Override
   public void showWarningMessageBeforeLoading(String imagePath) {
     int result = JOptionPane.showConfirmDialog(this,
-            "Do you want to load an image without saving the current image",
-            "Save Changes?", JOptionPane.YES_NO_CANCEL_OPTION);
+        "Do you want to load an image without saving the current image",
+        "Save Changes?", JOptionPane.YES_NO_CANCEL_OPTION);
     if (result == JOptionPane.YES_OPTION) {
       features.loadImage(imagePath, true);
     }
@@ -1001,8 +1002,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   public void windowClosing(WindowEvent e) {
     if (features.isLoadedAndNotSaved()) {
       int result = JOptionPane.showConfirmDialog(this,
-              "The current image has not been saved. Are you sure you want to close?",
-              "Unsaved Changes", JOptionPane.YES_NO_OPTION);
+          "The current image has not been saved. Are you sure you want to close?",
+          "Unsaved Changes", JOptionPane.YES_NO_OPTION);
       if (result == JOptionPane.YES_OPTION) {
         System.exit(0);
       }

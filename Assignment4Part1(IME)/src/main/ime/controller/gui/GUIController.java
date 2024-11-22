@@ -1,15 +1,13 @@
 package ime.controller.gui;
 
-import java.io.IOException;
-import java.util.Stack;
-
 import ime.controller.cli.OperationCreator;
 import ime.controller.operation.CLIOperation;
 import ime.view.gui.ImageEditorView;
+import java.util.Stack;
 
 /**
- * The GUIController class implements the Features interface and manages the graphical
- * user interface operations for an image editor application.
+ * The GUIController class implements the Features interface and manages the graphical user
+ * interface operations for an image editor application.
  */
 public class GUIController implements Features {
 
@@ -25,7 +23,7 @@ public class GUIController implements Features {
   /**
    * Constructs a new GUIController.
    *
-   * @param imageEditorView The view component of the image editor.
+   * @param imageEditorView       The view component of the image editor.
    * @param imageOperationFactory The factory for creating image operations.
    */
   public GUIController(ImageEditorView imageEditorView, OperationCreator imageOperationFactory) {
@@ -216,8 +214,8 @@ public class GUIController implements Features {
       }
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = splitWidth;
-      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
-          , args);
+      lastPreviewEnabledOperation =
+          new OperationCommand(lastPreviewEnabledOperation.getOperation(), args);
       lastPreviewEnabledOperation.execute();
     }
   }
@@ -235,8 +233,8 @@ public class GUIController implements Features {
     if (lastPreviewEnabledOperation != null) {
       String[] args = lastPreviewEnabledOperation.getArgs();
       args[args.length - 1] = "100";
-      lastPreviewEnabledOperation = new OperationCommand(lastPreviewEnabledOperation.getOperation()
-          , args);
+      lastPreviewEnabledOperation =
+          new OperationCommand(lastPreviewEnabledOperation.getOperation(), args);
       undoStack.push(lastPreviewEnabledOperation);
       redoStack.clear();
       lastPreviewEnabledOperation = null;
@@ -273,8 +271,9 @@ public class GUIController implements Features {
 
     /**
      * Creates an operation command.
+     *
      * @param operation the operation
-     * @param args the corresponding arguments for the operation.
+     * @param args      the corresponding arguments for the operation.
      */
     public OperationCommand(CLIOperation operation, String... args) {
       this.operation = operation;

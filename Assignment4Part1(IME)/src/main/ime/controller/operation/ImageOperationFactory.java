@@ -1,11 +1,5 @@
 package ime.controller.operation;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import ime.controller.cli.OperationCreator;
 import ime.controller.imageio.ImageFormat;
 import ime.controller.imageio.ImageReader;
@@ -38,7 +32,6 @@ import ime.model.pixel.Pixel;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -148,6 +141,20 @@ public class ImageOperationFactory implements OperationCreator {
       }
     }
     return bufferedImage;
+  }
+
+  /**
+   * Validates that the dimensions of the input and mask images are the same.
+   *
+   * @param inputImage the input image
+   * @param maskImage  the mask image
+   * @throws IllegalArgumentException if the dimensions do not match
+   */
+  private void validateDimensions(Image inputImage, Image maskImage) {
+    if (inputImage.getHeight() != maskImage.getHeight()
+        || inputImage.getWidth() != maskImage.getWidth()) {
+      throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
+    }
   }
 
   /**
@@ -440,7 +447,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                    "Percentage value for split line must be between " + "0 and 100.");
+                "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -465,7 +472,7 @@ public class ImageOperationFactory implements OperationCreator {
         }
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Black, middle, and white values should be " +
-                "valid integers");
+            "valid integers");
       }
     }
   }
@@ -487,8 +494,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-              inputImage.applyOperation(
-                      new ime.model.operation.ColorCorrection(new CountFrequency()), args);
+          inputImage.applyOperation(
+              new ime.model.operation.ColorCorrection(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
     }
@@ -510,7 +517,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                    "Percentage value for split line must be between " + "0 and 100.");
+                "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -613,7 +620,7 @@ public class ImageOperationFactory implements OperationCreator {
           int percentage = Integer.parseInt(splitPercentage);
           if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException(
-                    "Percentage value for split line must be between " + "0 and 100.");
+                "Percentage value for split line must be between " + "0 and 100.");
           }
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Percentage value for split line must be a number.");
@@ -679,8 +686,8 @@ public class ImageOperationFactory implements OperationCreator {
         throw new IllegalArgumentException("Input image not found");
       }
       Image outputImage =
-              redImage.applyOperation(
-                      new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
+          redImage.applyOperation(
+              new Combine(), Arrays.asList(redImage, greenImage, blueImage), args);
       addImage(inputName, outputImage);
       System.out.println("Combine given images. New Image :: " + inputName);
     }
@@ -717,10 +724,10 @@ public class ImageOperationFactory implements OperationCreator {
       Image inputImage = getImage(inputImageName);
       Image outputImage = inputImage.applyOperation(new ApplyCompression(), args[0]);
       System.out.println(
-              "Applied compression to :: "
-                      + inputImageName
-                      + ". New image created :: "
-                      + outputImageName);
+          "Applied compression to :: "
+              + inputImageName
+              + ". New image created :: "
+              + outputImageName);
       addImage(outputImageName, outputImage);
     }
 
@@ -873,7 +880,7 @@ public class ImageOperationFactory implements OperationCreator {
       }
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage =
-              inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
+          inputImage.applyOperation(visualizeObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
       System.out.println("Extracted given component. New Image :: " + outputName);
     }
@@ -911,7 +918,7 @@ public class ImageOperationFactory implements OperationCreator {
   class DownScale extends AbstractOperation {
 
     /**
-     * Downscales the given image with the averaging algorithm
+     * Downscales the given image with the averaging algorithm.
      */
     public DownScale(ImageRepo library) {
       super(library);
@@ -972,8 +979,8 @@ public class ImageOperationFactory implements OperationCreator {
   }
 
   /**
-   * Represents a histogram generation operation for an image.
-   * This operation computes and visualizes the frequency distribution of pixel values.
+   * Represents a histogram generation operation for an image. This operation computes and
+   * visualizes the frequency distribution of pixel values.
    */
   class Histogram extends AbstractOperation {
 
@@ -1016,8 +1023,8 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Constructs a FilterWithMask operation.
      *
-     * @param library  the ImageRepo to be used for accessing images
-     * @param command  the filter command to apply
+     * @param library the ImageRepo to be used for accessing images
+     * @param command the filter command to apply
      */
     public FilterWithMask(ImageRepo library, String command) {
       super(library, command);
@@ -1062,8 +1069,8 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Constructs a VisualizeWithMask operation.
      *
-     * @param library  the ImageRepo to be used for accessing images
-     * @param command  the visualization command to apply
+     * @param library the ImageRepo to be used for accessing images
+     * @param command the visualization command to apply
      */
     public VisualizeWithMask(ImageRepo library, String command) {
       super(library, command);
@@ -1117,7 +1124,8 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Executes the brighten operation with an optional mask image.
      *
-     * @param args the arguments containing brightness factor, input image, mask image, and output image names
+     * @param args the arguments containing brightness factor, input image, mask image, and output
+     *             image names
      * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
      */
     @Override
@@ -1163,8 +1171,8 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Executes the darken operation with an optional mask image.
      *
-     * @param args the arguments containing brightness factor, input image, mask image, and output image names
-     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
+     * @param args the arguments containing brightness factor, input image, mask image, and output.
+     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid.
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
@@ -1182,8 +1190,8 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Checks if a mask image is provided and present in the repository.
      *
-     * @param args           the arguments provided
-     * @param maskImageName  the name of the mask image
+     * @param args          the arguments provided
+     * @param maskImageName the name of the mask image
      * @return true if a mask image is present; false otherwise
      */
     private boolean isMaskImagePresent(String[] args, String maskImageName) {
@@ -1193,12 +1201,13 @@ public class ImageOperationFactory implements OperationCreator {
     /**
      * Applies the mask operation for darkening the image.
      *
-     * @param args              the arguments provided
-     * @param brightnessFactor  the brightness adjustment factor
-     * @param inputImage        the input image to be darkened
-     * @param maskImageName     the name of the mask image
+     * @param args             the arguments provided
+     * @param brightnessFactor the brightness adjustment factor
+     * @param inputImage       the input image to be darkened
+     * @param maskImageName    the name of the mask image
      */
-    private void applyMaskOperation(String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
+    private void applyMaskOperation(String[] args, int brightnessFactor, Image inputImage,
+        String maskImageName) {
       String inputImageName = args[1];
       String outputImageName = args[3];
 
@@ -1213,19 +1222,6 @@ public class ImageOperationFactory implements OperationCreator {
       );
 
       addImage(outputImageName, outputImage);
-    }
-  }
-
-  /**
-   * Validates that the dimensions of the input and mask images are the same.
-   *
-   * @param inputImage  the input image
-   * @param maskImage   the mask image
-   * @throws IllegalArgumentException if the dimensions do not match
-   */
-  private void validateDimensions(Image inputImage, Image maskImage) {
-    if (inputImage.getHeight() != maskImage.getHeight() || inputImage.getWidth() != maskImage.getWidth()) {
-      throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
     }
   }
 }

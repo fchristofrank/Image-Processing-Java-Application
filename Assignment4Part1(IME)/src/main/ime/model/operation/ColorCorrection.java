@@ -17,7 +17,7 @@ public class ColorCorrection implements ImageOperation {
   private final CommonOperation countFrequencyOperation;
 
   /**
-   * The constructor method that helps to count the frequency of pixels
+   * The constructor method that helps to count the frequency of pixels.
    *
    * @param countFrequency injected dependency object.
    */

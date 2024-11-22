@@ -17,9 +17,9 @@ public class Downscale implements ImageOperation {
    * Applies the downscaling operation to the given image using the specified dimensions.
    *
    * @param inputImage the original image to be downscaled.
-   * @param args the target dimensions: the first argument is the width, and the second is the height.
-   * @return a new {@link SimpleImage} with the downscaled dimensions.
-   * @throws IllegalArgumentException if the target dimensions are invalid or exceed the original image dimensions.
+   * @param args the target dimensions: the first argument is the width, and second is the height.
+   * @return a new Image with the downscaled dimensions.
+   * @throws IllegalArgumentException if the target dimensions are invalid.
    */
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
@@ -33,8 +33,8 @@ public class Downscale implements ImageOperation {
         || scaledHeight > actualHeight) {
       throw new IllegalArgumentException(
           "Invalid dimensions for downscaling. Provided dimensions: " + scaledWidth + "x"
-              + scaledHeight +
-              ", Original dimensions: " + actualWidth + "x" + actualHeight);
+              + scaledHeight
+              + ", Original dimensions: " + actualWidth + "x" + actualHeight);
     }
 
     Pixel[][] pixels = new Pixel[scaledHeight][scaledWidth];
@@ -68,7 +68,7 @@ public class Downscale implements ImageOperation {
    * @param yLow the lower y-coordinate boundary.
    * @param yHigh the upper y-coordinate boundary.
    * @param image the original image.
-   * @return the interpolated {@link Pixel} for the location.
+   * @return the interpolated pixel for the location.
    */
   private Pixel computeAverage(
       double originalX, double originalY, int xLow, int xHigh, int yLow, int yHigh, Image image) {
@@ -97,7 +97,7 @@ public class Downscale implements ImageOperation {
    * @param p2 the second pixel.
    * @param weight1 the weight for the first pixel.
    * @param weight2 the weight for the second pixel.
-   * @return the resulting {@link Pixel} after interpolation.
+   * @return the resulting after interpolation.
    */
   private Pixel interpolatePixels(Pixel p1, Pixel p2, double weight1, double weight2) {
     int red = (int) Math.round(p1.getRed() * weight1 + p2.getRed() * weight2);

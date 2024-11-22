@@ -33,9 +33,9 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
    * @return A unique string identifier for the image
    */
   private String generateInstanceName() {
-    return this.getClass().getSimpleName() +
-        "_" +
-        Integer.toHexString(System.identityHashCode(this));
+    return this.getClass().getSimpleName()
+        + "_"
+        + Integer.toHexString(System.identityHashCode(this));
   }
 
 

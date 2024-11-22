@@ -60,7 +60,7 @@ public class MaskOperation implements MultipleImageOperation {
       for (int j = 0; j < width; j++) {
         Pixel maskPixel = maskImage.getPixel(i, j);
 
-        // If the mask pixel is black (0, 0, 0), use the output image's pixel, otherwise use the input image's pixel
+        // If the mask pixel is black (0, 0, 0), use the output image's pixel.
         if (maskPixel.getRed() == 0 && maskPixel.getGreen() == 0 && maskPixel.getBlue() == 0) {
           pixels[i][j] = outputImage.getPixel(i, j);
         } else {

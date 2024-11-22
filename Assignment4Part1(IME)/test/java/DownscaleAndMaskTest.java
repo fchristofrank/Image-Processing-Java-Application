@@ -17,8 +17,12 @@ import ime.model.image.Image;
 import ime.model.image.ImageType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-public class DownscaleTest {
+/**
+ * Testing class to validate the functionalities of downscale and masking operations.
+ */
+public class DownscaleAndMaskTest {
 
   private void runTest(String commandScript) {
     Readable readableInput = new StringReader(commandScript);
@@ -122,6 +126,7 @@ public class DownscaleTest {
       void runTest(String imageName, String width, String height) {
         try {
           executeDownscaleOperation(imageName, width, height);
+          fail("Illegal argument should fail.");
         } catch (IllegalArgumentException ignored) {
           // Expected Error
         }
@@ -716,13 +721,6 @@ public class DownscaleTest {
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }
-  }
-
-  private void printPixels(Image actualImage) {
-    System.out.printf("{%d,%d,%d,%d}", actualImage.getPixel(0, 0).getColorComponents()
-        , actualImage.getPixel(0, 1).getColorComponents()
-        , actualImage.getPixel(1, 0).getColorComponents()
-        , actualImage.getPixel(1, 1).getColorComponents());
   }
 }
 
