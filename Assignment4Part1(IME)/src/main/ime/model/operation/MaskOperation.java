@@ -68,7 +68,6 @@ public class MaskOperation implements MultipleImageOperation {
         }
       }
     }
-
     return new SimpleImage(height, width, ImageType.RGB, pixels);
   }
 }

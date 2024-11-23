@@ -116,7 +116,7 @@ public class DownscaleTest {
 
   @Test
   public void testDownscaleIllegalArguments() {
-    // Helper method to test invalid arguments
+    // Helper method to test the invalid arguments
     class Helper {
 
       void runTest(String imageName, String width, String height) {
@@ -197,7 +197,6 @@ public class DownscaleTest {
       int[] expectedPixelValue = new int[]{1315860};
 
       assertEquals(expectedPixelValue[0], actualImage.getPixel(0, 0).getColorComponents());
-
     } catch (IOException e) {
       throw new IllegalArgumentException("Failed to read image file", e);
     }

@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.openmbean.InvalidKeyException;
 
 /**
  * A class for creating CLI operations in an image processing application. This class creates CLI
@@ -972,17 +971,27 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
+  /**
+   * Represents a histogram generation operation for an image.
+   * This operation computes and visualizes the frequency distribution of pixel values.
+   */
   class Histogram extends AbstractOperation {
 
     /**
-     * Constructs an AbstractOperation with the specified image library.
+     * Constructs a Histogram operation with the specified image library.
      *
-     * @param library the ImageLibrary to be used for image operations
+     * @param library the ImageRepo to be used for accessing images
      */
     public Histogram(ImageRepo library) {
       super(library);
     }
 
+    /**
+     * Executes the histogram generation operation.
+     *
+     * @param args the arguments containing the input image name and the output image name
+     * @throws IllegalArgumentException if the input image is not found or arguments are invalid
+     */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
       validateArgs(args);
@@ -992,46 +1001,51 @@ public class ImageOperationFactory implements OperationCreator {
       if (inputImage == null) {
         throw new IllegalArgumentException("Input image not found");
       }
-      Image outputImage =
-              inputImage.applyOperation(new ime.model.operation.Histogram(new CountFrequency()), args);
+      Image outputImage = inputImage.applyOperation(
+          new ime.model.operation.Histogram(new CountFrequency()), args);
       addImage(outputName, outputImage);
       System.out.println("Generated Histogram. New Image :: " + outputName);
     }
   }
 
+  /**
+   * Applies a filter operation to an image using a mask to selectively modify parts of the image.
+   */
   public class FilterWithMask extends FilterWithPreview {
 
+    /**
+     * Constructs a FilterWithMask operation.
+     *
+     * @param library  the ImageRepo to be used for accessing images
+     * @param command  the filter command to apply
+     */
     public FilterWithMask(ImageRepo library, String command) {
       super(library, command);
     }
 
+    /**
+     * Executes the filter operation with an optional mask image.
+     *
+     * @param args the arguments containing input image, mask image, and output image names
+     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
+     */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-
       Image inputImage = getImage(args[0]);
       String maskImageName = args[1];
 
-      // Check if MaskImage is Present?!
-      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
-
+      if (args.length > 2 && imageLibrary.getImage(maskImageName) != null) {
         Image maskImage = getImage(maskImageName);
-        if (inputImage.getHeight() != maskImage.getHeight()
-                || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
-        }
+        validateDimensions(inputImage, maskImage);
 
         String inputImageName = args[0];
         String outputImageName = args[2];
-
         super.execute(inputImageName, outputImageName);
 
-        Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(new VisualizeLuma()),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+        Image outputImage = inputImage.applyOperation(
+            new MaskOperation(new VisualizeLuma()),
+            Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName))
+        );
 
         addImage(outputImageName, outputImage);
       } else {
@@ -1040,39 +1054,44 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
+  /**
+   * Visualizes an image with selective areas modified based on a mask.
+   */
   public class VisualizeWithMask extends VisualizeWithPreview {
 
+    /**
+     * Constructs a VisualizeWithMask operation.
+     *
+     * @param library  the ImageRepo to be used for accessing images
+     * @param command  the visualization command to apply
+     */
     public VisualizeWithMask(ImageRepo library, String command) {
       super(library, command);
     }
 
+    /**
+     * Executes the visualization operation with an optional mask image.
+     *
+     * @param args the arguments containing input image, mask image, and output image names
+     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
+     */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-
       Image inputImage = getImage(args[0]);
       String maskImageName = args[1];
 
-      // Check if MaskImage is Present?!
-      if (args.length > 2 && null != imageLibrary.getImage(maskImageName)) {
-
+      if (args.length > 2 && imageLibrary.getImage(maskImageName) != null) {
         Image maskImage = getImage(maskImageName);
-        if (inputImage.getHeight() != maskImage.getHeight()
-                || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
-        }
+        validateDimensions(inputImage, maskImage);
 
         String inputImageName = args[0];
         String outputImageName = args[2];
-
         super.execute(inputImageName, outputImageName);
 
-        Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(new VisualizeLuma()),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+        Image outputImage = inputImage.applyOperation(
+            new MaskOperation(new VisualizeLuma()),
+            Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName))
+        );
 
         addImage(outputImageName, outputImage);
       } else {
@@ -1081,58 +1100,72 @@ public class ImageOperationFactory implements OperationCreator {
     }
   }
 
+  /**
+   * Adjusts the brightness of an image selectively using a mask.
+   */
   public class BrightenWithMask extends AdjustBrightness {
 
+    /**
+     * Constructs a BrightenWithMask operation.
+     *
+     * @param library the ImageRepo to be used for accessing images
+     */
     public BrightenWithMask(ImageRepo library) {
       super(library);
     }
 
+    /**
+     * Executes the brighten operation with an optional mask image.
+     *
+     * @param args the arguments containing brightness factor, input image, mask image, and output image names
+     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
+     */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-
       int brightnessFactor = Integer.parseInt(args[0]);
       Image inputImage = getImage(args[1]);
       String maskImageName = args[2];
 
-      // Check if MaskImage is Present?!
-      if (args.length > 3 && null != imageLibrary.getImage(maskImageName)) {
-
+      if (args.length > 3 && imageLibrary.getImage(maskImageName) != null) {
         Image maskImage = getImage(maskImageName);
-        if (inputImage.getHeight() != maskImage.getHeight()
-                || inputImage.getWidth() != maskImage.getWidth()) {
-          throw new IllegalArgumentException("Dimensions should be same to apply operation.");
-        }
+        validateDimensions(inputImage, maskImage);
 
         String inputImageName = args[1];
         String outputImageName = args[3];
         super.execute(String.valueOf(brightnessFactor), inputImageName, outputImageName);
 
-        Image outputImage =
-            inputImage.applyOperation(
-                new MaskOperation(new VisualizeLuma()),
-                Arrays.asList(
-                    inputImage,
-                    imageLibrary.getImage(maskImageName),
-                    imageLibrary.getImage(outputImageName)));
+        Image outputImage = inputImage.applyOperation(
+            new MaskOperation(new VisualizeLuma()),
+            Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName))
+        );
 
         addImage(outputImageName, outputImage);
       } else {
         super.execute(args);
       }
     }
-
-    @Override
-    protected Image getImage(String imageName) {
-      return imageLibrary.getImage(imageName);
-    }
   }
 
+  /**
+   * Darkens an image selectively using a mask.
+   */
   public class DarkenWithMask extends AdjustBrightness {
 
+    /**
+     * Constructs a DarkenWithMask operation.
+     *
+     * @param library the ImageRepo to be used for accessing images
+     */
     public DarkenWithMask(ImageRepo library) {
       super(library);
     }
 
+    /**
+     * Executes the darken operation with an optional mask image.
+     *
+     * @param args the arguments containing brightness factor, input image, mask image, and output image names
+     * @throws IllegalArgumentException if dimensions do not match or arguments are invalid
+     */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
       int brightnessFactor = Integer.parseInt(args[0]);
@@ -1146,12 +1179,26 @@ public class ImageOperationFactory implements OperationCreator {
       }
     }
 
+    /**
+     * Checks if a mask image is provided and present in the repository.
+     *
+     * @param args           the arguments provided
+     * @param maskImageName  the name of the mask image
+     * @return true if a mask image is present; false otherwise
+     */
     private boolean isMaskImagePresent(String[] args, String maskImageName) {
       return args.length > 3 && imageLibrary.getImage(maskImageName) != null;
     }
 
-    private void applyMaskOperation(String[] args, int brightnessFactor, Image inputImage,
-        String maskImageName) {
+    /**
+     * Applies the mask operation for darkening the image.
+     *
+     * @param args              the arguments provided
+     * @param brightnessFactor  the brightness adjustment factor
+     * @param inputImage        the input image to be darkened
+     * @param maskImageName     the name of the mask image
+     */
+    private void applyMaskOperation(String[] args, int brightnessFactor, Image inputImage, String maskImageName) {
       String inputImageName = args[1];
       String outputImageName = args[3];
 
@@ -1160,24 +1207,25 @@ public class ImageOperationFactory implements OperationCreator {
 
       super.execute(String.valueOf(-Math.abs(brightnessFactor)), inputImageName, outputImageName);
 
-      Image outputImage =
-          inputImage.applyOperation(
-              new MaskOperation(new VisualizeLuma()),
-              Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName)));
+      Image outputImage = inputImage.applyOperation(
+          new MaskOperation(new VisualizeLuma()),
+          Arrays.asList(inputImage, maskImage, imageLibrary.getImage(outputImageName))
+      );
 
       addImage(outputImageName, outputImage);
     }
+  }
 
-    private void validateDimensions(Image inputImage, Image maskImage) {
-      if (inputImage.getHeight() != maskImage.getHeight()
-              || inputImage.getWidth() != maskImage.getWidth()) {
-        throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
-      }
-    }
-
-    @Override
-    protected Image getImage(String imageName) {
-      return imageLibrary.getImage(imageName);
+  /**
+   * Validates that the dimensions of the input and mask images are the same.
+   *
+   * @param inputImage  the input image
+   * @param maskImage   the mask image
+   * @throws IllegalArgumentException if the dimensions do not match
+   */
+  private void validateDimensions(Image inputImage, Image maskImage) {
+    if (inputImage.getHeight() != maskImage.getHeight() || inputImage.getWidth() != maskImage.getWidth()) {
+      throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
     }
   }
 }
