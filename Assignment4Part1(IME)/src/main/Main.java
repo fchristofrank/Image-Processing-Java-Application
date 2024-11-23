@@ -22,16 +22,23 @@ public class Main {
     Readable rd = new InputStreamReader(System.in);
     Appendable ap = System.out;
 
-    if (args.length > 1) {
-      System.out.println("Unsupported Operation: Only accepts zero or one argument");
+    if (args.length > 2) {
+      System.out.println("Unsupported command.");
       return;
     }
 
-    if (args.length == 1) {
+    if (args.length == 2) {
+      if (args[0].equals("-file")) {
+        executeScript(args[1], ap);
+      }else{
+        System.out.println("Unsupported command.");
+      }
+    } else if (args.length == 1) {
       handleSingleArgument(args[0], rd, ap);
     } else {
       launchGUI();
     }
+
   }
 
   /**
@@ -44,8 +51,8 @@ public class Main {
   private static void handleSingleArgument(String arg, Readable rd, Appendable ap) {
     if (arg.equals("-text")) {
       launchTextMode(rd, ap);
-    } else {
-      executeScript(arg, ap);
+    }else{
+      System.out.println("Unsupported command.");
     }
   }
 
@@ -79,8 +86,8 @@ public class Main {
   private static void launchGUI() {
     ImageEditorView imageEditorView = new ImageEditorFrame("Image Editor");
     GUIController guiController = new GUIController(
-        imageEditorView,
-        new GUIImageOperationFactory(imageEditorView)
+            imageEditorView,
+            new GUIImageOperationFactory(imageEditorView)
     );
   }
 }
