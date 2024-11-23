@@ -560,7 +560,7 @@ public class ImageOperationFactory implements OperationCreator {
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
-      System.out.println("Filtered given images. New Image :: " + outputName);
+      System.out.println(this.command+" applied to given image. New Image :: " + outputName);
     }
 
     /**
