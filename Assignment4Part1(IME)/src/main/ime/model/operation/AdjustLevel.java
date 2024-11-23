@@ -49,8 +49,8 @@ public class AdjustLevel implements ImageOperation {
     setCoefficients(blackValue, midValue, whiteValue);
 
     int previewWidthPercentage = 100;
-    if (args.length == 6) {
-      previewWidthPercentage = Integer.parseInt(args[5]);
+    if (args.length == 7) {
+      previewWidthPercentage = Integer.parseInt(args[6]);
     }
 
     Pixel[][] pixels = new Pixel[inputImage.getHeight()][inputImage.getWidth()];
