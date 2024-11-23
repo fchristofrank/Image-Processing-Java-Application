@@ -13,6 +13,14 @@ import ime.model.pixel.PixelFactory;
  */
 public class Downscale implements ImageOperation {
 
+  /**
+   * Applies the downscaling operation to the given image using the specified dimensions.
+   *
+   * @param inputImage the original image to be downscaled.
+   * @param args the target dimensions: the first argument is the width, and the second is the height.
+   * @return a new {@link SimpleImage} with the downscaled dimensions.
+   * @throws IllegalArgumentException if the target dimensions are invalid or exceed the original image dimensions.
+   */
   @Override
   public Image apply(Image inputImage, String... args) throws IllegalArgumentException {
     int actualWidth = inputImage.getWidth();
@@ -50,6 +58,18 @@ public class Downscale implements ImageOperation {
     return new SimpleImage(scaledHeight, scaledWidth, inputImage.getType(), pixels);
   }
 
+  /**
+   * Computes the average pixel value for a mapped location by interpolating surrounding pixels.
+   *
+   * @param originalX the mapped x-coordinate in the original image.
+   * @param originalY the mapped y-coordinate in the original image.
+   * @param xLow the lower x-coordinate boundary.
+   * @param xHigh the upper x-coordinate boundary.
+   * @param yLow the lower y-coordinate boundary.
+   * @param yHigh the upper y-coordinate boundary.
+   * @param image the original image.
+   * @return the interpolated {@link Pixel} for the location.
+   */
   private Pixel computeAverage(
       double originalX, double originalY, int xLow, int xHigh, int yLow, int yHigh, Image image) {
 
@@ -70,6 +90,15 @@ public class Downscale implements ImageOperation {
     return interpolatePixels(m, n, yWeightLow, yWeightHigh);
   }
 
+  /**
+   * Interpolates two pixels based on their respective weights.
+   *
+   * @param p1 the first pixel.
+   * @param p2 the second pixel.
+   * @param weight1 the weight for the first pixel.
+   * @param weight2 the weight for the second pixel.
+   * @return the resulting {@link Pixel} after interpolation.
+   */
   private Pixel interpolatePixels(Pixel p1, Pixel p2, double weight1, double weight2) {
     int red = (int) Math.round(p1.getRed() * weight1 + p2.getRed() * weight2);
     int green = (int) Math.round(p1.getGreen() * weight1 + p2.getGreen() * weight2);
@@ -78,6 +107,15 @@ public class Downscale implements ImageOperation {
     return PixelFactory.createPixel(ImageType.RGB, red, green, blue);
   }
 
+  /**
+   * Adjusts the coordinate boundary to ensure it stays within the valid range.
+   * If the lower and upper bounds are the same and within range, the upper bound is incremented.
+   *
+   * @param low the lower boundary coordinate.
+   * @param high the upper boundary coordinate.
+   * @param maxBound the maximum allowed value for the coordinate.
+   * @return the adjusted upper boundary coordinate.
+   */
   private int adjustCoordinate(int low, int high, int maxBound) {
     if (low == high && high < maxBound - 1) {
       high++;
