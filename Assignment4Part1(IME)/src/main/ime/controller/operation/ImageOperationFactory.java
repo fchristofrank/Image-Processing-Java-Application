@@ -3,7 +3,6 @@ package ime.controller.operation;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ime.controller.cli.OperationCreator;

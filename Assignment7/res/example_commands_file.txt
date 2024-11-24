@@ -1,0 +1,33 @@
+#load mario.png and call it 'mario'
+load res/mario.png mario-new
+
+#brighten mario by adding 10
+brighten 10 mario-new mario-brighter-new
+
+#flip mario vertically
+vertical-flip mario-new mario-vertical-new
+
+#flip the vertically flipped mario horizontally
+horizontal-flip mario-vertical-new mario-vertical-horizontal-new
+
+#create a greyscale using only the value component, as an image mario-greyscale
+value-component mario-new mario-greyscale-new
+
+#save mario-brighter
+save res/mario-brighter-new.png mario-brighter-new
+
+#save mario-greyscale
+save res/mario-greyscale-new.png mario-greyscale-new
+
+#overwrite mario with another file
+load res/mario.png mario-new
+
+#give the mario a red tint
+rgb-split mario-new mario-red-new mario-green-new mario-blue-new
+
+#brighten just the red image
+brighten 50 mario-red-new mario-red-new
+
+#combine them back, but by using the brightened red we get a red tint
+rgb-combine mario-red-tint-new mario-red-new mario-green-new mario-blue-new
+save res/mario-red-tint-new.png mario-red-tint-new

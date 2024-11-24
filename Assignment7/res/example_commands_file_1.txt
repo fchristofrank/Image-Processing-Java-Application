@@ -1,0 +1,29 @@
+#load mario.png and call it 'mario'
+load res/mario.png mario-new
+
+#blur mario
+blur mario-new mario-blur-new
+
+#sharpen mario
+sharpen mario-new mario-sharpen-new
+
+#sepia mario
+sepia mario-new mario-sepia-new
+
+#brighten mario-sharpen by adding 20
+brighten 20 mario-sharpen-new mario-brighter-sharpen-new
+
+#flip mario-blur vertically
+vertical-flip mario-blur-new mario-vertical-blur-new
+
+#flip mario-sepia horizontally
+horizontal-flip mario-sepia-new mario-horizontal-sepia-new
+
+#save mario-brighter-sharpen
+save res/mario-brighter-sharpen-new.png mario-brighter-sharpen-new
+
+#save mario-vertical-sepia
+save res/mario-horizontal-sepia-new.png mario-horizontal-sepia-new
+
+#save mario-vertical-blur
+save res/mario-vertical-blur-new.png mario-vertical-blur-new
