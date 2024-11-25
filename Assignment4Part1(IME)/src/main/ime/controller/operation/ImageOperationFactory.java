@@ -566,7 +566,7 @@ public class ImageOperationFactory implements OperationCreator {
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
-      System.out.println("Filtered given images. New Image :: " + outputName);
+      System.out.println(this.command+" applied to given image. New Image :: " + outputName);
     }
 
     /**
@@ -1176,12 +1176,13 @@ public class ImageOperationFactory implements OperationCreator {
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-      int brightnessFactor = Integer.parseInt(args[0]);
+      args[0] = String.valueOf((-1)*Math.abs(Integer.parseInt(args[0])));
+
       Image inputImage = getImage(args[1]);
       String maskImageName = args[2];
 
       if (isMaskImagePresent(args, maskImageName)) {
-        applyMaskOperation(args, brightnessFactor, inputImage, maskImageName);
+        applyMaskOperation(args, Integer.parseInt(args[0]), inputImage, maskImageName);
       } else {
         super.execute(args);
       }
@@ -1214,7 +1215,7 @@ public class ImageOperationFactory implements OperationCreator {
       Image maskImage = getImage(maskImageName);
       validateDimensions(inputImage, maskImage);
 
-      super.execute(String.valueOf(-Math.abs(brightnessFactor)), inputImageName, outputImageName);
+      super.execute(String.valueOf(brightnessFactor), inputImageName, outputImageName);
 
       Image outputImage = inputImage.applyOperation(
           new MaskOperation(new VisualizeLuma()),
