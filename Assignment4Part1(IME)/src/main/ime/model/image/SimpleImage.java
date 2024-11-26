@@ -7,6 +7,7 @@ import java.util.Objects;
 import ime.model.operation.ImageOperation;
 import ime.model.operation.MultipleImageOperation;
 import ime.model.pixel.Pixel;
+import ime.model.pixel.PixelFactory;
 
 /**
  * This class represents a Simple Image compose of pixels. It implements the Image interface,
@@ -41,7 +42,10 @@ public class SimpleImage implements Image {
     if (row < 0 || row >= height || column < 0 || column >= width) {
       throw new IllegalArgumentException("Invalid row or column for a pixel.");
     }
-    return pixels[row][column];
+    Pixel pixel = pixels[row][column];
+    return PixelFactory.createPixel(this.imageType, pixel.getRed(), pixel.getGreen(),
+            pixel.getBlue());
+
   }
 
   @Override
@@ -60,13 +64,13 @@ public class SimpleImage implements Image {
 
   @Override
   public Image applyOperation(ImageOperation operation, String... args)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     return operation.apply(this, args);
   }
 
   @Override
   public Image applyOperation(MultipleImageOperation operation, List<Image> images, String... args)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     return operation.apply(images, args);
   }
 
@@ -86,9 +90,9 @@ public class SimpleImage implements Image {
     }
     SimpleImage that = (SimpleImage) obj;
     return height == that.height
-        && width == that.width
-        && imageType == that.imageType
-        && Arrays.deepEquals(pixels, that.pixels);
+            && width == that.width
+            && imageType == that.imageType
+            && Arrays.deepEquals(pixels, that.pixels);
   }
 
   @Override

@@ -69,6 +69,8 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
         return new ClearImageLibrary(imageLibrary);
       case Commands.DOWNSCALE:
         return new Downscale(imageLibrary);
+      case Commands.DITHER:
+        return new Dither(imageLibrary);
       default:
         throw new IllegalArgumentException(commandName + " is not a valid operation.");
     }
@@ -375,6 +377,29 @@ public class GUIImageOperationFactory extends ImageOperationFactory {
     @Override
     public void execute(String... args) {
       super.execute(imageName, imageName, args[0], args[1]);
+      new Histogram(imageLibrary).execute();
+      setViewWithImage(getImage(imageName));
+    }
+  }
+
+  class Dither extends ImageOperationFactory.Dither {
+
+    /**
+     * Constructs a Downscale operation with the specified image library.
+     *
+     * @param library the ImageLibrary to be used for image operations
+     */
+    public Dither(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) {
+      String splitWidth = "100";
+      if (args.length == 1) {
+        splitWidth = args[0];
+      }
+      super.execute(imageName, imageName, "split", splitWidth);
       new Histogram(imageLibrary).execute();
       setViewWithImage(getImage(imageName));
     }

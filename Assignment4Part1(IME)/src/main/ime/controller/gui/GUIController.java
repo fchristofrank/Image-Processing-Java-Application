@@ -1,6 +1,5 @@
 package ime.controller.gui;
 
-import java.io.IOException;
 import java.util.Stack;
 
 import ime.controller.cli.OperationCreator;
@@ -156,6 +155,26 @@ public class GUIController implements Features {
         isSaved = false;
       } else {
         lastPreviewEnabledOperation = new OperationCommand(imageOperation, args);
+      }
+      return true;
+    } catch (IllegalArgumentException exception) {
+      imageEditorView.showErrorMessageDialog(exception.getMessage(), ERROR_MESSAGE_TITLE);
+      return false;
+    }
+  }
+
+  @Override
+  public boolean applyDithering(boolean isPreview, String splitWidth) {
+
+    try {
+      CLIOperation imageOperation = imageOperationFactory.createOperation("dither");
+      imageOperation.execute(splitWidth);
+      if (!isPreview) {
+        undoStack.push(new OperationCommand(imageOperation, splitWidth));
+        redoStack.clear();
+        isSaved = false;
+      } else {
+        lastPreviewEnabledOperation = new OperationCommand(imageOperation, splitWidth);
       }
       return true;
     } catch (IllegalArgumentException exception) {

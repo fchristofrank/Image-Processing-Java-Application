@@ -16,6 +16,7 @@ import ime.model.image.ImageType;
 import ime.model.operation.AbstractVisualize;
 import ime.model.operation.ApplyBrightness;
 import ime.model.operation.ApplyCompression;
+import ime.model.operation.ApplyDither;
 import ime.model.operation.ApplyHorizontalFlip;
 import ime.model.operation.ApplySepia;
 import ime.model.operation.ApplySepiaWithPreview;
@@ -121,7 +122,8 @@ public class ImageOperationFactory implements OperationCreator {
         return new AdjustLevel(imageLibrary);
       case Commands.DOWNSCALE:
         return new DownScale(imageLibrary);
-
+      case Commands.DITHER:
+        return new Dither(imageLibrary);
       default:
         throw new IllegalArgumentException("Unknown command: " + commandName);
     }
@@ -177,6 +179,7 @@ public class ImageOperationFactory implements OperationCreator {
     public static final String LEVELS_ADJUST = "levels-adjust";
     public static final String DOWNSCALE = "downscale";
     public static final String CLEAR_LIBRARY = "clear-library";
+    public static final String DITHER = "dither";
   }
 
   /**
@@ -496,7 +499,7 @@ public class ImageOperationFactory implements OperationCreator {
     protected void validateArgs(String[] args) throws IllegalArgumentException {
 
       if (args.length > 4) {
-        throw new IllegalArgumentException("Not Supported number of arguements");
+        throw new IllegalArgumentException("Not Supported number of arguments");
       }
 
       if (args.length == 4) {
@@ -1226,6 +1229,58 @@ public class ImageOperationFactory implements OperationCreator {
   private void validateDimensions(Image inputImage, Image maskImage) {
     if (inputImage.getHeight() != maskImage.getHeight() || inputImage.getWidth() != maskImage.getWidth()) {
       throw new IllegalArgumentException("Dimensions should be the same to apply the operation.");
+    }
+  }
+
+  class Dither extends AbstractOperation {
+
+    public Dither(ImageRepo library) {
+      super(library);
+    }
+
+    @Override
+    public void execute(String... args) throws IllegalArgumentException {
+      validateArgs(args);
+      String inputName = args[0];
+      String outputName = args[1];
+      args = Arrays.copyOfRange(args, 2, args.length);
+      Image inputImage = getImage(inputName);
+      if (inputImage == null) {
+        throw new IllegalArgumentException("Input image not found");
+      }
+      Image outputImage =
+              inputImage.applyOperation(new ApplyDither(new VisualizeRed()), args);
+      addImage(outputName, outputImage);
+      System.out.println("Generated Color Corrected Image. New Image :: " + outputName);
+    }
+
+    @Override
+    protected void validateArgs(String[] args) throws IllegalArgumentException {
+
+      if (args.length > 4) {
+        throw new IllegalArgumentException("Not Supported number of arguments");
+      }
+
+      if (args.length == 4) {
+        String splitCommand = args[2];
+        if (!splitCommand.equals("split")) {
+          throw new IllegalArgumentException("Invalid split command: " + splitCommand);
+        }
+        String splitPercentage = args[3];
+        try {
+          int percentage = Integer.parseInt(splitPercentage);
+          if (percentage < 0 || percentage > 100) {
+            throw new IllegalArgumentException(
+                    "Percentage value for split line must be between " + "0 and 100.");
+          }
+        } catch (NumberFormatException e) {
+          throw new IllegalArgumentException("Percentage value for split line must be a number.");
+        }
+      }
+
+      if (args.length == 4 && (Integer.parseInt(args[3]) < 0 && Integer.parseInt(args[3]) > 100)) {
+        throw new IllegalArgumentException("Preview Width should be between 0 to 100");
+      }
     }
   }
 }

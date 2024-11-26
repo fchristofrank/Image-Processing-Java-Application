@@ -75,6 +75,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
   private JButton btnAdjustLevels;
   private Features features;
   private JButton btnApplyPreview;
+  private JButton btnApplyDither;
 
   /**
    * Constructs the ImageEditorFrame.
@@ -223,7 +224,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
             {"Red Component", "red-component"},
             {"Green Component", "green-component"},
             {"Blue Component", "blue-component"},
-            {"Color Correct", "color-correct"}
+            {"Color Correct", "color-correct"},
+            {"Dither", "dither"}
     };
 
     for (String[] info : buttonInfo) {
@@ -277,6 +279,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       case "Color Correct":
         btnColorCorrection = button;
         break;
+      case "Dither":
+        btnApplyDither = button;
       default:
         //No need of assigning the button with unknown functionality.
         break;
@@ -682,6 +686,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
       handlePreviewModeChange(features);
 
     });
+
   }
 
   /**
@@ -701,6 +706,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     setupCompressButton(btnCompress, features);
     setupAdjustLevelsButton(btnAdjustLevels, features);
     setupDownscaleButton(btnDownscale, features);
+    setupApplyDitherButton(btnApplyDither, features);
   }
 
   /**
@@ -756,6 +762,16 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     });
   }
 
+  private void setupApplyDitherButton(JButton button, Features features) {
+    button.addActionListener(e -> {
+      String splitWidth = getSplitWidth();
+
+      if (features.applyDithering(previewMode.isSelected(), splitWidth)) {
+        toggleFilterButtons();
+      }
+    });
+  }
+
   private void setupDownscaleButton(JButton button, Features features) {
     button.addActionListener(e -> {
       if (features.downScale(downscaleWidth.getText(), downscaleHeight.getText())) {
@@ -770,7 +786,8 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void toggleFilterButtons() {
     JButton[] filterButtons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnDownscale,
+            btnApplyDither};
     for (JButton button : filterButtons) {
       if (!(previewMode.isSelected())) {
         button.setEnabled(true);
@@ -822,6 +839,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
     compressionText.setEnabled(!isPreviewMode);
     btnCompress.setEnabled(!isPreviewMode);
     btnDownscale.setEnabled(!isPreviewMode);
+    btnApplyDither.setEnabled(isPreviewMode);
     btnApplyPreview.setEnabled(isPreviewMode);
 
     if (!isPreviewMode) {
@@ -894,7 +912,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
    */
   private void enableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnApplyDither};
     for (JButton button : buttons) {
       button.setEnabled(true);
     }
@@ -903,7 +921,7 @@ public class ImageEditorFrame extends JFrame implements ImageEditorView, WindowL
 
   private void disableAllButtons() {
     JButton[] buttons = {btnBlur, btnSharpen, btnSepia, btnGreyscale, btnRedComponent,
-            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels};
+            btnGreenComponent, btnBlueComponent, btnColorCorrection, btnAdjustLevels, btnApplyDither};
     for (JButton button : buttons) {
       button.setEnabled(false);
     }

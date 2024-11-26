@@ -116,4 +116,6 @@ public interface Features {
    * @return true if the operation is successful.
    */
   boolean downScale(String width, String height);
+
+  boolean applyDithering(boolean isPreview, String splitWidth);
 }
