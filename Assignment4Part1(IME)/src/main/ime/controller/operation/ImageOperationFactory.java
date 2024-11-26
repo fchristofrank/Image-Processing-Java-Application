@@ -471,8 +471,8 @@ public class ImageOperationFactory implements OperationCreator {
           throw new IllegalArgumentException("Values should be between 0 to 255 only.");
         }
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Black, middle, and white values should be " +
-            "valid integers");
+        throw new IllegalArgumentException("Black, middle, and white values should be "
+            + "valid integers");
       }
     }
   }
@@ -566,7 +566,7 @@ public class ImageOperationFactory implements OperationCreator {
       String[] commandArgs = Arrays.copyOfRange(args, 2, args.length);
       Image outputImage = inputImage.applyOperation(filterObjectFactory(this.command), commandArgs);
       addImage(outputName, outputImage);
-      System.out.println(this.command+" applied to given image. New Image :: " + outputName);
+      System.out.println(this.command + " applied to given image. New Image :: " + outputName);
     }
 
     /**
@@ -1176,7 +1176,7 @@ public class ImageOperationFactory implements OperationCreator {
      */
     @Override
     public void execute(String... args) throws IllegalArgumentException {
-      args[0] = String.valueOf((-1)*Math.abs(Integer.parseInt(args[0])));
+      args[0] = String.valueOf((-1) * Math.abs(Integer.parseInt(args[0])));
 
       Image inputImage = getImage(args[1]);
       String maskImageName = args[2];

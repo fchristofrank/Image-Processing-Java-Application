@@ -1,5 +1,6 @@
 package ime.view.gui;
 
+import ime.controller.gui.Features;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,7 +13,6 @@ import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -33,8 +33,6 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import ime.controller.gui.Features;
 
 /**
  * The main frame of the image editor application.  Handles the graphical user interface (GUI)

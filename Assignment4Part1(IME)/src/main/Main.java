@@ -30,7 +30,7 @@ public class Main {
     if (args.length == 2) {
       if (args[0].equals("-file")) {
         executeScript(args[1], ap);
-      }else{
+      } else {
         System.out.println("Unsupported command.");
       }
     } else if (args.length == 1) {
@@ -51,7 +51,7 @@ public class Main {
   private static void handleSingleArgument(String arg, Readable rd, Appendable ap) {
     if (arg.equals("-text")) {
       launchTextMode(rd, ap);
-    }else{
+    } else {
       System.out.println("Unsupported command.");
     }
   }
@@ -86,8 +86,8 @@ public class Main {
   private static void launchGUI() {
     ImageEditorView imageEditorView = new ImageEditorFrame("Image Editor");
     GUIController guiController = new GUIController(
-            imageEditorView,
-            new GUIImageOperationFactory(imageEditorView)
+        imageEditorView,
+        new GUIImageOperationFactory(imageEditorView)
     );
   }
 }
