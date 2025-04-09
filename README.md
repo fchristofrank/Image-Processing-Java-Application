@@ -1,5 +1,6 @@
 ImageCitationAndPermission:
 
+If you have Java installed you could simply download the jar file in the res folder and run it to view the application.
 #### Sample Image Path inside the Project : **Assignment4Part1(IME)
 
 /test/resources/manhattan-small.png**
